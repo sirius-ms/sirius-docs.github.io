@@ -1,6 +1,6 @@
 ---
-permalink: /prerequisites/
-title: "Prerequisites"
+permalink: /advanced-background-information/
+title: "Advanced background information"
 ---
 
 ## Spectral quality
@@ -173,66 +173,138 @@ masses below 200 Da, we use the absolute mass deviation at 200 Da, as we
 found that small masses vary according to an absolute rather than a
 relative error.
 
-## Molecular formulas
+## SIRIUS workflows
 
-Unless instructed otherwise, SIRIUS will consider all molecular formulas
-that are chemically feasible and explain the precursor mass of the
-molecule/ion: For example, if your query compound is pinensin A 
+SIRIUS is segmented into sub tools: Formula annotation (SIRIUS + ZODIAC), Fingerprint prediction (CSI:FingerID + CANOPUS), Structure database search (CSI:FingerID) and de novo structure
+generation (MSNovelist). These sub tools follow a certain hierarchy, and can not be combined freely. For example, to predict CANOPUS compound classes the molecular formula annotation sub tool
+has to be run first (or results have to be present from a previous run). See below figure for how the different sub tools depend on each other.
+
+{% capture fig_img %}
+![Foo]({{ "/assets/images/workflow_dependencies.png" | relative_url }})
+{% endcapture %}
+
+<figure>
+  {{ fig_img | markdownify | remove: "<p>" | remove: "</p>" }}
+  <figcaption>SIRIUS sub tool dependencies.</figcaption>
+</figure>
+
+
+## Spectral library matching via custom databases
+
+SIRIUS 6 offers to import local libraries containing spectral reference data. Supported import formats for spectral
+data are .ms, .mgf, .msp, .mat, .txt (MassBank), .mb, .json (GNPS, MoNA). Spectra need to be annotated with a structure and be centroided.
+SIRIUS will automatically perform spectral library search against all available libraries every time the molecular formula annotation subtool
+is used. Spectral library matching is performed using the cosine score with squared peak intensities and ignored precursor peak.
+
+### Spectral matching influence on SIRIUS and CSI:FingerID results
+
+In SIRIUS 6, spectral library matches are treated as annotations to CSI:FingerID results. A spectral library match will not influence the rank of
+a structure candidate, but annotated to CSI:FingerID results instead. In case where a high quality spectral library hit is found where the corresponding molecular
+formula would not have been considered by SIRIUS, that molecular formula will be forcibly added to the list of molecular formula candidates.
+This done to ensure that no spectral library matches are lost when using CSI:FingerID.
+
+
+## Molecular formula annotation concepts
+
+SIRIUS supports three different approaches to generate the set of molecular formula candidates considered for annotation of a feature: de novo, database search and bottom up. 
+Understanding them is vital to being able to apply the annotation [strategy](#molecular-formula-annotation-strategies) that best fits your task or research question.
+It is also important to understand the implications of the molecular formula annotation step for structure annotation and compound class prediction:
+Only those molecular formula candidates that are considered by the molecular formula annotation strategy are used to annotate structures via database search
+and compound classes later on. 
+
+**IMPORTANT: If a molecular formula is not part of the candidate set in this step, it will not be considered for all subsequent steps!**
+
+### De novo annotation
+
+SIRIUS will consider all molecular formulas
+that are chemically feasible (considering valencies) and explain the precursor mass of the
+molecule / ion: For example, if your query compound is pinensin A 
 (C<sub>96</sub>H<sub>139</sub>N<sub>27</sub>O<sub>30</sub>S<sub>2</sub>,
-monoisotopic mass (2213.962) Da) then SIRIUS will consider all
+monoisotopic mass of 2213.962 Da) then SIRIUS will consider all
 19,746,670 candidate molecular formulas that explain this
-monoisotopic mass (assuming set of elements , see below, and 10 ppm mass
+monoisotopic mass (assuming a set of elements, see below, and 10 ppm mass
 accuracy). SIRIUS penalizes candidate molecular formulas that deviate
 too strongly of what we assume a molecular formula of a biomolecule to look like 
 (for example, C<sub>2</sub>H<sub>2</sub>N<sub>12</sub>O<sub>12</sub> will receive a penalty), 
 but this penalty is used cautiously: Only 2.6% of the molecular formulas of all PubChem
 compounds — and, hence, only a tiny fraction of molecular formulas from
 compounds not marked as biomolecules — are penalized. Molecular formulas
-are never rewarded by SIRIUS.
+are never rewarded by SIRIUS. These penalties apply to the other approaches as well. 
 
 SIRIUS uses a short list of outlier molecular formulas which would be
 penalized by the above method, as they are not "biomolecule-like"; these
 molecular formulas are not penalized, as they have been observed in
 metabolomics experiments (for example, as solvents), but are also not
-rewarded. These outlier molecular formulas will be considered as
-candidates by SIRIUS even if they violate elemental constrains such as
-"at most 2 fluorine".
+rewarded. However, fragment annotations in the MS/MS, and hence subformulas of these outlier
+molecular formulas, may be penalized during fragmentation tree computation.
 
 Considering all molecular formulas implies that a set of elements has to
 be provided from which these molecular formulas are generated. SIRIUS
 includes methods for the [auto-detection of elements](https://doi.org/10.1021/acs.analchem.6b01015) 
-from the isotope and fragmentation pattern of the query compound .
+from the isotope and fragmentation pattern of the query compound.
+The element set should only be manually altered, if the user has a good reason to do so (e.g. prior knowledge about the 
+feature of interest). Expanding the element set too much will result in extreme computation times and increased bogus annotations. 
+The standard element set considered is C,H,N,O,P, while presence and abundance of Cl,B,Se,S,Br will
+be autodetected from the input isotope pattern in the MS1 spectrum.
 
-In case you compound is large (above 600 Da) or you have incomplete
-information (no isotope pattern), you can restrict SIRIUS to only
-consider molecular formulas found in PubChem. Doing so, it is not
-possible to ever detect molecules with a novel molecular formula,
-though.
+### Formula database search
 
-Recent evaluations (for example, as part of the 
-[CASMI contest](http://www.casmi-contest.org))
-indicated that one can determine molecular formulas by searching in a
-structure database using tool such as MAGMa, CFM-ID or CSI:FingerID.
-(Somewhat consequently, the [CASMI 2016](http://www.casmi-contest.org/2016/index.shtml) 
-contest did no longer have a category for molecular formula identification.) **We strongly advice
-against doing so, as this is apparently a wrong prior problem.**
-Molecular formulas in a structure database are far from being uniformly
-distributed: For a certain precursor mass plus mass inaccuracy, you may
-find 90% molecular structures with only one molecular formulas. Assuming
-that the molecular structures in our evaluation set are uniformly chosen
-at random, even a method that uniformly draws a molecular structure,
-then reports its molecular formula will get 81% correct identifications
-for the molecular formula identification task. A method that still
-ignores the mass spectrometry data beyond the monoisotopic mass, but
-reports the majority vote in the structure database would even reach 90%
-correct identifications. (This is comparable to an app for bird
-identification that allways outputs "It is a house sparrow!" for
-Britain, because the house sparrow is the most common bird in Britain.
-This app will get a lot of correct identifications.) Clearly,
-computational methods such as MAGMa, CFM-ID or CSI:FingerID are not
-random, but they will fall for this pit, too. To this end, we advice for
-the "classical chemical identification pipeline" where **molecular
-formulas are identified first, then molecular structure.**
+Instead of considering the complete space of molecular formulas possible for a given mass and element set, one can also restrict that space
+to a database. In that case, SIRIUS will only consider molecular formulas that are part of the selected database(s) and it is possible to further apply
+element set restrictions to that. Naturally, this approach is unable to annotate novel molecular formulas ("novel" meaning not part of the selected database) and will harshly restrict the
+space of molecular formulas candidates. Since the space of possible formula candidates is so much smaller then with de novo, this approach does not require a 
+predefined element set. In contrast to de novo, this approach may annotate formulas with uncommon elements that cannot be detected from the MS1 (since considering a large set of uncommon element for de novo is usually no good practice, see above).
+
+### Bottom up search
+
+The "bottom up" approach is somewhat of a middle ground between the vast molecular formula space of de novo annotation and the very limited space of formula database search.
+It is inspired by [*Xing et al.*](https://doi.org/10.1038/s41592-023-01850-x).
+For each fragment observed in the MS/MS spectrum, its mass and corresponding root loss mass are used to query a database of potential subformulas.
+The resulting subformula candidates for fragment and root loss are added pairwise to create formula candidates for the precursor.
+Thus, this resulting space of precursor formula candidates depends on the fragments present in the spectrum. The space is not limited to exactly those
+precursor formulas already present in databases, but can also contain novel formulas that are combinations of two known molecular formulas. 
+However, due to the dependence on a database, the approach produces a much smaller number of formulas compared to de novo annotation, which leads to a substantial speed up in computation time.
+Since the space of possible formula candidates is limited, it is not strictly necessary to apply restrictions on the considered element set.
+The formula database used for bottom up search contains the "bio" database formulas as well as a list of commonly appearing losses.
+In contrast to de novo, this approach may annotate formulas with uncommon elements that cannot be detected from the MS1 (since considering a large set of uncommon element for de novo is usually no good practice, see above).
+
+
+
+## Molecular formula annotation strategies
+
+The molecular formula annotations shown above can either be used individually or combined. Choosing the correct molecular formula annotation
+strategy is integral for a successful analysis.  Below are some standard strategies that cover most applications and can serve as examples:
+
+### De novo + bottom up (recommended for generic applications)
+
+In the recommended combined approach, features are divided into "low" (m/z<400) and "high"(m/z>=400) mass features. Bottom up search is performed in both cases, but for low mass features SIRIUS
+additionally performs de novo molecular formula annotation as a means to ensure no formula is missed. Due to de novo only being performed for lower masses, computation times are only minorly impacted compared to solely
+performing bottom up search.
+The m/z threshold can be adjusted based on running time constraints and capabilities of your local machine.
+Element set constraints have to be set for de novo annotation and can additionally be set to apply to bottom up search as well. This approach can produce molecular
+formula annotations with no corresponding structure database hit.
+
+### De novo only
+
+The "de novo only" strategy should be employed when specifically expecting molecular formulas that cannot be generated by bottom up search (meaning that the precursor
+formula in question is not a combination of database subformulas). This may especially be the case when looking for "unknown unknowns".
+Additionally, the expected element set needs to be well-defined and should not contain many "uncommon" elements due to the combinatorial explosion of possible candidates for large masses (see example in [de novo](#de-novo-annotation)).
+The local machine running the SIRIUS client should be powerful enough to handle de novo annotation of higher mass compounds. This approach can produce molecular
+formula annotations with no corresponding structure database hit.
+
+
+### Database search only
+
+"Database search only" should be employed when the user is only interested in features with a structure database hit and additionally requires extremely fast
+computation times. This approach cannot produce formula annotations with no structure database hit and will only consider molecular formulas that are part
+of the selected databases.
+
+### Bottom up only
+
+"Bottom up only" can be employed for a minor speed up over the recommended combined approach. In general, it does not hold any significant advantages over the recommended
+strategy, since disadvantages of de novo annotation only are mostly relevant for high-mass compounds.
+
+
 
 ## Fragmentation trees
 
@@ -347,6 +419,8 @@ reasonable prediction quality in cross validation (F<sub>1</sub> at least
 (0.25), see below). In total, (3,215) molecular properties are
 predicted by CSI:FingerID 1.1.
 
+[//]: # (Update the exact number of molecular properties and optionally add some explantion on the new selection strategy)
+
 CSI:FingerID does not only predict if some molecular property is zero
 (absent) or one (present); it also provides an **estimate how sure it is
 about this prediction**. Mathematically speaking, we estimate the
@@ -386,8 +460,8 @@ fingerprint.
 
 ## Molecular structures
 
-By default, SIRIUS searches in either PubChem or a biomolecule structure
-database; in addition, SIRIUS now offers to search in your own "suspect
+By default, SIRIUS searches in a biomolecule structure
+database; it can also search in the (extremely large) PubChem database. In addition, SIRIUS now offers to search in your own custom "suspect
 database".
 
   - When searching *[PubChem](https://pubchem.ncbi.nlm.nih.gov/)*, we use a local copy of the database where
@@ -398,10 +472,10 @@ database".
     dialog.
 
   - The *biomolecule structure database* (bioDB) is an amalgamation of several
-    structure databases that contain biomolecules (metabolites and other
+    structure databases that contain small molecules of biological interest (metabolites and other
     compounds of biological relevance; molecules that are products of
-    nature, or synthetic products with potential bioactivity).
-    Currently, this biomolecule structure database consists of
+    nature, or synthetic products with potential bioactivity; contaminants observed in experiments).
+    This biomolecule structure database consists of roughly the following datbases:
     [HMDB](https://hmdb.ca/),
     [KNApSAcK](http://www.knapsackfamily.com/KNApSAcK/),
     [CHEBI](https://www.ebi.ac.uk/chebi/),
@@ -415,14 +489,72 @@ database".
     [NORMAN](https://www.norman-network.com/nds/),
     [SuperNatural](http://bioinf-applied.charite.de/supernatural_new/index.php),
     [COCONUT](https://coconut.naturalproducts.net/),
-    UNPD and structures from [PubChem](https://pubchem.ncbi.nlm.nih.gov/) annotated with [MeSH](https://www.nlm.nih.gov/mesh/meshhome.html) 
+    [BloodExposome](https://bloodexposome.org/),
+    [TeroMol](http://terokit.qmclab.com/),
+    [LOTUS](https://lotus.naturalproducts.net/),
+    [FooDB](https://foodb.ca/),
+    [MiMeDB](https://mimedb.org/),
+    [LIPIDMAPS](https://www.lipidmaps.org/)
+    and structures from [PubChem](https://pubchem.ncbi.nlm.nih.gov/) annotated with [MeSH](https://www.nlm.nih.gov/mesh/meshhome.html) 
     terms or with one of the classes "bio and metabolites", "drug", "safety and toxic" or "food".
+    The exact compositon may vary depending on the SIRIUS (backend) version.
     
-[//]: <> (## COSMIC - Confidence for Small Molecule IdentifiCations)
-[//]: <> (TODO:Coming soon... Describe the new confidence Score!)
+## COSMIC - Confidence for Small Molecule IdentifiCations
+
+The COSMIC confidence score ([*Hoffmann et al.*](https://doi.org/10.1038/s41587-021-01045-9)) assigns a confidence to CSI:FingerID structure annotations.
+The CSI:FingerID score was developed to rank different structure candidates for a single feature. 
+However, it is not well suited to rank the top-hits of different features based on their likelihood of being correct.
+Thus, the COSMIC confidence score was developed for this task.
+The idea is similar to False Discovery Rates and q-values: the higher the confidence, the higher the chance of the hit being correct. 
+This allows high-throughput experiments: All features in a large dataset are analysed
+using CSI:FingerID, the top-ranked hit for each feature will be evaluated by COSMIC and the
+most trustworthy structure annotations can be selected for further analysis. COSMIC does not re-rank
+structure candidates of a particular feature nor does it discard any identifications.
+
+The confidence score is predicted using Support Vector Machines with enforced feature directionality (different SVMs are used for different lengths of the structure candidate list). The resulting score is a Platt-probability estimate and thus, is between 0 and 1.0.
+However, it should not be interpreted as a probability of being correct. In evaluation, we found that a score of 0.64 corresponded to roughly a 10% FDR. However, this value can highly depend on your own data.
+
+### Confidence score modes
+
+There are two modes of the confidence score: _exact_ and _approximate_.
+The exact mode answers the question "Is this exact molecular structure hit the true structure of my unknown compound?".
+The approximate mode tells you "Is this structure hit correct or highly similar to the true structure?".
+Here, we define _highly similar_ as being one simple chemical reaction away from the true structure. More theoretical, the hit and the true structure shall have a Maximum Common Edge Subgraph ([MCES](https://en.wikipedia.org/wiki/Maximum_common_edge_subgraph)) distance of 2.
+Thus, for example, a bogus hit is interpreted as being "correct" if only a side group is moved compared to the true structure.
+
+The confidence in exact mode will usually be very low if the top and 2nd best structure candidate are highly similar. This happens for many well studied molecules for which you often find multiple derivatives in the structure database.
+If you consider almost-correct hits to be useful, you should opt for the approximate mode.
+
+
+## Expansive search (structure database search with fallback)
+
+SIRIUS 6 offers the possibility to perform structure database search with a confidence score based fallback (expansive search). Structure database search will be performed for the set of databases
+the user selected ("requested databases"), and then additionally for "PubChem". SIRIUS will then check if the top hit in PubChem has a confidence score that is at least twice as high as the confidence 
+score of the top hit from the requested databases. If that is the case, the search will be "expanded" and the results for database search in PubChem will be shown. 
 
 ## Compound classes
-<span>**<span style="color: red">\[TODO: Coming soon...\]</span>**</span>
+
+CANOPUS ([*Dührkop et al.*](https://doi.org/10.1038/s41587-020-0740-8)) predicts the presense/absense of more than 2500 _compound classes_. 
+This covers a wide range from very general classes such as  "Lipids and lipid-like molecules" to very specific classes such as "Phosphatidylethanolamines", "Thiazolidines", or "7-alpha-hydroxysteroids".
+
+Most of the compound classes are based on the [ClassyFire ontology](https://doi.org/10.1186/s13321-016-0174-y). 
+In contrast to ClassyFire however, CANOPUS predicts these classes solely based on the MS/MS spectrum. 
+It can even predict the class if no molecular structure of this class is present in the molecular structure database searched by CSI:FingerID.
+It is important to note, that these compound classes do not follow the concept of attributing a compound to its biosynthetic precursor or pathway.
+It categorizes similar compounds based on functional groups and common substructures. Only based on the MS/MS spectrum and without additional knowledge of the measured organism, it is not possible to assign this biochemical concept of a class - the same compound may be derived from different biosynthetic precursors.  
+
+Additionally, CANOPUS predicts compound classes based on the categories from [NPClassifier](https://doi.org/10.1021/acs.jnatprod.1c00399). This classification system is more general, but may align better with the concept of biosynthetic pathway mapping. Note, that this is still not using taxonomic information and suggestions are solely based on the MS/MS data.  
+
+## MSNovelist
+
+MSNovelist ([*Stravs et al.*](https://doi.org/10.1038/s41592-022-01486-3)) generates molecular structures de novo from the MS/MS spectrum - without the need of a database.
+It is ideally suited to complement structure database search in the case of poorly represented analyte classes and novel compounds. It is not meant to replace database search in general.
+Structural elucidation of small molecules from MS/MS data remains a challenging task - and identifying a structure without database candidates is even more challenging. 
+MSNovelist proposes structures which can serve as a great starting point for elucidation of specific unknowns. This information may be complemented with [CANOPUS](#compound-classes) compound class predictions.
+
+Candidate structures are generated from the predicted fingerprint. Multiple candidates structures (their SMILES representation) are sampled based on an autoregressive model - generating each SMILES token by token.
+After candidate generation, all candidates are ranked using the CSI:FingerID scoring. 
+
 
 ## Training data
 

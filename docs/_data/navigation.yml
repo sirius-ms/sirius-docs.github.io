@@ -30,29 +30,29 @@ global:
         url: /quick-start/#command-line-interface
       - title: "Quick start API"
         url: /quick-start/#background-service---generic-sirius-api
-  - title: "Prerequisites"
-    url: /prerequisites
+  - title: "Advanced background information"
+    url: /advanced-background-information
     children:
       - title: "Spectral quality"
-        url: /prerequisites/#spectral-quality
-      - title: "Monoisotopic massesPermalink"
-        url: /prerequisites/#monoisotopic-masses
+        url: /advanced-background-information/#spectral-quality
+      - title: "Monoisotopic masses"
+        url: /advanced-background-information/#monoisotopic-masses
       - title: "Theoretical masses of ions"
-        url: /prerequisites/#theoretical-masses-of-ions
+        url: /advanced-background-information/#theoretical-masses-of-ions
       - title: "Mass deviations"
-        url: /prerequisites/#mass-deviations
+        url: /advanced-background-information/#mass-deviations
       - title: "Molecular formulas"
-        url: /prerequisites/#molecular-formulas
+        url: /advanced-background-information/#molecular-formulas
       - title: "Fragmentation trees"
-        url: /prerequisites/#fragmentation-trees
+        url: /advanced-background-information/#fragmentation-trees
       - title: "Molecular fingerprints"
-        url: /prerequisites/#molecular-fingerprints
+        url: /advanced-background-information/#molecular-fingerprints
       - title: "Structure Databases"
-        url: /prerequisites/#molecular-structures
+        url: /advanced-background-information/#molecular-structures
       - title: "Compound classes"
-        url: /prerequisites/#compound-classes
+        url: /advanced-background-information/#compound-classes
       - title: "Training data"
-        url: /prerequisites/#training-data
+        url: /advanced-background-information/#training-data
   - title: "Input, Output and Formats"
     url: /io
     children:
@@ -63,12 +63,26 @@ global:
   - title: "Graphical User Interface"
     url: /gui
     children:
+      - title: "Overview"
+        url: /gui/#overview
       - title: "Data Import"
         url: /gui/#data-import
-      - title: "Computing Results"
-        url: /gui/#computing-results
+      - title: "Compute Panel"
+        url: /gui/#compute-panel-basic-and-advanced
+      - title: "Identifying molecular formulas"
+        url: /gui/#identifying-molecular-formulas-with-sirius-1
+      - title: "Predicting molecular fingerprints & CANOPUS"
+        url: /gui/#predicting-the-molecular-fingerprint-with-csifingerid-and-predicting-compound-classes-with-canopus--3
+      - title: "Structure database search"
+        url: /gui/#identifying-the-molecular-structure-with-the-csifingerid-tool--4
+      - title: "Generating de novo structure candidates"
+        url: /gui/#generating-de-novo-structure-candidates-with-msnovelist-5
+      - title: "Custom database import"
+        url: /gui/#import-of-custom-structure-and-spectra-databases
       - title: "Visualizing Results"
         url: /gui/#visualization-of-the-results
+      - title: "Data export"
+        url: /gui/#data-export-summaries-and-fbmn-export
   - title: "Commandline interface"
     url: /cli
     children:
