@@ -22,8 +22,8 @@ subtitle                 : "Official online documentation for the SIRIUS MS/MS S
 name                     : "SIRIUS Software Project"
 description              : "Official online documentation for the SIRIUS MS/MS Software"
 url                      : "https://sirius-ms.github.io/" # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
-baseurl                  : "/sirius-doc.github.io/" # the subpath of your site, e.g. "/blog"
-repository               : "sirius-ms/sirius-doc.github.io" # GitHub username/repo-name e.g. "mmistakes/minimal-mistakes"
+baseurl                  : "/sirius-docs.github.io/" # the subpath of your site, e.g. "/blog"
+repository               : "sirius-ms/sirius-docs.github.io" # GitHub username/repo-name e.g. "mmistakes/minimal-mistakes"
 teaser                   : "/assets/images/sirius.png"# path of fallback teaser image, e.g. "/assets/images/500x300.png"
 logo                     : "/assets/images/sirius_logo.svg" # path of logo image to display in the masthead, e.g. "/assets/images/88x88.png"
 masthead_title           : "Documentation" # overrides the website title displayed in the masthead, use " " for no title
@@ -297,7 +297,7 @@ defaults:
         #  caption: "Photo credit: [**Unsplash**](https://unsplash.com)"
         actions:
           - label: "Docu GitHub"
-            url: "https://github.com/boecker-lab/docs.sirius.github.io"
+            url: "https://github.com/sirius-ms/sirius-docs.github.io"
           - label: "SIRIUS Website"
             url: "https://bio.informatik.uni-jena.de/software/sirius/"
           - label: "SIRIUS GitHub"
