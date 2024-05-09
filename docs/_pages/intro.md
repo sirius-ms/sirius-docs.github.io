@@ -2,16 +2,28 @@
 permalink: /
 title: "Welcome"
 ---
-**SIRIUS 5 is out!** Click [here](https://www.youtube.com/watch?v=Bj0hIrwx9ks&t=5s&ab_channel=BoeckerLab) 
-to view our video about new features and changes.    
 
-SIRIUS is a *Java* software for analyzing metabolites from tandem mass
-spectrometry data. It combines the analysis of isotope patterns in MS
+## SIRIUS Science
+ 
+
+SIRIUS is a *Java* software for analyzing small molecules from tandem mass
+spectrometry data. The primary focus of SIRIUS is structure elucidation of novel
+molecules (drug leads, contaminants in synthesis or food items), but it is also
+well-equipped to handle more standard tasks like dereplication of known structures.
+
+SIRIUS is hghly integrateable into existing workflows and offers interfaces for manual as well
+as fully automated analysis.
+
+It combines the analysis of isotope patterns in MS
 spectra with the analysis of fragmentation patterns in MS/MS spectra,
 and uses CSI:FingerID as a web service to search in molecular structure
-databases. Further it integrates CANOPUS for de novo compound class prediction.
+databases. Further it integrates CANOPUS for de novo compound class prediction and
+MSNovelist for de novo structure generation.
 For getting started quickly see the [quick-start guide]({{ "/quick-start/" | relative_url }}) or
 our book chapter on ["**De Novo Molecular Formula Annotation and Structure Elucidation Using SIRIUS 4**"](https://link.springer.com/protocol/10.1007%2F978-1-0716-0239-3_11) ([Preprint](https://bio.informatik.uni-jena.de/wp/wp-content/uploads/2020/12/SIRIUS4_book_chapter_preprint-2.pdf)).
+
+## SIRIUS summary
+
 
 SIRIUS requires **high mass accuracy** data. The mass deviation of your
 MS and MS/MS spectra should be within 20 ppm. Mass Spectrometry
@@ -71,22 +83,14 @@ to generate knowledge or hypotheses.
 without any database search involved. Hence, it provides structural information for compounds 
 for which neither spectral nor structural reference data are available.
 
-The SIRIUS software can also be used within an analysis pipeline. For example, you can
-identify the molecular formula of the ion and fragment peaks, and
-use this information as input for other tools such as FingerID or MAGMa
-to identify the structure of the measured compound. For this purpose,
-you can either use the command line interface or the SIRIUS libraries directly. 
-See [boecker-lab/sirius-libs](https://github.com/boecker-lab/sirius-libs) 
-for the sources. The pre-built jars are available via our
-[maven repository](https://bio.informatik.uni-jena.de/repository/webapp/#/artifacts/browse/tree/General/libs-release/de/unijena/bioinf/ms).
-See ["Developer information"]({{ "/developers/" | relative_url }}) for details.
+**MSNovelist** generates de novo structure candidates to help overcome the limits of structure database search.
+Structures are generated based on molecular formula and fingerprint.
 
-Since version 3.1, our software ships with a **Graphical User
-Interface** (GUI). The GUI version also includes the commandline tool. A
-slim version without GUI is available as separate download. Since
-version 4.4.0 the GUI and CLI share the same persistence layer, so
-**all** results and intermediate steps can be exported/imported between
-GUI and CLI
+SIRIUS ships with a **Graphical User Interface** (GUI), a **Command Line
+Interface** (CLI) and an APi that comes with clients in some popular scripting languages (Python and R).
+
+All these interfaces share the same persistence layer, allowing for high-throughput computation using e.g. the CLI
+on a compute cluster and then manual inspection of selected results using the GUI.
 
 ## Literature
 
