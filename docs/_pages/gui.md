@@ -60,19 +60,15 @@ used for sorting. See [confidence modes]({{ "/advanced-background-information/#c
 
 Furthermore, the feature list can be filtered by clicking the appropriate button (see red mark above). This brings up the filter dialogue:
 
-{% capture fig_img %}
-![Foo]({{ "/assets/images/filter_empty.png" | relative_url }})
-{% endcapture %}
-
-<figure>
-  {{ fig_img | markdownify | remove: "<p>" | remove: "</p>" }}
-  <figcaption>Feature list filtering dialogue.</figcaption>
-</figure>
+<img src="{{ "/assets/images/filter_empty.png" | relative_url }}" height="300" width="300">
 
 Aligned features can be filtered by mass range, retention time range, confidence score range as well as peak shape quality (only available for
 mzMl and mzXML input), minimum number of isotope peaks in the MS1 and detected lipid classes.
+
 Additionally, users can filter for specific element constraints in either the neutral molecular formula or precursor formula,
-as well as for specific detected adducts. If structure database results are present, one can filter for hits in specific structure databases, where
+as well as for specific detected adducts. 
+
+If structure database results are present, one can filter for hits in specific structure databases, where
 "candidates to check" controls how many of the top n candidates should be considered.
 
 
@@ -683,14 +679,7 @@ spectral library search in SIRIUS, as well as [Import of custom structure and sp
 
 Summary files containing analysis results can be exported via the "Summaries" button on the top left.
 
-{% capture fig_img %}
-![Foo]({{ "/assets/images/summaries.png" | relative_url }})
-{% endcapture %}
-
-<figure>
-  {{ fig_img | markdownify | remove: "<p>" | remove: "</p>" }}
-  <figcaption>Summaries export dialogue.</figcaption>
-</figure>
+<img src="{{ "/assets/images/summaries.png" | relative_url }}" height="300" width="300">
 
 Summaries will generally include five types: formula annotation summaries, canopus summaries, structure database search summaries, MSNovelist summaries and spectral library matching summaries.
 By default, only the top hit is exported, this can be changed by either selecting "All hits" (can produce very large files) or "top k hits". For formula annotation summaries, the user can choose
@@ -705,13 +694,8 @@ TODO
 
 The settings dialogue can be opened by pressing the "Settings" button on the top right.
 
-{% capture fig_img %}
-![Foo]({{ "/assets/images/settings_general.png" | relative_url }})
-{% endcapture %}
-<figure>
-  {{ fig_img | markdownify | remove: "<p>" | remove: "</p>" }}
-  <figcaption>General settings Settings.</figcaption>
-</figure>
+<img src="{{ "/assets/images/settings_general.png" | relative_url }}" height="500" width="500">
+
 
   - *General settings*
       - *UI Theme:* Choose your favourite display mode for less eye strain (requires restart).
@@ -758,14 +742,8 @@ The settings dialogue can be opened by pressing the "Settings" button on the top
 
 The connection check dialogue on the top right can help diagnose connection problems.
 
-{% capture fig_img %}
-![Foo]({{ "/assets/images/connectionCheck.png" | relative_url }})
-{% endcapture %}
+<img src="{{ "/assets/images/connectionCheck.png" | relative_url }}" height="500" width="500">
 
-<figure>
-  {{ fig_img | markdownify | remove: "<p>" | remove: "</p>" }}
-  <figcaption>Webservice status dialog.</figcaption>
-</figure>
 
 Green checkmarks or red crosses will appear depending on if you have connection to the internet, 
 login server, license server and web service. Additionally, information on if the account you are 
