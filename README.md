@@ -3,7 +3,7 @@
 pages are still work in progress\]</span>**</span>
 
 This repo contains the sources of the SIRIUS online documentation at 
-<https://boecker-lab.github.io/docs.sirius.github.io/>. 
+<https://v6.docs.sirius.bright-giant.com/>. 
 We try to keep this documentation as up-to-date as possible.
 Contributions from the community are very welcome. The content of this documentation is written 
 [Markdown](https://guides.github.com/features/mastering-markdown/), so no programming skills 
@@ -11,18 +11,18 @@ needed to create content.
 
 If your are looking for the sources of the SIRIUS Software see  [*boecker-lab/sirius*](https://github.com/boecker-lab/sirius). 
 To download the SIRIUS software see <https://bio.informatik.uni-jena.de/software/sirius/>.
-For bug reports  and feature requests regarding the SIRIUS software please
+For bug reports and feature requests regarding the SIRIUS software please
 use  [*boecker-lab/sirius*](https://github.com/boecker-lab/sirius/issues).
 
 ## Contributing to the SIRIUS Documentation
 **Help us improving the SIRIUS Documentation!**
 
 - For bug reports and feature requests regarding this documentation, please open an "Issue" 
-[on this GitHub repository](https://github.com/boecker-lab/docs.sirius.github.io/issues).
+[on this GitHub repository](https://github.com/sirius-ms/sirius-docs.github.io/issues).
 - To contribute to the SIRIUS documentation, simply edit a page 
-  (located in the "[_pages](https://github.com/boecker-lab/docs.sirius.github.io/tree/main/docs/_pages)" directory) and 
+  (located in the "[_pages](https://github.com/sirius-ms/sirius-docs.github.io/tree/main/docs/_pages)" directory) and 
  click *promote changes* to perform an ad hoc pull request. 
-- For more advanced editing, fork the [*boecker-lab/docs.sirius.github.io*](https://github.com/boecker-lab/docs.sirius.github.io) 
+- For more advanced editing, fork the [*sirius-ms/sirius-docs.github.io*](https://github.com/sirius-ms/sirius-docs.github.io) 
 repository, and make a *Pull Request* with your edits from your fork to the primary repository. For further information 
 on how to build and run this documentation locally see [Setup for Local Development](#setup-for-local-development)
 
