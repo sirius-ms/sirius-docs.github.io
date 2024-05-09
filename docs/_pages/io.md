@@ -141,7 +141,7 @@ prepossessing tool .
 
 ### SIRIUS project-space
 
-In SIRIUS 6, the project space is stored in a singular .sirius file that is no longer human or machine readable.
+In SIRIUS 6, the project space is stored in a singular .sirius file that is no longer human or machine-readable.
 This step was necessary to ensure performance for many of the new features and is in no way intended to "close off" results.
 Summaries can be written as usual using the GUI or CLI. Advanced information or intermediate results (e.g. predicted
 fingerprints) can be accessed using the new API.
@@ -150,8 +150,8 @@ fingerprints) can be accessed using the new API.
 ### Summary files
 
 The summaries written by CLI or GUI are in *tsv* (tab-separated-values) format and named "formula_identifications.tsv",
-"canopus_formula_summary.tsv", "canopus_structure_summary.tsv" and "structure_identifications.tsv" to
-provide easy access to the results for further downstream analysis, data
+"canopus_formula_summary.tsv", "canopus_structure_summary.tsv", "structure_identifications.tsv" and "denovo_structure_identifications.tsv".
+They provide easy access to the results for further downstream analysis, data
 sharing and data visualization. The summaries are not imported into
 SIRIUS but are (re-)created based on the actual results every time a
 project-space is exported. Summaries are created for molecular formula annotation, compound class prediction
@@ -163,7 +163,7 @@ and structure annotation separately.
 determined by the SIRIUS score, or the ZODIAC if available.
 However, different adduct candidates with the same precursor ion molecular formula
 will have identical score (e.g. `[C20H14O6 + NH4]+` and `[C20H19NO7 - H2O + H]+`).
-In such cases, the the top-ranked candidate in `formula_identifications.tsv` is resolved
+In such cases, the top-ranked candidate in `formula_identifications.tsv` is resolved
 to `[C20H17NO6 + H]+` only considering the ion type but ignoring adduct types.
 `formula_identifications_adducts.tsv` contains all top-ranked adducts (in this case 
 `[C20H14O6 + NH4]+` and `[C20H19NO7 - H2O + H]+`). This summary additionally contains all scores
@@ -176,8 +176,7 @@ shown in the GUI as well as potential lipid class annotations.
 as determined using the CSI:FingerID score; the molecular formula of the top structure
 does not have to be the top-ranked molecular formula of this feature. The formula rank shows the
 original rank of the molecular formula belonging to the top hit.
-`structure_identifications_adducts.tsv` contains the top structure for each considered 
-adduct of the top molecular formula.
+
 The summary contains confidence scores for exact and approximate mode, CSI:FingerID, ZODIAC and SIRIUS scores.
 Links to structure databases containing the structure hit can be found in the "links" column. 
 

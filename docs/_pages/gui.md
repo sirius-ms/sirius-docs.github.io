@@ -398,7 +398,7 @@ Click [here](https://bio.informatik.uni-jena.de/software/cosmic/) to visit the C
 ## Visualization of the results
 The feature list not only shows information about the input and compute state, it further shows the COSMIC
 confidence score for the top CSI:FingerID hit.
-TODO: update below
+
 For each feature different tabs can be shown in the result panel.
 The *"LC-MS"* tab displays the chromatogram of a feature for it monoisotopic- and further isotope peaks, as well as possibly detected adducts.
 It includes a basic quality assessment of the spectrum. This tab is only populated for mzML and mzXML inputs.
@@ -406,13 +406,13 @@ The *"Formulas"* panel displays the most important
 information of the molecular formula identification. The candidate list contains the best candidate molecular
 formulas ordered by score. Molecular formulas are always written
 in neutral form. For the selected molecular formula candidates the *Spectra view* visualizes
-which peak is assigned to a fragment. The corresponding fragmentation
-tree is visualized in the *Tree view*. Both views can be displayed in a
-separate panel to have a more detailed look. The *"Predicted fingerprints"* panel shows information about
-the molecular properties of the molecular fingerprint predicted by CSI:FingerID. The *"Structures"* panel displays 
+which peak is assigned to a fragment.The corresponding fragmentation
+tree is visualized in the *Tree view*. The *"Predicted fingerprints"* panel shows information about
+the molecular properties of the molecular fingerprint predicted by CSI:FingerID. The *"compound classes"* panel
+shows the [Classyfire](http://classyfire.wishartlab.com/) classes predicted by CANOPUS. The *"Structures"* panel displays
 results from the CSI:FingerID structure search, while the *"Substructure Annotation"* panel shows possible substructures connected to
-the peaks of the MS/MS spectrumfor each candidate. The *"CANOPUS"* panel
-shows the [Classyfire](http://classyfire.wishartlab.com/) classes predicted by CANOPUS. 
+the peaks of the MS/MS spectrumfor each candidate. The **De Novo structures** tab shows MSNovelist-generated structure candidates for the current query,
+and the **Library Matches** tab shows matches to reference spectra if imported.
 
 ### LC-MS tab
 
@@ -614,7 +614,7 @@ If the PubChem fallback was triggered as part of [Expansive search]({{ "/advance
 </figure>
 
 If a structure candidate shown in this tab also has a reference spectrum imported via a custom database, the spectral match will be shown.
-Clicking on it will show the spectral matching tab (TODO: link)
+Clicking on it will show the [spectral matchig tab]({{ "/gui/#library-matches-tab" | relative_url }}).
 
 
 
@@ -692,9 +692,9 @@ Summary files containing analysis results can be exported via the "Summaries" bu
   <figcaption>Summaries export dialogue.</figcaption>
 </figure>
 
-Summaries will generally include three types: formula summaries, canopus summaries and structure summaries. By default, only the top hit is exported,
-this can be changed by either selecting "All hits" (can produce very large files) or "top k hits". For formula and canopus summaries, the user can choose
-to additionally export adducts belonging to the top hits. See [Summary files]({{ "/io/#summary-files" | relative_url }})) for a breakdown of the generated summary files. TODO: adducts for structures?
+Summaries will generally include five types: formula annotation summaries, canopus summaries, structure database search summaries, MSNovelist summaries and spectral library matching summaries.
+By default, only the top hit is exported, this can be changed by either selecting "All hits" (can produce very large files) or "top k hits". For formula annotation summaries, the user can choose
+to additionally export adducts belonging to the top hits. See [Summary files]({{ "/io/#summary-files" | relative_url }})) for a breakdown of the generated summary files. 
 
 ### Feature based molecular networking (FBMN) export
 
