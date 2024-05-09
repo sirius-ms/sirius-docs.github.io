@@ -19,10 +19,11 @@ spectra with the analysis of fragmentation patterns in MS/MS spectra,
 and uses CSI:FingerID as a web service to search in molecular structure
 databases. Further it integrates CANOPUS for de novo compound class prediction and
 MSNovelist for de novo structure generation.
-For getting started quickly see the [quick-start guide]({{ "/quick-start/" | relative_url }}) or
-our book chapter on ["**De Novo Molecular Formula Annotation and Structure Elucidation Using SIRIUS 4**"](https://link.springer.com/protocol/10.1007%2F978-1-0716-0239-3_11) ([Preprint](https://bio.informatik.uni-jena.de/wp/wp-content/uploads/2020/12/SIRIUS4_book_chapter_preprint-2.pdf)).
 
-## SIRIUS summary
+For getting started quickly see the [**quick-start guide**]({{ "/quick-start/" | relative_url }}).
+
+
+## SIRIUS introduction
 
 
 SIRIUS requires **high mass accuracy** data. The mass deviation of your
@@ -34,7 +35,7 @@ provide the high mass accuracy that is required for our method. See [Mass deviat
 detail for SIRIUS.
 
 SIRIUS expects **MS and MS/MS** spectra as input. It is possible to omit
-the MS data, but it will make the analysis more time consuming and might
+the MS data, but it will make the analysis more time-consuming and might
 give you worse results. In this case, you should consider limiting the
 candidate molecular formulas to those found in PubChem.
 
@@ -47,11 +48,12 @@ tools specialized for this task, such as [OpenMS](https://www.openms.de/),
 **See our video tutorials on how to preprocess tour data for SIRIUS
 with [OpenMS](https://www.youtube.com/watch?v=ZTEY8_fnuZE) or 
 [MZmine](https://www.youtube.com/watch?v=Q0D6q9xQLSE)**.
-However, since version 4.4.0 SIRIUS contains a zero parameter
+
+However, SIRIUS also contains a zero parameter
 preprocessing tool to directly import LCMS-Runs from `.mzml` (or `mzxml`) format 
-to help you getting started quickly. **See how to use 
-[MSconvert/ProteoWizard](http://proteowizard.sourceforge.net/index.html)
-to convert your vendor formats to `mzml` for SIRIUS in this 
+to help you get started quickly. Most modern MS vendor instruments are able to
+export measured data from their native format to .mzML. Alternatively, **see how to use 
+[MSconvert/ProteoWizard](http://proteowizard.sourceforge.net/index.html) to convert your vendor formats to `mzml` for SIRIUS in this 
 [video tutorial](https://www.youtube.com/watch?v=xnjvZlSlp40)**. 
 
 **SIRIUS** will identify the molecular formula of the measured precursor
