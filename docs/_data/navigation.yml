@@ -75,7 +75,7 @@ global:
         url: /gui/#predicting-the-molecular-fingerprint-with-csifingerid-and-predicting-compound-classes-with-canopus--3
       - title: "Structure database search"
         url: /gui/#identifying-the-molecular-structure-with-the-csifingerid-tool--4
-      - title: "Generating de novo structure candidates"
+      - title: "De novo structure generation"
         url: /gui/#generating-de-novo-structure-candidates-with-msnovelist-5
       - title: "Custom database import"
         url: /gui/#import-of-custom-structure-and-spectra-databases
