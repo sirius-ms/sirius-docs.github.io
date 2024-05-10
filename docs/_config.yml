@@ -127,12 +127,15 @@ footer:
     - label: "Twitter"
       icon: "fab fa-fw fa-twitter-square"
       url: https://twitter.com/boeckerlab
+    - label: "LinkedIn"
+      icon: "fab fa-fw fa-linkedin"
+      url: https://twitter.com/boeckerlab
     - label: "Facebook"
       icon: "fab fa-fw fa-facebook-square"
       # url:
     - label: "GitHub"
       icon: "fab fa-fw fa-github"
-      url: https://github.com/boecker-lab
+      url: https://github.com/sirius-ms
     - label: "GitLab"
       icon: "fab fa-fw fa-gitlab"
       # url:
