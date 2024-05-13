@@ -23,7 +23,7 @@ successfully process your data:
     from a tandem mass spectrum that contains almost no peaks. For
     example, three peaks in a fragmentation spectrum measured with 1 ppm
     mass accuracy contain about 60 bit of information, ignoring
-    dependencies between fragments and distibution of molecular masses.
+    dependencies between fragments and distribution of molecular masses.
     With this information, it is simply not possible to find the correct
     structure in a database such as PubChem, containing 100 million
     structures. In comparison, ten peaks measured with 20 ppm mass
