@@ -10,28 +10,10 @@ This allows the user to review results in the GUI that have been computed with a
 
 ## Input
 
-### Mass spectra
+SIRIUS supports MS data in several formats: `.ms`, `.mgf` and Agilent's `.cef` contain already processed peak lists for each feature. 
+For `.mzml` and `.mzxml` feature detection and alignment will be performed by SIRIUS. However, all data must be centroided.
 
-##### Peakslists/CSV-Format
-
-The input of SIRIUS are MS and MS/MS spectra as simple peak lists.
-SIRIUS can read CSV files which contain on each line a m/z and an
-intensity value separated by either a whitespace, a comma or a TAB
-character. For example:
-
-```
-85.041199 4034.674316 
-203.052597 12382.624023 
-245.063171 50792.085938
-275.073975 124088.046875 
-305.084106 441539.125 
-335.094238 4754.061035
-347.09494 13674.210938 
-365.105103 55487.472656
-```
-The intensity values can be arbitrary floating point values. SIRIUS will
-transform the intensities into relative intensities, so only the ratio
-between the intensity values is important.
+### Peak list-based formats
 
 ##### MGF-Format
 
@@ -133,8 +115,8 @@ A more detailed and commented but also WIP example of the an `.ms` file can be f
 
 ### LCMS-Runs
 
-SIRIUS can import full LCMS-Runs in (mzML/mzXML) format via the
-prepossessing tool . 
+SIRIUS can import full LCMS-Runs in (`.mzML`/`.mzXML`) format via the
+prepossessing tool. In the GUI this is done implicitely when importing the data. In the CLI you can also run the [LC-align]({{ "/cli/#lcms-align-feature-detection-and-feature-alignment-preprocessing" | relative_url }}) subtool.
 <span>**<span style="color: red">\[todo: describe lcms-align\]</span>**</span>
 
 ## Output
