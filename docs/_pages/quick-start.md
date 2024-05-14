@@ -174,12 +174,12 @@ same compound because they have the same parent mass. To analyze this
 compound, run:
 
 ```shell
-sirius --input demo-data/mgf/laudanosine.mgf --output <outputdir> formula -p orbitrap fingerprint structure compound-classes write-summaries --output <summary-files-dir>
+sirius --input demo-data/mgf/laudanosine.mgf --output <output.sirius> formula -p orbitrap fingerprint compound-classes structure write-summaries --output <summary-files-dir>
 ```
 
-This command runs 4 subtools at once: *formula annotation*, *molecular fingerprint prediction*, *structure database search* and *compound class annotation*.
+This command runs 4 subtools at once: *formula annotation*, *molecular fingerprint prediction*, *compound class annotation* and *structure database search*.
 
-The `formula_candidates.tsv` in `<summary-files-dir>/0_laudanosine_FEATURE1` should look like this is:
+The `formula_candidates.tsv` in `<summary-files-dir>/0_laudanosine_FEATURE1` should look similar to this:
 
 ```
 rank	molecularFormula	adduct	precursorFormula	SiriusScore	TreeScore	IsotopeScore	numExplainedPeaks	explainedIntensity	medianMassErrorFragmentPeaks(ppm)	medianAbsoluteMassErrorFragmentPeaks(ppm)	massErrorPrecursor(ppm)	lipidClass
@@ -245,7 +245,7 @@ sirius -o <outputdir> -i demo-data/ms/Bicuculline.ms formula -p orbitrap
 for formula annotation only or
 
 ```shell
-sirius -o <outputdir> -i demo-data/ms/Bicuculline.ms formula -p orbitrap fingerprint structure compound-classes
+sirius -o <outputdir> -i demo-data/ms/Bicuculline.ms formula -p orbitrap fingerprint compound-classes structure
 ```
 
 to again perform structure database search and compound class annotation.
@@ -265,25 +265,6 @@ sirius -o <outputdir> -i demo-data/ms/Bicuculline.ms --ignore-formula formula -p
 
 SIRIUS will now ignore the correct molecular formula in the file and
 output the 5 best candidates.
-
-### Example 3: peak lists (txt/csv files)
-
-**Note: In general we recommend to use different formats that provide all compound information in one file.**
-
-The TXT folder contains simple peaklist files. Such file formats can be
-easily extracted from Excel spreadsheets. However, they do not contain
-meta information like the MS level and the parent mass. So you have to
-specify this information via commandline options:
-
-```shell
-sirius -1 demo-data/txt/chelidonine_ms.txt -2 demo-data/txt/chelidonine_msms1.txt,demo-data/txt/chelidonine_msms2.txt -z 354.134704589844 -o <outputdir> formula -p orbitrap 
-```
-
-The demo data contain a clean MS spectrum (e.g. there is only one
-isotope pattern contained in the MS spectrum). In such cases, SIRIUS can
-infer the correct parent mass from the MS data (by simply using the
-monoisotopic mass of the isotope pattern as parent mass). So you can
-omit the `-z` option in these cases.
 
 
 ## Background Service - Generic SIRIUS API
