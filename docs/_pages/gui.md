@@ -154,7 +154,7 @@ set. SIRIUS will consider adducts in this list and additionally enforce them if 
 
 #### Molecular Formula Generation (C)
 
-The [molecular formula annotation strategy]({{ "/advanced-background-information/#Molecular-formula-annotation-strategies" | relative_url }}) to be employed.
+The [molecular formula annotation strategy]({{ "/advanced-background-information/#molecular-formula-annotation-strategies" | relative_url }}) to be employed.
 Choosing a suitable strategy here is imperative for a successful SIRIUS analysis and will impact most subsequent steps.
 
 **De novo + bottom up search (recommended)**

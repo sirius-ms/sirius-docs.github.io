@@ -7,6 +7,7 @@ title: "Quick start"
 from the SIRIUS website.
  - To get started quickly you may also want to have a look at our 
    [video tutorials](https://www.youtube.com/playlist?list=PL57Jv_39fTdc_j8eHrH6At81n1AtxeKar).
+ - To process a full LC-MS/MS run, you can also use your own `.mzML` files and run the following examples. This will perform features detection first. Also, annotating 100s or 1000s features may take a while. 
 
 ## Graphical User Interface
 
@@ -37,7 +38,7 @@ each having one or more mass spectra. Obviously, you can also use this workflow 
 
 6. Change the instrument type as well as the maximal allowed mass deviation. Be aware that this settings
     will be used for all imported compounds.
-7. Check if the currently selected molecular formula search strategy aligns with your research question (TODO: link).
+7. Check if the currently selected molecular [molecular formula generation strategy]({{ "/advanced-background-information/#molecular-formula-annotation-strategies" | relative_url }}) aligns with your research question (TODO: link).
 
 8. Select *Predict Properties & CANOPUS* to predict the compounds' molecular fingerprints with CSI:FingerID as well as their compound classes with CANOPUS.
 8. Select *CSI:FingerID structure database search* to search compounds in a structure database with CSI:FingerID.
