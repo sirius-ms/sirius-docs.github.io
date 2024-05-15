@@ -374,7 +374,8 @@ Response:
 
 ### Class hierarchy
 
-The main classes in the hierarchy are **projects**, **alignedFeatures** and **formulas**. These have a one-to-many relation.
+The main classes in the hierarchy are **projects**, **alignedFeatures** and **formulas**. These have a one-to-many relation. 
+See below an exemplary representation. 
 
 ```
 project [projectId:1]
@@ -387,7 +388,7 @@ project [projectId:1]
 │   │   db-structures
 │   │   denovo-structures
 │   │   
-│   └───formulaId:577178082920468525
+│   └───formula [formulaId:577178082920468525]
 │   │   │   isotope-pattern
 │   │   │   fragtree
 │   │   │   fingerprint
@@ -397,7 +398,7 @@ project [projectId:1]
 │   │   │   db-structures
 │   │   │   denovo-structures
 │   │   
-│   └───formulaId:577178082920468526
+│   └───formula [formulaId:577178082920468526]
 │   │   │   isotope-pattern
 │   │   │   ...
 │   
