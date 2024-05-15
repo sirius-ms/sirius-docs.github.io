@@ -289,7 +289,7 @@ The page should look similar to this:
 Since there are so many endpoints, the start may be a bit overwhelming.
 The following will help you to get an overview and make the best use of the API.
 
-### Hello structure candidates (your first tiny example)
+### Hello <del>world</del> structure candidates (your first tiny example)
 First of all: remember that the API supports multiple SIRIUS projects. That is why you always need to specify the `projectId` if you want to query a feature.
 
 Say you want to get the structure hits for the feature with name "InterestingCompound12". You need to do the following.
