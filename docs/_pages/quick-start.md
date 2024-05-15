@@ -344,30 +344,30 @@ Response:
 Response: 
 ```json
 [
-{
-"inchiKey": "PPYOSYACEILSKE",
-"smiles": "CCCCCCCCC=CCCCCCCCC(=O)NCCCCC(C(=O)O)N(C)C",
-"structureName": "N2,N2-Dimethyl-N6-[(9Z)-1-oxo-9-octadecen-1-yl]lysine",
-"xlogP": 5.5,
-"csiScore": -198.4107988137411,
-"tanimotoSimilarity": 0.4523809523809524,
-"mcesDistToTopHit": 0,
-"molecularFormula": "C26H50N2O3",
-"adduct": "[M + Na]+",
-"formulaId": "577178082920468525"
-},
-{
-"inchiKey": "URAUKAJXWWFQSU",
-"smiles": "C1CCC(CC1)N(C2CCCCC2)C(=O)COCC(=O)N(C3CCCCC3)C4CCCCC4",
-"structureName": "N,N,N',N'-Tetracyclohexyl-3-oxapentanediamide",
-"xlogP": 6.4,
-"csiScore": -217.50017505980176,
-"tanimotoSimilarity": 0.31736526946107785,
-"mcesDistToTopHit": "Infinity",
-"molecularFormula": "C28H48N2O3",
-"adduct": "[M + H]+",
-"formulaId": "577178082920468526"
-},
+  {
+    "inchiKey": "PPYOSYACEILSKE",
+    "smiles": "CCCCCCCCC=CCCCCCCCC(=O)NCCCCC(C(=O)O)N(C)C",
+    "structureName": "N2,N2-Dimethyl-N6-[(9Z)-1-oxo-9-octadecen-1-yl]lysine",
+    "xlogP": 5.5,
+    "csiScore": -198.4107988137411,
+    "tanimotoSimilarity": 0.4523809523809524,
+    "mcesDistToTopHit": 0,
+    "molecularFormula": "C26H50N2O3",
+    "adduct": "[M + Na]+",
+    "formulaId": "577178082920468525"
+  },
+  {
+    "inchiKey": "URAUKAJXWWFQSU",
+    "smiles": "C1CCC(CC1)N(C2CCCCC2)C(=O)COCC(=O)N(C3CCCCC3)C4CCCCC4",
+    "structureName": "N,N,N',N'-Tetracyclohexyl-3-oxapentanediamide",
+    "xlogP": 6.4,
+    "csiScore": -217.50017505980176,
+    "tanimotoSimilarity": 0.31736526946107785,
+    "mcesDistToTopHit": "Infinity",
+    "molecularFormula": "C28H48N2O3",
+    "adduct": "[M + H]+",
+    "formulaId": "577178082920468526"
+  },
 ...
 ]
 ```
