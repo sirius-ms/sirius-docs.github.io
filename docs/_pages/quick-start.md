@@ -269,4 +269,151 @@ output the 5 best candidates.
 
 
 ## Background Service - Generic SIRIUS API
-coming soon...
+
+SIRIUS provides a REST API to access data from the project space and to run computations. 
+You can either directly interact with this API or use the Python SDK.
+
+The openAPI specification and documentation can be viewed via the browser. Just start SIRIUS and open [http://localhost:8080/](http://localhost:8080/).
+
+The page should look similar to this:
+{% capture fig_img %}
+![Foo]({{ "/assets/images/swagger-api.png" | relative_url }})
+{% endcapture %}
+
+<figure>
+  {{ fig_img | markdownify | remove: "<p>" | remove: "</p>" }}
+  <figcaption>SIRIUS API specification.</figcaption>
+</figure>
+
+
+Since there are so many endpoints, the start may be a bit overwhelming.
+The following will help you to get an overview and make the best use of the API.
+
+### Hello structure candidates (your first tiny example)
+First of all: remember that the API supports multiple SIRIUS projects. That is why you always need to specify the `projectId` if you want to query a feature.
+
+Say you want to get the structure hits for the feature with name "InterestingCompound12". You need to do the following.
+(Note: This can be directly performed via the swagger ui at [http://localhost:8080/](http://localhost:8080/). Please remember to change the commands matching to your query IDs.)
+
+* get the list of open project spaces:`http://localhost:8080/api/projects`
+
+Response:
+```json
+[
+  {
+    "projectId": "testdataset",
+    "location": "/path/to/testdataset.sirius",
+    "description": null,
+    "compatible": null,
+    "numOfFeatures": null,
+    "numOfCompounds": null,
+    "numOfBytes": null
+  }
+]
+```
+* get the list of features: `http://localhost:8080/api/projects/testdataset/aligned-features`
+
+Response:
+ ```json
+[
+...
+  {
+    "alignedFeatureId": "577173392664996156",
+    "name": "InterestingCompound11",
+    "ionMass": 212.1184774810981,
+    "adduct": "[M + ?]+",
+    "rtStartSeconds": 478.891,
+    "rtEndSeconds": 487.677,
+    "computing": false
+  },
+  {
+    "alignedFeatureId": "577173392774048066",
+    "name": "InterestingCompound12",
+    "ionMass": 461.3699477422347,
+    "adduct": "[M + ?]+",
+    "rtStartSeconds": 447.536,
+    "rtEndSeconds": 456.591,
+    "computing": false
+  },
+...
+]
+```
+* search for the feature with name `InterestingCompound12` and select its `alignedFeatureId`.
+* get all structure candiates ranked by csiScore: `http://localhost:8080/api/projects/s6tomatoSmall/aligned-features/577173392774048066/db-structures`
+
+Response: 
+```json
+[
+{
+"inchiKey": "PPYOSYACEILSKE",
+"smiles": "CCCCCCCCC=CCCCCCCCC(=O)NCCCCC(C(=O)O)N(C)C",
+"structureName": "N2,N2-Dimethyl-N6-[(9Z)-1-oxo-9-octadecen-1-yl]lysine",
+"xlogP": 5.5,
+"csiScore": -198.4107988137411,
+"tanimotoSimilarity": 0.4523809523809524,
+"mcesDistToTopHit": 0,
+"molecularFormula": "C26H50N2O3",
+"adduct": "[M + Na]+",
+"formulaId": "577178082920468525"
+},
+{
+"inchiKey": "URAUKAJXWWFQSU",
+"smiles": "C1CCC(CC1)N(C2CCCCC2)C(=O)COCC(=O)N(C3CCCCC3)C4CCCCC4",
+"structureName": "N,N,N',N'-Tetracyclohexyl-3-oxapentanediamide",
+"xlogP": 6.4,
+"csiScore": -217.50017505980176,
+"tanimotoSimilarity": 0.31736526946107785,
+"mcesDistToTopHit": "Infinity",
+"molecularFormula": "C28H48N2O3",
+"adduct": "[M + H]+",
+"formulaId": "577178082920468526"
+},
+...
+]
+```
+
+### Class hierarchy
+
+The main classes in the hierarchy are **projects**, **alignedFeatures** and **formulas**. These have a one-to-many relation.
+
+```
+project [projectId:1]
+│   ...
+│   ...    
+│
+└───alignedFeature [alignedFeatureId:577173392774048066]
+│   │   ms-data
+│   │   spectral-library-matches
+│   │   db-structures
+│   │   denovo-structures
+│   │   
+│   └───formulaId:577178082920468525
+│   │   │   isotope-pattern
+│   │   │   fragtree
+│   │   │   fingerprint
+│   │   │   lipid-annotation
+│   │   │   canopus-prediction
+│   │   │   best-compound-classes
+│   │   │   db-structures
+│   │   │   denovo-structures
+│   │   
+│   └───formulaId:577178082920468526
+│   │   │   isotope-pattern
+│   │   │   ...
+│   
+└───alignedFeature [alignedFeatureId:577173392664996156]
+│   │   ms-data
+│   │   ...
+│
+project [projectId:2]
+│   ...
+│   ...
+```
+
+Within these classes you can find data and results. Results such as structures are long list and thus also come with a 'paged'-endpoint (`/page`).
+With this hierarchy in mind you can for example
+* select all formula candidates of a feature: `/api/projects/{projectId}/aligned-features/{alignedFeatureId}/formulas`
+* select all (database) structure candidates of a feature: `/api/projects/{projectId}/aligned-features/{alignedFeatureId}/db-structures`
+* select all (de novo) structure candidates of a specific molecular formula candidate of a feature: `/api/projects/{projectId}/aligned-features/{alignedFeatureId}/formulas/{formulaId}/denovo-structures`
+* select the molecular fingerprint of a specific molecular formula candidate of a feature: `/api/projects/{projectId}/aligned-features/{alignedFeatureId}/formulas/{formulaId}/fingerprint`
+
