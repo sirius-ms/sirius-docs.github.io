@@ -89,7 +89,7 @@ for which neither spectral nor structural reference data are available.
 Structures are generated based on molecular formula and fingerprint.
 
 SIRIUS ships with a **Graphical User Interface** (GUI), a **Command Line
-Interface** (CLI) and an APi that comes with clients in some popular scripting languages (Python and R).
+Interface** (CLI) and an API that comes with a client in Python.
 
 All these interfaces share the same persistence layer, allowing for high-throughput computation using e.g. the CLI
 on a compute cluster and then manual inspection of selected results using the GUI.
