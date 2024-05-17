@@ -3,7 +3,7 @@
 pages are still work in progress\]</span>**</span>
 
 This repo contains the sources of the SIRIUS online documentation at 
-<https://v6.docs.sirius.bright-giant.com/>. 
+<https://v6.docs.sirius-ms.io/>. 
 We try to keep this documentation as up-to-date as possible.
 Contributions from the community are very welcome. The content of this documentation is written 
 [Markdown](https://guides.github.com/features/mastering-markdown/), so no programming skills 
