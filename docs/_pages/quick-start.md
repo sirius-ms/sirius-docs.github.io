@@ -274,7 +274,7 @@ SIRIUS provides a REST API to access data from the project space and to run comp
 You can either directly interact with this API or use the Python SDK.
 
 The openAPI specification and documentation can be viewed via the browser. Just start SIRIUS and open [http://localhost:8080/](http://localhost:8080/).
-SIRIUS may also use a different available port. Please, check the command line output of the starting SIRIUS.
+SIRIUS may also use a different available port. Please, check the command line output of the starting SIRIUS: `SIRIUS Service is running on port: [PORT_NUMBER]`.
 
 The page should look similar to this:
 {% capture fig_img %}
