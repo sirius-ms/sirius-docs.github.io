@@ -132,12 +132,17 @@ fingerprints) can be accessed using the new API.
 ### Summary files
 
 The summaries written by CLI or GUI are in *tsv* (tab-separated-values) format and named "formula_identifications.tsv",
-"canopus_formula_summary.tsv", "canopus_structure_summary.tsv", "structure_identifications.tsv" and "denovo_structure_identifications.tsv".
+"canopus_formula_summary.tsv", "canopus_structure_summary.tsv", "structure_identifications.tsv", "denovo_structure_identifications.tsv" and "spectral_matches.tsv".
 They provide easy access to the results for further downstream analysis, data
 sharing and data visualization. The summaries are not imported into
 SIRIUS but are (re-)created based on the actual results every time a
-project-space is exported. Summaries are created for molecular formula annotation, compound class prediction
-and structure annotation separately.
+project-space is exported. Summaries are created for molecular formula annotation, compound class prediction, structure annotation and spectral library matches separately.
+ 
+#### Important columns
+
+The unique key `alignedFeatureId` is used to link results to a feature (aligned over multiple runs).
+If available, the `mappingFeatureId` provides an external id (e.g. if "FEATURE_ID" was specified in the .mgf) or else the `alignedFeatureId`.  
+Additionally, `ionMass` and `retentionTimeInSeconds` are provided.
 
 #### Molecular formula results summary
 
@@ -145,11 +150,8 @@ and structure annotation separately.
 determined by the SIRIUS score, or the ZODIAC if available.
 However, different adduct candidates with the same precursor ion molecular formula
 will have identical score (e.g. `[C20H14O6 + NH4]+` and `[C20H19NO7 - H2O + H]+`).
-In such cases, the top-ranked candidate in `formula_identifications.tsv` is resolved
-to `[C20H17NO6 + H]+` only considering the ion type but ignoring adduct types.
-`formula_identifications_adducts.tsv` contains all top-ranked adducts (in this case 
-`[C20H14O6 + NH4]+` and `[C20H19NO7 - H2O + H]+`). This summary additionally contains all scores
-shown in the GUI as well as potential lipid class annotations.  
+In such cases, the top-ranked candidate is decided by the adduct ranking (see [Adduct sorting]({{ "/advanced-background-information/#adduct-sorting" | relative_url }})).
+This summary additionally contains all scores shown in the GUI as well as potential lipid class annotations.  
 
 
 #### Molecular structure results summary
@@ -177,10 +179,12 @@ the molecular formula belonging to the top-ranked structure of each feature. *mo
 *level 5*, *subclass*, *class*, and *superclass* refer to the ancestors of this most specific class.
 
 
-If there are multiple molecular formulas with
-same score (which should happen only for adducts, see the molecular formula results summary) then the
-`canopus_summary.tsv` will decide for one molecular formula for each feature. We always choose the molecular formula
-for which the CANOPUS probability of the *most specific class* is maximal.
+If there are multiple molecular formulas with same score but different adducts (but the same precursor molecular formula) then candidates are sorted by the [Adduct sorting]({{ "/advanced-background-information/#adduct-sorting" | relative_url }}).
+
+
+#### Spectral matches summary
+
+`spectral_matches.tsv` contains spectral library matches for all features. 
 
 
 ### Standardized project-space summary with mzTab-M
