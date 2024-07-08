@@ -121,18 +121,7 @@ our scientific papers.
 [**Sirius 4: turning tandem mass spectra into metabolite structure information.**](https://doi.org/10.1038/s41592-019-0344-8)
 *Nat Methods*, 2019.
 
-### CANOPUS – Compound Class Prediction 
- - Kai Dührkop, Louis-Félix Nothias, Markus Fleischauer, Raphael Reher, Marcus Ludwig, Martin A. Hoffmann, Daniel Petras, William H. Gerwick, Juho Rousu, Pieter C. Dorrestein and Sebastian Böcker.
-[**Systematic classification of unknown metabolites using high-resolution fragmentation mass spectra.**](https://doi.org/10.1038/s41587-020-0740-8)
-*Nat Biotechnol*, 2020.
-
-### ZODIAC – molecular formula annotation
-
- - Marcus Ludwig, Louis-Félix Nothias, Kai Dührkop, Irina Koester, Markus Fleischauer, Martin A. Hoffmann, Daniel Petras, Fernando Vargas, Mustafa Morsy, Lihini Aluwihare, Pieter C. Dorrestein, Sebastian Böcker.
-[**Database-independent molecular formula annotation using Gibbs sampling through ZODIAC.**](https://doi.org/10.1038/s42256-020-00234-6)
-*Nat Mach Intell*, 2020.
-
-### CSI:FingerID – Searching in molecular structure databases
+### CSI:FingerID – searching in molecular structure databases
 
   - Kai Dührkop, Huibin Shen, Marvin Meusel, Juho Rousu and Sebastian
     Böcker. [**Searching molecular structure databases with tandem mass
@@ -144,11 +133,25 @@ our scientific papers.
     Proc. of *Intelligent Systems for Molecular Biology* (ISMB 2014).
 
 ### COSMIC confidence score
+  - Martin A. Hoffmann, Louis-Félix Nothias, Marcus Ludwig, Markus Fleischauer, Emily C. Gentry, Michael Witting, Pieter C. Dorrestein, Kai Dührkop and Sebastian Böcker. [**High-confidence structural annotation of metabolites absent from spectral libraries.**](https://doi.org/10.1038/s41587-021-01045-9) *Nat Biotechnol*, 2022.
 
-- **PREPRINT:** Martin A. Hoffmann, Louis-Félix Nothias, Marcus Ludwig, Markus Fleischauer, Emily C. Gentry, Michael Witting, Pieter C. Dorrestein, Kai Dührkop and Sebastian Böcker. 
-  [**Assigning confidence to structural annotations from mass spectra with COSMIC**](https://doi.org/10.1101/2021.03.18.435634) *bioRxiv*, 2021.
+### CANOPUS – compound class prediction 
+ - Kai Dührkop, Louis-Félix Nothias, Markus Fleischauer, Raphael Reher, Marcus Ludwig, Martin A. Hoffmann, Daniel Petras, William H. Gerwick, Juho Rousu, Pieter C. Dorrestein and Sebastian Böcker.
+[**Systematic classification of unknown metabolites using high-resolution fragmentation mass spectra.**](https://doi.org/10.1038/s41587-020-0740-8)
+*Nat Biotechnol*, 2020.
 
-### Fragmentation Tree Computation
+### MSNovelist – *de novo* structure generation
+
+- Michael A. Stravs, Kai Dührkop, Sebastian Böcker and Nicola Zamboni. [**MSNovelist: de novo structure generation from mass spectra.**](https://doi.org/10.1038/s41592-022-01486-3) *Nat Methods*, 2022. 
+
+
+### ZODIAC – molecular formula annotation
+
+ - Marcus Ludwig, Louis-Félix Nothias, Kai Dührkop, Irina Koester, Markus Fleischauer, Martin A. Hoffmann, Daniel Petras, Fernando Vargas, Mustafa Morsy, Lihini Aluwihare, Pieter C. Dorrestein, Sebastian Böcker.
+[**Database-independent molecular formula annotation using Gibbs sampling through ZODIAC.**](https://doi.org/10.1038/s42256-020-00234-6)
+*Nat Mach Intell*, 2020.
+
+### Fragmentation tree computation
 
   - Sebastian Böcker and Kai Dührkop. [**Fragmentation trees reloaded.**](https://doi.org/10.1007/978-3-319-16706-0_10)
     *J Cheminform*, 2016.
