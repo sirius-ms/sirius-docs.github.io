@@ -300,7 +300,7 @@ regarding the command line interface and project-space output.
 - improvement: Character separated files in project-space have now .tsv extension for better excel compatibility.
 - feature: Windows headless executable respects `%JAVA_HOME%` as JRE location.
 - improvement: Improved packaging and startup of the GUI version
-- fixes GitHub issues: [4](https://github.com/boecker-lab/sirius/issues/4) and [6](https://github.com/boecker-lab/sirius/issues/6)
+- fixes GitHub issues: [#4](https://github.com/boecker-lab/sirius/issues/4) and [#6](https://github.com/boecker-lab/sirius/issues/6)
 
 #### 4.4.16
 - feature: **CSI:FingerID for negative ion mode is available**

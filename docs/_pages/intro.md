@@ -16,12 +16,12 @@ spectrometry data.**
 **Community Forum:** For community support and discussions, join our [SIRIUS Community space on Gitter](https://matrix.to/#/#sirius-ms:gitter.im). 
 Here, you can connect with other users and get help from the community.
 
-**Bug Reports and Feature Requests:** If you encounter any issues or have suggestions for new 
-features, kindly submit them via [GitHub](https://github.com/sirius-ms/sirius/issues/new/choose).
+**Bug Reports and Feature Requests:** If you encounter any problems or have suggestions for new 
+features, please submit them via [GitHub](https://github.com/sirius-ms/sirius/issues/new/choose).
 
 **SIRIUS Integration:** SIRIUS can be easily integrated into existing workflows and provides 
 interfaces for both manual and fully automated analysis. If you're looking for help with 
-integrating SIRIUS into your workflows or want to share tips and code snippets, visit our 
+integrating SIRIUS into your workflow or want to share tips and code snippets, visit our 
 [SIRIUS Community space on Gitter](https://matrix.to/#/#sirius-ms:gitter.im).
 
 [**Help us improve the SIRIUS Documentation!**](https://github.com/sirius-ms/sirius-docs.github.io)
@@ -39,86 +39,80 @@ databases. It also integrates CANOPUS for *de novo* compound class prediction an
 MSNovelist for *de novo* structure generation.
 
 SIRIUS requires **high mass accuracy** data. The mass deviation of your
-MS and MS/MS spectra should be within 20 ppm. Mass Spectrometry
-instruments such as TOF, Orbitrap and FT-ICR usually provide high mass
-accuracy data, as well as coupled instruments like Q-TOF, IT-TOF or
+MS and MS/MS spectra should be within 20 ppm. Mass spectrometry
+instruments such as TOF, Orbitrap and FT-ICR typically provide high mass
+accuracy data, as do coupled instruments such as Q-TOF, IT-TOF or
 IT-Orbitrap. Spectra measured with a quadrupole or linear trap do not
-provide the high mass accuracy that is required for our method. See [Mass deviations]({{ "/advanced-background-information/#mass-deviations" | relative_url }}) on what "mass accuracy" means in
-detail for SIRIUS.
+provide the high mass accuracy that is required for our method. See [Mass deviations]({{ "/advanced-background-information/#mass-deviations" | relative_url }})  for a detailed explanation what "mass accuracy" means in SIRIUS.
 
 SIRIUS expects **MS and MS/MS** spectra as input. It is possible to omit
-the MS data, but it will make the analysis more time-consuming and might
-give you worse results. In this case, you should consider limiting the
+the MS data, but this will make the analysis more time-consuming and may
+give you poorer results. In this case, you should consider restricting the
 candidate molecular formulas to those found in PubChem.
 
 SIRIUS expects **processed peak lists** (centroided spectra). It does
-not contain routines for peak picking from profiled spectra. This is a deliberate
-design decision: We want you to use the best peak picking software out
-there — or alternatively, your favorite software. There are several
-tools specialized for this task, such as [OpenMS](https://www.openms.de/), 
+not provide routines for peak picking from profiled spectra. This is a deliberate
+design choice: We want you to use the best peak picking software available — or alternatively your favorite software. There are several
+tools that specialise in this task, such as [OpenMS](https://www.openms.de/), 
 [MZmine](http://mzmine.github.io/) or [XCMS](https://github.com/sneumann/xcms). 
-**See our video tutorials on how to preprocess tour data for SIRIUS
+**See our video tutorials on how to preprocess your data for SIRIUS
 with [OpenMS](https://www.youtube.com/watch?v=ZTEY8_fnuZE) or 
 [MZmine](https://www.youtube.com/watch?v=Q0D6q9xQLSE)**.
 
-However, SIRIUS also contains a zero parameter
-preprocessing tool to directly import LCMS-Runs from `.mzml` (or `mzxml`) format 
+However, SIRIUS also provides a zero parameter
+pre-processing tool to import LCMS-Runs directly from `.mzml` (or `mzxml`) format 
 to help you get started quickly. Most modern MS vendor instruments are able to
-export measured data from their native format to .mzML. Alternatively, **see how to use 
-[MSconvert/ProteoWizard](http://proteowizard.sourceforge.net/index.html) to convert your vendor formats to `mzml` for SIRIUS in this 
-[video tutorial](https://www.youtube.com/watch?v=xnjvZlSlp40)**. 
+export measured data from their native format to .mzML. **Alternatively, watch this this 
+[video tutorial](https://www.youtube.com/watch?v=xnjvZlSlp40) how to use
+[MSconvert/ProteoWizard](http://proteowizard.sourceforge.net/index.html) to convert your vendor formats to `mzml` for SIRIUS.** 
 
-**SIRIUS** will identify the molecular formula of the measured precursor
-ion, and will also annotate the spectrum by providing a molecular
-formula for each fragment peak. Peaks that receive no annotation are
-assumed to be noise peaks. Furthermore, a **fragmentation tree** is
-predicted; this tree contains the predicted fragmentation reaction
+**SIRIUS** identifies the molecular formula of the measured precursor
+ion, and annotates the spectrum by providing a molecular
+formula for each fragment peak. Peaks are assumed to be noise peaks if they are not annotated. Furthermore, a **fragmentation tree** is
+predicted that contains the predicted fragmentation reactions
 leading to the fragment peaks.
 
 **ZODIAC** improves the ranking of the formula candidates provided by SIRIUS. It 
-re-ranks the candidates by considering joint fragments 
+re-ranks the candidates by taking into account joint fragments 
 and losses between fragmentation trees of different compounds in a data set.
 
 **CSI:FingerID** identifies the structure of a compound by
 searching in a molecular structure database. Here and in the following,
 "*structure*" refers to the identity and connectivity (with bond
-multiplicities) of the atoms, but **no** stereochemistry information.
+multiplicities) of the atoms, but **not** to stereochemistry information.
 Elucidation of stereochemistry is currently beyond the power of
 automated search engines.
 
 **COSMIC confidence score** assigns a confidence to CSI:FingerID structure identifications.
 The idea is similar to False Discovery Rates: It allows to run CSI:FingerID in high-throughput 
 on thousands of compounds and select the most confident identifications. The workflow of generating 
-a structure database, searching with CSI:FingerID and ranking hits by confidence score is termed the COSMIC workflow.
-Make your data interpretation workflow easier by first identifying the most confident compounds in your sample, then use them 
+a structure database, searching with CSI:FingerID and ranking hits by confidence score is called the COSMIC workflow.
+Simplify your data interpretation workflow by first identifying the most confident compounds in your sample and then using them 
 to generate knowledge or hypotheses.
 
 **CANOPUS** predicts compound classes from the molecular fingerprint predicted by CSI:FingerID 
-without any database search involved. Hence, it provides structural information for compounds 
+without any database searching. It therefore provides structural information for compounds 
 for which neither spectral nor structural reference data are available.
 
-**MSNovelist** generates de novo structure candidates to help overcome the limits of structure database search.
+**MSNovelist** generates de novo structure candidates to overcome the limitations of structure database searching.
 Structures are generated based on molecular formula and fingerprint.
 
-SIRIUS ships with a **Graphical User Interface** (GUI), a **Command Line
-Interface** (CLI) and an API that comes with a client in Python.
-
+SIRIUS comes with a [**Graphical User Interface** (GUI)]({{"/quick-start/#graphical-user-interface" | relative_url}}), a [**Command Line
+Interface** (CLI)]({{ "/quick-start/#command-line-interface" | relative_url }}) and an [**Application Programming Interface** (API)]({{"/quick-start/#background-service---generic-sirius-api" | relative_url}}) that comes with a client in Python.
 All these interfaces share the same persistence layer, allowing for high-throughput computation using e.g. the CLI
 on a compute cluster and then manual inspection of selected results using the GUI.
 
 ## Literature
 
-The *scientific development* behind SIRIUS, ZODIAC, CSI:FingerID and CANOPUS required
-numerous man-years of PhD students, postdocs and principal
-investigators; an educated guess would be roughly 35 man-years. This
-estimate does not include building the shiny Graphical User Interface
-that was introduced in version 3.1. But it is not the user interface or
+The *scientific development* behind SIRIUS, ZODIAC, CSI:FingerID, CANOPUS, and MSNovelist has required
+many person-years of PhD students, post-docs and principal
+investigators; an educated guess would be around 35 person-years. This estimate does not include the development of the shiny graphical user interface introduced in version 3.1. But it is not the GUI or
 software development that does the work here; it is our scientific
-research that made SIRIUS, ZODIAC, CSI:FingerID and CANOPUS possible. 
-It is understood that the work of 15 years cannot be described in a single paper.
+research that has made SIRIUS, ZODIAC, CSI:FingerID, CANOPUS, and MSNovelist possible. 
+ It goes without saying that 15 years of work cannot be described in a single paper.
 
-Please cite all papers that you feel relevant for your work. Please do
-**not** cite this manual or the SIRIUS or CSI:FingerID website, but rather
+Please cite all papers that you feel are relevant to your work. Please do
+**not** cite this manual or the SIRIUS or CSI:FingerID website, but 
 our scientific papers.
 
 ### SIRIUS 4
