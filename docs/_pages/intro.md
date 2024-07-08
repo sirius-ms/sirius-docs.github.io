@@ -3,28 +3,40 @@ permalink: /
 title: "Welcome"
 ---
 
-## SIRIUS Science
- 
+**Welcome to the official online documentation for SIRIUS -- a *Java* software for the analysis of small molecules from tandem mass
+spectrometry data.**
 
-SIRIUS is a *Java* software for analyzing small molecules from tandem mass
-spectrometry data. The primary focus of SIRIUS is structure elucidation of novel
-molecules (drug leads, contaminants in synthesis or food items), but it is also
-well-equipped to handle more standard tasks like dereplication of known structures.
+**Quick Start:** For getting started quickly, see the [quick-start guide]({{ "/quick-start/" | relative_url }}).
 
-SIRIUS is hghly integrateable into existing workflows and offers interfaces for manual as well
-as fully automated analysis.
+**Licenses:** As of SIRIUS 5, a user account and license are required to use the webservice-based features of SIRIUS. 
+[Find out more about academic and non-academic user accounts.]({{"/account-and-license/" | relative_url}})
 
-It combines the analysis of isotope patterns in MS
-spectra with the analysis of fragmentation patterns in MS/MS spectra,
-and uses CSI:FingerID as a web service to search in molecular structure
-databases. Further it integrates CANOPUS for de novo compound class prediction and
-MSNovelist for de novo structure generation.
+**Tutorials:** Check our [YouTube Playlist](https://youtube.com/playlist?list=PL8R4DKiWsw-tIG8w3hZWJunWZyy-qnIZM&si=xcaOZ3PILt7I2UB5) to find tutorials and learning resources. Whether you are new to SIRIUS or looking to expand your knowledge, this playlist has you covered.
 
-For getting started quickly see the [**quick-start guide**]({{ "/quick-start/" | relative_url }}).
+**Community Forum:** For community support and discussions, join our [SIRIUS Community space on Gitter](https://matrix.to/#/#sirius-ms:gitter.im). 
+Here, you can connect with other users and get help from the community.
 
+**Bug Reports and Feature Requests:** If you encounter any issues or have suggestions for new 
+features, kindly submit them via [GitHub](https://github.com/sirius-ms/sirius/issues/new/choose).
+
+**SIRIUS Integration:** SIRIUS can be easily integrated into existing workflows and provides 
+interfaces for both manual and fully automated analysis. If you're looking for help with 
+integrating SIRIUS into your workflows or want to share tips and code snippets, visit our 
+[SIRIUS Community space on Gitter](https://matrix.to/#/#sirius-ms:gitter.im).
+
+[**Help us improve the SIRIUS Documentation!**](https://github.com/sirius-ms/sirius-docs.github.io)
 
 ## SIRIUS introduction
 
+The primary focus of SIRIUS is the structure elucidation of novel
+molecules (drug leads, contaminants in synthesis or food), but it is also
+well equipped to handle more standard tasks such as dereplication of known structures.
+
+It combines the analysis of isotope patterns in MS
+spectra with the analysis of fragmentation patterns in MS/MS spectra,
+and uses CSI:FingerID as a web service for searching molecular structure
+databases. It also integrates CANOPUS for *de novo* compound class prediction and
+MSNovelist for *de novo* structure generation.
 
 SIRIUS requires **high mass accuracy** data. The mass deviation of your
 MS and MS/MS spectra should be within 20 ppm. Mass Spectrometry
