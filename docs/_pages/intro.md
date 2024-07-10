@@ -104,12 +104,10 @@ on a compute cluster and then manual inspection of selected results using the GU
 
 ## Literature
 
-The *scientific development* behind SIRIUS, ZODIAC, CSI:FingerID, CANOPUS, and MSNovelist has required
-many person-years of PhD students, post-docs and principal
-investigators; an educated guess would be around 35 person-years. This estimate does not include the development of the shiny graphical user interface introduced in version 3.1. But it is not the GUI or
+The *scientific development* behind SIRIUS, ZODIAC, CSI:FingerID, CANOPUS, and MSNovelist started in 2005 and has required over 50 person-years (and counting) of PhD students, post-docs and principal investigators. And we're not even talking about the development of the shiny graphical user interface introduced in version 3.1. But it is not the GUI or
 software development that does the work here; it is our scientific
 research that has made SIRIUS, ZODIAC, CSI:FingerID, CANOPUS, and MSNovelist possible. 
- It goes without saying that 15 years of work cannot be described in a single paper.
+ It goes without saying that 20 years of work cannot be described in a single paper.
 
 Please cite all papers that you feel are relevant to your work. Please do
 **not** cite this manual or the SIRIUS or CSI:FingerID website, but 
