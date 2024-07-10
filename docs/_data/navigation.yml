@@ -41,8 +41,10 @@ global:
         url: /advanced-background-information/#theoretical-masses-of-ions
       - title: "Mass deviations"
         url: /advanced-background-information/#mass-deviations
+      - title: "Spectral library matching"
+        url: /advanced-background-information/#spectral-library-matching
       - title: "Molecular formulas"
-        url: /advanced-background-information/#molecular-formulas
+        url: /advanced-background-information/#molecular-formula-annotation-concepts
       - title: "Fragmentation trees"
         url: /advanced-background-information/#fragmentation-trees
       - title: "Molecular fingerprints"

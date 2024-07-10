@@ -7,112 +7,89 @@ title: "Advanced background information"
 
 SIRIUS and CSI:FingerID have been trained on a wide variety of data,
 including data from different instrument types. Nevertheless, certain
-aspects of the mass spectra are important so that our software can
+characteristics of the mass spectra are important for our software to
 successfully process your data:
 
-  - Be reminded that SIRIUS requires **high mass accuracy** data: The
+  - SIRIUS requires **high mass accuracy** data: The
     mass deviation should be within 20 ppm. We are confident that SIRIUS
-    can also give useful information for worse mass accuracy (say,
+    will also provide useful information for lower mass accuracy data (say,
     50 ppm), but you should know what you are doing if you are
     processing such data.
 
-  - It is understood that some molecules generate more fragments,
-    whereas others have sparse fragmentation spectra. But it is also
-    important to understand that without sufficient information, it is
-    impossible to deduce the structure or even the molecular formula
-    from a tandem mass spectrum that contains almost no peaks. For
-    example, three peaks in a fragmentation spectrum measured with 1 ppm
-    mass accuracy contain about 60 bit of information, ignoring
-    dependencies between fragments and distribution of molecular masses.
-    With this information, it is simply not possible to find the correct
-    structure in a database such as PubChem, containing 100 million
-    structures. In comparison, ten peaks measured with 20 ppm mass
-    accuracy contain about 156 bit of information, again ignoring
-    dependencies and distributions. To this end, we ask you to provide
-    **rich fragmentation spectra** to SIRIUS, meaning that you **must
-    not noise-filter** these spectra, or let the peak
-    picking/centroiding software do that for you. At present, SIRIUS
-    considers up to 60 peaks in the fragmentation spectrum, and decides
-    for itself which of these peaks are considered noise.
+  - It is understood that some molecules generate many fragments
+    while others have sparse fragmentation spectra. However, it is crucial to understand that without sufficient information, deducing the structure or even the molecular formula from a tandem mass spectrum with almost no peaks is impossible. For
+    instance, three peaks in a fragmentation spectrum measured with 1 ppm
+    mass accuracy contain roughly 60 bits of information, ignoring
+    dependencies between fragments and the distribution of molecular masses.   
+    With this limited information, identifying the correct structure in a database like PubChem, which contains 100 million structures, is unfeasible. In comparison, ten peaks measured with 20 ppm mass
+    accuracy provide about 156 bits of information under the same assumptions. To this end, we ask you to provide SIRIUS with  **rich fragmentation spectra**, i.e., you **must
+    not noise-filter** these spectra, or rely on peak picking/centering software to do it for you. SIRIUS currently considers up to 60 peaks in the fragmentation spectrum and autonomously determines which peaks are noise.
 
-  - You will find that CSI:FingerID can sometimes identify the correct
-    structure although the fragmentation spectrum is (almost) empty — do
-    not get fooled, this is often nothing but lucky guessing. If you
-    know how to structurally elucidate a compound based on an empty
-    spectrum, please contact us and tell us how.
+    You might find that CSI:FingerID occasionally identifies the correct
+    structure although the fragmentation spectrum is (almost) empty. However, don't be misled -- this is often just a matter of lucky guessing.If you have a method for structurally elucidating a compound based on an empty spectrum, we would be very interested to hear from you. 
 
-  - You may have heard that peaks in a MS/MS spectrum with high mass
-    carry more information than peaks with low mass: This is a
-    misunderstanding. For example, if CSI:FingerID has to differentiate
-    between 10000 candidates with identical molecular formula, then
-    observing a fragment corresponding to an H<sub>2</sub>O loss is in fact very
-    uninformative. To this end, **do not set up your instrument to favor
-    peaks of large masses**, sacrificing those with smaller masses.
+  - You may have heard that peaks with high mass in a MS/MS spectrum 
+    carry more information than those with low mass. This is a
+    misunderstanding. For example, if CSI:FingerID needs to differentiate
+    between 10,000 candidates with identical molecular formula, then
+    observing a fragment corresponding to an H<sub>2</sub>O loss is in fact quite
+    uninformative. Therefore, **do not set up your instrument to favor
+    large mass peaks** at the expense of smaller mass peaks.
 
-  - Some instrument types (e.g., time-of-flight) suffer from detectors
-    that can run into saturation; saturated peaks can have mass
-    differences much larger than those expected for other peaks.
-    Unfortunately, most peak picking software do not mark such peaks as
-    "misshaped". To this end, it is possible that the most intense
-    peak in a spectrum is not explained, as its mass deviation is
-    extremely high.
+  - Some instrument types, such as time-of-flight, can experience detector saturation, resulting in peaks with mass differences much larger than expected. Unfortunately, most peak picking software does not mark these peaks as "misshaped". As a result, the most intense peak in a spectrum may remain unexplained due to its extreme mass deviation.
 
 ## Monoisotopic masses
 
 The monoisotopic mass of a molecule (or ion) is formally defined as "the
-sum of masses of the atoms in a molecule (or ion) using the unbound,
+sum of the masses of the atoms in a molecule (or ion) using the unbound,
 ground-state, rest mass of the most abundant isotope for each element."
 Using this definition, the monoisotopic mass is usually not the most
-abundant isotopologue of the molecule (e.g., peptides and proteins), it
-is often not resolved from other isotopologue peaks, and it may be
-undetectable in an MS experiment as it has intensity below noise level.
-In particular, given the isotope pattern of an unknown molecule, it is
-generally impossible to determine which of the peaks correspond to the
-monoisotopic peak. In total, this definition is not very practical.
+abundant isotopologue of the molecule (e.g., in peptides and proteins). It
+is often not resolved from other isotopologue peaks and may be
+undetectable in an MS experiment because its intensity is below the noise level. Given the isotope pattern of an unknown molecule, it is
+generally impossible to determine which peaks corresponds to the
+monoisotopic peak. Therefore, this definition is not very practical.
 
-Many researchers that work on the simulation and interpretation of
-isotope patterns have therefor introduced a slightly different and more
-practical definition of the monoisotopic mass of a molecule, see for
-example [*Dittwald et al.*](https://doi.org/10.1007/s13361-015-1180-4)
-and [*Meusel et al.*](https://doi.org/10.1021/acs.analchem.6b01015): 
-Here, the isotopologue of a molecule where each atom is the
-isotope with the lowest nominal mass (according to the natural isotope
-distribution of elements) is referred to as *monoisotopic*. This
-definition has the advantages that the monoisotopic mass of a molecule
+Many researchers working on the simulation and interpretation of
+isotope patterns have introduced a slightly different and more
+practical definition of the monoisotopic mass of a molecule. For example, [Dittwald *et al.*](https://doi.org/10.1007/s13361-015-1180-4)
+and [Meusel *et al.*](https://doi.org/10.1021/acs.analchem.6b01015) define the *monoisotopic* mass as the isotopologue of a molecule where each atom is the
+isotope with the lowest nominal mass according to the natural isotope
+distribution of elements. This definition has several advantages:
+- The monoisotopic mass of a molecule
 is always the sum of monoisotopic masses of the atoms, which can be
-defined analogously; the monoisotopic peak is in all cases the first
-peak of the ideal isotope pattern; and, the monoisotopic (isotopologue)
+defined analogously
+- The monoisotopic peak is always the first peak of the ideal isotope pattern.
+- The monoisotopic (isotopologue)
 peak is always resolved from all other isotopologue peaks, even at unit
-mass accuracy. Clearly, the monoisotopic peak of a molecule may again be
+mass accuracy. 
+
+The monoisotopic peak of a molecule may again be
 undetectable in an MS experiments.
 
 SIRIUS uses the second, more practical definition of "monoisotopic".
-This results in notable differences only for molecules that contain
-"uncommon elements" such as boron or selenium.
+This difference is only relevant for molecules that contain "uncommon elements" such as boron or selenium.
 
 ## Theoretical masses of ions
 
-There are different ways of computing the mass of an ionized molecule such as C<sub>6</sub>H<sub>7</sub>O + 
-or C<sub>6</sub>H<sub>6</sub>ONa + that will result in slightly different results: in particular, 
-adding the mass of a proton vs. subtracting the mass of an electron. Following
-suggestions by [*Ferrer & Thurman*](https://doi.org/10.1002/rcm.3102), 
-SIRIUS computes this mass by subtracting the rest mass of an electron. To this
-end, the monoisotopic mass of C<sub>6</sub>H<sub>7</sub>O + is the monoisotopic mass of the molecule 
+There are different ways to compute the mass of an ionized molecule such as C<sub>6</sub>H<sub>7</sub>O + 
+or C<sub>6</sub>H<sub>6</sub>ONa + which result in slightly different values. In particular, one can either add the mass of a proton or subtract the mass of an electron. Following
+the recommendations of [Ferrer & Thurman](https://doi.org/10.1002/rcm.3102), 
+SIRIUS computes this mass by subtracting the rest mass of an electron. For example, the monoisotopic mass of C<sub>6</sub>H<sub>7</sub>O + is the monoisotopic mass of the molecule 
 C<sub>6</sub>H<sub>7</sub>O (95.049690 Da) minus the
 rest mass of an electron (0.000549 Da), which totals as 95.049141 Da. Similarly, the monoisotopic mass of 
-C<sub>6</sub>H<sub>6</sub>ONa + equals 117.031634 Da - 0.000549 Da = 117.031085 Da.
+C<sub>6</sub>H<sub>6</sub>ONa + is calculated as 117.031634 Da - 0.000549 Da, resulting in 117.031085 Da.
 
-Above, masses have been rounded to six decimals; internally, SIRIUS uses
-double precision for representing masses. Masses of isotopes are taken
-from the [AME2016 atomic mass evaluation](http://nuclearmasses.org/resources_folder/Wang_2017_Chinese_Phys_C_41_030003.pdf). 
-See the [Table](#isotopes-with-masses-and-abundances-as-used-by-sirius) below for the isotope
-masses and abundances used by SIRIUS, again rounded to six decimals for
-presentation.
+**We recommend calibrating your instrument using ion masses as calculated
+above.** In any case, it is important to keep these small mass differences in mind, as they may lead to unexpected behavior when decomposing
+masses; see for example [Pluskal *et al.*](https://doi.org/10.1021/ac3000418).
 
 ### Isotopes with masses and abundances as used by SIRIUS
-In this table, *masses have been rounded to six decimals* for the purpose of
-presentation; internally, SIRIUS uses masses with higher precision. ‘AN’
-is atomic number. *Isotope abundances of boron can vary strongly, so
+In the examples above and in the table below, the masses have been rounded to six decimal places. 
+SIRIUS internally uses double precision to represent masses. 
+Isotope masses are derived from the [AME2016 atomic mass evaluation](http://nuclearmasses.org/resources_folder/Wang_2017_Chinese_Phys_C_41_030003.pdf) 
+atomic mass evaluation. ‘AN’
+is atomic number. Isotope abundances of boron can vary strongly, so
 isotope pattern analysis is of little use for identifying the correct
 molecular formula in case boron is present.
 
@@ -150,59 +127,55 @@ molecular formula in case boron is present.
 |                  |    |<sup>81</sup>Br|                         49.31% |        80.916291 |
 |       iodine (I) | 53 |<sup>127</sup>I|                           100% |       126.904473 |
 
-**We suggest to calibrate your instrument with ion masses as calculated
-above.** In any case, you should *be aware of this tiny mass
-difference*, as this can result in unexpected behavior when decomposing
-masses; see for example [*Pluskal
-et al.*](https://doi.org/10.1021/ac3000418).
+
 
 ## Mass deviations
 
-SIRIUS assumes that mass deviations (the difference between the measured
-mass and the theoretical mass of the ion) are normally distributed(
-[*Jaitly et al.*](https://doi.org/10.1021/ac052197p); 
-[*Zubarev & Mann*](https://doi.org/10.1074/mcp.M600380-MCP200); 
-[*Böcker & Dührkop*](https://dx.doi.org/10.1186%2Fs13321-016-0116-8)). 
-The user-defined parameter "mass accuracy" is given in parts-per-million
-(ppm). SIRIUS interpretes this parameter as a "guarantee" and, hence,
-assumes that **this is the maximum allowed mass deviation**; it will
-**discard** all explanations that require a larger mass deviation. This
-implies that **if in doubt, you should use a larger mass accuracy** to
-ensure that SIRIUS can successfully annotate peaks in the spectrum. For
-masses below 200 Da, we use the absolute mass deviation at 200 Da, as we
+SIRIUS assumes that mass deviations (the difference between measured
+and theoretical ion masses) follow a normal distribution ([Jaitly *et al.*](https://doi.org/10.1021/ac052197p), 
+[Zubarev & Mann](https://doi.org/10.1074/mcp.M600380-MCP200), 
+[Böcker & Dührkop](https://dx.doi.org/10.1186%2Fs13321-016-0116-8)). 
+The user-defined parameter "mass accuracy" is specified in parts-per-million
+(ppm). SIRIUS interprets this parameter as the **maximum allowable mass 
+deviation** and will **discard** any interpretations that require a greater 
+deviation. Therefore, **if in doubt, it is advisable to set a wider mass 
+accuracy** to ensure SIRIUS can successfully annotate peaks in the 
+spectrum. For masses below 200 Da, we use the absolute mass deviation at 
+200 Da, as we
 found that small masses vary according to an absolute rather than a
 relative error.
 
 ## Adducts
 
 Adduct information can be provided in two ways
-1. specified in the input file created by third-party preprocessing tools (using peak list-based formats such as .mgf)
-2. adducts can be detected by the SIRIUS preprocessing based on .mzml input files.
+1. Specified in the input file created by third-party preprocessing tools (using peak list-based formats such as .mgf).
+2. Adducts can be detected by the SIRIUS preprocessing based on .mzml input files.
 
-The specified adduct has implications on the possible molecular formula candidates of a feature and consequently on the fingerprint prediction, compound class predictions and the molecular structure hit.
+The specified adduct will affect the possible molecular formula candidates of a feature and consequently the fingerprint prediction, compound class prediction, and molecular structure hit.
 
-_Note: In SIRIUS 6 we abandoned the concept of using the ionization (e.g. [M+H]+) in the formula annotation step and expanding the adduct (e.g. [M+H]+ to [M+H-H<sub>2</sub>O]+) in the structure database search step.
-Now, the entire adduct is used from the beginning on._
+_Note: In SIRIUS 6 we have moved away from using ionization (e.g. [M+H]+) in the formula annotation step and expanding with the adduct (e.g. [M+H]+ to [M+H-H<sub>2</sub>O]+) in the structure database search step.
+Instead, the entire adduct is now used from the beginning on._
 
-The preprocessing detects adducts based on a list of detectable adducts and selects adducts based on correlating chromatographic peaks with indicative mass differences in the data. 
-It is usually not possible to find one unambiguous adduct for every feature. In case,
-* the adduct assignment is ambiguous, SIRIUS will consider multiple possible adducts,
-* the data does not even allow to assign a subset of possible adducts, a set of fallback adducts is used which can be specified by the user.
+Preprocessing detects adducts from a predefined list and selects them based on correlating chromatographic peaks with indicative mass differences in the data. 
+It is often challenging to assign a single unambiguous adduct to every feature. In case the adduct assignment is ambiguous, SIRIUS will consider multiple possible adducts.  If the data does not even allow to assign a subset of possible adducts, a set of fallback adducts is used which can be specified by the user.
 
-In the formula annotation step, molecular formula candidates that fit the addcut(s) are generated and scored. 
-One precursor molecular formula may correspond to multiple compound formulas (using different adduct candidates).
-All these different adducts of the same precursor formula will receive identical score, since it is not possible to differentiate these adducts from the isotope pattern and MS/MS spectrum - the isotope patterns will be identical and a loss in the MS/MS spectrum may be the adduct or a covalent bonded part of the molecule.
+During the formula annotation step, SIRIUS generates and scores molecular formula candidates that match the specified adduct(s). 
+A single precursor molecular formula can correspond to multiple compound formulas (using different adduct candidates).
+All adducts of the same precursor formula receive identical scores, since it is not possible to distinguish between them based on the isotope pattern and MS/MS spectrum: The isotope patterns will be identical and a loss observed in the MS/MS spectrum could stem from either the adduct or a covalently bonded part of the molecule.
 
 Two specific details must be noted:
-1. Fragmentation trees which are used to score molecular formula candidates, are provided in neutral form. So for all adducts with the same ionization (e.g. [M+H]+ for [M+H]+, [M+H-H<sub>2</sub>O]+ and [M+NH<sub>4</sub>]+), first one common fragmentation tree is computed for the ionization and second, fragmentation trees are resolved for each adduct. At this step it may happen that some fragments cannot be explained by a resolved formula and are removed from the tree - resolving C<sub>6</sub>H<sub>10</sub>NO for adduct [M+NH<sub>4</sub>]+ is possible (C<sub>6</sub>H<sub>6</sub>O), but for C<sub>6</sub>H<sub>12</sub>O<sub>6</sub> it is not. Still, we do not change the score for this fragmentation tree, even after removing a fragment. Since the fragment could had another possible explanation and we don't want to punish the candidate with this postprocessing.
-2. We do not differentiate [M+H]+ vs [M]+. In LC-MS experiments [M]+ is very uncommon. Furthermore, for an unknown compound in an untargeted measurement it is hard to decide if the compound was charged intrinsically or later by the instrument. Hence, SIRIUS considers the same neutral molecular formula for both adducts (the one of [M+H]+), but also searches for intrinsically charged molecular structures at the database search step. So [M]+ is merely a special [M+H]+. Only one of these is considered for the same feature. The default is [M+H]+. [M]+ is only used if directly specified in the input file or by the user. 
-
+1. Fragmentation trees which are used to score molecular formula candidates, are provided in neutral form. For all adducts with the same ionization (e.g. [M+H]+ for [M+H]+, [M+H-H<sub>2</sub>O]+ and [M+NH<sub>4</sub>]+), a common fragmentation tree is computed. Then, fragmentation trees are resolved for each specific adduct. During this process, some fragments maynot be explained by a resolved formula and are removed from the tree. For example, resolving C<sub>6</sub>H<sub>10</sub>NO for adduct [M+NH<sub>4</sub>]+ is possible (C<sub>6</sub>H<sub>6</sub>O), but not for C<sub>6</sub>H<sub>12</sub>O<sub>6</sub>. Despite removing these fragments, we do not alter the score for the fragmentation tree, as the fragment could have had another possible explanation, and we do not want to penalize the candidate due to this post-processing.
+2. We do not differentiate between [M+H]+ and [M]+. In LC-MS experiments [M]+ is very uncommon. Moreover, for an unknown compound in an untargeted measurement it is challenging to determine if the compound was intrinsically charged or ionized later by the instrument. Therefore, SIRIUS considers the same neutral molecular formula for both adducts (as [M+H]+), but also searches for intrinsically charged molecular structures at the database search step. Per default [M+H]+ is considered, and [M]+ is merely treated as a special case of [M+H]+. [M]+ is used if directly specified in the input file or by the user.
 
 ## SIRIUS workflows
 
-SIRIUS is segmented into sub tools: Formula annotation (SIRIUS + ZODIAC), Fingerprint prediction (CSI:FingerID + CANOPUS), Structure database search (CSI:FingerID) and de novo structure
-generation (MSNovelist). These sub tools follow a certain hierarchy, and can not be combined freely. For example, to predict CANOPUS compound classes the molecular formula annotation sub tool
-has to be run first (or results have to be present from a previous run). See below figure for how the different sub tools depend on each other.
+SIRIUS is the umbrella application comprising several workflows:
+- molecular formula annotation (SIRIUS + ZODIAC),
+- fingerprint prediction and compound class prediction (CSI:FingerID + CANOPUS),
+- structure database searching (CSI:FingerID + COSMIC),
+- de novo structure generation (MSNovelist).
+
+These workflows follow a certain hierarchy, and cannot be freely combined. For example, to predict CANOPUS compound classes, the molecular formula annotation workflow must be run first (or results from a previous run must be available). See the following figure on how the different workflows depend on each other.
 
 {% capture fig_img %}
 ![Foo]({{ "/assets/images/workflow_dependencies.png" | relative_url }})
@@ -210,23 +183,20 @@ has to be run first (or results have to be present from a previous run). See bel
 
 <figure>
   {{ fig_img | markdownify | remove: "<p>" | remove: "</p>" }}
-  <figcaption>SIRIUS sub tool dependencies.</figcaption>
+  <figcaption>SIRIUS workflow dependencies.</figcaption>
 </figure>
 
 
-## Spectral library matching via custom databases
+## Spectral library matching
 
-SIRIUS 6 offers to import local libraries containing spectral reference data. Supported import formats for spectral
-data are .ms, .mgf, .msp, .mat, .txt (MassBank), .mb, .json (GNPS, MoNA). Spectra need to be annotated with a structure and be centroided.
-SIRIUS will automatically perform spectral library search against all available libraries every time the molecular formula annotation subtool
-is used. Spectral library matching is performed using the cosine score with squared peak intensities and ignored precursor peak.
+SIRIUS 6 allows importing local libraries containing spectral reference data. Supported import formats are `.ms`, `.mgf`, `.msp`, `.mat`, `.txt` (MassBank), `.mb`, `.json` (GNPS, MoNA). Spectra must be annotated with a structure and be centroided.
+SIRIUS will automatically perform spectral library search against all available libraries whenever the molecular formula annotation workflow
+is used. Spectral library matching is performed using the cosine score with squared peak intensities, ignoring the precursor peak.
 
 ### Spectral matching influence on SIRIUS and CSI:FingerID results
 
-In SIRIUS 6, spectral library matches are treated as annotations to CSI:FingerID results. A spectral library match will not influence the rank of
-a structure candidate, but annotated to CSI:FingerID results instead. In case where a high quality spectral library hit is found where the corresponding molecular
-formula would not have been considered by SIRIUS, that molecular formula will be forcibly added to the list of molecular formula candidates.
-This done to ensure that no spectral library matches are lost when using CSI:FingerID.
+In SIRIUS 6, spectral library matches are added as annotations to CSI:FingerID results and do not influence the ranking of structure candidates. If a high-quality spectral library hit is found for a molecular formula that SIRIUS would not have otherwise considered, that molecular formula is forcibly added to the list of candidates.
+This ensures that no spectral library matches are overlooked when using CSI:FingerID.
 
 
 ## Molecular formula annotation concepts
