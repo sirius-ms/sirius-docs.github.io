@@ -3,18 +3,17 @@ permalink: /quick-start/
 title: "Quick start"
 ---
 
- - You can download some [sample spectra](https://bio.informatik.uni-jena.de/wp/wp-content/uploads/2015/05/demo.zip)
+ - You can download [sample spectra](https://bio.informatik.uni-jena.de/wp/wp-content/uploads/2015/05/demo.zip)
 from the SIRIUS website.
- - To get started quickly you may also want to have a look at our 
-   [video tutorials](https://www.youtube.com/playlist?list=PL57Jv_39fTdc_j8eHrH6At81n1AtxeKar).
- - To process a full LC-MS/MS run, you can also use your own `.mzML` files and run the following examples. This will perform features detection first. Also, annotating 100s or 1000s features may take a while. 
+ - For a quick start, you can also watch our [video tutorials](https://www.youtube.com/playlist?list=PL57Jv_39fTdc_j8eHrH6At81n1AtxeKar).
+ - To process a full LC-MS/MS run, you can also use your own `.mzML` files and run the following examples. This will first perform feature detection. Be aware that annotating 100s or 1000s of features may take a while. 
 
 ## Graphical User Interface
 
 ### Analyzing multiple compounds
 
-SIRIUS’s "Batch mode" corresponds to analyzing many compounds at once,
-each having one or more mass spectra. Obviously, you can also use this workflow to analyze a single compound.
+SIRIUS’s "Batch mode"  is equivalent to analyzing many compounds at once,
+each with one or more mass spectra. You can also use this workflow to analyze a single compound.
 
 {% capture fig_img %}
 ![Foo]({{ "/assets/images/quick_start_many_compounds.png" | relative_url }})
@@ -22,37 +21,27 @@ each having one or more mass spectra. Obviously, you can also use this workflow 
 
 <figure>
   {{ fig_img | markdownify | remove: "<p>" | remove: "</p>" }}
-  <figcaption>Analyze multiple compounds in a view simple steps. Steps in figure do not directly correspond to detailed steps below.</figcaption>
+  <figcaption>Analyze multiple compounds in a few simple steps. The steps highlighted in red in the screenshot are also highlighted in red in the detailed steps below.</figcaption>
 </figure>
 
-1. Move the files `demo-data/ms/Bicuculline.ms` and `demo-data/ms/Kaempferol.ms` and from the demo data via Drag and 
-    Drop into the application window.
-
-2. The two compounds are now displayed in the compound list.
-
-3. Check if the ionization and parent mass is correctly annotated.
-
-4. Click on the *Compute All* button.
-
-5. Select SIRIUS.
-
-6. Change the instrument type as well as the maximal allowed mass deviation. Be aware that this settings
+1. Drag the files `demo-data/ms/Bicuculline.ms` and `demo-data/ms/Kaempferol.ms` from the demo data into the application window.
+2. The two compounds now appear in the compound list. <span style="color:red">[1]</span>
+3. Verify that the ionization and parent masses are annotated correctly.
+4. Click the `Compute All` button. <span style="color:red">[2]</span>
+5. Select SIRIUS. <span style="color:red">[3]</span>
+6. Change the instrument type as well as the maximum  mass deviation allowed. Be aware that these settings
     will be used for all imported compounds.
-7. Check if the currently selected molecular [molecular formula generation strategy]({{ "/advanced-background-information/#molecular-formula-annotation-strategies" | relative_url }}) aligns with your research question (TODO: link).
-
-8. Select *Predict Properties & CANOPUS* to predict the compounds' molecular fingerprints with CSI:FingerID as well as their compound classes with CANOPUS.
-8. Select *CSI:FingerID structure database search* to search compounds in a structure database with CSI:FingerID.
-10. Click *Compute*.
-
-11. A *gear* symbol occurs on the lower right corner of each compound.
-     This means that the compound is part of a computation job.
-    
-12. Sometimes a computation might take a long time (e.g. for compounds
-     with a lot of elements or very high masses). You can cancel running
-     computations by selecting *Cancel All* in the toolbar.
-
-13. Inspect results with the help of the *Formulas*, *Structure* and *Compound Classes* views.
-    Even more details can be found by looking at the  *Substructure Annotation* and *Predicted Fingerprint* views.
+7. Verify that the currently selected molecular [molecular formula generation strategy]({{ "/advanced-background-information/#molecular-formula-annotation-strategies" | relative_url }}) matches your research question. <span style="color:red">[4]</span>
+8. Select `Predict Properties & CANOPUS` to predict the molecular fingerprints of the compounds with CSI:FingerID and their compound classes with CANOPUS. <span style="color:red">[5]</span>
+9. Select `CSI:FingerID structure database search` to search compounds in a structure database with CSI:FingerID. <span style="color:red">[6]</span>
+10. Click `Compute`.
+11. A *gear* icon appears in the lower right corner of each compound.
+     This indicates that the compound is part of a computation job.
+12. Sometimes a computation can take a long time (e.g. for compounds
+     with many elements or very high masses). You can cancel
+     computations by selecting `Cancel All` in the toolbar.
+13. Exmine the results using the `Formulas`, `Structure`, and `Compound Classes` views.
+    For more details, use the  `Substructure Annotation` and `Predicted Fingerprint` views.
 
 [//]: # (one or more mass spectra as individual peak list files. )
 
@@ -164,12 +153,11 @@ each having one or more mass spectra. Obviously, you can also use this workflow 
 
 ## Command Line Interface
 
-The demo-data contains examples for three different data formats readable
-by SIRIUS. 
+The demo data contains examples of three different data formats that can be read by SIRIUS. 
 
 ### Example 1: MGF file
-The MGF folder contains an example for a MGF file containing a
-single compound with several MS/MS spectra measured on an Orbitrap
+The MGF folder contains an example of an MGF file containing a
+single compound with mutliple MS/MS spectra measured on an Orbitrap
 instrument. SIRIUS recognizes that these MS/MS spectra belong to the
 same compound because they have the same parent mass. To analyze this
 compound, run:
@@ -178,7 +166,7 @@ compound, run:
 sirius --input demo-data/mgf/laudanosine.mgf --output <output.sirius> formula -p orbitrap fingerprint compound-classes structure write-summaries --output <summary-files-dir>
 ```
 
-This command runs 4 subtools at once: *formula annotation*, *molecular fingerprint prediction*, *compound class annotation* and *structure database search*.
+This command runs 4 subtools at once: `formula annotation`, `molecular fingerprint prediction`, `compound class annotation`, and `structure database search`.
 
 The `formula_candidates.tsv` in `<summary-files-dir>/0_laudanosine_FEATURE1` should look similar to this:
 
@@ -197,17 +185,16 @@ rank	molecularFormula	adduct	precursorFormula	SiriusScore	TreeScore	IsotopeScore
 ```
 
 This is a ranking list of the top molecular formula candidates. The best
-candidate is C<sub>21</sub>H<sub>27</sub>NO<sub>4</sub> with an overall score (*SiriusScore*) of 24.654. This score
-is the sum of the *TreeScore* (16.674) and the *IsotopeScore* (7.980).
+candidate is C<sub>21</sub>H<sub>27</sub>NO<sub>4</sub> with a total score (`SiriusScore`) of 24.654. This score
+is the sum of the `TreeScore` (16.674) and the `IsotopeScore` (7.980).
 
-The rear columns contain the number of explained peaks in MS/MS
-spectrum as well as the relative amount of explained intensity. The latter
-value should usually be over 80 % or even 90 %. If this value is very
-low you either have strange high intensive noise in your spectrum, or
-the allowed mass deviation might be too low to explain all the peaks.
+The rear columns contain the number of explained peaks in the MS/MS
+spectrum and the relative amount of explained intensity. The relative amount of explained intensity should normally be above 80 % or even 90 %. If this value is very
+low, either you have strangely intense noise in your spectrum, or
+the allowed mass deviation may be too low to explain all the peaks.
 
 
-The `structure_candidates.tsv` in `<summary-files-dir>/0_laudanosine_FEATURE1` should be similar to this (trunctated version):
+The `structure_candidates.tsv` in `<summary-files-dir>/0_laudanosine_FEATURE1` should look similar to this (truncated version):
 
 ```
 rank	formulaRank	ConfidenceScore	CSI:FingerIDScore	molecularFormula	adduct	InChIkey2D	InChI	name	smiles
@@ -218,65 +205,59 @@ rank	formulaRank	ConfidenceScore	CSI:FingerIDScore	molecularFormula	adduct	InChI
 ...
 ```
 
-This is a ranking of the top structure candidates. The best hit has a confidence score telling you how certain this prediction is correct. 
-Each structure hit also has a *formulaRank* since a compound may have different molecular formula candidates. 
+This is a ranking of the top candidate structures. The best hit is given a confidence score, which indicates how certain this prediction is.
+Each structure hit also has a `formulaRank`, since a compound may have several molecular formula candidates. 
 The file contains all structure information (InChI, SMILES) and also structure database IDs (not shown here). 
 
 
-The `formula_identifications.tsv` and `compound_identifications.tsv` in `<summary-files-dir>` contain similar information but only for the top hit of each analyzed compound.
+The `formula_identifications.tsv` and `compound_identifications.tsv` in `<summary-files-dir>` contain similar information, but only for the top hit of each  compound analyzed.
 The `formula_identifications_adduct.tsv` and `compound_identifications_adduct.tsv` contain this information for each possible adduct of each compound. 
 
-If you want to look at the fragmentation trees, structures or compound classes visually, you can open the output (`<outputdir>`) 
-in the GUI and use the included [Tree view tab]({{ "/gui/#tree-view-tab" | relative_url }}), [Structures tab]({{ "/gui/#structures-tab-csifingerid-detail-tab-in-sirius4" | relative_url }}) and
-[CANOPUS tab]({{ "/gui/#canopus-tab" | relative_url }}) . 
-The output can be imported by dropping the `<outputdir>` into the SIRIUS GUI application window.
+If you wish to view the fragmentation trees, structures or compound classes visually, you can open the output (`<outputdir>`) 
+in the GUI and use the `Formulas` (for fragmentation trees), `Structure`, and `Compound Classes` views.
+The output can be imported by dragging the `<outputdir>` into the SIRIUS GUI application window.
 Note that the viewer can also export the tree as vector graphics (svg/pdf).
 
 
 ### Example 2: MS files
 
 The `demo-data/ms/` directory contains two examples of this format. Each file contains a
-single compound measured with an Orbitrap instrument. To analyze this
-compound run:
-
+single compound measured on an Orbitrap instrument. To analyze this
+compound, run:
 ```shell
 sirius -o <outputdir> -i demo-data/ms/Bicuculline.ms formula -p orbitrap
 ```
-
-for formula annotation only or
-
+for formula annotation only, or
 ```shell
 sirius -o <outputdir> -i demo-data/ms/Bicuculline.ms formula -p orbitrap fingerprint compound-classes structure
 ```
+for structure database search and compound class annotation.
 
-to again perform structure database search and compound class annotation.
-
-As the ms file already contains the correct molecular formula, SIRIUS
-will directly compute the fragmentation tree without decomposing the
-mass (like when specifying exactly one molecular formula via `-f` option).
+Since the ms file already contains the correct molecular formula, SIRIUS
+will compute the fragmentation tree directly without having to decompose the mass (the same as when specifying exactly one molecular formula with the `-f` option).
 
 If you want to enforce a molecular formula analysis and ranking
-(although the correct molecular formula is given within the file) use
-the `--ignore-formula` option to ignore molecular the formula in the file. 
-The number of  formula candidates can be specified via the `-c` option.
+(even though the correct molecular formula is given in the file), use
+the `--ignore-formula` option to ignore the molecular formula in the file. 
+The number of  formula candidates can be specified with the `-c` option.
 
 ```shell
 sirius -o <outputdir> -i demo-data/ms/Bicuculline.ms --ignore-formula formula -p orbitrap -c 5
 ```
 
-SIRIUS will now ignore the correct molecular formula in the file and
+SIRIUS will ignore the correct molecular formula in the file and
 output the 5 best candidates.
 
 
 ## Background Service - Generic SIRIUS API
 
 SIRIUS provides a REST API to access data from the project space and to run computations. 
-You can either directly interact with this API or use the Python SDK.
+You can either  interact with this API directly or use the Python SDK.
 
-The openAPI specification and documentation can be viewed via the browser. Just start SIRIUS and open [http://localhost:8080/](http://localhost:8080/).
-SIRIUS may also use a different available port. Please, check the command line output of the starting SIRIUS: `SIRIUS Service is running on port: [PORT_NUMBER]`.
+The openAPI specification and documentation can be viewed in the browser. Start SIRIUS and open [http://localhost:8080/](http://localhost:8080/).
+SIRIUS may be using a different available port. Please check the command line output of the starting SIRIUS: `SIRIUS Service is running on port: [PORT_NUMBER]`.
 
-The page should look similar to this:
+The page should look something like this:
 {% capture fig_img %}
 ![Foo]({{ "/assets/images/swagger-api.png" | relative_url }})
 {% endcapture %}
@@ -287,18 +268,18 @@ The page should look similar to this:
 </figure>
 
 
-Since there are so many endpoints, the start may be a bit overwhelming.
-The following will help you to get an overview and make the best use of the API.
+Because there are so many endpoints, getting started can be a bit overwhelming.
+The following explanations will help you get an overview and get the most out of the API.
 
 ### Hello <del>world</del> structure candidates (your first tiny example)
-First of all: remember that the API supports multiple SIRIUS projects. That is why you always need to specify the `projectId` if you want to query a feature.
+First of all, remember that the API supports multiple SIRIUS projects. Therefore, you must always specify the `projectId` when you want to query a feature.
 
-Say you want to get the structure hits for the feature with name "InterestingCompound12". You need to do the following.
-(Note: This can be directly performed via the swagger ui at [http://localhost:8080/](http://localhost:8080/). Please remember to change the commands matching to your query IDs.)
+Say you want to get the structure hits for the feature with named `InterestingCompound12`. You need to do the following.
+(Note: This can be done directly from the Swagger UI at [http://localhost:8080/](http://localhost:8080/). Please remember to change the commands matching to your query IDs.)
 
-* get the list of open project spaces:`http://localhost:8080/api/projects`
 
-Response:
+* Get the list of open project spaces: `http://localhost:8080/api/projects`
+
 ```json
 [
   {
@@ -312,9 +293,8 @@ Response:
   }
 ]
 ```
-* get the list of features: `http://localhost:8080/api/projects/testdataset/aligned-features`
+* Get the list of features: `http://localhost:8080/api/projects/testdataset/aligned-features`
 
-Response:
  ```json
 [
 ...
@@ -339,10 +319,9 @@ Response:
 ...
 ]
 ```
-* search for the feature with name `InterestingCompound12` and select its `alignedFeatureId`.
-* get all structure candiates ranked by csiScore: `http://localhost:8080/api/projects/s6tomatoSmall/aligned-features/577173392774048066/db-structures`
+* Search for the feature with name `InterestingCompound12` and select its `alignedFeatureId`.
+* Get all structure candidates ranked by `csiScore`: `http://localhost:8080/api/projects/s6tomatoSmall/aligned-features/577173392774048066/db-structures`
 
-Response: 
 ```json
 [
   {
@@ -375,7 +354,7 @@ Response:
 
 ### Class hierarchy
 
-The main classes in the hierarchy are **projects**, **alignedFeatures** and **formulas**. These have a one-to-many relation. 
+The main classes in the hierarchy are `projects`, `alignedFeatures` and `formulas`. These have a one-to-many relation. 
 See below an exemplary representation. 
 
 ```
@@ -412,8 +391,8 @@ project [projectId:2]
 │   ...
 ```
 
-Within these classes you can find data and results. Results such as structures are long list and thus also come with a 'paged'-endpoint (`/page`).
-With this hierarchy in mind you can for example
+Within these classes you can find data and results. Results such as structures are long lists and therefore also come with a 'paged'-endpoint (`/page`).
+With this hierarchy in mind, you can for example:
 * select all formula candidates of a feature: `/api/projects/{projectId}/aligned-features/{alignedFeatureId}/formulas`
 * select all (database) structure candidates of a feature: `/api/projects/{projectId}/aligned-features/{alignedFeatureId}/db-structures`
 * select all (de novo) structure candidates of a specific molecular formula candidate of a feature: `/api/projects/{projectId}/aligned-features/{alignedFeatureId}/formulas/{formulaId}/denovo-structures`
