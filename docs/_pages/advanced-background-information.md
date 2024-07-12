@@ -201,118 +201,103 @@ This ensures that no spectral library matches are overlooked when using CSI:Fing
 
 ## Molecular formula annotation concepts
 
-SIRIUS supports three different approaches to generate the set of molecular formula candidates considered for annotation of a feature: de novo, database search and bottom up. 
-Understanding them is vital to being able to apply the annotation [strategy](#molecular-formula-annotation-strategies) that best fits your task or research question.
-It is also important to understand the implications of the molecular formula annotation step for structure annotation and compound class prediction:
-Only those molecular formula candidates that are considered by the molecular formula annotation strategy are used to annotate structures via database search
-and compound classes later on. 
+SIRIUS supports three different approaches for generating the set of candidate molecular formulas for feature annotation: *de novo*, database search, and bottom-up. 
+A thorough understanding of these approaches is crucial for effectively applying the annotation [strategy](#molecular-formula-annotation-strategies) that aligns best with your task or research question.
 
-**IMPORTANT: If a molecular formula is not part of the candidate set in this step, it will not be considered for all subsequent steps!**
+It is equally important to understand how the molecular formula annotation step affects structure annotation and compound class prediction. Only those molecular formula candidates selected by the annotation strategy are used for structure annotation via database searching and compound class prediction in subsequent steps.
 
-### De novo annotation
+**IMPORTANT: Molecular formulas that are not included in the candidate set during this step are excluded from all subsequent processes.**
 
-SIRIUS will consider all molecular formulas
-that are chemically feasible (considering valencies) and explain the precursor mass of the
-molecule / ion: For example, if your query compound is pinensin A 
+SIRIUS imposes penalties on candidate molecular formulas that significantly deviate from typical biomolecule compositions
+(e.g., C<sub>2</sub>H<sub>2</sub>N<sub>12</sub>O<sub>12</sub> would incur a penalty). However, these penalties are applied cautiously: 
+Only 2.6% of all molecular formulas in PubChem
+compounds — and thus a small fraction of formulas not categorized as biomolecules — are penalized. SIRIUS never rewards molecular formulas. These penalty rules apply to all approaches. 
+
+SIRIUS uses a concise list of outlier molecular formulas that would typically receive penalties under the aforementioned criteria due to their deviation from "biomolecule-like" compositions.
+These formulas are not penalized, observed in metabolomics experiments (e.g., as solvents), are neither penalized nor rewarded.
+However, during the computation of fragmentation trees, fragment annotations within MS/MS spectra—subformulas derived from these outlier molecular formulas—may still incur penalties.
+
+### *De novo* annotation
+
+SIRIUS considers all chemically feasible molecular formulas (considering valencies) that match the precursor mass of the
+molecule/ion: For instance, if your query compound is pinensin A 
 (C<sub>96</sub>H<sub>139</sub>N<sub>27</sub>O<sub>30</sub>S<sub>2</sub>,
-monoisotopic mass of 2213.962 Da) then SIRIUS will consider all
-19,746,670 candidate molecular formulas that explain this
-monoisotopic mass (assuming a set of elements, see below, and 10 ppm mass
-accuracy). SIRIUS penalizes candidate molecular formulas that deviate
-too strongly of what we assume a molecular formula of a biomolecule to look like 
-(for example, C<sub>2</sub>H<sub>2</sub>N<sub>12</sub>O<sub>12</sub> will receive a penalty), 
-but this penalty is used cautiously: Only 2.6% of the molecular formulas of all PubChem
-compounds — and, hence, only a tiny fraction of molecular formulas from
-compounds not marked as biomolecules — are penalized. Molecular formulas
-are never rewarded by SIRIUS. These penalties apply to the other approaches as well. 
+monoisotopic mass of 2213.962 Da),  SIRIUS will evaluate all
+19,746,670 candidate molecular formulas that match this
+monoisotopic mass (based on a subset of elements - described below - and 10 ppm mass accuracy). 
 
-SIRIUS uses a short list of outlier molecular formulas which would be
-penalized by the above method, as they are not "biomolecule-like"; these
-molecular formulas are not penalized, as they have been observed in
-metabolomics experiments (for example, as solvents), but are also not
-rewarded. However, fragment annotations in the MS/MS, and hence subformulas of these outlier
-molecular formulas, may be penalized during fragmentation tree computation.
-
-Considering all molecular formulas implies that a set of elements has to
-be provided from which these molecular formulas are generated. SIRIUS
-includes methods for the [auto-detection of elements](https://doi.org/10.1021/acs.analchem.6b01015) 
+Considering all molecular formulas implies specifying a set of elements from which these formulas are generated. SIRIUS
+includes methods to [automatically detect elements](https://doi.org/10.1021/acs.analchem.6b01015) 
 from the isotope and fragmentation pattern of the query compound.
-The element set should only be manually altered, if the user has a good reason to do so (e.g. prior knowledge about the 
-feature of interest). Expanding the element set too much will result in extreme computation times and increased bogus annotations. 
-The standard element set considered is C,H,N,O,P, while presence and abundance of Cl,B,Se,S,Br will
-be autodetected from the input isotope pattern in the MS1 spectrum.
+Users should only manually adjust the element set if they have specific prior knowledge about the features of interest.
+Expanding the element set unnecessarily  will result in  significantly longer computation times and an increase in incorrect annotations.
+The default element set considered is C, H, N, O, P. The presence and abundance of  Cl, B, Se, S, and Br will
+are automatically detected from the input isotope pattern in the MS1 spectrum.
+
+**This approach can result in molecular 
+formula annotations that may not match any entries in the structure database.**
 
 ### Formula database search
 
-Instead of considering the complete space of molecular formulas possible for a given mass and element set, one can also restrict that space
-to a database. In that case, SIRIUS will only consider molecular formulas that are part of the selected database(s) and it is possible to further apply
-element set restrictions to that. Naturally, this approach is unable to annotate novel molecular formulas ("novel" meaning not part of the selected database) and will harshly restrict the
-space of molecular formulas candidates. Since the space of possible formula candidates is so much smaller then with de novo, this approach does not require a 
-predefined element set. In contrast to de novo, this approach may annotate formulas with uncommon elements that cannot be detected from the MS1 (since considering a large set of uncommon element for de novo is usually no good practice, see above).
+Instead of exploring the entire space of molecular formulas for a given mass and element set, one can alternatively confine the search to a specific database. In that case, SIRIUS exclusively considers molecular formulas included in the chosen database(s), with the option to further narrow down by specific element sets. Naturally, **this approach cannot annotate novel molecular formulas ("novel" defined as "not present in the selected database")** and significantly restricts the
+pool of molecular formulas candidates. As this pool is much smaller than for the *de novo* method, this approach does not require a 
+predefined element set. The database constrained approach is more likely to annotate formulas with unusual elements that are not recognizable from MS1 than the *de novo* approach.
 
-### Bottom up search
+### Bottom-up search
 
-The "bottom up" approach is somewhat of a middle ground between the vast molecular formula space of de novo annotation and the very limited space of formula database search.
-It is inspired by [*Xing et al.*](https://doi.org/10.1038/s41592-023-01850-x).
-For each fragment observed in the MS/MS spectrum, its mass and corresponding root loss mass are used to query a database of potential subformulas.
-The resulting subformula candidates for fragment and root loss are added pairwise to create formula candidates for the precursor.
-Thus, this resulting space of precursor formula candidates depends on the fragments present in the spectrum. The space is not limited to exactly those
-precursor formulas already present in databases, but can also contain novel formulas that are combinations of two known molecular formulas. 
-However, due to the dependence on a database, the approach produces a much smaller number of formulas compared to de novo annotation, which leads to a substantial speed up in computation time.
-Since the space of possible formula candidates is limited, it is not strictly necessary to apply restrictions on the considered element set.
-The formula database used for bottom up search contains the "bio" database formulas as well as a list of commonly appearing losses.
-In contrast to de novo, this approach may annotate formulas with uncommon elements that cannot be detected from the MS1 (since considering a large set of uncommon element for de novo is usually no good practice, see above).
+The "bottom-up" approach serves as a middle ground between the expansive molecular formula space of *de novo* annotation and the very constrained space of formula database search.
+This method, inspired by [*Xing et al.*](https://doi.org/10.1038/s41592-023-01850-x), leverages each observed fragment's mass and corresponding root loss mass from the MS/MS spectrum to query a database of potential subformulas. Pairwise combinations of these resulting subformula candidates for fragments and root losses are then used to construct candidate formulas for the precursor molecule.
+Thus, the range of precursor formula candidates generated depends on the fragments present in the spectrum. **Unlike strict restriction to database entries, this method can detect novel formulas that are combinations of two known molecular formulas.** And yet, relying on database entries, this approach generates a much smaller number of candidate formulas compared to *de novo* annotation, leading to a substantial speed up in computation time.
 
-
+Given the constrains, strict limitations on an element subset are often unnecessary.
+The formula database used for bottom-up searches typically includes formulas from the "bio" database along with a list of commonly observed losses.
+Again, this approach is more likely to annotate formulas with unusual elements that are not recognizable from MS1 than the *de novo* approach.
 
 ## Molecular formula annotation strategies
 
-The molecular formula annotations shown above can either be used individually or combined. Choosing the correct molecular formula annotation
-strategy is integral for a successful analysis.  Below are some standard strategies that cover most applications and can serve as examples:
+The molecular formula annotations explained above can  be utilized either individually or combined. Selecting the appropriate molecular formula annotation
+strategy is integral for a successful analysis.  Below we describe some standard strategies that cover most applications and serve as illustrative examples:
 
-### De novo + bottom up (recommended for generic applications)
+### *De novo* + bottom-up
 
-In the recommended combined approach, features are divided into "low" (m/z<400) and "high"(m/z>=400) mass features. Bottom up search is performed in both cases, but for low mass features SIRIUS
-additionally performs de novo molecular formula annotation as a means to ensure no formula is missed. Due to de novo only being performed for lower masses, computation times are only minorly impacted compared to solely
-performing bottom up search.
-The m/z threshold can be adjusted based on running time constraints and capabilities of your local machine.
-Element set constraints have to be set for de novo annotation and can additionally be set to apply to bottom up search as well. This approach can produce molecular
-formula annotations with no corresponding structure database hit.
+**We recommend this approach for generic applications.** 
 
-### De novo only
+In the combined approach, features are categorized into "low" (m/z<400) and "high"(m/z>=400) mass features. Bottom-up search is conducted for both categories. For low mass features, SIRIUS also employs *de novo* molecular formula annotation to ensure comprehensive coverage. This dual strategy minimally impacts (increases) computation times compared to relying solely on bottom-up search.
+The m/z threshold for categorization can be adjusted to align with runtime constraints and the computational capabilities of your local machine.
+Element set constraints must be defined for *de novo* annotation and can optionally be applied to bottom-up search as well. 
 
-The "de novo only" strategy should be employed when specifically expecting molecular formulas that cannot be generated by bottom up search (meaning that the precursor
-formula in question is not a combination of database subformulas). This may especially be the case when looking for "unknown unknowns".
-Additionally, the expected element set needs to be well-defined and should not contain many "uncommon" elements due to the combinatorial explosion of possible candidates for large masses (see example in [de novo](#de-novo-annotation)).
-The local machine running the SIRIUS client should be powerful enough to handle de novo annotation of higher mass compounds. This approach can produce molecular
-formula annotations with no corresponding structure database hit.
+### *De novo* only
 
+**This approach is particularly suitable for discovering "unknown unknowns".**
+
+The "de novo only" strategy should be employed when specifically expecting molecular formulas that cannot be detected by bottom-up search (i.e., the precursor
+formula is not a combination of database subformulas). 
+The expected element set needs to be well-defined and avoid including too many uncommon elements, as this can lead to a  combinatorial explosion of possible candidates for large masses (see the example in [de novo](#de-novo-annotation)).
+The local machine running the SIRIUS client must be sufficiently powerful  to handle *de novo* annotation of higher mass compounds.
 
 ### Database search only
 
-"Database search only" should be employed when the user is only interested in features with a structure database hit and additionally requires extremely fast
-computation times. This approach cannot produce formula annotations with no structure database hit and will only consider molecular formulas that are part
-of the selected databases.
+**This strategy should be employed only when the user is interested exclusively in features that have corresponding entries in a structure database and requires extremely fast computation times.**
+
+As the database-only approach will only consider molecular formulas present in the selected databases it will not generate formula annotations without a structure database match.
 
 ### Bottom up only
 
-"Bottom up only" can be employed for a minor speed up over the recommended combined approach. In general, it does not hold any significant advantages over the recommended
-strategy, since disadvantages of de novo annotation only are mostly relevant for high-mass compounds.
-
-
+The "Bottom up only" strategy can be used for a slight speed increase compared to the recommended combined approach. However, it does not offer significant advantages over the recommended strategy, as the drawbacks of *de novo* annotation are primarily relevant for high-mass compounds.
 
 ## Fragmentation trees
 
 Fragmentation trees annotate the fragmentation spectrum with molecular
 formulas, and identify likely losses between the ions in the
-fragmentation spectrum. Fragmentation trees can be used both to identify
-the molecular formula of a query compound, and to derive information
-about its fragmentation: For example, this is used in CSI:FingerID to
-predict the molecular fingerprint of the query compound. Fragmentation
-trees are computed directly from the fragmentation spectrum, and do not
-use or require any spectral libraries or molecular structure databases
+fragmentation spectrum. Fragmentation trees can be used to determine
+the molecular formula of a query compound and to gain insights into its 
+fragmentation. This fragmentation information is utilized in CSI:FingerID to
+predict the molecular fingerprint of the query compound. 
+
+Fragmentation
+trees are computed directly from the fragmentation spectrum without the need for spectral libraries or molecular structure databases
 (for the subtle "exemptions" from this rule, 
-see [*Böcker & Dührkop*](https://dx.doi.org/10.1186%2Fs13321-016-0116-8)). 
+see [Böcker & Dührkop](https://dx.doi.org/10.1186%2Fs13321-016-0116-8)). 
 Fragmentation trees are computed by combinatorial optimization; the underlying optimization
 problem constitutes a Maximum Aposterior Estimator. The optimization
 problem (finding a maximum colorful subtree) is NP-hard but nevertheless
@@ -320,45 +305,39 @@ solved optimally, explaining why computations sometimes require
 significant running time for large molecules with rich fragmentation
 spectra.
 
-With SIRIUS 4.0, fragmentation tree computation has again been speeded
-up significantly (around 36-fold to the previous version), through
-intricated [algorithm engineering](https://drops.dagstuhl.de/opus/volltexte/2018/9325/pdf/LIPIcs-WABI-2018-23.pdf). 
-If you think that computations should be speeded up even further, 
-we ask you to cite our papers on swiftly computing fragmentation trees (
-[*Dührkop et al.*](https://drops.dagstuhl.de/opus/volltexte/2018/9325/pdf/LIPIcs-WABI-2018-23.pdf);
-[*White et al.*](https://doi.org/10.1007/978-3-319-21398-9_25); 
-[*Rauf et al.*](https://doi.org/10.1089/cmb.2012.0083); 
-[*Böcker & Rasche*](https://doi.org/10.1093/bioinformatics/btn270)), 
-as this would give us an incentive to
-continue our work on this topic: We stress that the current version of
-SIRIUS is **many million times faster** than the initial version . In
-fact, this initial version could not process more than 15 peaks in the
-fragmentation spectrum, due to exploding running times *and* memory
-requirements.
+With SIRIUS 4.0, fragmentation tree computation has been significantly accelerated—approximately 36 times faster than the previous version—thanks to advanced [algorithm engineering](https://drops.dagstuhl.de/opus/volltexte/2018/9325/pdf/LIPIcs-WABI-2018-23.pdf). 
+If you believe further speed improvements are necessary, we encourage you to cite our papers on swiftly computing fragmentation trees 
+([Dührkop *et al.*](https://drops.dagstuhl.de/opus/volltexte/2018/9325/pdf/LIPIcs-WABI-2018-23.pdf);
+[White *et al.*](https://doi.org/10.1007/978-3-319-21398-9_25); 
+[Rauf *et al.*](https://doi.org/10.1089/cmb.2012.0083); 
+[Böcker & Rasche](https://doi.org/10.1093/bioinformatics/btn270)). This recognition provides an incentive for us to continue enhancing our work in this area. 
+We stress that the current version of
+SIRIUS is **millions of times faster** than the initial version. In
+fact, the initial version struggled to process more than 15 peaks in the fragmentation spectrum due to excessive running times *and* memory requirements.
 
-Modeling the fragmentation process as a tree comes with two
-restrictions: Namely, "pull-ups" and "parallelograms". A **pull-up** is
-a fragment which is inserted too deep into the trees. Due to our
-combinatorial optimization, SIRIUS will try to generate deep trees, assuming that there are many small fragmentation 
-steps instead of few larger ones. SIRIUS will, for example, prefer three consecutive 
-C<sub>2</sub>H<sub>2</sub> losses to a single C<sub>6</sub>H<sub>6</sub> loss. This does not affect the quality of the
-molecular formula identification; but when interpreting fragmentation trees, you should keep in mind this side effect
-of the combinatorial optimization. **Parallelograms** are consecutive fragmentation processes that happen in more than
-one order: For example, the precursor ion looses H<sub>2</sub>O then CO<sub>2</sub>, **but also** CO<sub>2</sub> 
-then H<sub>2</sub>O. SIRIUS will always decide
-for one order of such fragmentation reactions, as this is the only valid way to model the fragmentation as a tree.
+Modeling fragmentation processes as a tree comes with two
+restrictions: Namely, "pull-ups" and "parallelograms". 
+ - A **pull-up** occurs when a fragment is placed too deep in the tree
+   Due to ourcombinatorial optimization, SIRIUS tends to generate deep 
+   trees, favoring many small fragmentation steps over fewer larger 
+   ones. For example, SIRIUS will prefer three consecutive C<sub>2</sub>H<sub>2</sub> losses over a single C<sub>6</sub>H<sub>6</sub> 
+   loss. While this does not affect the accuracy of molecular formula 
+   identification, you should keep this side effect in mind when 
+   interpreting fragmentation trees.
+ - **Parallelograms** are consecutive fragmentation processes that can
+   occur in more than one order: For instance, the precursor ion might 
+   lose H<sub>2</sub>O followed by CO<sub>2</sub>, **but also** 
+   CO<sub>2</sub> followed by H<sub>2</sub>O. SIRIUS will always choose
+   one order for such fragmentation reactions, as this is the only valid way to model the fragmentation as a tree.
 
-We have incorporated support for experimental setups (MS<sup>E</sup>,
+We have integrated support for experimental setups (MS<sup>E</sup>,
 MS<sup>all</sup>, All Ion Fragmentation) where isotope peaks and
-fragment peaks are measured together in the same spectrum. For such
-experiments, SIRIUS 4 offers a combined isotope and fragmentation
+fragment peaks are measured together in the same spectrum. For these
+experiments, SIRIUS offers combined isotope and fragmentation
 pattern analysis. For DDA (Data-Dependent Acquisition) fragmentation
 spectra, isotope patterns are disturbed through the mass filter,
-resulting in non-trivial modifications of masses and intensities. At
-present, SIRIUS does not make use of these isotope patterns, but simply
-flags these peaks and ignore them in the optimization process. Support
-for DDA isotope patterns will be added in an upcomming version of
-SIRIUS.
+resulting in non-trivial modifications of masses and intensities. Currently, SIRIUS does not utilize these isotope patterns; instead, it flags these peaks and ignores them during the optimization process. 
+Support for DDA isotope patterns will be included in an upcoming version of SIRIUS.
 
 ## Molecular fingerprints
 
