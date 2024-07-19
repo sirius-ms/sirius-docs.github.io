@@ -62,8 +62,8 @@ Furthermore, the feature list can be filtered by clicking the appropriate button
 
 <img src="{{ "/assets/images/filter_empty.png" | relative_url }}" height="300" width="300">
 
-Aligned features can be filtered by mass range, retention time range, confidence score range as well as peak shape quality (only available for
-mzMl and mzXML input), minimum number of isotope peaks in the MS1 and detected lipid classes.
+Aligned features can be filtered by mass range, retention time range, confidence score range as well as different quality metrics (only available for
+mzMl and mzXML input)and detected lipid classes.
 
 Additionally, users can filter for specific element constraints in either the neutral molecular formula or precursor formula,
 as well as for specific detected adducts. 
