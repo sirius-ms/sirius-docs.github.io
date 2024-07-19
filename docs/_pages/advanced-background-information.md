@@ -195,7 +195,53 @@ All these different adducts of the same precursor formula will receive identical
 
 Two specific details must be noted:
 1. Fragmentation trees which are used to score molecular formula candidates, are provided in neutral form. So for all adducts with the same ionization (e.g. [M+H]+ for [M+H]+, [M+H-H<sub>2</sub>O]+ and [M+NH<sub>4</sub>]+), first one common fragmentation tree is computed for the ionization and second, fragmentation trees are resolved for each adduct. At this step it may happen that some fragments cannot be explained by a resolved formula and are removed from the tree - resolving C<sub>6</sub>H<sub>10</sub>NO for adduct [M+NH<sub>4</sub>]+ is possible (C<sub>6</sub>H<sub>6</sub>O), but for C<sub>6</sub>H<sub>12</sub>O<sub>6</sub> it is not. Still, we do not change the score for this fragmentation tree, even after removing a fragment. Since the fragment could had another possible explanation and we don't want to punish the candidate with this postprocessing.
-2. We do not differentiate [M+H]+ vs [M]+. In LC-MS experiments [M]+ is very uncommon. Furthermore, for an unknown compound in an untargeted measurement it is hard to decide if the compound was charged intrinsically or later by the instrument. Hence, SIRIUS considers the same neutral molecular formula for both adducts (the one of [M+H]+), but also searches for intrinsically charged molecular structures at the database search step. So [M]+ is merely a special [M+H]+. Only one of these is considered for the same feature. The default is [M+H]+. [M]+ is only used if directly specified in the input file or by the user. 
+2. We do not differentiate [M+H]+ vs [M]+. In LC-MS experiments [M]+ is very uncommon. Furthermore, for an unknown compound in an untargeted measurement it is hard to decide if the compound was charged intrinsically or later by the instrument. Hence, SIRIUS considers the same neutral molecular formula for both adducts (the one of [M+H]+), but also searches for intrinsically charged molecular structures at the database search step. So [M]+ is merely a special [M+H]+. Only one of these is considered for the same feature. The default is [M+H]+. [M]+ is only used if directly specified in the input file or by the user.
+
+### Adduct sorting
+
+The sorting scheme for adducts in SIRIUS is the following. This is applied for example when ranking compound molecular formula candidates with identical precursor molecular formula and identical score.
+
+```text
+[M + H]+
+[M + Na]+
+[M + K]+
+[M]+
+[M + H3N + H]+
+[M - H2O + H]+
+[M - H4O2 + H]+
+[M + H2O + H]+
+[M + CH4O + H]+
+[M + C2H3N + H]+
+[M + C2H3N + Na]+
+[M + C3H8O + H]+
+[M + C2H6OS + H]+
+[M + C4H6N2 + H]+
+[M - H + Na + Na]+
+[M - H + K + K]+
+[2M + H]+
+[2M + Na]+
+[2M + K]+
+[M - H]-
+[M + Cl]-
+[M + Br]-
+[M]-
+[M - CH3 - H]-
+[M - H3N - H]-
+[M - H2O - H]-
+[M - ClH - H]-
+[M - CO2 - H]-
+[M - CH2O3 - H]-
+[M + H2O - H]-
+[M + C2H3N - H]-
+[M + CH2O2 - H]-
+[M + C2H4O2 - H]-
+[M + C2HF3O2 - H]-
+[M - H + Na - H]-
+[M - H + K - H]-
+[2M - H]-
+[2M + Cl]-
+[2M + Br]-
+```
 
 
 ## SIRIUS workflows
