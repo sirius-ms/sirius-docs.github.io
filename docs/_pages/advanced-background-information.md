@@ -380,7 +380,7 @@ the same value, due to a hash collision.
 CSI:FingerID predicts only those molecular properties that demonstrate 
 reasonable prediction quality, as assessed through cross-validation (F<sub>1</sub> at least
 (0.25), see below). In total, 3,215 molecular properties are
-predicted by CSI:FingerID 1.1.
+predicted by SIRIUS 6.0.
 
 [//]: # (Update the exact number of molecular properties and optionally add some explantion on the new selection strategy)
 
