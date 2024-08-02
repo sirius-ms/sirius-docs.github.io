@@ -19,18 +19,16 @@ SIRIUS supports multiple MS data formats:
 ##### MGF-Format
 
 SIRIUS supports the MGF (Mascot Generic Format), initially developed 
-for peptide spectra in the Mascot search engine. Each
-spectrum in a MGF file can contain many spectra each starting with and
-ending with . Peaks are listed as pairs of m/z and intensity
+for peptide spectra in the Mascot search engine. Each MGF file can contain multiple spectra, each beginning and ending with the `BEGIN IONS` and `END IONS` markers, respectively. Peaks are listed as pairs of m/z and intensity
 values, separated by whitespaces, with one peak per line. Additional 
-meta-information can be included as NAME=VALUE pairs. SIRIUS recognizes the
+meta-information can be included as `NAME=VALUE` pairs. SIRIUS recognizes the
 following meta-information:
 
-  - PEPMASS: Indicates the measured mass of the ion (e.g., the parent
+  - `PEPMASS`: Indicates the measured mass of the ion (e.g., the parent
     peak)
-  - CHARGE: Specifies the charge of the ion. Since SIRIUS supports only
+  - `CHARGE`: Specifies the charge of the ion. Since SIRIUS supports only
     singly charged ions, this value can be either 1+ or 1-.
-  - MSLEVEL: Indicates the type of spectrum; it should be 1 for MS spectra and 2 for MS/MS spectra. SIRIUS
+  - `MSLEVEL`: Indicates the type of spectrum; it should be 1 for MS spectra and 2 for MS/MS spectra. SIRIUS
     will automatically treat higher values as MS/MS spectra.
 
 This is an example for an MGF file:
