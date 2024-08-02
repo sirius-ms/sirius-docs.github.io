@@ -55,7 +55,7 @@ URL, which may be requested for debugging and error reporting purposes (see belo
 is not available. This URL is **optional** and **not** required for SIRIUS to work properly. However, error 
 messages about connection problems may be less informative if the optional URL is blocked. The URL required for the web service is provided by the authentication service as part of your access token. The URL of the web service will be displayed in the connection check panel if a valid licence is found/selected after login.
 
-### Non-Commercial subscription (FSU Jena)
+### Academic subscription (FSU Jena)
 #### Mandatory:
 * License Server: `https://gate.bright-giant.com`
 * Login Server: `https://auth0.bright-giant.com`
@@ -147,7 +147,7 @@ For SIRIUS as well as for the backend (web service) we use a "rolling release" s
 This means updates and fixes are rolled out as soon as they are declared to be stable. Sometimes even a single bug fix. 
 New releases of *vanilla* SIRIUS are available [here](https://github.com/boecker-lab/sirius/releases). 
 Signed SIRIUS installers provided by Bright Giant can be found [here](https://github.com/bright-giant/sirius/releases).
-Unless stated otherwise, both version are interchangable, no matter whether a commercial or non-commercial license/subscription is used.
+Unless stated otherwise, both version are interchangable, no matter whether a commercial or academic license/subscription is used.
 
 ## Versioning
 Following the Apache Maven convention, we distinguish between *stable* (`x.y.z`) and *SNAPSHOT* (`x.y.z-SNAPSHOT`) builds.

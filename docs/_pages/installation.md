@@ -118,7 +118,7 @@ Certain features of SIRIUS require access to the SIRIUS web services:
 - *de novo* structure generation with MSNovelist.
 
 From version `5` onwards, a licence and a user account are required to use these features.
-The **SIRIUS web services are free for academic/non-commercial use.** Academic institutions are identified by their
+The **SIRIUS web services are free for academic use.** Academic institutions are identified by their
 email domain and access will be granted automatically. In case further validation is required, see [Account and License]({{ "/account-and-license" | relative_url }}).
 
 

@@ -12,7 +12,7 @@ may require a web service connection.
 
 **Webservice-based features** are essentially advanced structure elucidation features including structure database search 
 with CSI:FingerID, compound class prediction with CANOPUS and *de novo* structure generation with MSNovelist.  
-No worries, these and future features **will remain free for academic/non-commercial use**
+No worries, these and future features **will remain free for academic use**
 and will be provided/hosted by the FSU Jena. [Bright Giant GmbH](https://bright-giant.com/) 
 offers SIRIUS web service hosting for commercial users. 
 
@@ -24,7 +24,7 @@ to benefit from free academic licenses.
 The FSU Jena maintains an allow list of academic/non-profit intuitions/organizations. However, such a 
 list will never be complete. If your institution does not have access but you think it should, please send us an
 [email](mailto:sirius@uni-jena.de) with information about your institution that will allow us to assess the academic/non-profit status of your institution (e.g. official website). 
-We will perform a manual validation and grant your institution access if it meets the academic/non-commercial license requirements. 
+We will perform a manual validation and grant your institution access if it meets the academic license requirements. 
 
 ### Non-academic users
 Please contact [Bright Giant](https://bright-giant.com/) by [email](mailto:info@bright-giant.com) for quotes and pricing.
