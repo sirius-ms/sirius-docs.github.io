@@ -330,14 +330,15 @@ restrictions: Namely, "pull-ups" and "parallelograms".
    CO<sub>2</sub> followed by H<sub>2</sub>O. SIRIUS will always choose
    one order for such fragmentation reactions, as this is the only valid way to model the fragmentation as a tree.
 
-We have integrated support for experimental setups (MS<sup>E</sup>,
-MS<sup>all</sup>, All Ion Fragmentation) where isotope peaks and
-fragment peaks are measured together in the same spectrum. For these
-experiments, SIRIUS offers combined isotope and fragmentation
-pattern analysis. For DDA (Data-Dependent Acquisition) fragmentation
-spectra, isotope patterns are disturbed through the mass filter,
-resulting in non-trivial modifications of masses and intensities. Currently, SIRIUS does not utilize these isotope patterns; instead, it flags these peaks and ignores them during the optimization process. 
-Support for DDA isotope patterns will be included in an upcoming version of SIRIUS.
+We have integrated support for experimental setups, such as MS<sup>E</sup>,
+MS<sup>all</sup> and All Ion Fragmentation, where isotope peaks and
+fragment peaks are measured together in the same spectrum. 
+For these
+experiments, SIRIUS offers a combined isotope and fragmentation
+pattern analysis. However, be aware that SIRIUS assumes that only a single ion species is fragmented in each spectrum; it does not support the analysis of chimeric spectra, where multiple ion species are present simultaneously. 
+
+For Data-Dependent Acquisition (DDA), fragmentation
+spectra contain isotope patterns, which are disturbed through the mass filter, leading to non-trivial modifications of masses and intensities. Currently, SIRIUS does not use these altered isotope patterns in its analysis. Instead, it flags these peaks and ignores them during the optimization process.
 
 ## Molecular fingerprints
 
