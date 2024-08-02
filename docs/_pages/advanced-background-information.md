@@ -341,114 +341,77 @@ Support for DDA isotope patterns will be included in an upcoming version of SIRI
 
 ## Molecular fingerprints
 
-*Molecular fingerprints* can be used to encode the structure of a
-molecule: Most commonly, these are binary vector of fixed length where
-each bit describes the presence or absence of a particular, fixed
-*molecular property*, usually the existence of a certain substructure.
-As an example, consider PubChem CACTVS fingerprints with length 881
-bits: Molecular property 121 encodes the presence of at least one
-"unsaturated non-aromatic heteroatom-containing ring size 3". Most
-bits are just explained via their SMARTS (SMiles ARbitrary Target
-Specification) string : For example, molecular property 357 of PubChem
-CACTVS encodes SMARTS string     
-<span>\[#6\](&#126;\[#6\])(:c)(:n)</span>,    
-corresponding to a central carbon atom connected to a second carbon atom 
-via any bond, to a third aromatic carbon atom via an aromatic bond, and 
-to an aromatic nitrogen atom via an aromatic bond. See
-<ftp://ftp.ncbi.nlm.nih.gov/pubchem/specifications/pubchem_fingerprints.pdf>
-for the full description of the CACTVS fingerprint. We ignore all
-molecular properties that can be derived from the molecular formula of
-the query compound (for example, bits 0 to 114 of PubChem CACTVS).
+*Molecular fingerprints* can be used to encode the structural features of 
+molecules. These fingerprints are typically represented as binary vectors 
+of fixed length, where each bit describes the presence or absence of a particular, fixed
+*molecular property*, such as the presence of a particular substructure.
 
-Given the molecular structure of a compound, we can deterministically
-compute its molecular fingerprint: We use the [Chemistry Development Kit
-(CDK)](https://cdk.github.io/) for this purpose. 
-[*Heinonen et al.*](https://doi.org/10.1093/bioinformatics/bts437) 
-pioneered the idea of predicting a complete molecular 
-fingerprint from the fragmentation spectrum of a query
-compound: Before this, only few, usually hand-selected properties
-(presence or absence of certain substructures) were predicted from
-fragmentation spectra, in particular for GC-MS with Electron Ionization;
-see [*Curry & Rumelhart*](https://doi.org/10.1016/0898-5529(90)90053-B)  for an excellent example.
+One example is the **PubChem CACTVS fingerprint**, which consists of 881 bits.Molecular property 121 represents the presence of at least one
+"unsaturated non-aromatic heteroatom-containing ring size 3". The properties are usually defined by SMARTS (SMiles ARbitrary Target
+Specification) strings. For example, molecular property 357 corresponds to the SMARTS string  <span>\[#6\](&#126;\[#6\])(:c)(:n)</span>. This string describes a  central carbon atom connected to another carbon atom 
+via any bond, to a third aromatic carbon atom via an aromatic bond, and 
+to an aromatic nitrogen atom via an aromatic bond. 
+For a complete description of the CACTVS fingerprint, refer to the official specification document [here](ftp://ftp.ncbi.nlm.nih.gov/pubchem/specifications/pubchem_fingerprints.pdf). We ignore all
+molecular properties that can be derived from the molecular formula of
+the query compound (i.e., bits 0 to 114 from PubChem CACTVS).
+
+Given the molecular structure of a compound, we can straighforward compute its molecular fingerprint deterministically using the [Chemistry Development Kit
+(CDK)](https://cdk.github.io/). 
+[Heinonen *et al.*](https://doi.org/10.1093/bioinformatics/bts437) 
+pioneered the idea of predicting a molecular 
+fingerprint from from a compound's fragmentation spectrum. Prior to their work, only a limited number of hand-selected properties
+(presence or absence of certain substructures) could be inferred from
+fragmentation spectra — primarily in the context of GC-MS with Electron Ionization. For an illustrative example of this earlier approach, see [Curry & Rumelhart](https://doi.org/10.1016/0898-5529(90)90053-B).
 
 Given the fragmentation spectrum and fragmentation tree of a query
 compound, CSI:FingerID predicts its molecular fingerprint using Machine
-Learning (linear Support Vector Machines), see 
-[*Shen et al.*](https://dx.doi.org/10.1093%2Fbioinformatics%2Fbtu275) and 
-[*Dührkop et al.*](https://doi.org/10.1073/pnas.1509788112) for the technical
-details. CSI:FingerID does not predict a single fingerprint type but
-instead, five of them: Namely, CDK Substructure fingerprints, PubChem
+Learning (linear Support Vector Machines). For detailed technical information, refer 
+to [Shen *et al.*](https://dx.doi.org/10.1093%2Fbioinformatics%2Fbtu275) 
+and [Dührkop *et al.*](https://doi.org/10.1073/pnas.1509788112). CSI:FingerID predicts multiple types of molecular fingerprints: CDK Substructure fingerprints, PubChem
 CACTVS fingerprints, [Klekota-Roth fingerprints](https://doi.org/10.1093/bioinformatics/btn479), 
-FP3 fingerprints, and MACCS fingerprints. In addition, CSI:FingerID predicts [ECFP2 and ECFP4](https://doi.org/10.1021/ci100050t)
-fingerprints  that appear sufficiently often in the training data.
+FP3 fingerprints, and MACCS fingerprints. In addition, CSI:FingerID predicts Extended Connectivity Fingerprints [ECFP2 and ECFP4](https://doi.org/10.1021/ci100050t) that appear sufficiently often in the training data.
 Different from other fingerprints, ECFP are not encoded via SMARTS
-matching; instead, a hash function encodes the neighborhood of each atom
+matching. Instead, a hash function encodes the neighborhood of each atom
 in the molecule. In principle, these fingerprints can encode
-$2^{32} \approx 4.2 \cdot 10^9$ different substructures (molecular properties); in
-practice, it is possible but very unlikely that two substructures share
+$2^{32} \approx 4.2 \cdot 10^9$ different substructures (molecular properties). In practice, it is possible but very unlikely that two substructures share
 the same value, due to a hash collision.
 
-CSI:FingerID predicts only those molecular properties that showed
-reasonable prediction quality in cross validation (F<sub>1</sub> at least
-(0.25), see below). In total, (3,215) molecular properties are
+CSI:FingerID predicts only those molecular properties that demonstrate 
+reasonable prediction quality, as assessed through cross-validation (F<sub>1</sub> at least
+(0.25), see below). In total, 3,215 molecular properties are
 predicted by CSI:FingerID 1.1.
 
 [//]: # (Update the exact number of molecular properties and optionally add some explantion on the new selection strategy)
 
-CSI:FingerID does not only predict if some molecular property is zero
-(absent) or one (present); it also provides an **estimate how sure it is
-about this prediction**. Mathematically speaking, we estimate the
-posterior probability that the molecular property is present: Estimates
-close to one indicate that CSI:FingerID is rather sure that the
-molecular property is present; similarly, estimates close to zero for an
-absent molecular property; whereas estimates between (0.1) and (0.9)
-hint towards an unsure situation. Posterior probabilities are estimated using a method by 
-[*Platt*](https://www.researchgate.net/profile/John_Platt/publication/2594015_Probabilistic_Outputs_for_Support_Vector_Machines_and_Comparisons_to_Regularized_Likelihood_Methods/links/004635154cff5262d6000000.pdf), 
-so we also refer to these estimates as "Platt probabilities". **But even if CSI:FingerID is 99% sure that a molecular
-property is present, this does not mean that it is indeed present!**
-CSI:FingerID predicts thousands of molecular properties, and 10 out of
-1000 predictions should be incorrect at this level of accuracy.
-Furthermore, estimation parameters were derived from the training data,
-and if your query molecule structures are very different from those in
-the training data, it is rather likely that some estimates are
-imprecise. In addition to Platt probabilities, we also report the
+CSI:FingerID  not only predicts whether a molecular property is absent (zero) or present (one), but also provides an **estimate of the certainty of this prediction**.
+Mathematically speaking, it estimates the
+posterior probability that the molecular property is present.
+A high posterior probability (close to one) indicates high confidence that the property is present, while a low probability (close to zero) suggests confidence that the property is absent. Values between 0.1 and 0.9 indicate uncertainty about the presence or absence of the property.
+These posterior probabilities are estimated using a method by 
+[Platt](https://www.researchgate.net/profile/John_Platt/publication/2594015_Probabilistic_Outputs_for_Support_Vector_Machines_and_Comparisons_to_Regularized_Likelihood_Methods/links/004635154cff5262d6000000.pdf), 
+hence they are referred to as "Platt probabilities". **However, even a high certainty (e.g., 99%) does not guarantee the presence of a molecular property.**
+CSI:FingerID predicts thousands of molecular properties, and at a 99% 
+confidence level, we still expect about 10 incorrect predictions out of 1000. Additionally, the estimation parameters are derived from the training 
+data, so if the query molecules differ significantly from the training 
+data, the estimates may be less accurate.
+In addition to Platt probabilities, we also report the
 performance of each molecular property classifier in cross validation:
 The F<sub>1</sub> score is the harmonic mean of precision (fraction of
 retrieved instances that are relevant) and recall (fraction of relevant
-instances that are retrieved). Molecular properties that have a
-classifier with F<sub>1</sub> score close to one, are more trustworthy than
-those with F<sub>1</sub> score close to zero; again, this has to be treated
-with some care, as these measures were estimated from the training data
-using cross validation.
+instances that have been retrieved). A classifier with an F<sub>1</sub> score close to one is generally more reliable than one with a score close to zero.  Again, these scores are based on cross-validation from the training data and should be interpreted with caution.
 
-It is important to understand that the predicted molecular fingerprint
-which is returned by the CSI:FingerID web service, has *per se* no
-connections to any structures in any molecular structure database. That
-means that **even if the correct molecular structure is not contained in
-any structure database, the predicted fingerprint is still valid**
-within the prediction power of the method. For example, you can use it
-to hypothesize about the structure of an "unknown unknown" not present
-in any structure database. We have added a tab in the Graphical User
-Interface that allows you to examine the predicted molecular
-fingerprint.
+It is crucial to understand that the molecular fingerprint predicted by CSI:FingerID is not inherently connected to a specific structure in an existing molecular structure database. That
+means that **even if the correct molecular structure is absent from all known structure databases, the predicted fingerprint remains valid**
+within the limitations of the predictive power of the method. This allows users to hypothesize about the structure of "unknown unknowns" not present in any existing structure database. Use the `Predicted Fingerprints` view  in the Graphical User Interface (GUI) to examine the predicted molecular fingerprint in detail.
 
 ## Molecular structures
 
-By default, SIRIUS searches in a biomolecule structure
-database; it can also search in the (extremely large) PubChem database. In addition, SIRIUS now offers to search in your own custom "suspect
-database".
+By default, SIRIUS searches for molecular structures in a biomolecule 
+structure database. It can also search in the (extremely large) PubChem database or in custom "suspect databases" provided by the user.
 
-  - When searching *[PubChem](https://pubchem.ncbi.nlm.nih.gov/)*, we use a local copy of the database where
-    we have precomputed all molecular fingerprints, as computing the
-    fingerprints of the candidates "on the fly" is too time-consuming.
-    We are sporadically updating our local copy of PubChem. You can
-    lookup the date of the latest database update in the database
-    dialog.
+  - When searching the [PubChem](https://pubchem.ncbi.nlm.nih.gov/) database, SIRIUS utilizes a local copy with precomputed molecular fingerprints. This  avoids the impracticality of computing fingerprints for candidate molecules "on the fly", which would be too time-consuming. The local copy of PubChem is periodically updated, and users can check the date of the latest update in the database dialog.
 
-  - The *biomolecule structure database* (bioDB) is an amalgamation of several
-    structure databases that contain small molecules of biological interest (metabolites and other
-    compounds of biological relevance; molecules that are products of
-    nature, or synthetic products with potential bioactivity; contaminants observed in experiments).
+  - The *biomolecule structure database* (bioDB) is an aggregation of several structure databases containing small molecules of biological interest, including metabolites and other compounds of biological relevance, natural products, synthetic products with potential bioactivity, and contaminants observed in experiments.
     This biomolecule structure database consists of roughly the following datbases:
     [HMDB](https://hmdb.ca/),
     [KNApSAcK](http://www.knapsackfamily.com/KNApSAcK/),
@@ -470,105 +433,105 @@ database".
     [MiMeDB](https://mimedb.org/),
     [LIPIDMAPS](https://www.lipidmaps.org/)
     and structures from [PubChem](https://pubchem.ncbi.nlm.nih.gov/) annotated with [MeSH](https://www.nlm.nih.gov/mesh/meshhome.html) 
-    terms or with one of the classes "bio and metabolites", "drug", "safety and toxic" or "food".
-    The exact compositon may vary depending on the SIRIUS (backend) version.
+    terms or  classified under "bio and metabolites", "drug", "safety and toxic" or "food". he exact composition of this database may vary depending on the version of SIRIUS in use.
     
 ## COSMIC - Confidence for Small Molecule IdentifiCations
 
-The COSMIC confidence score ([*Hoffmann et al.*](https://doi.org/10.1038/s41587-021-01045-9)) assigns a confidence to CSI:FingerID structure annotations.
-The CSI:FingerID score was developed to rank different structure candidates for a single feature. 
-However, it is not well suited to rank the top-hits of different features based on their likelihood of being correct.
-Thus, the COSMIC confidence score was developed for this task.
-The idea is similar to False Discovery Rates and q-values: the higher the confidence, the higher the chance of the hit being correct. 
-This allows high-throughput experiments: All features in a large dataset are analysed
-using CSI:FingerID, the top-ranked hit for each feature will be evaluated by COSMIC and the
-most trustworthy structure annotations can be selected for further analysis. COSMIC does not re-rank
-structure candidates of a particular feature nor does it discard any identifications.
+The COSMIC confidence score, introduced by [Hoffmann *et al.*](https://doi.org/10.1038/s41587-021-01045-9), provides a measure of confidence for CSI:FingerID structure annotations.
+While the CSI:FingerID score is designed to rank different structure candidates for a single feature, it is not well suited to rank the top hits across several features based on their likelihood of being correct.
+The COSMIC confidence score adresses this gap by providing a standardized measure similar to False Discovery Rates and q-values:
+higher confidence scores indicate a higher probability that the annotation is correct. 
+This is particularly useful for high-throughput experiments. It allows for the analysis of all features in a large dataset
+using CSI:FingerID, with COSMIC evaluating the top-ranked hit for each feature. The 
+most reliable structure annotations can be selected for further analysis. Importantly, COSMIC does not re-rank
+structure candidates of a particular feature nor does it discard any identifications; it simply provides an additional layer of confidence assessment.
 
-The confidence score is predicted using Support Vector Machines with enforced feature directionality (different SVMs are used for different lengths of the structure candidate list). The resulting score is a Platt-probability estimate and thus, is between 0 and 1.0.
-However, it should not be interpreted as a probability of being correct. In evaluation, we found that a score of 0.64 corresponded to roughly a 10% FDR. However, this value can highly depend on your own data.
+The confidence score is calculated using Support Vector Machines (SVMs) with enforced feature directionality (different SVMs are applied based on the length of the structure candidate list). The resulting score is a Platt-probability estimate and thus, ranging from 0 to 1.0. However, it's important to note that this score should not be interpreted as a direct probability of correctness.
+During evaluation, we found that a score of 0.64 approximately corresponded to a 10% FDR. However, this might vary significantly depending on the specific characteristics of your dataset.
 
 ### Confidence score modes
 
-There are two modes of the confidence score: _exact_ and _approximate_.
-The exact mode answers the question "Is this exact molecular structure hit the true structure of my unknown compound?".
-The approximate mode tells you "Is this structure hit correct or highly similar to the true structure?".
-Here, we define _highly similar_ as being one simple chemical reaction away from the true structure. More theoretical, the hit and the true structure shall have a Maximum Common Edge Subgraph ([MCES](https://en.wikipedia.org/wiki/Maximum_common_edge_subgraph)) distance of 2.
-Thus, for example, a bogus hit is interpreted as being "correct" if only a side group is moved compared to the true structure.
+The confidence score can be evaluated in two modes: `exact` and `approximate`.
 
-The confidence in exact mode will usually be very low if the top and 2nd best structure candidate are highly similar. This happens for many well studied molecules for which you often find multiple derivatives in the structure database.
-If you consider almost-correct hits to be useful, you should opt for the approximate mode.
+- The `exact` mode addresses the question "Is this exact molecular structure hit the true structure of my unknown compound?". It provides a confidence level for the precise match of the structure. In `exact` mode, the confidence score tends to be low when the top structure candidate and the second-best candidate are highly similar. This is common for well-studied molecules, where multiple derivatives often exist in the structure database.
 
+- The `approximate` mode answers the question "Is this structure hit correct or highly similar to the true structure?". In this context,  _highly similar_ means that the hit is just one simple chemical reaction away from the true structure. Theoretical speaking, the hit and the true structure should have a Maximum Common Edge Subgraph ([MCES](https://en.wikipedia.org/wiki/Maximum_common_edge_subgraph)) distance of 2.
+For example, a hit where only a side group has been repositioned compared to the true structure would still be considered "correct" in `approximate` mode. If you find nearly correct hits useful, it is advisable to use the `approximate` mode, which provides a higher confidence score for hits that are highly similar to the true structure.
 
 ## Expansive search (structure database search with fallback)
 
-SIRIUS 6 offers the possibility to perform structure database search with a confidence score based fallback (expansive search). Structure database search will be performed for the set of databases
-the user selected ("requested databases"), and then additionally for "PubChem". SIRIUS will then check if the top hit in PubChem has a confidence score that is at least twice as high as the confidence 
-score of the top hit from the requested databases. If that is the case, the search will be "expanded" and the results for database search in PubChem will be shown. 
+SIRIUS 6 introduces *expansive search*, which allows for structure database searches with a confidence score-based fallback.
+Structure database search is conducted within the user-selected databases ("requested databases"), and then additionally for "PubChem". If the top hit in PubChem has a confidence score at least twice as high as the confidence 
+score of the top hit from the requested databases, the search will be "expanded" and the results from PubChem will be displayed. 
 
 ## Compound classes
 
-CANOPUS ([*Dührkop et al.*](https://doi.org/10.1038/s41587-020-0740-8)) predicts the presense/absense of more than 2500 _compound classes_. 
-This covers a wide range from very general classes such as  "Lipids and lipid-like molecules" to very specific classes such as "Phosphatidylethanolamines", "Thiazolidines", or "7-alpha-hydroxysteroids".
+CANOPUS ([Dührkop *et al.*](https://doi.org/10.1038/s41587-020-0740-8)) predicts the presense/absense of more than 2500 _compound classes_. 
+These classes range from very broad categories, such as "Lipids and lipid-like molecules," to highly specific ones, like "Phosphatidylethanolamines," "Thiazolidines," or "7-alpha-hydroxysteroids."
+Most of the compound classes are derived from the [ClassyFire ontology](https://doi.org/10.1186/s13321-016-0174-y). Unlike ClassyFire, however, 
+CANOPUS predicts these classes based solely on MS/MS data and without 
+requiring database information. This means it can identify a class even if 
+no molecular structure of that class exists in the molecular structure 
+database.
 
-Most of the compound classes are based on the [ClassyFire ontology](https://doi.org/10.1186/s13321-016-0174-y). 
-In contrast to ClassyFire however, CANOPUS predicts these classes solely based on the MS/MS spectrum. 
-It can even predict the class if no molecular structure of this class is present in the molecular structure database searched by CSI:FingerID.
-It is important to note, that these compound classes do not follow the concept of attributing a compound to its biosynthetic precursor or pathway.
-It categorizes similar compounds based on functional groups and common substructures. Only based on the MS/MS spectrum and without additional knowledge of the measured organism, it is not possible to assign this biochemical concept of a class - the same compound may be derived from different biosynthetic precursors.  
+It is important to note that CANOPUS's classification does not adhere to 
+the concept of attributing a compound to its biosynthetic precursor or 
+pathway. Instead, it categorizes compounds based on functional groups and 
+common substructures. Without additional knowledge about the measured 
+organism, the MS/MS spectrum alone cannot determine the biochemical origin 
+of a compound class; the same compound may be derived from different 
+biosynthetic precursors.  
 
-Additionally, CANOPUS predicts compound classes based on the categories from [NPClassifier](https://doi.org/10.1021/acs.jnatprod.1c00399). This classification system is more general, but may align better with the concept of biosynthetic pathway mapping. Note, that this is still not using taxonomic information and suggestions are solely based on the MS/MS data.  
+Additionally, CANOPUS predicts compound classes based on the categories 
+from [NPClassifier](https://doi.org/10.1021/acs.jnatprod.1c00399). This 
+classification system is more general, but may aligns better with the 
+concept of biosynthetic pathway mapping. However, it is still not using 
+taxonomic information, relying solely on MS/MS data for its predictions.
 
 ## MSNovelist
 
-MSNovelist ([*Stravs et al.*](https://doi.org/10.1038/s41592-022-01486-3)) generates molecular structures de novo from the MS/MS spectrum - without the need of a database.
-It is ideally suited to complement structure database search in the case of poorly represented analyte classes and novel compounds. It is not meant to replace database search in general.
-Structural elucidation of small molecules from MS/MS data remains a challenging task - and identifying a structure without database candidates is even more challenging. 
-MSNovelist proposes structures which can serve as a great starting point for elucidation of specific unknowns. This information may be complemented with [CANOPUS](#compound-classes) compound class predictions.
+MSNovelist ([Stravs *et al.*](https://doi.org/10.1038/s41592-022-01486-3)) generates molecular structures *de novo* from  MS/MS data - without relying on any database. 
+This makes it particularly useful for analyzing poorly represented analyte classes and novel compounds, where traditional database searches may fall short. 
+However, it is not intended to replace database searches altogether, as structural elucidation of small molecules from MS/MS data remains a challenging task, and identifying a structure without database candidates is even more difficult.
 
-Candidate structures are generated from the predicted fingerprint. Multiple candidates structures (their SMILES representation) are sampled based on an autoregressive model - generating each SMILES token by token.
-After candidate generation, all candidates are ranked using the CSI:FingerID scoring. 
-
+MSNovelist generates structures which can serve as a great starting point for elucidation of specific unknowns.
+MSNovelist generates multiple candidate structures from the predicted molecular fingerprint. These candidates are represented in SMILES format and are sampled using an autoregressive model, which generates each SMILES token by token. Once the candidate structures are generated, they are ranked using CSI:FingerID. 
+The proposed structures can serve as an excellent starting point for the elucidation of specific unknown compounds. This information can be further enriched by [CANOPUS](#compound-classes) compound class predictions, providing a broader context for the identified structures.
 
 ## Training data
 
-The fragmentation tree computation of SIRIUS **is not trained on any
-data**, since no machine learning is used for this step. The parameters
-for fragmentation tree computation were estimated from two MS/MS spectra
-datasets, with 2005 compounds from GNPS  and 2046 compounds from Agilent
+The fragmentation tree computation of SIRIUS is not based on machine learning and therefore *does not involve any training data*.
+Instead, the parameters for this step were estimated using
+two MS/MS spectral
+datasets: one comprising 2005 compounds from GNPS  and another with 2046 compounds from Agilent
 ("MassHunter Forensics/Toxicology PCDL" version B.04.01 from Agilent
 Technologies Inc., Santa Clara, CA, USA). Parameters of this step were
 not optimized to maximize, say, the molecular formula identification
-rate, and estimates should be very robust. All spectra were recorded in
-positive ion mode. Fragmentation tree computation and molecular formula
-estimation appear to work very well for negative ion mode data, too; but
-there is no guarantee for that.
+rate, and estimates should be very robust. While all spectra used for parameter estimation were recorded in
+positive ion mode, fragmentation tree computation and molecular formula
+estimation appear to work very well for negative ion mode data as well;
+though this cannot be guaranteed.
 
-The Machine Learning part of CSI:FingerID, namely the essemble of linear
-Support Vector Machines, is trained on spectra from NIST, Massbank and GNPS
-An up-to-date list of all structures that are part of the training
-data of CSI:FingerID can be downloaded from the webservice:
+The machine learning component of CSI:FingerID, namely the essemble of linear
+Support Vector Machines, is trained on spectra from NIST, Massbank and GNPS.
+An up-to-date list of all structures included in the CSI:FingerID training
+data can be downloaded from the webservice:
 
 ##### Training structures for positive ion mode:
 <https://www.csi-fingerid.uni-jena.de/v1.4.8/api/fingerid/trainingstructures?predictor=1>
 ##### Training structures for negative ion mode:
 <https://www.csi-fingerid.uni-jena.de/v1.4.8/api/fingerid/trainingstructures?predictor=2>
 
-**We would like to explicitly and emphatically thank everyone who made
-their spectra publically available.** With that, you have done a huge
-favor not only to us, but to everyone in the metabolomics community;
-which, unfortunately, is not recognized by the community at the moment.
-We sincerely hope that the metabolomics community will become aware of
-the urgent need for open data and data sharing in the near future (just
-like the genomics community did 25 years ago, or the proteomics
-community 10 year ago); and that you will receive your well-deserved
-accolades then.
+**We would like to explicitly extend our heartfelt thanks to everyone who has made
+their spectra publically available.** Your contributions have greatly benefited not only us, but the entire metabolomics community.
+Unfortunately, the importance of open data sharing is not yet fully recognized within our field. 
+We sincerely hope that, like the genomics community 25 years ago and the proteomics community 10 years ago, the metabolomics community will 
+soon recognize 
+the urgent need for open data and data sharing. We believe that you will receive the well-deserved recognition for your contributions in the near future.
 
-We are constantly adding new training data that becomes publically
-available. If you have data from reference compounds, we ask you to
-upload these to a public database such as [GNPS](https://gnps.ucsd.edu/ProteoSAFe/static/gnps-splash.jsp) 
-or [MassBank](https://massbank.eu/MassBank/); if this is
-not possible for some reason, **you can contact us so that we can add
-your data to the CSI:FingerID training data without making it publically
-available**. Please help us improve the performance of CSI:FingerID by
-providing additional training data!
+We continuously add new training data as it becomes publically
+available. If you have data from reference compounds, we encourage you to
+upload it to a public database such as [GNPS](https://gnps.ucsd.edu/ProteoSAFe/static/gnps-splash.jsp) 
+or [MassBank](https://massbank.eu/MassBank/). If public sharing  is
+not possible for any reason, **you can contact us so we can include
+your data in the CSI:FingerID training set while maintaining its confidentiality**. Your support in providing additional training data is invaluable in improving the performance of CSI:FingerID!
