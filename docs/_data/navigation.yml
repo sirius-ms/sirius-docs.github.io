@@ -69,19 +69,19 @@ global:
         url: /gui/#overview
       - title: "Data Import"
         url: /gui/#data-import
-      - title: "Compute Dialogue"
+      - title: "Compute dialogue"
         url: /gui/#compute-dialogue
-      - title: "Molecular Formula Identification"
+      - title: "Molecular formula identification"
         url: /gui/#identifying-molecular-formulas-with-sirius
-      - title: "Predicting molecular fingerprints & CANOPUS"
-        url: /gui/#predicting-the-molecular-fingerprint-with-csifingerid-and-predicting-compound-classes-with-canopus--3
+      - title: "Predicting molecular fingerprints & compound classes"
+        url: /gui/#predicting-molecular-fingerprints-with-csifingerid-and-compound-classes-with-canopus
       - title: "Structure database search"
-        url: /gui/#identifying-the-molecular-structure-with-the-csifingerid-tool--4
+        url: /gui/#identifying-the-molecular-structure-with-csifingerid
       - title: "De novo structure generation"
-        url: /gui/#generating-de-novo-structure-candidates-with-msnovelist-5
+        url: /gui/#generating-de-novo-structure-candidates-with-msnovelist
       - title: "Custom database import"
         url: /gui/#import-of-custom-structure-and-spectra-databases
-      - title: "Visualizing Results"
+      - title: "Visualizing results"
         url: /gui/#visualization-of-the-results
       - title: "Data export"
         url: /gui/#data-export-summaries-and-fbmn-export

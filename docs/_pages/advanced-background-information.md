@@ -478,9 +478,18 @@ database.
 It is important to note that CANOPUS's classification does not adhere to 
 the concept of attributing a compound to its biosynthetic precursor or 
 pathway. Instead, it categorizes compounds based on functional groups and 
-common substructures. Without additional knowledge about the measured 
+common substructures. 
+In the [ClassyFire](http://classyfire.wishartlab.com/) ontology, every compound belongs to multiple compound classes, which describe structural patterns. 
+For example, a *dipeptide* is classified as both an *amino acid* (due to containing an amino acid substructure) and a *carboxylic acid* (due to containing an carboxylic acid substructure).
+Similarly, a glycosylated amino acid might belong to the compound classes of *amino acids* and *hexoses*. 
+
+Different from how compound classes are often
+described in chemistry textbooks, ClassyFire compound classes do **not** describe the biosynthetic origin. For example,
+a *phytosteroid might* be classified as *bile acids* in Classyfire, because both class of compounds share the same
+backbone, although they are involved in different biochemical pathways.
+Without additional knowledge about the measured 
 organism, the MS/MS spectrum alone cannot determine the biochemical origin 
-of a compound class; the same compound may be derived from different 
+of a compound class, as the same compound may be derived from different 
 biosynthetic precursors.  
 
 Additionally, CANOPUS predicts compound classes based on the categories 

@@ -99,7 +99,7 @@ Starting with SIRIUS 6, the compute dialogue has been streamlined to improve cla
 The compute dialogue is divided into five subtools: 
 [SIRIUS molecular formula annotation](#identifying-molecular-formulas-with-sirius) <span style="color:red">[1]</span>, 
 [ZODIAC](#improve-molecular-formula-ranking-with-zodiac) <span style="color:red">[2]</span>, 
-[CSI:FingerID fingerprint prediction with CANOPUS](#predicting-the-molecular-fingerprint-with-csifingerid-and-predicting-compound-classes-with-canopus) <span style="color:red">[3]</span>, 
+[CSI:FingerID fingerprint prediction with CANOPUS](#predicting-molecular-fingerprints-with-csifingerid-and-compound-classes-with-canopus) <span style="color:red">[3]</span>, 
 [CSI:FingerID structure database search](#identifying-the-molecular-structure-with-the-csifingerid-tool) <span style="color:red">[4]</span> and 
 [MSNovelist](#generating-de-novo-structure-candidates-with-msnovelist) <span style="color:red">[5]</span>. As of SIRIUS 6, CANOPUS is automatically executed together with the fingerprint prediction. 
 **Subtools can be selected individually or combined, but note that the selection must align with a [valid SIRIUS workflow]({{ "/advanced-background-information/#sirius-workflows" | relative_url }}).**
@@ -223,33 +223,41 @@ Also for bottom up search, applying an element filter <span style="color:red">[1
   <figcaption>Advanced parameters for molecular formula annotation.</figcaption>
 </figure>
 
-- By default, molecular formula candidates whose theoretical isotope patterns deviate significantly from the measured isotope pattern are discarded. 
-You can disable this setting <span style="color:red">[1]</span>
-if you suspect poor quality isotope patterns in the input data.
-- If isotopic peaks are present in the input MS2 spectrum, they can either be used for scoring (`SCORE`) or be ignored (`IGNORE`) <span style="color:red">[2]</span>.
-- You can select the number of molecular formula candidates that will be saved <span style="color:red">[3]</span>.
-- Specify the minimum number of molecular formula candidates to store for each ionization state, even if they are not among the top n candidates <span style="color:red">[4]</span>.
-- Set a time limit (in seconds) for computing the fragmentation tree for a single molecular formula candidate <span style="color:red">[5]</span>. Set to 0 to disable the limit.
-- Set a total time limit (in seconds) for computing the fragmentation trees for all molecular formula candidates of a feature <span style="color:red">[6]</span>. Set to 0 to disable the limit.
-- For higher mass compounds, SIRIUS can compute fragmentation trees heuristically instead of exactly. This heuristic method can be used to pre-rank molecular formula candidates, with exact trees 
-computed only for the top candidates. Set the m/z value above which this approach will be applied <span style="color:red">[7]</span>. 
+- By default, molecular formula candidates whose theoretical isotope     
+  patterns deviate significantly from the measured isotope pattern are discarded. 
+  You can disable this setting <span style="color:red">[1]</span>
+  if you suspect poor quality isotope patterns in the input data.
+- If isotopic peaks are present in the input MS2 spectrum, they can 
+  either be used for scoring (`SCORE`) or be ignored (`IGNORE`) <span style="color:red">[2]</span>.
+- You can select the number of molecular formula candidates that will be 
+  saved <span style="color:red">[3]</span>.
+- Specify the minimum number of molecular formula candidates to store 
+  for each ionization state, even if they are not among the top n candidates <span style="color:red">[4]</span>.
+- Set a time limit (in seconds) for computing the fragmentation tree for 
+  a single molecular formula candidate 
+  <span style="color:red">[5]</span>. Set to 0 to disable the limit.
+- Set a total time limit (in seconds) for computing the fragmentation 
+  trees for all molecular formula candidates of a feature 
+  <span style="color:red">[6]</span>. Set to 0 to disable the limit.
+- For higher mass compounds, SIRIUS can compute fragmentation trees 
+  heuristically instead of exactly. This heuristic method can be used to pre-rank molecular formula candidates, with exact trees 
+  computed only for the top candidates. Set the m/z value above which this approach will be applied <span style="color:red">[7]</span>. 
 - For very high masses, exact solutions may be impractical, and only
   heuristic trees should be computed. Set the m/z value above which trees will exclusively be computed using the heuristic <span style="color:red">[8]</span>. 
 
 ### Improve molecular formula ranking with ZODIAC
 
-ZODIAC performs de novo molecular formula annotation on complete biological datasets (high-resolution, high mass
-accuracy LC-MS/MS runs). ZODIAC takes fragmentation trees as input and reranks the molecular formula candidates by
-taking similarities of features in the dataset into account.
+ZODIAC enhances *de novo* molecular formula annotation for complete biological datasets, that is high-resolution, high-mass-accuracy LC-MS/MS runs. It refines the ranking of molecular formula candidates by analyzing  
+similarities among features in the dataset, using fragmentation trees as input.
 
-To run Zodiac, select SIRIUS and ZODIAC in the batch compute panel. Increase the number of reported candidates for SIRIUS, to
-increase the chance that the correct molecular formula candidate is contained in the result list. Click “compute”.
+To use ZODIAC, select both SIRIUS and ZODIAC in the compute panel. This is only possible for [batch computation](#computing-results). 
+To increase the chance of the correct molecular formula candidate to be in the result list, increase the number of reported candidates for SIRIUS.
 
-Click [here](https://bio.informatik.uni-jena.de/software/zodiac/) to visit the Zodiac release page.
+For more details, visit the [Zodiac release page](https://bio.informatik.uni-jena.de/software/zodiac/).
 
-#### Advanced mode parameters
+#### Advanced settings for ZODIAC
 
-These parameters are very advanced and require a deep understanding on ZODIAC and the underlying Gibbs sampler.
+These parameters are very advanced and require a thorough understanding of ZODIAC and its underlying Gibbs sampler.
 
 {% capture fig_img %}
 ![Foo]({{ "/assets/images/zodiac_advanced_marked.png" | relative_url }})
@@ -260,38 +268,37 @@ These parameters are very advanced and require a deep understanding on ZODIAC an
   <figcaption>Advanced parameters for ZODIAC molecular formula annotation.</figcaption>
 </figure>
 
-(1) Maximum number of candidate molecular formulas considered for features with m/z lower than 300.
-(2) Maximum number of candidate molecular formulas considered for features with m/z higher than 800.
-(3) Enable/Disable the 2-step approach (running higher quality features first, lower quality features second).
-(4) Threshold for the ratio of edges of the complete network to be ignored.
-(5) Minimum number of connections per candidate.
+- Specify the maximum number of candidate molecular formulas considered  
+  for features with m/z lower than 300. 
+  <span style="color:red">[1]</span>
+- Specify the maximum number of candidate molecular formulas considered 
+  for features with m/z higher than 800.
+  <span style="color:red">[2]</span>
+- Enable or disable the 2-step approach, where higher quality features 
+  are processed first, followed by lower quality features second.
+  <span style="color:red">[3]</span>
+- Set the threshold for the ratio of edges of the complete network to be ignored.
+  <span style="color:red">[4]</span>
+- Specify the minimum number of connections required for each candidate.
+  <span style="color:red">[5]</span>
 
 
-### Predicting the molecular fingerprint with CSI:FingerID and predicting compound classes with CANOPUS
+### Predicting molecular fingerprints with CSI:FingerID and compound classes with CANOPUS
 
-After computing the fragmentation trees you can predict [molecular fingerprints]({{ "/advanced-background-information/#molecular-fingerprints" | relative_url }}) 
-and [CANOPUS compound classes]({{ "/advanced-background-information/#Compound-classes" | relative_url }})
-These can be used to either search in a structure databases or predict novel structures with [MSNovelist]({{ "/advanced-background-information/#MSNovelist" | relative_url }}).
-If **"score threshold"** is activated, fingerprints are only predicted for the top scoring fragmentation trees (molecular formulas). This is recommended and should only be changed if you are interested
-in the fingerprint of a molecular formula that has a lower score.
+After computing the fragmentation trees, you can predict [molecular fingerprints]({{ "/advanced-background-information/#molecular-fingerprints" | relative_url }}) 
+and [CANOPUS compound classes]({{ "/advanced-background-information/#compound-classes" | relative_url }}).
+These predictions can then be used to search structure databases and/or to predict novel structures with [MSNovelist]({{ "/advanced-background-information/#msnovelist" | relative_url }}).
+If `Score threshold` is selected, fingerprints are only predicted for the top-scoring fragmentation trees (molecular formulas). This is recommended and should only be disabled if you need to examine 
+the fingerprint of a lower-scoring molecular formula.
 
-CANOPUS predicts [ClassyFire](http://classyfire.wishartlab.com/) compound classes from the molecular fingerprint. Class
-prediction is done without using any structure database. Thus, classes are predicted for all features for which the
-fragmentation tree contains at least three fragments, including features that have no structure candidate in the
-database. There are no parameters to set. Similar to molecular fingerprints, compound classes are predicted for each
-molecular formula separately.
+CANOPUS predicts [ClassyFire](http://classyfire.wishartlab.com/) compound classes from the molecular fingerprint, without using any structure database. Classes are predicted for all features whose
+fragmentation tree contains at least three fragments, including features with no matching structure candidates in the
+database. There are no parameters to set. Compound classes are predicted separately for each
+molecular formula.
 
-In the [ClassyFire](http://classyfire.wishartlab.com/) ontology, every compound belongs to multiple compound classes. A
-compound class describes a structural pattern. For example, a *dipeptide* is also an *amino acid* (because it **
-contains** an amino acid substructure), as well as a *carboxylic acid* (for the same reason). A glycosylated amino acid
-might belong to both compound classes: *amino acids* and *hexoses*. Different from how compound classes are often
-described in chemistry textbooks, ClassyFire compound classes do **not** describe the biosynthetic origin. For example,
-a *phytosteroid might* be classified as *bile acids* in Classyfire, because both class of compounds share the same
-backbone, although they are involved in different biochemical pathways.
+For more details, visit the [CANOPUS release page](https://bio.informatik.uni-jena.de/software/canopus/).
 
-Click [here](https://bio.informatik.uni-jena.de/software/canopus/) to visit the CANOPUS release page.
-
-### Identifying the molecular structure with the CSI:FingerID tool
+### Identifying the molecular structure with CSI:FingerID
 
 Predicted fingerprints can be matched against database structures for structure elucidation. SIRIUS ships with a multitude of databases
 (see [Molecular structures]({{ "/advanced-background-information/#Molecular-structures" | relative_url }})). 
