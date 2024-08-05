@@ -5,7 +5,7 @@ title: "Graphical User Interface"
 
 ## Overview
 
-SIRIUS 6 ships with a Graphical User Interface. 
+SIRIUS 6 comes equipped with a comprehensive Graphical User Interface. Here's a breakdown of the key components and their functions.
 
 {% capture fig_img %}
 ![Foo]({{ "/assets/images/gui_marked.png" | relative_url }})
@@ -16,86 +16,76 @@ SIRIUS 6 ships with a Graphical User Interface.
   <figcaption>SIRIUS main application window.</figcaption>
 </figure>
 
-On top of the screen you find the toolbar (1-5). 
-The left most button group (1) is for creating, opening and saving project-spaces.
-The second one (2) is for [importing](#data-import) either a single feature or data containing multiple features into
-the project-space. The third button group (3) is for exporting data, e.g. for [GNPS FBMN](https://doi.org/10.1038/s41592-020-0933-6) 
-or writing [project-space summaries]({{ "/io/#sirius-project-space/" | relative_url }}). 
-The fourth button group (4) is for computations, containing "compute button", "job view" and "custom database importer".  
-The right most button group (5) contains "log", "settings", "webservice info" and "account info" dialogs. 
-"Help" links to this online documentation. "About" gives information on software licence and related publications.
+- The **toolbar <span style="color:red">[1-5]</span>** at the top of the screen provides quick access to the essential tools: 
+The first button group <span style="color:red">[1]</span> on the left is for managing your project spaces, including creating, opening and saving them.
+The second button group <span style="color:red">[2]</span> facilitates
+[importing](#data-import) single features or data containing multiple features into
+your project space. The third button group <span style="color:red">[3]</span> handles exporting data, e.g. for [GNPS FBMN](https://doi.org/10.1038/s41592-020-0933-6) analysis
+or generating [project space summaries]({{ "/io/#sirius-project-space" | relative_url }}). 
+The fourth button group <span style="color:red">[4]</span> is dedicated to computations, including starting the computations, getting the job view and importing custom databases.  
+The last button group on the right <span style="color:red">[5]</span> provides access  access to the log, settings, webservice information, and account details. Here you can also find a link to the online documentation (`Help`) as well as information on software licence and related publications (`About`).
 
-On the left side is the feature list (6) displaying all imported (aligned) features. 
-Each *feature* lists MS and MS/MS spectra corresponding to a measured aligned
-feature. For each feature, adduct type, precursor mass, retention time and confidence score (if computed) are shown. 
-On the right side is the active result view (8). You can choose between different result
-views with the tab selector (7).
+- The **feature list <span style="color:red">[6]</span>** on the left side contains all imported (aligned) features. 
+A *feature* contains all MS and MS/MS spectra corresponding to a measured aligned
+feature. For each feature, adduct type, precursor mass, retention time and confidence score (if computed) are shown in this panel. 
 
-On the bottom (9), you find your license information for the webservice-based structure elucidation tools, 
+- The **result view <span style="color:red">[8]</span>** is displayed to the right of the feature list and allows users to examine different result views. The tab selector <span style="color:red">[7]</span> at the top of this panel lets you switch between these views, offering various perspectives on your data.
+
+- The **bottom information bar <span style="color:red">[9]</span>** provides details about your license status for the webservice-based structure elucidation tools,  
 the number of computed features and feature limits.  
 
 ## Data import
 
-You can import `.ms`, `.mgf`, Agilent's `.cef`, `.mzml` and `.mzxml` files using the *"Import"* button or Drag'n'Drop. 
-SIRIUS will read all attributes (MS level, ionization, precursor mass) directly
-from the file. You can, however, change these attributes afterward by
-selecting the imported feature and clicking on the *Edit* button.
+You can import `.ms`, `.mgf`, Agilent's `.cef`, `.mzml` and `.mzxml` files using the `Import` button or by drag-and-drop. 
+SIRIUS will automatically extract all relevant attributes (such as MS level, ionization, and precursor mass)
+from the file. 
 When importing multiple `.mzml` (or `.mzxml`) at once, SIRIUS will ask you if it should align them. 
 
-See [Input Formats]({{ "/io/#input/" | relative_url }}) for descriptions of file
-formats and further details.
+For more information on supported file formats, refer to the [Input]({{ "/io/#input/" | relative_url }}) section.
 
-## Sorting features, filtering features and changing displayed confidence score mode
+[//]: # (## Sorting features, filtering features and changing displayed confidence score mode)
 
-The feature list can be sorted by right-clicking the feature list to bring up the dialogue below
+### Sort and filter
 
+To sort the feature list, use right-click to open the <span style="color:red">[sort]</span> dialogue below.
 
-<img src="{{ "/assets/images/featureList_sort.png" | relative_url }}" height="300" width="300">
+<img src="{{ "/assets/images/sort_filter.png" | relative_url }}" height="300" width="300">
 
+You can sort aligned features by retention time (RT), mass, name, ID or confidence score (if available). At the bottom of
+this dialogue, you can select the confidence mode (approximate or exact) to be displayed and 
+used for sorting. For more details, see the [confidence modes]({{ "/advanced-background-information/#confidence-score-modes" | relative_url }}) section.
 
-Aligned features can be sorted by retention time (RT), mass, name, ID or confidence score (if present). At the bottom of
-the dialogue, users also have the option of changing which confidence mode (approximate or exact) should be displayed and 
-used for sorting. See [confidence modes]({{ "/advanced-background-information/#confidence-score-modes" | relative_url }}) for more information.
+The displayed feature list is already filtered by quality, i.e., features containing only MS1 spectra, features with bad quality and multimeric features are hidden. Use the switches on top of the feature list to unhide. 
 
+The feature list can further be refined by clicking the filter button (three dots to the right of the search field) to open the filter dialogue:
 
-Furthermore, the feature list can be filtered by clicking the appropriate button (see red mark above). This brings up the filter dialogue:
+<img src="{{ "/assets/images/filter_collage.png" | relative_url }}">
 
-<img src="{{ "/assets/images/filter_empty.png" | relative_url }}" height="300" width="300">
-
-Aligned features can be filtered by mass range, retention time range, confidence score range as well as peak shape quality (only available for
-mzMl and mzXML input), minimum number of isotope peaks in the MS1 and detected lipid classes.
-
-Additionally, users can filter for specific element constraints in either the neutral molecular formula or precursor formula,
-as well as for specific detected adducts. 
-
-If structure database results are present, one can filter for hits in specific structure databases, where
-"candidates to check" controls how many of the top n candidates should be considered.
+- In the `General` tab (left), aligned features can be filtered by mass range, retention time range, and confidence score range, as well as by detected lipid classes. You can also choose to invert the filter, and whether you want to delete all non-matching compounds. 
+- In the `Data Quality` tab (middle), you can refine the preset quality filter.
+- In the `Results` tab (right), you can filter for specific element constraints in either the neutral molecular formula or precursor formula,
+as well as for specific detected adducts. If structure database results are available, you can filter for hits in specific structure databases.  `Candidates to check` allows you to specify the number of top candidates to consider.
 
 
 ## Computing results
-As for importing data SIRIUS offers two computation modes: *Single
-Computation* and *Batch Computation*. The Single Computation allows you
-to setup different parameters for each feature. You can trigger it by
-right-clicking on a **single** feature and choosing *Compute* in the context menu or by double clicking a feature.
+SIRIUS offers two computation modes for processing data: *Single
+Computation* and *Batch Computation*. Both computation dialogs are similar in layout and functionality.
 
-Right-clicking **multiple** selected features and choosing *Compute* will trigger batch computation for
-the selected features.
-Clicking the *"Compute All"* button (toolbar) will compute all features in the project-space.
+- The **Single Computation** mode allows you
+to set different parameters for each individual feature. You can initiate a single computation by
+right-clicking on a **single** feature and selecting `Compute` in the context menu or by double-clicking on the feature. When opening the dialogue, element prediction is performed to preset the chemical alphabet. However, you can change this alphabet in the `Element Filter` if you like.
 
-Both dialogs are very similar. In *Single Computations* element prediction can be performed by clicking the respective button. 
-In *Batch Computations* check boxes indicate the elements that are automatically predicted for each feature. Also, you
-can select if results for features that already have been analyzed should be recomputed and overridden.
+- For **Batch Computation** you can right-click on 
+**multiple** selected features and choose `Compute` to process them collectively. Alternatively, you can use
+the `Compute All` button in the toolbar to compute all features in the project space. Here, you can use the `Element Filter` to choose the elements that should automatically be detected for each feature.
+Additionally, you
+can choose whether to recompute and override results for features that  have already been analyzed.
 
-The *Show Command* button shows the respective CLI command for the specified parameters. Hence, you can copy/paste this command
-and run analysis using the CLI.
+The following section provides a detailed explanation of the compute dialogue, using the *Batch Computation* dialogue as example.
 
-In the following, the *Batch Computation* dialogue is shown.
+### Compute dialogue
 
-### Compute panel (Basic and advanced)
-
-Starting from SIRIUS 6, the compute dialogue offers two difference modes: "basic" and "advanced". The basic mode offers improved clarity and
-contains only those settings which are integral for any kind of analysis. In contrast, the advanced mode only settings only need to be
-considered for specific use cases and/or for setting limits to computation times.
+Starting with SIRIUS 6, the compute dialogue has been streamlined to improve clarity by displaying only those settings that are essential for any type of analysis. Use the `Show advanced settings` button at the bottom <span style="color:red">[7]</span> to include additional settings that are relevant for specific use cases or to set limits for computation times.
 
 {% capture fig_img %}
 ![Foo]({{ "/assets/images/compute_basic_marked.png" | relative_url }})
@@ -106,22 +96,29 @@ considered for specific use cases and/or for setting limits to computation times
   <figcaption>Batch compute dialog.</figcaption>
 </figure>
 
-The compute panel is split into five subtools: SIRIUS molecular formula annotation (1), ZODIAC (2), CSI:FingerID fingerprint prediction with CANOPUS (3), CSI:FingerID structure
-database search (4) and MSNovelist (5). Starting from SIRIUS 6, CANOPUS (3) is automatically performed whenever a fingerprint is predicted and does not need to be enabled 
-separately anymore. Subtools can be selected individually or combined, please note that the selection together with potentially existing results needs to constitute a valid SIRIUS workflow.
-As an example, one cannot perform structure database search without predicting fingerprints first. Please see [Sub tools and workflows]({{ "/advanced-background-information/#sirius-workflows" | relative_url }}) for a more
-detailed explanation on SIRIUS workflows.
-(6) If the "Recompute already computed tasks" checkbox is ticked, all previously existing results for selected features in the current project space will be invalidated and overwritten as necessary
-for executing the currently selected workflow. Additional parameters for specific subtools can be brought up via the appropriate button (7). 
-To easily transition the current workflow selections to a CLI, one can use the "Show Command" (8) button on the bottom right.
+The compute dialogue is divided into five subtools: 
+[SIRIUS molecular formula annotation](#identifying-molecular-formulas-with-sirius) <span style="color:red">[1]</span>, 
+[ZODIAC](#improve-molecular-formula-ranking-with-zodiac) <span style="color:red">[2]</span>, 
+[CSI:FingerID fingerprint prediction with CANOPUS](#predicting-the-molecular-fingerprint-with-csifingerid-and-predicting-compound-classes-with-canopus) <span style="color:red">[3]</span>, 
+[CSI:FingerID structure database search](#identifying-the-molecular-structure-with-the-csifingerid-tool) <span style="color:red">[4]</span> and 
+[MSNovelist](#generating-de-novo-structure-candidates-with-msnovelist) <span style="color:red">[5]</span>. As of SIRIUS 6, CANOPUS is automatically executed together with the fingerprint prediction. 
+**Subtools can be selected individually or combined, but note that the selection must align with a [valid SIRIUS workflow]({{ "/advanced-background-information/#sirius-workflows" | relative_url }}).**
+For example, you cannot search structure databases without predicting fingerprints first. 
 
-### Spectral library matching (background)
+If the `Recompute already computed tasks?` checkbox <span style="color:red">[6]</span> is checked, all previously existing results for the selected features in the current project space will be invalidated and overwritten to execute the newly selected workflow. Additional parameters for specific subtools can be displayed using the `Show advanced settings` button  <span style="color:red">[7]</span>. 
+To easily convert the current workflow selections into a CLI command, use the `Show Command` button <span style="color:red">[8]</span> at the bottom right.
 
-If imported spectral libraries are present, SIRIUS will automatically perform spectral matching against those libraries. Currently, this always happens in the background and no parameters
-need to be set. See [Spectral library matching via custom databases]({{ "/advanced-background-information/#Spectral-library-matching-via-custom-databases" | relative_url }}) for more information
+### Spectral library matching
+
+If imported spectral libraries are available, SIRIUS will automatically perform spectral matching. This process runs in the background without the need for any addiotional parameters. For more information, refer to the [Spectral library matching]({{ "/advanced-background-information/#spectral-library-matching" | relative_url }}) section.
 
 
-### Identifying molecular formulas with SIRIUS (1)
+### Identifying molecular formulas with SIRIUS
+
+To identify molecular formulas using SIRIUS, you can 
+set general parameters <span style="color:red">[A]</span>, 
+specify fallback adducts <span style="color:red">[B]</span>, and 
+choose the appropriate molecular formula annotation strategy <span style="color:red">[C]</span>.
 
 {% capture fig_img %}
 ![Foo]({{ "/assets/images/formula_basic_marked.png" | relative_url }})
@@ -132,32 +129,28 @@ need to be set. See [Spectral library matching via custom databases]({{ "/advanc
   <figcaption>Molecular formula annotation compute dialogue.</figcaption>
 </figure>
 
-#### General settings (A)
+- **General settings <span style="color:red">[A]</span>:** 
+  In the `Instrument` field, you can choose `Q-TOF`, `Orbitrap` or `FT-ICR`.
+  The choice of instrument affects only a few parameters,
+  primarily the allowed mass deviation. If your instrument is not among these options, 
+  select `Q-TOF` as default.
+  
+  You can  change the maximum allowed mass deviation, ensuring that
+  SIRIUS only considers molecular formulas with mass deviations below
+  the specified ppm threshold. For masses below 200 Da, the allowed mass deviation is
+  $(200 \cdot \frac{ppm_{max}}{10^6})$.
 
-Choose either *Q-TOF*, *Orbitrap* or *FT-ICR* in the instrument field.
-The chosen instrument affects only very few parameters of the method
-(mainly the allowed mass deviation). If your instrument is not one of
-these three then just select the Q-TOF instrument.
+  If SIRIUS predicts that the query spectrum may be a lipid, the molecular formula
+  according to that prediction can be added and enforced (default).
 
-You can change the maximal allowed mass deviation in the *ppm* field.
-SIRIUS will only consider molecular formulas which mass deviations below
-the chosen ppm; for masses below 200 Da, the allowed mass deviation is
-$(200 \cdot \frac{ppm_{max}}{10^6})$.
+- **Fallback Adducts <span style="color:red">[B]</span>:**
+  If no adducts are detected during SIRIUS import or prior external annotation, you can specify fallback adducts. 
+  SIRIUS will consider adducts from this list and enforce them if the `enforce` option is selected.
 
-If SIRIUS predicts that the query spectrum might be a lipid, the molecular formula
-according to that prediction can be added and enforced (default).
+- **Molecular Formula Generation <span style="color:red">[C]</span>:**
+Selecting an appropriate molecular formula annotation strategy is crucial for a successful SIRIUS analysis, as it will significantly impact subsequent steps. Parameters for the different strategies are explained in the following. Before selecting a strategy, it is important to understand the differences between the [molecular formula annotation strategies]({{ "/advanced-background-information/#molecular-formula-annotation-strategies" | relative_url }}) to choose the most appropriate one for your analysis.
 
-#### Fallback Adducts (B)
-
-If no adducts have been detected in previous steps (either during SIRIUS importing or upstream external annotation), fallback adducts can be 
-set. SIRIUS will consider adducts in this list and additionally enforce them if the "enforce" option is chosen.
-
-#### Molecular Formula Generation (C)
-
-The [molecular formula annotation strategy]({{ "/advanced-background-information/#molecular-formula-annotation-strategies" | relative_url }}) to be employed.
-Choosing a suitable strategy here is imperative for a successful SIRIUS analysis and will impact most subsequent steps.
-
-**De novo + bottom up search (recommended)**
+**[*De novo* + bottom up search]({{"/advanced-background-information/#de-novo--bottom-up" | relative_url }}) is recommended for generic applications.**
 
 {% capture fig_img %}
 ![Foo]({{ "/assets/images/formula_combined_marked.png" | relative_url }})
@@ -168,14 +161,15 @@ Choosing a suitable strategy here is imperative for a successful SIRIUS analysis
   <figcaption>Settings for bottom up + de novo search.</figcaption>
 </figure>
 
-(1) The m/z threshold below of which de novo molecular formula annotation will be performed in addition to bottom up search.
-(2) Element filter settings. An element filter can either be applied to only the de novo annotations, or to the bottom up search as well.
-"Allowed elements" denotes elements that are part of the element set, upper and lower limits are shown if present. "Autodetect" denotes those elements
-for which SIRIUS will detect presence/absence and quantity from the input data (requires MS1 spectra to be present). The element set can
-be changed via the (a) button. Before majorly changing the element set, please be aware of the potential impact on running time and quality
-(see [here]({{ "/advanced-background-information/#De-novo-annotation" | relative_url }}))
+ You can configure
+the m/z threshold <span style="color:red">[1]</span> below which *de novo* molecular formula annotation will be performed alongside the bottom up search.
 
-**De novo only**
+The element filter <span style="color:red">[2]</span> can be applied either solely to the *de novo* annotations or to the bottom-up search as well.
+`Allowed elements` specifies the elements in the element set and their upper and lower limits. `Autodetect` specifies the elements
+for which SIRIUS will automatically detect the presence, absence and quantity from the input data (requires MS1 spectra). The element set can
+be adjusted using the `...` button. Before making significant changes to the element set, please consider the potential impact on running time and result quality. 
+
+**[De novo only]({{"/advanced-background-information/#de-novo-only" | relative_url }}) is recommended for discovering "unknown unknowns".**
 
 {% capture fig_img %}
 ![Foo]({{ "/assets/images/formula_denovo_marked.png" | relative_url }})
@@ -186,13 +180,10 @@ be changed via the (a) button. Before majorly changing the element set, please b
   <figcaption>Settings for de novo only annotation.</figcaption>
 </figure>
 
-(1) Element filter settings. An element filter has to be applied for de novo molecular formula annotation.
-"Allowed elements" denotes elements that are part of the element set, upper and lower limits are shown if present. "Autodetect" denotes those elements
-for which SIRIUS will detect presence/absence and quantity from the input data (requires MS1 spectra to be present). The element set can
-be changed via the (a) button. Before majorly changing the element set, please be aware of the potential impact on running time and quality
-(see [here]({{ "/advanced-background-information/#De-novo-annotation" | relative_url }}))
+Here, the expected element set needs to be well-defined using the `Element filter` settings <span style="color:red">[1]</span>. 
+`Allowed elements` and `Autodetect` elements can again be adjusted using the `...` button, with keeping in mind the impact on running time and result quality. 
 
-**Database search**
+**[Database search]({{"/advanced-background-information/#database-search-only" | relative_url }}) is recommended for known compounds and extremely fast computation times.**
 
 {% capture fig_img %}
 ![Foo]({{ "/assets/images/formula_dbsearch_marked.png" | relative_url }})
@@ -203,15 +194,12 @@ be changed via the (a) button. Before majorly changing the element set, please b
   <figcaption>Settings for formula database search.</figcaption>
 </figure>
 
-(1) Selection of databases that should be used for molecular formula annotation. Per default, those databases that constitute the "bio" database are selected.
-See [Molecular structures]({{ "/advanced-background-information/#Molecular-structures" | relative_url }}) for the list of databases that come with SIRIUS.
-The default selection can be restored by pressing the "bio" button.
-(2)  Element filter settings. Applying an element filter is not mandatory for formula database search, but can be optionally applied to filter molecular formula candidates.
-"Allowed elements" denotes elements that are part of the element set, upper and lower limits are shown if present. "Autodetect" denotes those elements
-for which SIRIUS will detect presence/absence and quantity from the input data (requires MS1 spectra to be present). The element set can
-be changed via the (a) button.
+Choose the databases <span style="color:red">[1]</span> to be used for molecular formula annotation. Per default, the [*biomolecule structure databases*]({{ "/advanced-background-information/#molecular-structures" | relative_url }}) are selected.
+You can restore this default selection using the `bio` button.
 
-**Bottom up search**
+Applying an element filter <span style="color:red">[2]</span> is not mandatory for formula database search, but it can be used to narrow down molecular formula candidates. `Allowed elements` and `Autodetect` elements can again be adjusted using the `...` button.
+
+**[Bottom up search only]({{"/advanced-background-information/#bottom-up-only" | relative_url }}) can be used for a slight speed increase compared to the recommended combined approach.**
 
 {% capture fig_img %}
 ![Foo]({{ "/assets/images/formula_bottomup_marked.png" | relative_url }})
@@ -222,14 +210,9 @@ be changed via the (a) button.
   <figcaption>Settings for bottom up search only.</figcaption>
 </figure>
 
-(1) Element filter settings. Applying an element filter is not mandatory for bottom up search, but can be optionally applied to filter molecular formula candidates.
-"Allowed elements" denotes elements that are part of the element set, upper and lower limits are shown if present. "Autodetect" denotes those elements
-for which SIRIUS will detect presence/absence and quantity from the input data (requires MS1 spectra to be present). The element set can
-be changed via the (a) button. Before majorly changing the element set, please be aware of the potential impact on running time and quality
-(see [here]({{ "/advanced-background-information/#De-novo-annotation" | relative_url }}))
+Also for bottom up search, applying an element filter <span style="color:red">[1]</span> is not mandatory, but can be used to narrow down molecular formula candidates. `Allowed elements` and `Autodetect` elements can again be adjusted using the `...` button.
 
-
-#### Advanced mode parameters
+#### Advanced settings for molecular formula annotation
 
 {% capture fig_img %}
 ![Foo]({{ "/assets/images/formula_advanced_marked.png" | relative_url }})
@@ -240,18 +223,20 @@ be changed via the (a) button. Before majorly changing the element set, please b
   <figcaption>Advanced parameters for molecular formula annotation.</figcaption>
 </figure>
 
-(1) By default molecular formula candidates which theoretical isotope pattern does deviate too much from the measured isotope pattern are discarded. This setting can be turned off
-if you suspect bad quality isotope patterns in the input data.
-(2) If isotopic peaks are present in the input MS2 spectrum, they can either be used to **score** or be **ignored**.
-(3) Select the number of molecular formula candidates that should be saved
-(4) Select the minimum number of molecular formula candidates stored for each ionization, even if it is not part of the top n candidates.
-(5) Set a time limit for computing the fragmentation tree for a singular molecular formula candidate (in seconds). Set to 0 to disable the limit.
-(6) Set a total time limit for computing the fragmentation trees of all molecular formula candidates of a feature (in seconds). Set to 0 to disable the limit.
-(7)+(8) For higher mass compounds, SIRIUS can compute fragmentation trees heuristically instead of exact. The heuristic can be used to pre-rank molecular formula candidates
-and then only compute exact trees for the top candidates. (7) controls the m/z value above which this approach will be used. For even higher masses, it might be necessary
-to forego exact solutions altogether and use heuristic trees only. (8) controls the m/z value above which trees will exclusively be computed using the heuristic. 
+- By default, molecular formula candidates whose theoretical isotope patterns deviate significantly from the measured isotope pattern are discarded. 
+You can disable this setting <span style="color:red">[1]</span>
+if you suspect poor quality isotope patterns in the input data.
+- If isotopic peaks are present in the input MS2 spectrum, they can either be used for scoring (`SCORE`) or be ignored (`IGNORE`) <span style="color:red">[2]</span>.
+- You can select the number of molecular formula candidates that will be saved <span style="color:red">[3]</span>.
+- Specify the minimum number of molecular formula candidates to store for each ionization state, even if they are not among the top n candidates <span style="color:red">[4]</span>.
+- Set a time limit (in seconds) for computing the fragmentation tree for a single molecular formula candidate <span style="color:red">[5]</span>. Set to 0 to disable the limit.
+- Set a total time limit (in seconds) for computing the fragmentation trees for all molecular formula candidates of a feature <span style="color:red">[6]</span>. Set to 0 to disable the limit.
+- For higher mass compounds, SIRIUS can compute fragmentation trees heuristically instead of exactly. This heuristic method can be used to pre-rank molecular formula candidates, with exact trees 
+computed only for the top candidates. Set the m/z value above which this approach will be applied <span style="color:red">[7]</span>. 
+- For very high masses, exact solutions may be impractical, and only
+  heuristic trees should be computed. Set the m/z value above which trees will exclusively be computed using the heuristic <span style="color:red">[8]</span>. 
 
-### Improve molecular formula ranking with the ZODIAC tool (2)
+### Improve molecular formula ranking with ZODIAC
 
 ZODIAC performs de novo molecular formula annotation on complete biological datasets (high-resolution, high mass
 accuracy LC-MS/MS runs). ZODIAC takes fragmentation trees as input and reranks the molecular formula candidates by
@@ -282,7 +267,7 @@ These parameters are very advanced and require a deep understanding on ZODIAC an
 (5) Minimum number of connections per candidate.
 
 
-### Predicting the molecular fingerprint with CSI:FingerID and predicting compound classes with CANOPUS  (3)
+### Predicting the molecular fingerprint with CSI:FingerID and predicting compound classes with CANOPUS
 
 After computing the fragmentation trees you can predict [molecular fingerprints]({{ "/advanced-background-information/#molecular-fingerprints" | relative_url }}) 
 and [CANOPUS compound classes]({{ "/advanced-background-information/#Compound-classes" | relative_url }})
@@ -306,7 +291,7 @@ backbone, although they are involved in different biochemical pathways.
 
 Click [here](https://bio.informatik.uni-jena.de/software/canopus/) to visit the CANOPUS release page.
 
-### Identifying the molecular structure with the CSI:FingerID tool  (4)
+### Identifying the molecular structure with the CSI:FingerID tool
 
 Predicted fingerprints can be matched against database structures for structure elucidation. SIRIUS ships with a multitude of databases
 (see [Molecular structures]({{ "/advanced-background-information/#Molecular-structures" | relative_url }})). 
@@ -333,7 +318,7 @@ was selected earlier in the workflow, selected databases will reflect that selec
 databases exist, they can be selected here as well.
 
 
-### Generating de novo structure candidates with MSNovelist (5)
+### Generating de novo structure candidates with MSNovelist
 
 Sometimes it might be necessary to go beyond the limits of structure database search. Together with the predicted fingerprint, compound classes and custom databases,
 SIRIUS 6 offers de novo generation of candidate structures through MSNovelist. See [MSNovelist]({{ "/advanced-background-information/#MSNovelist" | relative_url }}) for more details on the underlying science.

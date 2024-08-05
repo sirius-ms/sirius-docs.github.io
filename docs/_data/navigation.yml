@@ -69,10 +69,10 @@ global:
         url: /gui/#overview
       - title: "Data Import"
         url: /gui/#data-import
-      - title: "Compute Panel"
-        url: /gui/#compute-panel-basic-and-advanced
-      - title: "Identifying molecular formulas"
-        url: /gui/#identifying-molecular-formulas-with-sirius-1
+      - title: "Compute Dialogue"
+        url: /gui/#compute-dialogue
+      - title: "Molecular Formula Identification"
+        url: /gui/#identifying-molecular-formulas-with-sirius
       - title: "Predicting molecular fingerprints & CANOPUS"
         url: /gui/#predicting-the-molecular-fingerprint-with-csifingerid-and-predicting-compound-classes-with-canopus--3
       - title: "Structure database search"

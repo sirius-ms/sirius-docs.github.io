@@ -258,7 +258,7 @@ Again, this approach is more likely to annotate formulas with unusual elements t
 The molecular formula annotations explained above can  be utilized either individually or combined. Selecting the appropriate molecular formula annotation
 strategy is integral for a successful analysis.  Below we describe some standard strategies that cover most applications and serve as illustrative examples:
 
-### *De novo* + bottom-up
+### De novo + bottom-up
 
 **We recommend this approach for generic applications.** 
 
@@ -266,7 +266,7 @@ In the combined approach, features are categorized into "low" (m/z<400) and "hig
 The m/z threshold for categorization can be adjusted to align with runtime constraints and the computational capabilities of your local machine.
 Element set constraints must be defined for *de novo* annotation and can optionally be applied to bottom-up search as well. 
 
-### *De novo* only
+### De novo only
 
 **This approach is particularly suitable for discovering "unknown unknowns".**
 
@@ -281,7 +281,7 @@ The local machine running the SIRIUS client must be sufficiently powerful  to ha
 
 As the database-only approach will only consider molecular formulas present in the selected databases it will not generate formula annotations without a structure database match.
 
-### Bottom up only
+### Bottom up only 
 
 The "Bottom up only" strategy can be used for a slight speed increase compared to the recommended combined approach. However, it does not offer significant advantages over the recommended strategy, as the drawbacks of *de novo* annotation are primarily relevant for high-mass compounds.
 
