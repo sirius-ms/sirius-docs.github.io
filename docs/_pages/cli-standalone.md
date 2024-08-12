@@ -115,7 +115,7 @@ sirius --input <project-space> MGF --merge-ms2 --quant-table <table.csv> --outpu
 ```
 Note, quantification information are only available if the source of the project-space was in `mzml`(`mzxml`).
 
-## Fragmentation tree export tool
+## Fragmentation tree export tool {#ftree-export}
 The `ftree-export` tool exports the fragmentation trees of a given project-space (`sirius -i <INPUT>`) in
 various formats (`--json`, `--dot`) to a given output directory (`--output <DIR>`). The `--all` option specifies whether
  fragmentation trees of *all* formula candidates (of a compound) or only of the top formula candidate will be exported.

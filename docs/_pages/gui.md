@@ -22,14 +22,14 @@ The second button group <span style="color:red">[2]</span> facilitates
 [importing](#data-import) single features or data containing multiple features into
 your project space. The third button group <span style="color:red">[3]</span> handles exporting data, e.g. for [GNPS FBMN](https://doi.org/10.1038/s41592-020-0933-6) analysis
 or generating [project space summaries]({{ "/io/#sirius-project-space" | relative_url }}). 
-The fourth button group <span style="color:red">[4]</span> is dedicated to computations, including starting the computations, getting the job view and importing custom databases.  
+The fourth button group <span style="color:red">[4]</span> is dedicated to computations, including [starting the computations](#compute-dialog), getting the job view and [importing custom databases](#import-of-custom-structure-and-spectra-databases).  
 The last button group on the right <span style="color:red">[5]</span> provides access  access to the log, settings, webservice information, and account details. Here you can also find a link to the online documentation (`Help`) as well as information on software licence and related publications (`About`).
 
 - The **feature list <span style="color:red">[6]</span>** on the left side contains all imported (aligned) features. 
 A *feature* contains all MS and MS/MS spectra corresponding to a measured aligned
 feature. For each feature, adduct type, precursor mass, retention time and confidence score (if computed) are shown in this panel. 
 
-- The **result view <span style="color:red">[8]</span>** is displayed to the right of the feature list and allows users to examine different result views. The tab selector <span style="color:red">[7]</span> at the top of this panel lets you switch between these views, offering various perspectives on your data.
+- The **result view <span style="color:red">[8]</span>** is displayed to the right of the feature list and allows users to [examine different result views](#visualize-results). The tab selector <span style="color:red">[7]</span> at the top of this panel lets you switch between these views, offering various perspectives on your data.
 
 - The **bottom information bar <span style="color:red">[9]</span>** provides details about your license status for the webservice-based structure elucidation tools,  
 the number of computed features and feature limits.  
@@ -47,17 +47,17 @@ For more information on supported file formats, refer to the [Input]({{ "/io/#in
 
 ### Sort and filter
 
-To sort the feature list, use right-click to open the <span style="color:red">[sort]</span> dialogue below.
+To sort the feature list, use right-click to open the <span style="color:red">[sort]</span> dialog below.
 
 <img src="{{ "/assets/images/sort_filter.png" | relative_url }}" height="300" width="300">
 
 You can sort aligned features by retention time (RT), mass, name, ID or confidence score (if available). At the bottom of
-this dialogue, you can select the confidence mode (approximate or exact) to be displayed and 
+this dialog, you can select the confidence mode (approximate or exact) to be displayed and 
 used for sorting. For more details, see the [confidence modes]({{ "/advanced-background-information/#confidence-score-modes" | relative_url }}) section.
 
 The displayed feature list is already filtered by quality, i.e., features containing only MS1 spectra, features with bad quality and multimeric features are hidden. Use the switches on top of the feature list to unhide. 
 
-The feature list can further be refined by clicking the filter button (three dots to the right of the search field) to open the filter dialogue:
+The feature list can further be refined by clicking the filter button (three dots to the right of the search field) to open the filter dialog:
 
 <img src="{{ "/assets/images/filter_collage.png" | relative_url }}">
 
@@ -73,7 +73,7 @@ Computation* and *Batch Computation*. Both computation dialogs are similar in la
 
 - The **Single Computation** mode allows you
 to set different parameters for each individual feature. You can initiate a single computation by
-right-clicking on a **single** feature and selecting `Compute` in the context menu or by double-clicking on the feature. When opening the dialogue, element prediction is performed to preset the chemical alphabet. However, you can change this alphabet in the `Element Filter` if you like.
+right-clicking on a **single** feature and selecting `Compute` in the context menu or by double-clicking on the feature. When opening the dialog, element prediction is performed to preset the chemical alphabet. However, you can change this alphabet in the `Element Filter` if you like.
 
 - For **Batch Computation** you can right-click on 
 **multiple** selected features and choose `Compute` to process them collectively. Alternatively, you can use
@@ -81,11 +81,11 @@ the `Compute All` button in the toolbar to compute all features in the project s
 Additionally, you
 can choose whether to recompute and override results for features that  have already been analyzed.
 
-The following section provides a detailed explanation of the compute dialogue, using the *Batch Computation* dialogue as example.
+The following section provides a detailed explanation of the compute dialog, using the *Batch Computation* dialog as example.
 
-### Compute dialogue
+### Compute dialog
 
-Starting with SIRIUS 6, the compute dialogue has been streamlined to improve clarity by displaying only those settings that are essential for any type of analysis. Use the `Show advanced settings` button at the bottom <span style="color:red">[7]</span> to include additional settings that are relevant for specific use cases or to set limits for computation times.
+Starting with SIRIUS 6, the compute dialog has been streamlined to improve clarity by displaying only those settings that are essential for any type of analysis. Use the `Show advanced settings` button at the bottom <span style="color:red">[7]</span> to include additional settings that are relevant for specific use cases or to set limits for computation times.
 
 {% capture fig_img %}
 ![Foo]({{ "/assets/images/compute_basic_marked.png" | relative_url }})
@@ -96,7 +96,7 @@ Starting with SIRIUS 6, the compute dialogue has been streamlined to improve cla
   <figcaption>Batch compute dialog.</figcaption>
 </figure>
 
-The compute dialogue is divided into five subtools: 
+The compute dialog is divided into five subtools: 
 [SIRIUS molecular formula annotation](#identifying-molecular-formulas-with-sirius) <span style="color:red">[1]</span>, 
 [ZODIAC](#improve-molecular-formula-ranking-with-zodiac) <span style="color:red">[2]</span>, 
 [CSI:FingerID fingerprint prediction with CANOPUS](#predicting-molecular-fingerprints-with-csifingerid-and-compound-classes-with-canopus) <span style="color:red">[3]</span>, 
@@ -126,7 +126,7 @@ choose the appropriate molecular formula annotation strategy <span style="color:
 
 <figure>
   {{ fig_img | markdownify | remove: "<p>" | remove: "</p>" }}
-  <figcaption>Molecular formula annotation compute dialogue.</figcaption>
+  <figcaption>Molecular formula annotation compute dialog.</figcaption>
 </figure>
 
 - **General settings <span style="color:red">[A]</span>:** 
@@ -247,8 +247,7 @@ Also for bottom up search, applying an element filter <span style="color:red">[1
 
 ### Improve molecular formula ranking with ZODIAC
 
-ZODIAC enhances *de novo* molecular formula annotation for complete biological datasets, that is high-resolution, high-mass-accuracy LC-MS/MS runs. It refines the ranking of molecular formula candidates by analyzing  
-similarities among features in the dataset, using fragmentation trees as input.
+ZODIAC enhances *de novo* molecular formula annotation for complete biological datasets, that is high-resolution, high-mass-accuracy LC-MS/MS runs. It refines the ranking of molecular formula candidates by analyzing similarities among features in the dataset, using fragmentation trees as input.
 
 To use ZODIAC, select both SIRIUS and ZODIAC in the compute panel. This is only possible for [batch computation](#computing-results). 
 To increase the chance of the correct molecular formula candidate to be in the result list, increase the number of reported candidates for SIRIUS.
@@ -300,10 +299,11 @@ For more details, visit the [CANOPUS release page](https://bio.informatik.uni-je
 
 ### Identifying the molecular structure with CSI:FingerID
 
-Predicted fingerprints can be matched against database structures for structure elucidation. SIRIUS ships with a multitude of databases
-(see [Molecular structures]({{ "/advanced-background-information/#Molecular-structures" | relative_url }})). 
-Additionally, structures can be added as a "custom database" (see [Import of custom structure and spectra databases]({{ "/gui/#Import-of-custom-structure-and-spectra-databases" | relative_url }})) and then searched matched against
-(in addition to existing databases).
+CSI:FingerID facilitates the identification of molecular structures by matching 
+predicted molecular fingerprints against database structures. SIRIUS ships with a wide range of built-in databases
+(see [Molecular structures]({{ "/advanced-background-information/#molecular-structures" | relative_url }})). 
+Additionally, users can enhance the search capabilities by adding their own structures as a "custom database" (see [Import of custom structure and spectra databases]({{ "/gui/#Import-of-custom-structure-and-spectra-databases" | relative_url }})) which can then be searched alongside
+the existing databases.
 
 {% capture fig_img %}
 ![Foo]({{ "/assets/images/structure_marked.png" | relative_url }})
@@ -314,33 +314,39 @@ Additionally, structures can be added as a "custom database" (see [Import of cus
   <figcaption>Parameters for structure database search.</figcaption>
 </figure>
 
-(1) Expansive search fallback settings, please see [Expansive search]({{ "/advanced-background-information/#Expansive-search-(structure-database-search-with-fallback)" | relative_url }}) for a more detailed explanation. 
-You can choose to use PubChem as a fallback database in case it contains a hit of higher confidence than
-the selected databases (2).
-**Confidence mode** controls if approximate or exact confidence mode should be used for the assessment of if a
-hit in PubChem is more confident than a hit in the selected databases.
+**Expansive search:**
+Structure database search is conducted within the user-selected databases. 
+You can choose to use PubChem as a fallback database <span style="color:red">[1]</span> in case it contains a hit with higher confidence than
+those found in the selected databases.
+For a detailed explanation, please refer to the 
+[Expansive search]({{ "/advanced-background-information/#expansive-search-structure-database-search-with-fallback" | relative_url }}) section. 
+The `Confidence mode` controls whether the approximate or exact [confidence mode]({{ "/advanced-background-information/#confidence-score-modes" | relative_url }}) is used to asses if a
+hit in PubChem is more reliable than the hits in the selected databases.
 
-(2) Structure databases to search in. Per default the structure databases making up the "bio" database are selected. If formula database search
-was selected earlier in the workflow, selected databases will reflect that selection. You can return to default by clicking "bio". If any custom
-databases exist, they can be selected here as well.
+Per default the structure databases constituting the "bio" database are selected <span style="color:red">[2]</span>. De-select `PubChem as fallback` to fully search in PubChem. 
+If database search was used for [molecular formula identification](#identifying-molecular-formulas-with-sirius), the same databases are selected here. 
+You can revert to the default selection by clicking `bio`. If any custom database was loaded, 
+they can be selected here as well.
 
 
-### Generating de novo structure candidates with MSNovelist
+### Generating *de novo* structure candidates with MSNovelist
 
-Sometimes it might be necessary to go beyond the limits of structure database search. Together with the predicted fingerprint, compound classes and custom databases,
-SIRIUS 6 offers de novo generation of candidate structures through MSNovelist. See [MSNovelist]({{ "/advanced-background-information/#MSNovelist" | relative_url }}) for more details on the underlying science.
+In some cases, it is necessary to go beyond the limits of structure database search.
+To address this, SIRIUS 6 newly offers *de novo* generation of candidate structures through [MSNovelist]({{ "/advanced-background-information/#MSNovelist" | relative_url }}), in addition to predicting molecular fingerprints and compound classes, as well as searching in custom databases.
 
-Please note that the likelihood of any de novo generation method performing well for actual novel compounds is very low. Results should be seen as suggestions or starting points
+Be aware that the likelihood of any *de novo* generation method performing well for truly novel compounds is very low. Therefore, the results from MSNovelist should rather be considered as suggestion or starting point
 for semi-manual analysis of compounds that cannot be elucidated otherwise. 
 
-**MSNovelist will slow your SIRIUS work flow down significantly, use with caution.**
+**MSNovelist will significantly slow down your SIRIUS workflow; use with caution.**
 
 #### Import of custom structure and spectra databases
 
-Custom structure databases can be added via the "Databases" interface (4) located at the top center of the GUI ribbon.
-Starting with version 6.0, SIRIUS additionally supports the import of spectral libraries. Supported import formats for spectral
-data are .ms, .mgf, .msp, .mat, .txt (MassBank), .mb, .json (GNPS, MoNA). Spectra need to be annotated with a structure and be centroided.
-Imported custom structures can be used in structure database search, imported spectra will be used for spectral library matching, see [Spectral library matching via custom databases]({{ "/advanced-background-information/#Spectral-library-matching-via-custom-databases" | relative_url }}).
+Custom structure databases and spectral libraries can be added via the `Databases` dialog, accessible via the
+top center of the GUI ribbon.
+Starting with version 6.0, SIRIUS supports the import of spectral libraries. 
+The supported import formats for spectral
+data are .ms, .mgf, .msp, .mat, .txt (MassBank), .mb, .json (GNPS, MoNA). Spectra must be annotated with a structure and must be centroided.
+Custom structures can be used in [structure database search](#identifying-the-molecular-structure-with-csifingerid). Imported spectra will be used for [spectral library matching]({{ "/advanced-background-information/#spectral-library-matching" | relative_url }}).
 
 {% capture fig_img %}
 ![Foo]({{ "/assets/images/customDbs_marked.png" | relative_url }})
@@ -348,12 +354,14 @@ Imported custom structures can be used in structure database search, imported sp
 
 <figure>
   {{ fig_img | markdownify | remove: "<p>" | remove: "</p>" }}
-  <figcaption>Custom database dialogue.</figcaption>
+  <figcaption>Custom database dialog.</figcaption>
 </figure>
 
-Custom databases are stored as files with the ".siriusdb" extension. If such a database already exists on the local machine, it can be added to SIRIUS with the
-"add existing database" button. Imported databases can be deleted or modified using the respective buttons on the bottom right. To create a new custom database,
-use the "create custom database" button on the bottom right.
+Custom databases are stored as files with the `.siriusdb` extension. 
+If you already have a database with this format on your local machine, you can add it to SIRIUS by clicking the 
+`Add existing Database` button on the bottom right. To create a new custom database,
+click the `Create custom Database` button.
+Imported databases can be deleted or modified using the `-` or pencil icon button, respectively. 
 
 {% capture fig_img %}
 ![Foo]({{ "/assets/images/customDbs_import_marked.png" | relative_url }})
@@ -361,50 +369,49 @@ use the "create custom database" button on the bottom right.
 
 <figure>
   {{ fig_img | markdownify | remove: "<p>" | remove: "</p>" }}
-  <figcaption>Custom database import dialogue.</figcaption>
+  <figcaption>Custom database import dialog.</figcaption>
 </figure>
 
-(1) Name of the database that will be shown in the structure database search dialogue with a maximum length of 15 characters.
-(2) Desired file name of the database, should end with ".siriusdb"
-(3) The database location needs to be any valid, writeable path on your local machine.
-(4) The buffer size controls how many structures/spectra should be kept in memory. Can be increased when importing large files on a faster machine.
-(5) Input space to drag&drop files or directories containing structure/spectra files.
+To create a custom database, enter a name for the database <span style="color:red">[1]</span> (maximum length: 15 characters), which will be displayed in the structure database search dialog. 
+Specify the file name for the database, ensuring it ends with `.siriusdb` <span style="color:red">[2]</span>. 
+Choose be any valid, writeable path on your local machine to store the database <span style="color:red">[3]</span>.
+Adjust the buffer size <span style="color:red">[4]</span> to control how many structures or spectra should be kept in memory. This can be increased when importing large files on a faster machine.
+Drag and drop files or directories containing structure/spectra files to the input area <span style="color:red">[5]</span>, or use the `+` button to browse your file system.
 
-See [here](https://boecker-lab.github.io/docs.sirius.github.io/cli-standalone/#custom-database-tool) for more details regarding custom database import and supported file formats.
+For more details on custom database import and supported file formats, please see the [Custom database tool]({{ "/cli-standalone/#custom-database-tool" | relative_url }}) section.
 
-**Please note that you have to be logged in to your SIRIUS account to import custom databases**
+**Please note that you have to be logged in to your SIRIUS account to import custom databases.**
 
 #### COSMIC - confidence values for CSI:FingerID searches
-Calculating COSMIC confidence scores is parameter free and will be executed automatically every time a CSI:FingerID 
-search is performed. COSMIC scores for a feature are shown in the feature list on the left. From SIRIUS 6 onwards, confidence scores
-will be computed in "exact" and "approximate" mode. See [COSMIC]({{ "/advanced-background-information/#cosmic---confidence-for-small-molecule-identifications" for details. | relative_url }})
+COSMIC confidence scores are calculated automatically and without requiring any parameters every time a CSI:FingerID search is performed. 
+COSMIC scores are displayed in the feature list on the left. Starting with SIRIUS 6, confidence scores
+are computed in both `exact` and `approximate` mode. 
+
+For more details, 
+see the [COSMIC]({{ "/advanced-background-information/#cosmic---confidence-for-small-molecule-identifications"  | relative_url }}) section or
+visit the [COSMIC release page](https://bio.informatik.uni-jena.de/software/cosmic/).
 
 
-Click [here](https://bio.informatik.uni-jena.de/software/cosmic/) to visit the COSMIC release page
-
-
-## Visualization of the results
-The feature list not only shows information about the input and compute state, it further shows the COSMIC
+## Visualization of the results {#visualize-results}
+The feature provides not only information about the input and compute state, it also displays the COSMIC
 confidence score for the top CSI:FingerID hit.
 
-For each feature different tabs can be shown in the result panel.
-The *"LC-MS"* tab displays the chromatogram of a feature for it monoisotopic- and further isotope peaks, as well as possibly detected adducts.
-It includes a basic quality assessment of the spectrum. This tab is only populated for mzML and mzXML inputs.
-The *"Formulas"* panel displays the most important
-information of the molecular formula identification. The candidate list contains the best candidate molecular
-formulas ordered by score. Molecular formulas are always written
-in neutral form. For the selected molecular formula candidates the *Spectra view* visualizes
-which peak is assigned to a fragment.The corresponding fragmentation
-tree is visualized in the *Tree view*. The *"Predicted fingerprints"* panel shows information about
-the molecular properties of the molecular fingerprint predicted by CSI:FingerID. The *"compound classes"* panel
-shows the [Classyfire](http://classyfire.wishartlab.com/) classes predicted by CANOPUS. The *"Structures"* panel displays
-results from the CSI:FingerID structure search, while the *"Substructure Annotation"* panel shows possible substructures connected to
-the peaks of the MS/MS spectrumfor each candidate. The **De Novo structures** tab shows MSNovelist-generated structure candidates for the current query,
-and the **Library Matches** tab shows matches to reference spectra if imported.
+**For each feature, different result views can be displayed in the result panel:**
+- The [LC-MS view](#lcms-tab) displays the chromatographic feature alignment as well as a quality assessment of the spectra. This tab is only in use for mzML and mzXML inputs.
+- The [Formulas view](#formulas-tab) displays the results from the molecular formula identification.
+- The [Predicted Fingerprints view]() contains information about
+the molecular properties of the molecular fingerprint predicted by CSI:FingerID.
+- The [Compound Classes view]() shows the [Classyfire](http://classyfire.wishartlab.com/) classes predicted by CANOPUS.
+- The [Structures view]() displays results from the CSI:FingerID structure search.
+- The [De Novo Structures view]() displays MSNovelist-generated structure candidates for the current query.
+- The [Substructure Annotations view]() shows possible substructures connected to
+the peaks of the MS/MS spectrumfor each candidate.
+- The [Library Matches view]() shows matches to reference spectra if a spectral library was imported.
 
-### LC-MS tab
 
-The LC-MS tab is only visible when LC-MS data (mzML or mzXML) was used for import. When the data came from MGF, ms or similar file formats, the LC-MS information is not available. This is also the case when LC-MS data was processed with OpenMS or MZMine and the results were imported to SIRIUS.
+### LC-MS tab {#lcms-tab}
+
+The `LC-MS` tab is empty when no LC-MS data (`.mzML` or `.mzXML`) was imported, i.e. if the data is imported as `.mgf`, `.ms` or similar file formats, no LC-MS information is available. This is also the case when LC-MS data has been processed with OpenMS or MZMine and then imported to SIRIUS.
 
 {% capture fig_img %}
 ![Foo]({{ "/assets/images/lcms.png" | relative_url }})
@@ -420,18 +427,12 @@ The LC-MS tab displays the ion chromatogram of a feature (in blue), including it
 On the right, there is a basic quality assessment panel. It can be used to preemptively get an idea on overall quality of the MS and MS/MS of the feature.
 
 
-### Formulas tab 
+### Formulas tab {#formulas-tab}
 
-#### Formula annotation overview (1)
-
-The *"Formulas"* tab displays the molecular formula candidate list (1), spectrum (2) and
-fragmentation tree (3) of the selected feature. Candidates are ordered by
-total score, but can be sorted by any other column. A green row
-highlights the molecular formula of the best candidate structure found
-by CSI:FingerID.
+The `Formulas` tab displays the molecular formula candidate list <span style="color:red">[1]</span>, the mass spectra <span style="color:red">[2]</span> and the fragmentation tree <span style="color:red">[3]</span> of the selected feature. 
 
 {% capture fig_img %}
-![Foo]({{ "/assets/images/formula_result_marked.png" | relative_url }})
+![Foo]({{ "/assets/images/formulas-view.jpg" | relative_url }})
 {% endcapture %}
 
 <figure>
@@ -439,59 +440,34 @@ by CSI:FingerID.
   <figcaption>Formulas tab.</figcaption>
 </figure>
 
-The length of the bars for the different score columns (Sirius (isotope + tree) and zodiac) as well as the displayed numbers for
-columns *Isotope Score* and *Tree Score*, correspond to *logarithms* of
-maximum likelihoods (probability that this hypothesis, i.e. molecular
-formula, will generate the observed data). In contrast, the number in
-the *Sirius Score* column is the posterior probability of the hypothesis
-(molecular formula), and these probabilities sum to one. A higher
-posterior probability of the top hit may indicate that this molecular
-formula has a higher chance of being correct; but we stress that **a
-posterior probability of 90%, must not be misunderstood as a 90%
-probability that this molecular formula identification is correct! **
-The displayed probabilities are neither q-values nor Posterior Error
-Probabilities.
 
-#### Spectrum overview (2)
+- **Molecular formula candidate list** <span style="color:red">[1]</span>: 
+  The candidates are ranked and ordered by the SIRIUS score, which is a combination of the score from the isotope pattern analysis of the MS1 data and the fragmentation tree score from the MS2 data. The molecular formula of the best candidate structure found by CSI:FingerID is highlighted in green (and does not necessarily have to be the candidate with the best SIRIUS score). 
+  
+  The `Isotope Score` and `Tree Score` are *logarithms* of maximum likelihoods (probability that this molecular formula would produce the observed data). The the `Sirius Score` is the posterior probability of the candidate molecular formula (these probabilities sum to one). While a higher posterior probability for the top hit might suggest that this molecular formula is more likely to be correct, **it is important to note that a posterior probability of 90% does not mean there is a 90% chance that the molecular formula identification is correct!** The displayed probabilities are neither q-values nor Posterior Error Probabilities. 
+  The length of the bars for all score columns also correspond to logarithms of maximum likelihoods 
+  
+  Per default, the candidates are ordered by SIRIUS score but can be sorted by any other column.  
 
-In the *Spectrum view* part of the formulas tab, one can switch between MS1,
-MS1 isotope pattern mirror plot and MS2 spectra. Hold right mouse button to area-select,
-scroll while hovering an axis to zoom. In the MS2 view, all peaks that are annotated by the
-fragmentation tree are colored in green. Peaks that are annotated as
-noise are colored black. Hovering with the mouse over a peak shows its
-detailed annotation.
-Clicking on a green peak will highlight the corresponding node in the fragmentation tree.
-Spectra views can be exported using the top right export button.
+- **Mass spectra** <span style="color:red">[2]</span>: In this panel you can switch between the MS1 spectrum, the MS1 isotope pattern mirror plot or the MS2 spectra <span style="color:red">[a]</span>. For MS2 spectra, per default a merged spectrum is displayed, but you can also choose to view individual spectra <span style="color:red">[b]</span>. To zoom, hold the right mouse button and drag to select an area, or scroll while hovering over an axis. In the MS2 view, peaks annotated by the fragmentation tree are highlighted in green, while those identified as noise are colored black. Hovering over a peak will display its detailed annotation <span style="color:red">[c]</span>, and clicking on a green peak will highlight the corresponding node in the fragmentation tree. 
+Spectra views can be exported using the top right export button <span style="color:red">[d]</span>.
 
-#### Fragmentation tree overview (3)
+- **Fragmentation tree** <span style="color:red">[3]</span>: In the computed
+  [fragmentation tree]({{ "/advanced-background-information/#fragmentation-trees" | relative_url }}), each node assigns a molecular formula to a peak in the (merged) MS2 spectrum. 
+  Each edge is a hypothetical fragmentation reaction. You can customize the tree's appearance by selecting different node styles and color schemes.
 
+  The tree can be exported as SVG or PDF vector graphics.
+  Alternatively, the DOT file format provides a text-based description of the
+  tree, which can be rendered externally using tools like Graphviz to convert
+  DOT files into image formats such as PDF, SVG, or PNG. 
+  The JSON format offers a machine-readable representation of the
+  tree. For instructions on exporting fragmentation trees from the command line, see the [Fragmentation tree export tool]({{ "/cli-standalone/#ftree-export" | relative_url }}).
 
-The *Tree view* displays the computed fragmentation tree. Each node
-in this tree assigns a molecular formula to a peak in the (merged) MS/MS
-spectrum. Each edge is a hypothetical fragmentation reaction. The user
-has the choice between different node styles and color schemes. Please see 
-[Fragmentation trees]({{ "/advanced-background-information/#Fragmentation trees" | relative_url }}) for a detailed explanation on fragmentation trees.
-
-
-The displayed fragmentation tree can be exported as `svg` or `pdf` vector graphics.
-Alternatively, the `dot` file format contains a text description of the
-tree. It can be used to render the tree externally. The command-line
-tool Graphviz can transform dot files into image formats (`pdf`, `svg`, `png`
-etc). The `json` format yields a machine-readable representation of the
-tree. See the [`ftree-export`]({{ "/cli-standalone/#fragmentation-tree-export-tool" | relative_url }}) cli tool for how to export fragmentation trees from 
-the command line.
-
-
-
-### Predicted fingerprints tab
-Even if the correct structure is not found by CSI:FingerID — in
-particular if the correct structure is not contained in any database —
-you can get information about the structure by looking at the predicted
-fingerprint. The *"Fingerprint"* tab shows a list of all molecular properties 
-the predicted fingerprint consists of. 
-For each molecular property its definition and posterior probability is shown
-as well as some information about the predictor for this property.
-When selecting a molecular property, examples for this property are shown below the list.
+### Predicted Fingerprints tab 
+Even if CSI:FingerID does not identify the correct structure — in
+particular if the correct structure is not present in any structure database —
+you can still get valuable information about the structure by examining the predicted fingerprint. 
+The `Predicted Fingerprints` tab displays a list of all molecular properties that make up the predicted fingerprint. When you select a molecular property, examples related to that property are shown below the list.
 
 {% capture fig_img %}
 ![Foo]({{ "/assets/images/fingerprint.png" | relative_url }})
@@ -502,11 +478,12 @@ When selecting a molecular property, examples for this property are shown below 
   <figcaption>Fingerprint view.</figcaption>
 </figure>
 
-### Compound classes (CANOPUS) tab
+### Compound Classes tab
 
-Compound class predictions are visualized as table similar to molecular fingerprints: Each row in the table describes
-one class. The *posterior probability* is the probability that the measured spectrum (given the chosen molecular formula)
-belongs to this compound class. The other columns contain all related information from the
+The `Compound Classes` tab visualizes the [CANOPUS](({ "/advanced-background-information/#compound-classes" | relative_url })) compound class predictions in a table format. Each row in the table represents
+one compound class. The *posterior probability* indicates the likelihood that 
+the measured spectrum, given the chosen molecular formula, 
+belongs to that class.  The other columns contain all related information from the
 [ClassyFire](http://classyfire.wishartlab.com/) ontology.
 
 Above the table are two lists: **main classes** and **alternative classes**. The main class of a measurement is the
@@ -684,7 +661,7 @@ TODO
 
 ## Settings
 
-The settings dialogue can be opened by pressing the "Settings" button on the top right.
+The settings dialog can be opened by pressing the "Settings" button on the top right.
 
 <img src="{{ "/assets/images/settings_general.png" | relative_url }}" height="500" width="500">
 
@@ -732,7 +709,7 @@ The settings dialogue can be opened by pressing the "Settings" button on the top
 
 ## Webservice
 
-The connection check dialogue on the top right can help diagnose connection problems.
+The connection check dialog on the top right can help diagnose connection problems.
 
 <img src="{{ "/assets/images/connectionCheck.png" | relative_url }}" height="500" width="500">
 

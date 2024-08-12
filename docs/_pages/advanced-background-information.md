@@ -285,7 +285,7 @@ As the database-only approach will only consider molecular formulas present in t
 
 The "Bottom up only" strategy can be used for a slight speed increase compared to the recommended combined approach. However, it does not offer significant advantages over the recommended strategy, as the drawbacks of *de novo* annotation are primarily relevant for high-mass compounds.
 
-## Fragmentation trees
+## Fragmentation trees {#fragmentation-trees}
 
 Fragmentation trees annotate the fragmentation spectrum with molecular
 formulas, and identify likely losses between the ions in the

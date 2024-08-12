@@ -82,7 +82,7 @@ global:
       - title: "Custom database import"
         url: /gui/#import-of-custom-structure-and-spectra-databases
       - title: "Visualizing results"
-        url: /gui/#visualization-of-the-results
+        url: /gui/#visualize-results
       - title: "Data export"
         url: /gui/#data-export-summaries-and-fbmn-export
   - title: "Commandline interface"
