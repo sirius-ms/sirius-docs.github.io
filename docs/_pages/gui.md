@@ -399,9 +399,9 @@ confidence score for the top CSI:FingerID hit.
 **For each feature, different result views can be displayed in the result panel:**
 - The [LC-MS view](#lcms-tab) displays the chromatographic feature alignment as well as a quality assessment of the spectra. This tab is only in use for mzML and mzXML inputs.
 - The [Formulas view](#formulas-tab) displays the results from the molecular formula identification.
-- The [Predicted Fingerprints view]() contains information about
+- The [Predicted Fingerprints view](#fingerprint-tab) contains information about
 the molecular properties of the molecular fingerprint predicted by CSI:FingerID.
-- The [Compound Classes view]() shows the [Classyfire](http://classyfire.wishartlab.com/) classes predicted by CANOPUS.
+- The [Compound Classes view](#CANOPUS-tab) shows the [Classyfire](http://classyfire.wishartlab.com/) classes predicted by CANOPUS.
 - The [Structures view]() displays results from the CSI:FingerID structure search.
 - The [De Novo Structures view]() displays MSNovelist-generated structure candidates for the current query.
 - The [Substructure Annotations view]() shows possible substructures connected to
@@ -442,12 +442,14 @@ The `Formulas` tab displays the molecular formula candidate list <span style="co
 
 
 - **Molecular formula candidate list** <span style="color:red">[1]</span>: 
-  The candidates are ranked and ordered by the SIRIUS score, which is a combination of the score from the isotope pattern analysis of the MS1 data and the fragmentation tree score from the MS2 data. The molecular formula of the best candidate structure found by CSI:FingerID is highlighted in green (and does not necessarily have to be the candidate with the best SIRIUS score). 
+  The candidates are ranked by the SIRIUS score. The molecular formula of the best candidate structure found by CSI:FingerID is highlighted in green (and does not necessarily have to be the candidate with the best SIRIUS score). Per default, the candidates are ordered by SIRIUS score but can be sorted by any other column.  
+
+
+  The `Sirius Score` is a combination of the score from the isotope pattern analysis (`Isotope Score`) of the MS1 data and the fragmentation tree score (`Tree Score`) from the MS2 data. It is calculated by summing both scores and then converting them into probabilities using the softmax function. These probabilities sum to one. While a higher posterior probability for the top hit might suggest that this molecular formula is more likely to be correct, **it is important to note that a posterior probability of 90% does not mean there is a 90% chance that the molecular formula identification is correct!** The displayed probabilities are neither q-values nor Posterior Error Probabilities. The bars visually represent this value, with a full bar indicating a score of 100%. **This SIRIUS score is the primary score that users should focus on.**
   
-  The `Isotope Score` and `Tree Score` are *logarithms* of maximum likelihoods (probability that this molecular formula would produce the observed data). The the `Sirius Score` is the posterior probability of the candidate molecular formula (these probabilities sum to one). While a higher posterior probability for the top hit might suggest that this molecular formula is more likely to be correct, **it is important to note that a posterior probability of 90% does not mean there is a 90% chance that the molecular formula identification is correct!** The displayed probabilities are neither q-values nor Posterior Error Probabilities. 
-  The length of the bars for all score columns also correspond to logarithms of maximum likelihoods 
-  
-  Per default, the candidates are ordered by SIRIUS score but can be sorted by any other column.  
+  The `Isotope Score` and `Tree Score` themseselves are log-transformed posterior probabilities. The bars range from the lowest score in the column (empty) to the highest score in the column (full). 
+
+  The `Zodiac Score` is also a probability, and here too, the bars directly represent this value. 
 
 - **Mass spectra** <span style="color:red">[2]</span>: In this panel you can switch between the MS1 spectrum, the MS1 isotope pattern mirror plot or the MS2 spectra <span style="color:red">[a]</span>. For MS2 spectra, per default a merged spectrum is displayed, but you can also choose to view individual spectra <span style="color:red">[b]</span>. To zoom, hold the right mouse button and drag to select an area, or scroll while hovering over an axis. In the MS2 view, peaks annotated by the fragmentation tree are highlighted in green, while those identified as noise are colored black. Hovering over a peak will display its detailed annotation <span style="color:red">[c]</span>, and clicking on a green peak will highlight the corresponding node in the fragmentation tree. 
 Spectra views can be exported using the top right export button <span style="color:red">[d]</span>.
@@ -463,7 +465,7 @@ Spectra views can be exported using the top right export button <span style="col
   The JSON format offers a machine-readable representation of the
   tree. For instructions on exporting fragmentation trees from the command line, see the [Fragmentation tree export tool]({{ "/cli-standalone/#ftree-export" | relative_url }}).
 
-### Predicted Fingerprints tab 
+### Predicted Fingerprints tab {#fingerprint-tab}
 Even if CSI:FingerID does not identify the correct structure — in
 particular if the correct structure is not present in any structure database —
 you can still get valuable information about the structure by examining the predicted fingerprint. 
@@ -478,18 +480,7 @@ The `Predicted Fingerprints` tab displays a list of all molecular properties tha
   <figcaption>Fingerprint view.</figcaption>
 </figure>
 
-### Compound Classes tab
-
-The `Compound Classes` tab visualizes the [CANOPUS](({ "/advanced-background-information/#compound-classes" | relative_url })) compound class predictions in a table format. Each row in the table represents
-one compound class. The *posterior probability* indicates the likelihood that 
-the measured spectrum, given the chosen molecular formula, 
-belongs to that class.  The other columns contain all related information from the
-[ClassyFire](http://classyfire.wishartlab.com/) ontology.
-
-Above the table are two lists: **main classes** and **alternative classes**. The main class of a measurement is the
-*most specific* compound class from all compound classes with posterior probability above 50%. The **main classes** list
-contains the main class, as well as its ancestors in the Classyfire ontology. The **alternative classes** list contains
-all over classes with posterior probability above 50%.
+### Compound Classes tab {#CANOPUS-tab}
 
 {% capture fig_img %}
 ![Foo]({{ "/assets/images/canopus.png" | relative_url }})
@@ -500,11 +491,18 @@ all over classes with posterior probability above 50%.
   <figcaption>CANOPUS view.</figcaption>
 </figure>
 
-* (1) The most informative class (light green), and its ancestor classes (light blue).
-* (2) Alternative classes. In the ClassyFire chemontology, every compound is assigned to multiple classes. In this example, the compound kaempferol is a flavonoid, but also a benzenoid.
-* (3) The table lists all ClassyFire classes, with description parent class and so on. The colored bar denotes the predicted probability for this class. Only classes with probability above 0.5 are listed in (1) and (2).
+The `Compound Classes` tab visualizes the [CANOPUS](({ "/advanced-background-information/#compound-classes" | relative_url })) compound class predictions in a table format <span style="color:red">[4]</span>. Each row in the table represents
+one compound class. The `Posterior Probability` (number and bar) indicates the likelihood that 
+the measured spectrum, given the chosen molecular formula, 
+belongs to that class. Additional columns provide related information from the
+[ClassyFire](http://classyfire.wishartlab.com/) ontology, e.g. the respective parent class.
 
-Starting from SIRIUS 5, this tab also contains the predicted Natural Product classes.
+Above the table are two lists: `Main classes` and `Alternative Classes`. 
+- **Main Classes**  <span style="color:red">[1]</span>: The main class of a feature is the
+*most specific* compound class with highest priority<span style="color:red">[a]</span> from all compound classes with posterior probability above 50%, along with its ancestor classes in the ClassyFire ontology. You can find the full list of compound classes from ClassyFire including their priorities here. 
+- **Alternative classes** <span style="color:red">[2]</span>: This list contains
+all other classes with posterior probability above 50%. In the ClassyFire chemontology, each compound is assigned to multiple classes. 
+- **Natural Product Classes** <span style="color:red">[3]</span>: Starting from version 5, SIRIUS also predicts Natural Product classes.
 
 ### Structures tab
 {% capture fig_img %}
