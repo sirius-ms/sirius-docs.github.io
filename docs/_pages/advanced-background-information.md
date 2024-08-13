@@ -450,7 +450,7 @@ structure candidates of a particular feature nor does it discard any identificat
 The confidence score is calculated using Support Vector Machines (SVMs) with enforced feature directionality (different SVMs are applied based on the length of the structure candidate list). The resulting score is a Platt-probability estimate and thus, ranging from 0 to 1.0. However, it's important to note that this score should not be interpreted as a direct probability of correctness.
 During evaluation, we found that a score of 0.64 approximately corresponded to a 10% FDR. However, this might vary significantly depending on the specific characteristics of your dataset.
 
-### Confidence score modes
+### Confidence score modes {#confidence-score-mode}
 
 The confidence score can be evaluated in two modes: `exact` and `approximate`.
 
@@ -459,7 +459,7 @@ The confidence score can be evaluated in two modes: `exact` and `approximate`.
 - The `approximate` mode answers the question "Is this structure hit correct or highly similar to the true structure?". In this context,  _highly similar_ means that the hit is just one simple chemical reaction away from the true structure. Theoretical speaking, the hit and the true structure should have a Maximum Common Edge Subgraph ([MCES](https://en.wikipedia.org/wiki/Maximum_common_edge_subgraph)) distance of 2.
 For example, a hit where only a side group has been repositioned compared to the true structure would still be considered "correct" in `approximate` mode. If you find nearly correct hits useful, it is advisable to use the `approximate` mode, which provides a higher confidence score for hits that are highly similar to the true structure.
 
-## Expansive search (structure database search with fallback)
+## Expansive search (structure database search with fallback) {#expansive-search}
 
 SIRIUS 6 introduces *expansive search*, which allows for structure database searches with a confidence score-based fallback.
 Structure database search is conducted within the user-selected databases ("requested databases"), and then additionally for "PubChem". If the top hit in PubChem has a confidence score at least twice as high as the confidence 

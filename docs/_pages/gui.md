@@ -23,7 +23,7 @@ The second button group <span style="color:red">[2]</span> facilitates
 your project space. The third button group <span style="color:red">[3]</span> handles exporting data, e.g. for [GNPS FBMN](https://doi.org/10.1038/s41592-020-0933-6) analysis
 or generating [project space summaries]({{ "/io/#sirius-project-space" | relative_url }}). 
 The fourth button group <span style="color:red">[4]</span> is dedicated to computations, including [starting the computations](#compute-dialog), getting the job view and [importing custom databases](#import-of-custom-structure-and-spectra-databases).  
-The last button group on the right <span style="color:red">[5]</span> provides access  access to the log, settings, webservice information, and account details. Here you can also find a link to the online documentation (`Help`) as well as information on software licence and related publications (`About`).
+The last button group on the right <span style="color:red">[5]</span> provides access  access to the log, [settings](#settings), [webservice information](#webservice), and account details. Here you can also find a link to the online documentation (`Help`) as well as information on software licence and related publications (`About`).
 
 - The **feature list <span style="color:red">[6]</span>** on the left side contains all imported (aligned) features. 
 A *feature* contains all MS and MS/MS spectra corresponding to a measured aligned
@@ -319,7 +319,7 @@ Structure database search is conducted within the user-selected databases.
 You can choose to use PubChem as a fallback database <span style="color:red">[1]</span> in case it contains a hit with higher confidence than
 those found in the selected databases.
 For a detailed explanation, please refer to the 
-[Expansive search]({{ "/advanced-background-information/#expansive-search-structure-database-search-with-fallback" | relative_url }}) section. 
+[Expansive search]({{ "/advanced-background-information/#expansive-search" | relative_url }}) section. 
 The `Confidence mode` controls whether the approximate or exact [confidence mode]({{ "/advanced-background-information/#confidence-score-modes" | relative_url }}) is used to asses if a
 hit in PubChem is more reliable than the hits in the selected databases.
 
@@ -339,7 +339,7 @@ for semi-manual analysis of compounds that cannot be elucidated otherwise.
 
 **MSNovelist will significantly slow down your SIRIUS workflow; use with caution.**
 
-#### Import of custom structure and spectra databases
+#### Import of custom structure and spectra databases {#custom-database-import}
 
 Custom structure databases and spectral libraries can be added via the `Databases` dialog, accessible via the
 top center of the GUI ribbon.
@@ -396,20 +396,20 @@ visit the [COSMIC release page](https://bio.informatik.uni-jena.de/software/cosm
 The feature provides not only information about the input and compute state, it also displays the COSMIC
 confidence score for the top CSI:FingerID hit.
 
-**For each feature, different result views can be displayed in the result panel:**
+**For each feature, different result views can be displayed by switching between the tabs in the result panel:**
 - The [LC-MS view](#lcms-tab) displays the chromatographic feature alignment as well as a quality assessment of the spectra. This tab is only in use for mzML and mzXML inputs.
 - The [Formulas view](#formulas-tab) displays the results from the molecular formula identification.
 - The [Predicted Fingerprints view](#fingerprint-tab) contains information about
 the molecular properties of the molecular fingerprint predicted by CSI:FingerID.
 - The [Compound Classes view](#CANOPUS-tab) shows the [Classyfire](http://classyfire.wishartlab.com/) classes predicted by CANOPUS.
-- The [Structures view]() displays results from the CSI:FingerID structure search.
-- The [De Novo Structures view]() displays MSNovelist-generated structure candidates for the current query.
-- The [Substructure Annotations view]() shows possible substructures connected to
+- The [Structures view](#structures-tab) displays results from the CSI:FingerID structure search.
+- The [De Novo Structures view](#MSNovelist-tab) displays MSNovelist-generated structure candidates for the current query.
+- The [Substructure Annotations view](#substructure-tab) shows possible substructures connected to
 the peaks of the MS/MS spectrumfor each candidate.
-- The [Library Matches view]() shows matches to reference spectra if a spectral library was imported.
+- The [Library Matches view](#library-matches-tab) shows matches to reference spectra if a spectral library was imported.
 
 
-### LC-MS tab {#lcms-tab}
+### LC-MS view {#lcms-tab}
 
 The `LC-MS` tab is empty when no LC-MS data (`.mzML` or `.mzXML`) was imported, i.e. if the data is imported as `.mgf`, `.ms` or similar file formats, no LC-MS information is available. This is also the case when LC-MS data has been processed with OpenMS or MZMine and then imported to SIRIUS.
 
@@ -422,12 +422,12 @@ The `LC-MS` tab is empty when no LC-MS data (`.mzML` or `.mzXML`) was imported, 
   <figcaption>Overview tab.</figcaption>
 </figure>
 
-The LC-MS tab displays the ion chromatogram of a feature (in blue), including its isotope peaks, possible in-source fragments (in brown), as well as detected adducts (in green) for each input file in which the feature was detected. Retention times are always given in minutes. The *extended ion chromatogram* (gray, dashed) is the mass trace that is not part of the detected peak (e.g., a second ion with same mass or just background noise with same mass). In case MS/MS data of the feature was extracted from the selected LC-MS input file, a black arrow marks the retention time at which the MS/MS was shot. A gray dashed line marks the *noise level*; its exact computation may varies from version to version, but it is related to the median intensity of all peaks in the MS scan. Two gray vertical dashed lines mark the median and weighted average retention time of the feature across all input LC-MS data files.
+The LC-MS view displays the ion chromatogram of a feature (in blue), including its isotope peaks, possible in-source fragments (in brown), as well as detected adducts (in green) for each input file in which the feature was detected. Retention times are always given in minutes. The *extended ion chromatogram* (gray, dashed) is the mass trace that is not part of the detected peak (e.g., a second ion with same mass or just background noise with same mass). In case MS/MS data of the feature was extracted from the selected LC-MS input file, a black arrow marks the retention time at which the MS/MS was shot. A gray dashed line marks the *noise level*; its exact computation may varies from version to version, but it is related to the median intensity of all peaks in the MS scan. Two gray vertical dashed lines mark the median and weighted average retention time of the feature across all input LC-MS data files.
 
 On the right, there is a basic quality assessment panel. It can be used to preemptively get an idea on overall quality of the MS and MS/MS of the feature.
 
 
-### Formulas tab {#formulas-tab}
+### Formulas view {#formulas-tab}
 
 The `Formulas` tab displays the molecular formula candidate list <span style="color:red">[1]</span>, the mass spectra <span style="color:red">[2]</span> and the fragmentation tree <span style="color:red">[3]</span> of the selected feature. 
 
@@ -465,7 +465,7 @@ Spectra views can be exported using the top right export button <span style="col
   The JSON format offers a machine-readable representation of the
   tree. For instructions on exporting fragmentation trees from the command line, see the [Fragmentation tree export tool]({{ "/cli-standalone/#ftree-export" | relative_url }}).
 
-### Predicted Fingerprints tab {#fingerprint-tab}
+### Predicted Fingerprints view {#fingerprint-tab}
 Even if CSI:FingerID does not identify the correct structure — in
 particular if the correct structure is not present in any structure database —
 you can still get valuable information about the structure by examining the predicted fingerprint. 
@@ -480,7 +480,7 @@ The `Predicted Fingerprints` tab displays a list of all molecular properties tha
   <figcaption>Fingerprint view.</figcaption>
 </figure>
 
-### Compound Classes tab {#CANOPUS-tab}
+### Compound Classes view {#CANOPUS-tab}
 
 {% capture fig_img %}
 ![Foo]({{ "/assets/images/canopus.png" | relative_url }})
@@ -491,7 +491,7 @@ The `Predicted Fingerprints` tab displays a list of all molecular properties tha
   <figcaption>CANOPUS view.</figcaption>
 </figure>
 
-The `Compound Classes` tab visualizes the [CANOPUS](({ "/advanced-background-information/#compound-classes" | relative_url })) compound class predictions in a table format <span style="color:red">[4]</span>. Each row in the table represents
+The `Compound Classes` tab visualizes the [CANOPUS]({{ "/advanced-background-information/#compound-classes" | relative_url }}) compound class predictions in a table format <span style="color:red">[4]</span>. Each row in the table represents
 one compound class. The `Posterior Probability` (number and bar) indicates the likelihood that 
 the measured spectrum, given the chosen molecular formula, 
 belongs to that class. Additional columns provide related information from the
@@ -499,73 +499,81 @@ belongs to that class. Additional columns provide related information from the
 
 Above the table are two lists: `Main classes` and `Alternative Classes`. 
 - **Main Classes**  <span style="color:red">[1]</span>: The main class of a feature is the
-*most specific* compound class with highest priority<span style="color:red">[a]</span> from all compound classes with posterior probability above 50%, along with its ancestor classes in the ClassyFire ontology. You can find the full list of compound classes from ClassyFire including their priorities here. 
+*most specific* compound class with highest priority from all compound classes with posterior probability above 50%, along with its ancestor classes in the ClassyFire ontology. You can find the full list of compound classes from ClassyFire including their priorities here. 
 - **Alternative classes** <span style="color:red">[2]</span>: This list contains
 all other classes with posterior probability above 50%. In the ClassyFire chemontology, each compound is assigned to multiple classes. 
 - **Natural Product Classes** <span style="color:red">[3]</span>: Starting from version 5, SIRIUS also predicts Natural Product classes.
 
-### Structures tab
+### Structures view {#structures-tab}
 {% capture fig_img %}
-![Foo]({{ "/assets/images/structures_exact.png" | relative_url }})
+![Foo]({{ "/assets/images/structures-view.png" | relative_url }})
 {% endcapture %}
 
 <figure>
   {{ fig_img | markdownify | remove: "<p>" | remove: "</p>" }}
-  <figcaption>structure annotation tab tab.</figcaption>
+  <figcaption>`Structures` tab.</figcaption>
 </figure>
 
-This tab shows you the candidate structures for the selected molecular
-formula ordered by the CSI:FingerID search score. The highest scoring candidate is highlighted
-in green. If you have approximate confidence mode enabled, all candidates that are within MCES distance 2
-will be highlighted (see [Expansive search]({{ "/advanced-background-information/#Expansive-search-(structure-database-search-with-fallback)" | relative_url }})).
-If you want to filter the candidate list by a certain database (e.g. only compounds from KEGG
-and BioCyc) you can press the filter button (top left). A menu will open displaying
-all available databases. Only candidates will be displayed that are
-enabled in this filter menu. If you want to see
-only compounds from KEGG and BioCyc you have to check only KEGG and BioCyc.
+The `Structures` tab displays candidate structures for the selected 
+molecular formula, ranked by the CSI:FingerID search score. 
+The highest-scoring candidate is highlighted
+in green <span style="color:red">[1]</span>. If you have enabled [approximate confidence mode]({{ "/advanced-background-information/#confidence-score-modes" | relative_url }}), all candidates within an MCES distance of 2
+will also be highlighted (see [Expansive search]({{ "/advanced-background-information/#expansive-search" | relative_url }})).
+To filter the candidate list by a specific database (e.g., only compounds from KEGG
+and BioCyc), click the filter button <span style="color:red">[2]</span> in the top left corner. A menu <span style="color:red">[3]</span> will open, displaying
+all available databases. Only candidates from the selected databases will be shown. 
 
 The blue and red squares are a visualization of the CSI:FingerID
-predictions and scoring. All blue squares represent molecular structures
-that are found in the candidate structure and are predicted by
-CSI:FingerID to be present in the measured feature. The more intense
-the color of the square the higher is the predicted probability for the
-presence of this substructure. The larger the square the more reliable
-is the predictor. The red squares, however, represent structures that
+predictions and scoring <span style="color:red">[4]</span>.
+- **Blue squares** represent molecular substructures
+present in the candidate structure that are predicted by
+CSI:FingerID to be present in the measured feature. The intensity of the color indicates the predicted probability, and the size of the square reflects the reliability of the predictor.
+- **Red squares** represent substructures that
 are predicted to be absent but are, nevertheless, found in the candidate
-structure. Again, as more intense the square as higher the predicted
-probability that this structure should be absent. Therefore, a lot of
-large intense blue squares and as few as possible large intense red
-squares are a good indication for a correct prediction.
+structure. The intensity of the color reflects the probablity that the structure should be absent. 
 
-When hovering over these squares the corresponding
-description of the molecular structure (usually a SMART expression) is
-displayed. When clicking on one of these squares, the corresponding
-atoms in the molecule that belong to this substructure are highlighted.
-If the substructure matches several times in the molecule, it is once
-highlighted in dark blue while all other matches are highlighted in a
+Overall, a correct prediction is typically characterized by many large, intense blue squares and as few large, intense red squares as possible.
+
+Hovering over a square displays the description 
+of the molecular substructure (usually a SMARTS expression) <span style="color:red">[5]</span>. 
+Clicking on a square highlights the corresponding
+atoms in the molecule <span style="color:red">[6]</span>.
+If the substructure appears multiple times, the first appearance is
+highlighted in dark blue, while the other matches are highlighted in
 translucent blue.
 
-You can enable filtering by the selected substructure (button with the structure, top left),
-to only show candidates that contain the selected substructure.
-Further, you can filter the candidate list using a SMARTS pattern or full-text search (top ribbon).
+To filter the candidate list for for structures that contain the selected substructure, use the other filter button in the top left corner <span style="color:red">[7]</span>. You can also filter by SMARTS pattern <span style="color:red">[8]</span> or using the full-text search <span style="color:red">[9]</span>.
 
-You can open a context menu by right click on a proposed structure. It offers
-you to open the compound in PubChem or copy the InChI or InChI key in
-your clipboard.
+Right-clicking on a proposed structure opens a context menu <span style="color:red">[10]</span>, allowing you to:
+- Copy the InChI or InChI Key to your clipboard
+- Open the compound in PubChem
+- Open the compound in all databases 
+- Highlight matching substructures 
+- Show the annotated spectrum in the `Substructure Annotations` tab
 
-If the structure is contained in any database, a blue or grey label
-with the name of this database is displayed below the structure. You can
-click on blue labels to open the database entry in your browser
-window. Yellow labels indicate that the candidate is contained in the corresponding
-custom database. A red label indicates that this candidate is flagged with an unknown database.
-This can for example happen when loading results that have been computed with a custom database that 
-is not available on the current system. Black labels are just additional information such as if the candidate 
+{% capture fig_img %}
+![Foo]({{ "/assets/images/matching-substructures.png" | relative_url }})
+{% endcapture %}
+
+<figure>
+  {{ fig_img | markdownify | remove: "<p>" | remove: "</p>" }}
+  <figcaption>Highlighting of matching substructures.</figcaption>
+</figure>
+
+If the structure is contained in any database, a label
+with the name of this database is displayed below the structure. Database labels have different colors: 
+- **grey:** Default color.
+- **blue:** Clicking on the label opens the database entry in your browser.
+- **yellow:** Is a [custom database](#custom-database-import) loaded by the user. 
+- **red:** The database is unknown. This can for example happen when loading results that have been computed with a custom database that 
+is not available on the current system. 
+- **black:** Additional information such as whether the candidate 
 is part of the CSI:FingerID training data.
 
-This tab also includes visualization for the "El Gordo" lipid class annotation functionality. Lipid structures are often extremely similar to each other,
+This view also includes visualization for the "El Gordo" lipid class annotation functionality. Lipid structures are often extremely similar to each other,
 often only differing in the position of the double bonds. These extremely similar structures are often not even differentiable by mass spectrometry at all, which is why the overarching lipid class is shown above the structure candidates. 
 
-If the PubChem fallback was triggered as part of [Expansive search]({{ "/advanced-background-information/#Expansive-search-(structure-database-search-with-fallback)" | relative_url }}), a notification will be displayed below the top ribbon.
+If the PubChem fallback was activated as part of [Expansive search]({{ "/advanced-background-information/#expansive-search" | relative_url }}), a notification will be displayed below the top ribbon.
 
 {% capture fig_img %}
 ![Foo]({{ "/assets/images/structures_specMatch.png" | relative_url }})
@@ -576,12 +584,13 @@ If the PubChem fallback was triggered as part of [Expansive search]({{ "/advance
   <figcaption>structure annotation with spectral library match.</figcaption>
 </figure>
 
-If a structure candidate shown in this tab also has a reference spectrum imported via a custom database, the spectral match will be shown.
-Clicking on it will show the [spectral matchig tab]({{ "/gui/#library-matches-tab" | relative_url }}).
+Finally, if a structure candidate has a reference spectrum imported 
+via a custom database, the spectral match will be displayed.
+Clicking on this match will take you to the [`Library Matches` tab]({{ "/gui/#library-matches-tab" | relative_url }}).
 
 
 
-### De Novo Structure tab
+### De Novo Structures view {#MSNovelist-tab}
 
 {% capture fig_img %}
 ![Foo]({{ "/assets/images/msnovelist.png" | relative_url }})
@@ -589,23 +598,25 @@ Clicking on it will show the [spectral matchig tab]({{ "/gui/#library-matches-ta
 
 <figure>
   {{ fig_img | markdownify | remove: "<p>" | remove: "</p>" }}
-  <figcaption>De novostructure annotation tab tab.</figcaption>
+  <figcaption>*De novo* structure annotation view.</figcaption>
 </figure>
 
-This tab shows de novo structure generation results produced by [MSNovelist]({{ "/advanced-background-information/#MSNovelist" | relative_url }}) and tags them with a "de novo" tag. 
-If MSNovelist generated structures that are also contained in regular structure databases, the corresponding tags will be added to that structure. 
-As an example, generated structures 1-4 in the image above are also present in structure databases, while generated structure 5 is de novo only.
+The `De Novo Structures` tab displays the *de novo* structure generation results produced by [MSNovelist]({{ "/advanced-background-information/#MSNovelist" | relative_url }}), with each generated structure tagged with a `de novo` label. 
+If a generated structure is also found in the structure databases, the corresponding [labels](#structures-tab) will be added alongside the `de novo` label. 
+For instance, in the example screenshot above, generated structures 1-4 are generated by MSNovelist, but also exist in the structure databases. Structure 5 was only generated *de novo* by MSNovelist.
 
-By default, structure candidates present in structure databases but NOT generated by MSNovelist will also be shown. This can be turned off using the first button
-on the top right.
+By default, structure candidates from the structure databases that have NOT been 
+generated by MSNovelist are also displayed. You can hide those structures by toggling 
+the left button in the top right corner.
 
 
-### Substructure Annotation tab
+### Substructure Annotation view {#substructure-tab}
 
-In this tab, a direct connection between the input MS/MS spectrum and the CSI:FingerID structure candidates is visualized.
-The table in the top part of the view shows all structure candidates for a given query that were also present in the "Structures" tab. Structure candidates generated
-by MSNovelist are also shown here. This can be disabled using the first button on the top right.
-By selecting a structure, the bottom part of the view shows the fragmentation spectrum on the left, as well as the given structure candidate on the right. 
+The `Substructure Annotations` tab visualizes the direct connection between the input MS/MS spectrum and the CSI:FingerID structure candidates.
+The table at the top displays all structure candidates for a given query (as listed in the `Structures` tab), and all structure candidates generated
+by MSNovelist. You can hide/unhide MSNovelist-generated structures by toggling 
+the left button in the top right corner.
+When you select a structure from the list, the lower part of the view shows the fragmentation spectrum on the left and the selected structure candidate on the right. 
 
 {% capture fig_img %}
 ![Foo]({{ "/assets/images/substructure_annotation.png" | relative_url }})
@@ -616,17 +627,14 @@ By selecting a structure, the bottom part of the view shows the fragmentation sp
   <figcaption>Substructure annotation view.</figcaption>
 </figure>
 
-Peaks in the fragmentation spectrum are color coded as follows:
+Peaks in the fragmentation spectrum are color-coded as follows:
+- **Black peaks:** These peaks are not used to explain the molecular formula of the candidate and are not part of the fragmentation tree (similar to spectrum in the [Formulas view](#formulas-tab). Typically, these peaks are considered noise or are not explainable by the precursor ion's molecular formula.
+- **Green peaks:** These peaks are part of the fragmentation tree and thus used to explain the molecular formula of the candidate. However, they do not have a substructure associated to them.
+- **Purple peaks:** These peaks are used to explain the molecular formula of the candidate, AND can be associated to a specific substrucure of the candidate's structure. Substructures are  generated combinatorially and then scored against the peaks, with the highest scoring substructure for each peak displayed on the right. In the presented structure, blue atoms and bonds represent the substructure, while red bonds indicate the fragmentation that would have occurred to form this fragment.
 
--Black peaks:  Peaks that are not used to explain the molecular formula of the candidate, and are as such not part of the fragmentation tree (just like in the "Formulas" tab). Usually, these peaks can be considered as noise or not explainable by the precursor ions molecular formula.
+You can navigated through the peaks using left-click or the arrow keys.
 
--Green peaks: Peaks that are used to explain the molecular formula of the candidate, and as such are part of the fragmentation tree (just like in the "Formulas" tab), but do not have a substructure associated to them (see below)
-
--Purple peaks: Peaks that are used to explain the molecular formula of the candidate, AND can be associated to a specific substrucure of the candidate's structure. Possible substructures are combinatorially generated and then scored against the peaks in the spectrum, with the highest scoring substructure for each peak being displayed on the right. Blue atoms and bonds make the substructure, while red bonds denote the fragmentation that would have needed to occur for that fragment to be formed.
-
-Peaks can be navigated by left-clicking on them, or using the arrow keys.
-
-### Library matches tab
+### Library Matches view {#library-matches-tab}
 
 {% capture fig_img %}
 ![Foo]({{ "/assets/images/library_matches.png" | relative_url }})
@@ -637,82 +645,67 @@ Peaks can be navigated by left-clicking on them, or using the arrow keys.
   <figcaption>Spectral library matches tab.</figcaption>
 </figure>
 
-This tab shows spectral library matches for the measured query spectrum against a spectral library. **Query** denotes which measured spectrum
-produced the match, in case multiple MS2 were measured for the same feature (in this example it was MS2 spectrum #26). The mirror plot view can be
-zoomed by mouse wheel or by holding right click and drag-selecting an area. Please see [Spectral library matching via custom databases]({{ "/advanced-background-information/#Spectral-library-matching-via-custom-databases" | relative_url }}) for background information on
-spectral library search in SIRIUS, as well as [Import of custom structure and spectra databases]({{ "/gui/#Import-of-custom-structure-and-spectra-databases" | relative_url }})
+The `Library Matches` tab displays the spectral library matches for the measured query spectrum against a reference library. 
+To zoom into the spectrum, hold the right mouse button and drag to select an area, or scroll while hovering over an axis.
 
-## Data export (Summaries and FBMN export)
+For more information on spectral library searches in SIRIUS, please refer to the sections on [Spectral Library Matching via Custom Databases]({{ "/advanced-background-information/#Spectral-library-matching-via-custom-databases" | relative_url }}) and [Import of Custom Structure and Spectra Databases]({{ "/gui/#Import-of-custom-structure-and-spectra-databases" | relative_url }}).
 
-Summary files containing analysis results can be exported via the "Summaries" button on the top left.
+## Data export (Summaries and FBMN export) {#data-export}
+
+Analysis results can be exported using the `Summaries` button in the top left tool bar. 
 
 <img src="{{ "/assets/images/summaries.png" | relative_url }}" height="300" width="300">
 
-Summaries will generally include five types: formula annotation summaries, canopus summaries, structure database search summaries, MSNovelist summaries and spectral library matching summaries.
-By default, only the top hit is exported, this can be changed by either selecting "All hits" (can produce very large files) or "top k hits". For formula annotation summaries, the user can choose
-to additionally export adducts belonging to the top hits. See [Summary files]({{ "/io/#summary-files" | relative_url }})) for a breakdown of the generated summary files. 
+[Summary files]({{ "/io/#summary-files" | relative_url }}) include five types of data:
+- [formula annotation summaries]({{ "/io/#molecular-formula-summary" | relative_url }})
+- [CANOPUS summaries]({{ "/io/#CANOPUS-summary" | relative_url }})
+- [structure database search summaries]({{ "/io/#structure-summary" | relative_url }})
+- [MSNovelist summaries]({{ "/io/#structure-summary" | relative_url }})
+- spectral library matching summaries.
+
+By default, only the top hit is exported, but this can be adjusted by to export either "All hits" (which may result in very large files) or "Top k hits". 
+For formula annotation summaries, users also have the option to
+export adducts belonging to the top hits. 
+
+[//]: # (TODO: this part is very confusing...)
 
 ### Feature based molecular networking (FBMN) export
 
 TODO
 
 
-## Settings
+## Settings {#settings}
 
-The settings dialog can be opened by pressing the "Settings" button on the top right.
+You can access the settings dialog by clicking the `Settings` button at the top right of the user interface.
 
 <img src="{{ "/assets/images/settings_general.png" | relative_url }}" height="500" width="500">
 
-
-  - *General settings*
-      - *UI Theme:* Choose your favourite display mode for less eye strain (requires restart).
-    
-      - *Scaling factor:* Increases the size of the GUI by the chosen factor (requires restart).
-    
-      - *Import data without MS/MS:* If checked, features with no MS/MS data will be imported into SIRIUS. Please note that for
-        features with no MS/MS data, only isotope pattern analysis can be performed.
-      - *Ignore formulas:* If checked, SIRIUS will ignore any molecular formula annotations that may already be present in the input file.
-        This can be useful for evaluation, or in case you don't trust formula annotations added externally.
-      - *Confidence score display mode:* Sets the confidence score display mode (either approximate or exact). 
-    
-      - *Allowed solvers:* Choose the ILP solver for SIRIUS to use for
-        fragmentation tree computation. GLPK is free, Gurobi is
-        commercial but offers free academic license.
-    
-      - *Database cache:* location of cache directory. CSI:FingerID
-        download candidate structures from our server and caches them
+**General settings:**
+- `UI Theme`: Choose your preferred display mode to reduce eye strain (requires restart).
+- `Scaling Factor`: Adjust the size of the GUI by the selected factor (requires restart).
+- `Confidence score display mode`: Sets the mode for displaying the [confidence score]({{ "/advanced-background-information/#confidence-score-modes" | relative_url }}) (either `approximate` or `exact`). 
+- `Allowed solvers`: Select the [ILP solver]({{ "/install/#ILP-solvers" | relative_url }}) for SIRIUS to use in
+        fragmentation tree computation. GLPK is free, while Gurobi is
+        commercial but offers a free academic license.
+- `Database cache`: Specifies the location of the cache directory. CSI:FingerID
+        downloads candidate structures from our server and caches them
         for faster retrieval.
 
+**Adduct settings:**
+Add or remove custom adducts for positive and negative ion mods
 
-
-   - *Adduct settings*
-
-      - Add or remove custom adducts for positive and negative ion mods
-
-    
-
-  - *Proxy and Network settings*
-    
-      - Sirius supports proxy configuration. It can be enabled by changing
-        the proxy configuration from NONE to SIRIUS. If SIRIUS is selected
-        it uses the configuration you have specified int the Settings
-        -\> Network panel. If NONE is selected Sirius ignores all proxy
-        settings.
-    
-      - Edit the information in the Settings -\> Network panel if you want
-        to address CSI:FingerID via a proxy server. Your specified
-        configuration will be tested if you hit the save button.
+**Network settings:**
+SIRIUS supports using a proxy server to access our webservices by changing `Use Proxy Server` from `NONE` to `SIRIUS` and entering all required information. Your   configuration will be tested when you click the save button.
 
  
 
-## Webservice
+## Webservice {#webservice}
 
-The connection check dialog on the top right can help diagnose connection problems.
+The webservice connection check dialog, accessible via the `Webservice` button in  the top right, helps diagnose any connection issues.
 
 <img src="{{ "/assets/images/connectionCheck.png" | relative_url }}" height="500" width="500">
 
 
-Green checkmarks or red crosses will appear depending on if you have connection to the internet, 
-login server, license server and web service. Additionally, information on if the account you are 
-currently logged in to has a valid subscription attached to it can be found here. Potential connection
-or licensing issues will be given in the description box.
+Green checkmarks or red crosses indicate whether you are successfully connected to the internet, login server, license server, and web service.
+It also provides information about your account's subscription status, showing whether a valid subscription is linked to the account you're currently logged into.
+If there are any connection or licensing problems, detailed descriptions and potential solutions will be provided in the description box.

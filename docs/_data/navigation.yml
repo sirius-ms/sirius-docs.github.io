@@ -16,7 +16,7 @@ global:
       - title: "User account and License"
         url: /install/#user-account-and-license-since-v500
       - title: "ILP Solver"
-        url: /install/#installing-gurobi-and-cplex
+        url: /install/#ILP-solvers
 #      - title: "Proxy Setting"
 #        url: /install/#proxy-servers
   - title: "Account and License"
@@ -80,11 +80,11 @@ global:
       - title: "De novo structure generation"
         url: /gui/#generating-de-novo-structure-candidates-with-msnovelist
       - title: "Custom database import"
-        url: /gui/#import-of-custom-structure-and-spectra-databases
+        url: /gui/#custom-database-import
       - title: "Visualizing results"
         url: /gui/#visualize-results
       - title: "Data export"
-        url: /gui/#data-export-summaries-and-fbmn-export
+        url: /gui/#data-export
   - title: "Commandline interface"
     url: /cli
     children:

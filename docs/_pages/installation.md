@@ -122,7 +122,7 @@ The **SIRIUS web services are free for academic use.** Academic institutions are
 email domain and access will be granted automatically. In case further validation is required, see [Account and License]({{ "/account-and-license" | relative_url }}).
 
 
-## Installing Gurobi and/or CPLEX
+## Installing Gurobi and/or CPLEX {#ILP-solvers}
 
 SIRIUS comes with the *COIN-OR* integer linear
 program solver which allows us to swiftly compute fragmentation trees in
