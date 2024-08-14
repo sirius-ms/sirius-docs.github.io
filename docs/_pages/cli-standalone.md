@@ -92,12 +92,12 @@ the following commands.
 
 Compute fragmentation trees for the input data:
 ```shell
-sirius -i <input-data.mgf> -o <my-project> sirius
+sirius -i <input-data.mgf> -o <my-project> formula
 ```
 
 Compute fragmentation trees for the library spectra:
 ```shell
-sirius -i <library-data.mgf> -o <library-project> sirius
+sirius -i <library-data.mgf> -o <library-project> formula
 ```
 
 No that both project-spaces are prepared, we can proceed with the `--ftblast` similarity computation:

@@ -88,20 +88,18 @@ global:
   - title: "Commandline interface"
     url: /cli
     children:
-      - title: "Basic principles"
+      - title: "Workflow principles"
         url: /cli/#basic-principles
-      - title: "Exemplary scenarios"
-        url: /cli/#exemplary-scenarios
       - title: "SIRIUS"
-        url: /cli/#sirius-identifying-molecular-formulas
+        url: /cli/#formula
       - title: "ZODIAC"
-        url: /cli/#zodiac-improve-molecular-formula-identifications
+        url: /cli/#zodiac
       - title: "CSI:FingerID"
-        url: /cli/#csifingerid-identifying-molecular-structures
+        url: /cli/#structure
       - title: "CANOPUS"
-        url: /cli/#canopus-predicting-compound-classes-without-identification
+        url: /cli/#canopus
       - title: "PASSATUTTO"
-        url: /cli/#passatutto-decoy-spectra-from-fragmentation-trees
+        url: /cli/#passatutto
   - title: "Standalone CLI tools"
     url: /cli-standalone
     children:
