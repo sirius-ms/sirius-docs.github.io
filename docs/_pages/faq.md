@@ -3,7 +3,6 @@ permalink: /faq/
 title: "Frequently asked questions (FAQ)"
 ---
 
-
 ## Common Issues
 ### I am getting the error message: "Could not load a valid TreeBuilder (ILP solvers), tried '[GUROBI, CPLEX, CLP, GLPK]'. Please read the installation instructions."
 SIRIUS uses an ILP solver to calculate fragmentation trees. It ships with the non-commercial CLP solver and should work out-of-the box. If you are nevertheless experiencing this issues, please contact us. 

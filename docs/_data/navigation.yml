@@ -55,6 +55,8 @@ global:
         url: /advanced-background-information/#compound-classes
       - title: "Training data"
         url: /advanced-background-information/#training-data
+  - title: "Methods"
+    url: /methods-background
   - title: "Input, Output and Formats"
     url: /io
     children:
@@ -115,9 +117,7 @@ global:
         url: /cli-standalone/#fragmentation-tree-export-tool
       - title: "Project-Space"
         url: /cli-standalone/#project-space-tool
-  - title: "FAQ"
-    url: /faq/
-  - title: "Bug Reports"
+  - title: "Bug reports / feature requests "
     url: /bugs/
   - title: "Administrators"
     url: /admins/

@@ -1,21 +1,28 @@
 ---
 permalink: /bugs/
-title: "Bug Reports"
+title: "Bug reports and feature requests"
 ---
 
-We do our best so that you will not be confronted with errors while
-using SIRIUS. But we cannot test every possible scenario. We encourage
-you to submit a bug report to us via GitHub ([sirius-ms/sirius](https://github.com/sirius-ms/sirius/issues/new/choose)) 
-in case you encounter an error.  
+We strive to ensure that your experience with SIRIUS is error-free, but it's impossible to test every possible scenario. If you encounter an error or have suggestions for new features, we encourage you to submit a bug report / feature request via our GitHub repository ([sirius-ms/sirius](https://github.com/sirius-ms/sirius/issues/new/choose)).
+
+You can also use the bug report feature within the SIRIUS GUI, which allows you to automatically include log files.
+Providing your email address is very helpful, as many errors are specific and can only be diagnosed with the input file and the parameters you used. 
+We may need to reach out to you for more details to better understand and resolve the issue. Your assistance is invaluable in helping us improve SIRIUS.
+
+Additionally, you can visit our [SIRIUS Community space on Gitter](https://matrix.to/#/#sirius-ms:gitter.im) to connect with other users and seek help from the community.
 
 
-You can also use the bug report feature within the SIRIUS GUI to e.g. automatically provide
-log files.
-In that case it is very helpful if you specify your email address. 
-Often, errors are very specific and can only be reproduced and understood with help of the
-input file and knowledge of the used parameter settings. Therefore, we
-might reach out to you. With your help, we will continue to improve
-SIRIUS.
+## Common feature requests
 
-You can also check our [SIRIUS Community space on Gitter](https://matrix.to/#/#sirius-ms:gitter.im) to connect with other users and get help from the community.
+#### Could SIRIUS support multiply charged ions? 
 
+Not in the near future. Implementing support for multiply charged ions requires significant algorithmic development, and currently, we lack sufficient training data for these ions. However, if you can provide such data, it would greatly help initiate this project.
+
+#### Could SIRIUS support multimers?
+
+
+Supporting multimers is theoretically possible. While they are currently considered 
+during LC-MS preprocessing for adduct detection and will appear in the [feature list 
+in the GUI]({{ "/gui/#overview" | relative_url}}), 
+full computational support is not yet available. This limitation arises because the 
+necessary adjustments to the fragmentation tree computation have not been implemented.
