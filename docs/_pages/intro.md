@@ -3,8 +3,7 @@ permalink: /
 title: "Welcome"
 ---
 
-**Welcome to the official online documentation for SIRIUS -- a *Java* software for the analysis of small molecules from tandem mass
-spectrometry data.**
+**Welcome to the official online documentation for SIRIUS -- a *Java* software for the analysis of small molecules from tandem mass spectrometry data.**
 
 **Quick Start:** For getting started quickly, see the [quick-start guide]({{ "/quick-start/" | relative_url }}).
 

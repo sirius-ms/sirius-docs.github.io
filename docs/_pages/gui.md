@@ -53,7 +53,7 @@ To sort the feature list, use right-click to open the <span style="color:red">[s
 
 You can sort aligned features by retention time (RT), mass, name, ID or confidence score (if available). At the bottom of
 this dialog, you can select the confidence mode (approximate or exact) to be displayed and 
-used for sorting. For more details, see the [confidence modes]({{ "/advanced-background-information/#confidence-score-modes" | relative_url }}) section.
+used for sorting. For more details, see the [confidence modes]({{ "/methods-background/#confidence-score-modes" | relative_url }}) section.
 
 The displayed feature list is already filtered by quality, i.e., features containing only MS1 spectra, features with bad quality and multimeric features are hidden. Use the switches on top of the feature list to unhide. 
 
@@ -102,7 +102,7 @@ The compute dialog is divided into five subtools:
 [CSI:FingerID fingerprint prediction with CANOPUS](#predicting-molecular-fingerprints-with-csifingerid-and-compound-classes-with-canopus) <span style="color:red">[3]</span>, 
 [CSI:FingerID structure database search](#identifying-the-molecular-structure-with-the-csifingerid-tool) <span style="color:red">[4]</span> and 
 [MSNovelist](#generating-de-novo-structure-candidates-with-msnovelist) <span style="color:red">[5]</span>. As of SIRIUS 6, CANOPUS is automatically executed together with the fingerprint prediction. 
-**Subtools can be selected individually or combined, but note that the selection must align with a [valid SIRIUS workflow]({{ "/advanced-background-information/#sirius-workflows" | relative_url }}).**
+**Subtools can be selected individually or combined, but note that the selection must align with a [valid SIRIUS workflow]({{ "/methods-background/#workflows" | relative_url }}).**
 For example, you cannot search structure databases without predicting fingerprints first. 
 
 If the `Recompute already computed tasks?` checkbox <span style="color:red">[6]</span> is checked, all previously existing results for the selected features in the current project space will be invalidated and overwritten to execute the newly selected workflow. Additional parameters for specific subtools can be displayed using the `Show advanced settings` button  <span style="color:red">[7]</span>. 
@@ -110,7 +110,7 @@ To easily convert the current workflow selections into a CLI command, use the `S
 
 ### Spectral library matching
 
-If imported spectral libraries are available, SIRIUS will automatically perform spectral matching. This process runs in the background without the need for any addiotional parameters. For more information, refer to the [Spectral library matching]({{ "/advanced-background-information/#spectral-library-matching" | relative_url }}) section.
+If imported spectral libraries are available, SIRIUS will automatically perform spectral matching. This process runs in the background without the need for any addiotional parameters. For more information, refer to the [Spectral library matching]({{ "/methods-background/#spectral-library-search" | relative_url }}) section.
 
 
 ### Identifying molecular formulas with SIRIUS
@@ -148,9 +148,9 @@ choose the appropriate molecular formula annotation strategy <span style="color:
   SIRIUS will consider adducts from this list and enforce them if the `enforce` option is selected.
 
 - **Molecular Formula Generation <span style="color:red">[C]</span>:**
-Selecting an appropriate molecular formula annotation strategy is crucial for a successful SIRIUS analysis, as it will significantly impact subsequent steps. Parameters for the different strategies are explained in the following. Before selecting a strategy, it is important to understand the differences between the [molecular formula annotation strategies]({{ "/advanced-background-information/#molecular-formula-annotation-strategies" | relative_url }}) to choose the most appropriate one for your analysis.
+Selecting an appropriate molecular formula annotation strategy is crucial for a successful SIRIUS analysis, as it will significantly impact subsequent steps. Parameters for the different strategies are explained in the following. Before selecting a strategy, it is important to understand the differences between the [molecular formula annotation strategies]({{ "/methods-background/#annotation-strategies" | relative_url }}) to choose the most appropriate one for your analysis.
 
-**[*De novo* + bottom up search]({{"/advanced-background-information/#de-novo--bottom-up" | relative_url }}) is recommended for generic applications.**
+***De novo* + bottom up search is recommended for generic applications.**
 
 {% capture fig_img %}
 ![Foo]({{ "/assets/images/formula_combined_marked.png" | relative_url }})
@@ -169,7 +169,7 @@ The element filter <span style="color:red">[2]</span> can be applied either sole
 for which SIRIUS will automatically detect the presence, absence and quantity from the input data (requires MS1 spectra). The element set can
 be adjusted using the `...` button. Before making significant changes to the element set, please consider the potential impact on running time and result quality. 
 
-**[De novo only]({{"/advanced-background-information/#de-novo-only" | relative_url }}) is recommended for discovering "unknown unknowns".**
+**De novo only is recommended for discovering "unknown unknowns".**
 
 {% capture fig_img %}
 ![Foo]({{ "/assets/images/formula_denovo_marked.png" | relative_url }})
@@ -183,7 +183,7 @@ be adjusted using the `...` button. Before making significant changes to the ele
 Here, the expected element set needs to be well-defined using the `Element filter` settings <span style="color:red">[1]</span>. 
 `Allowed elements` and `Autodetect` elements can again be adjusted using the `...` button, with keeping in mind the impact on running time and result quality. 
 
-**[Database search]({{"/advanced-background-information/#database-search-only" | relative_url }}) is recommended for known compounds and extremely fast computation times.**
+**Database search is recommended for known compounds and extremely fast computation times.**
 
 {% capture fig_img %}
 ![Foo]({{ "/assets/images/formula_dbsearch_marked.png" | relative_url }})
@@ -194,12 +194,12 @@ Here, the expected element set needs to be well-defined using the `Element filte
   <figcaption>Settings for formula database search.</figcaption>
 </figure>
 
-Choose the databases <span style="color:red">[1]</span> to be used for molecular formula annotation. Per default, the [*biomolecule structure databases*]({{ "/advanced-background-information/#molecular-structures" | relative_url }}) are selected.
+Choose the databases <span style="color:red">[1]</span> to be used for molecular formula annotation. Per default, the [*biomolecule structure databases*]({{ "/methods-background/#CSIFingerID" | relative_url }}) are selected.
 You can restore this default selection using the `bio` button.
 
 Applying an element filter <span style="color:red">[2]</span> is not mandatory for formula database search, but it can be used to narrow down molecular formula candidates. `Allowed elements` and `Autodetect` elements can again be adjusted using the `...` button.
 
-**[Bottom up search only]({{"/advanced-background-information/#bottom-up-only" | relative_url }}) can be used for a slight speed increase compared to the recommended combined approach.**
+**Bottom up search only can be used for a slight speed increase compared to the recommended combined approach.**
 
 {% capture fig_img %}
 ![Foo]({{ "/assets/images/formula_bottomup_marked.png" | relative_url }})
@@ -284,9 +284,9 @@ These parameters are very advanced and require a thorough understanding of ZODIA
 
 ### Predicting molecular fingerprints with CSI:FingerID and compound classes with CANOPUS
 
-After computing the fragmentation trees, you can predict [molecular fingerprints]({{ "/advanced-background-information/#molecular-fingerprints" | relative_url }}) 
-and [CANOPUS compound classes]({{ "/advanced-background-information/#compound-classes" | relative_url }}).
-These predictions can then be used to search structure databases and/or to predict novel structures with [MSNovelist]({{ "/advanced-background-information/#msnovelist" | relative_url }}).
+After computing the fragmentation trees, you can predict [molecular fingerprints]({{ "/methods-background/#molecular-fingerprint" | relative_url }}) 
+and [CANOPUS compound classes]({{ "/methods-background/#CANOPUS" | relative_url }}).
+These predictions can then be used to search structure databases and/or to predict novel structures with [MSNovelist]({{ "/methods-background/#MSNovelist" | relative_url }}).
 If `Score threshold` is selected, fingerprints are only predicted for the top-scoring fragmentation trees (molecular formulas). This is recommended and should only be disabled if you need to examine 
 the fingerprint of a lower-scoring molecular formula.
 
@@ -300,8 +300,7 @@ For more details, visit the [CANOPUS release page](https://bio.informatik.uni-je
 ### Identifying the molecular structure with CSI:FingerID
 
 CSI:FingerID facilitates the identification of molecular structures by matching 
-predicted molecular fingerprints against database structures. SIRIUS ships with a wide range of built-in databases
-(see [Molecular structures]({{ "/advanced-background-information/#molecular-structures" | relative_url }})). 
+predicted molecular fingerprints against database structures. SIRIUS ships with a wide range of [built-in databases]({{ "/methods-background/#CSIFingerID" | relative_url }}). 
 Additionally, users can enhance the search capabilities by adding their own structures as a "custom database" (see [Import of custom structure and spectra databases]({{ "/gui/#Import-of-custom-structure-and-spectra-databases" | relative_url }})) which can then be searched alongside
 the existing databases.
 
@@ -319,8 +318,8 @@ Structure database search is conducted within the user-selected databases.
 You can choose to use PubChem as a fallback database <span style="color:red">[1]</span> in case it contains a hit with higher confidence than
 those found in the selected databases.
 For a detailed explanation, please refer to the 
-[Expansive search]({{ "/advanced-background-information/#expansive-search" | relative_url }}) section. 
-The `Confidence mode` controls whether the approximate or exact [confidence mode]({{ "/advanced-background-information/#confidence-score-modes" | relative_url }}) is used to asses if a
+[Methods]({{ "/methods-background/#expansive-search" | relative_url }}) section. 
+The `Confidence mode` controls whether the approximate or exact [confidence mode]({{ "/methods-background/#confidence-score-modes" | relative_url }}) is used to asses if a
 hit in PubChem is more reliable than the hits in the selected databases.
 
 Per default the structure databases constituting the "bio" database are selected <span style="color:red">[2]</span>. De-select `PubChem as fallback` to fully search in PubChem. 
@@ -332,7 +331,7 @@ they can be selected here as well.
 ### Generating *de novo* structure candidates with MSNovelist
 
 In some cases, it is necessary to go beyond the limits of structure database search.
-To address this, SIRIUS 6 newly offers *de novo* generation of candidate structures through [MSNovelist]({{ "/advanced-background-information/#MSNovelist" | relative_url }}), in addition to predicting molecular fingerprints and compound classes, as well as searching in custom databases.
+To address this, SIRIUS 6 newly offers *de novo* generation of candidate structures through [MSNovelist]({{ "/methods-background/#MSNovelist" | relative_url }}), in addition to predicting molecular fingerprints and compound classes, as well as searching in custom databases.
 
 Be aware that the likelihood of any *de novo* generation method performing well for truly novel compounds is very low. Therefore, the results from MSNovelist should rather be considered as suggestion or starting point
 for semi-manual analysis of compounds that cannot be elucidated otherwise. 
@@ -346,7 +345,7 @@ top center of the GUI ribbon.
 Starting with version 6.0, SIRIUS supports the import of spectral libraries. 
 The supported import formats for spectral
 data are .ms, .mgf, .msp, .mat, .txt (MassBank), .mb, .json (GNPS, MoNA). Spectra must be annotated with a structure and must be centroided.
-Custom structures can be used in [structure database search](#identifying-the-molecular-structure-with-csifingerid). Imported spectra will be used for [spectral library matching]({{ "/advanced-background-information/#spectral-library-matching" | relative_url }}).
+Custom structures can be used in [structure database search](#identifying-the-molecular-structure-with-csifingerid). Imported spectra will be used for [spectral library matching]({{ "/methods-background/#spectral-library-search" | relative_url }}).
 
 {% capture fig_img %}
 ![Foo]({{ "/assets/images/customDbs_marked.png" | relative_url }})
@@ -388,7 +387,7 @@ COSMIC scores are displayed in the feature list on the left. Starting with SIRIU
 are computed in both `exact` and `approximate` mode. 
 
 For more details, 
-see the [COSMIC]({{ "/advanced-background-information/#cosmic---confidence-for-small-molecule-identifications"  | relative_url }}) section or
+see the [COSMIC]({{ "/methods-background/#COSMIC"  | relative_url }}) section or
 visit the [COSMIC release page](https://bio.informatik.uni-jena.de/software/cosmic/).
 
 
@@ -455,7 +454,7 @@ The `Formulas` tab displays the molecular formula candidate list <span style="co
 Spectra views can be exported using the top right export button <span style="color:red">[d]</span>.
 
 - **Fragmentation tree** <span style="color:red">[3]</span>: In the computed
-  [fragmentation tree]({{ "/advanced-background-information/#fragmentation-trees" | relative_url }}), each node assigns a molecular formula to a peak in the (merged) MS2 spectrum. 
+  [fragmentation tree]({{ "/methods-background/#fragmentation-trees" | relative_url }}), each node assigns a molecular formula to a peak in the (merged) MS2 spectrum. 
   Each edge is a hypothetical fragmentation reaction. You can customize the tree's appearance by selecting different node styles and color schemes.
 
   The tree can be exported as SVG or PDF vector graphics.
@@ -491,7 +490,7 @@ The `Predicted Fingerprints` tab displays a list of all molecular properties tha
   <figcaption>CANOPUS view.</figcaption>
 </figure>
 
-The `Compound Classes` tab visualizes the [CANOPUS]({{ "/advanced-background-information/#compound-classes" | relative_url }}) compound class predictions in a table format <span style="color:red">[4]</span>. Each row in the table represents
+The `Compound Classes` tab visualizes the [CANOPUS]({{ "/methods-background/#CANOPUS" | relative_url }}) compound class predictions in a table format <span style="color:red">[4]</span>. Each row in the table represents
 one compound class. The `Posterior Probability` (number and bar) indicates the likelihood that 
 the measured spectrum, given the chosen molecular formula, 
 belongs to that class. Additional columns provide related information from the
@@ -517,8 +516,8 @@ all other classes with posterior probability above 50%. In the ClassyFire chemon
 The `Structures` tab displays candidate structures for the selected 
 molecular formula, ranked by the CSI:FingerID search score. 
 The highest-scoring candidate is highlighted
-in green <span style="color:red">[1]</span>. If you have enabled [approximate confidence mode]({{ "/advanced-background-information/#confidence-score-modes" | relative_url }}), all candidates within an MCES distance of 2
-will also be highlighted (see [Expansive search]({{ "/advanced-background-information/#expansive-search" | relative_url }})).
+in green <span style="color:red">[1]</span>. If you have enabled [approximate confidence mode]({{ "/methods-background/#confidence-score-modes" | relative_url }}), all candidates within an MCES distance of 2
+will also be highlighted (see [Expansive search]({{ "/methods-background/#expansive-search" | relative_url }})).
 To filter the candidate list by a specific database (e.g., only compounds from KEGG
 and BioCyc), click the filter button <span style="color:red">[2]</span> in the top left corner. A menu <span style="color:red">[3]</span> will open, displaying
 all available databases. Only candidates from the selected databases will be shown. 
@@ -573,7 +572,7 @@ is part of the CSI:FingerID training data.
 This view also includes visualization for the "El Gordo" lipid class annotation functionality. Lipid structures are often extremely similar to each other,
 often only differing in the position of the double bonds. These extremely similar structures are often not even differentiable by mass spectrometry at all, which is why the overarching lipid class is shown above the structure candidates. 
 
-If the PubChem fallback was activated as part of [Expansive search]({{ "/advanced-background-information/#expansive-search" | relative_url }}), a notification will be displayed below the top ribbon.
+If the PubChem fallback was activated as part of [Expansive search]({{ "/methods-background/#expansive-search" | relative_url }}), a notification will be displayed below the top ribbon.
 
 {% capture fig_img %}
 ![Foo]({{ "/assets/images/structures_specMatch.png" | relative_url }})
@@ -601,7 +600,7 @@ Clicking on this match will take you to the [`Library Matches` tab]({{ "/gui/#li
   <figcaption>*De novo* structure annotation view.</figcaption>
 </figure>
 
-The `De Novo Structures` tab displays the *de novo* structure generation results produced by [MSNovelist]({{ "/advanced-background-information/#MSNovelist" | relative_url }}), with each generated structure tagged with a `de novo` label. 
+The `De Novo Structures` tab displays the *de novo* structure generation results produced by [MSNovelist]({{ "/methods-background/#MSNovelist" | relative_url }}), with each generated structure tagged with a `de novo` label. 
 If a generated structure is also found in the structure databases, the corresponding [labels](#structures-tab) will be added alongside the `de novo` label. 
 For instance, in the example screenshot above, generated structures 1-4 are generated by MSNovelist, but also exist in the structure databases. Structure 5 was only generated *de novo* by MSNovelist.
 
@@ -648,7 +647,7 @@ You can navigated through the peaks using left-click or the arrow keys.
 The `Library Matches` tab displays the spectral library matches for the measured query spectrum against a reference library. 
 To zoom into the spectrum, hold the right mouse button and drag to select an area, or scroll while hovering over an axis.
 
-For more information on spectral library searches in SIRIUS, please refer to the sections on [Spectral Library Matching via Custom Databases]({{ "/advanced-background-information/#Spectral-library-matching-via-custom-databases" | relative_url }}) and [Import of Custom Structure and Spectra Databases]({{ "/gui/#Import-of-custom-structure-and-spectra-databases" | relative_url }}).
+For more information on spectral library searches in SIRIUS, please refer to the sections on [spectral library matching]({{ "/methods-background/#spectral-library-search" | relative_url }}) and [Import of Custom Structure and Spectra Databases]({{ "/gui/#Import-of-custom-structure-and-spectra-databases" | relative_url }}).
 
 ## Data export (Summaries and FBMN export) {#data-export}
 
@@ -683,7 +682,7 @@ You can access the settings dialog by clicking the `Settings` button at the top 
 **General settings:**
 - `UI Theme`: Choose your preferred display mode to reduce eye strain (requires restart).
 - `Scaling Factor`: Adjust the size of the GUI by the selected factor (requires restart).
-- `Confidence score display mode`: Sets the mode for displaying the [confidence score]({{ "/advanced-background-information/#confidence-score-modes" | relative_url }}) (either `approximate` or `exact`). 
+- `Confidence score display mode`: Sets the mode for displaying the [confidence score]({{ "/methods-background/#confidence-score-modes" | relative_url }}) (either `approximate` or `exact`). 
 - `Allowed solvers`: Select the [ILP solver]({{ "/install/#ILP-solvers" | relative_url }}) for SIRIUS to use in
         fragmentation tree computation. GLPK is free, while Gurobi is
         commercial but offers a free academic license.

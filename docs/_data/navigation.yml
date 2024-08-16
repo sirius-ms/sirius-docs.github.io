@@ -41,22 +41,21 @@ global:
         url: /advanced-background-information/#theoretical-masses-of-ions
       - title: "Mass deviations"
         url: /advanced-background-information/#mass-deviations
-      - title: "Spectral library matching"
-        url: /advanced-background-information/#spectral-library-matching
-      - title: "Molecular formulas"
-        url: /advanced-background-information/#molecular-formula-annotation-concepts
-      - title: "Fragmentation trees"
-        url: /advanced-background-information/#fragmentation-trees
-      - title: "Molecular fingerprints"
-        url: /advanced-background-information/#molecular-fingerprints
-      - title: "Structure Databases"
-        url: /advanced-background-information/#molecular-structures
-      - title: "Compound classes"
-        url: /advanced-background-information/#compound-classes
       - title: "Training data"
         url: /advanced-background-information/#training-data
   - title: "Methods"
     url: /methods-background
+    children:
+      - title: "Molecular formula identification"
+        url: /methods-background/#SIRIUS-molecular-formula
+      - title: "Fingerprint prediction"
+        url: /methods-background/#molecular-fingerprint
+      - title: "Structure database search"
+        url: /methods-background/#CSIFingerID
+      - title: "Compound class prediction"
+        url: /methods-background/#CANOPUS  
+      - title: "De novo structure generation"
+        url: /methods-background/#MSNovelist  
   - title: "Input, Output and Formats"
     url: /io
     children:

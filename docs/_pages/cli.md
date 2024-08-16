@@ -30,19 +30,28 @@ The subcommands are categorized into different types:
 - [**PREPROCESSING TOOLS:**](#preprocessing) Tools that prepare input data to be compatible
     with SIRIUS. For example, [`lcms-align`](#lcms-align) is used for feature detection and alignment.
 - [**COMPOUND TOOLS:**](#compound-tools) These tools analyze each compound (instance) in
-    the dataset individually and can be concatenated with other tools. Examples are molecular formula annotation ([`formula`](#formula)), structure database search ([`structure`](#structure)) or compound class prediction ([`canopus`](#canopus)).
+    the dataset individually and can be concatenated with other tools. Examples are molecular formula annotation ([`formulas`](#formula)), structure database search ([`structures`](#structure)) or compound class prediction ([`classes`](#canopus)).
 - [**DATASET TOOLS:**](#dataset-tools) These tools analyze all compounds (instances) in
     the dataset simultaneously and can be concatenated with other tools. For example, dataset-wide molecular formula annotation with [`zodiac`](#zodiac).
 
 Each subtool can be called with the `--help` option to view the documentation
 on available options and potential follow-up commands in a
-toolchain. For example, to get help for the `formula` tool, use:
+toolchain. For example, to get help for the `formulas` tool, use:
 
 ```shell
-sirius formula --help
+sirius formulas --help
 ```
-
 ### Basic principles
+
+{% capture fig_img %}
+![Foo]({{ "/assets/images/CLI-workflow.png" | relative_url }})
+{% endcapture %}
+
+<figure>
+  {{ fig_img | markdownify | remove: "<p>" | remove: "</p>" }}
+  <figcaption>CLI workflow dependencies.</figcaption>
+</figure>
+
 The SIRIUS CLI toolbox functions as a basic workflow engine (to generate toolchains),
 adhering to the following principles:
 
@@ -50,26 +59,28 @@ adhering to the following principles:
 - If a mandatory input from a previous step (subtool) is missing, the computation for the current compound will be skipped.
 - By default, the toolbox does **not** override existing results. Compounds for which results are already available will be skipped.
 - If the `--recompute` option is specified, existing results will be replaced with new ones for **all** subtools that are specified in the command.
-- When results for one subtool are recomputed (`--recompute`), the results of downstream subtools that depend on recomputed results will be deleted, to ensure  that all results remain consistent with the newly computed data. [Find the workflow dependencies here.]({{ "/advanced-background-information/#sirius-workflows" | relative_url }})
+- When results for one subtool are recomputed (`--recompute`), the results of downstream subtools that depend on recomputed results will be deleted, to ensure that all results remain consistent with the newly computed data. 
+
+
 
 ### Examples
 
 **Compute missing results without recomputing:** 
-Assume you have previously computed results for the `formula` and `structure` subtools for compounds with a mass less than 600 Da. 
-Now, you want to run a workflow that includes `formula`, `structure`, and `canopus` on the same [project-space]({{ "/io/#sirius-project-space" | relative_url }}), but without restricting the precursor mass. 
-The `formula` and `structure` results for compounds under 600 Da will be skipped and not recomputed, as these results already exist. Results for compounds with at least 600 Da will be newly generated. 
-The `canopus` subtool will then be executed for all compounds.
+Assume you have previously computed results for the `formulas` and `structures` subtools for compounds with a mass less than 600 Da. 
+Now, you want to run a workflow that includes `formulas`, `structures`, and `classes` on the same [project-space]({{ "/io/#sirius-project-space" | relative_url }}), but without restricting the precursor mass. 
+The `formulas` and `structures` results for compounds under 600 Da will be skipped and not recomputed, as these results already exist. Results for compounds with at least 600 Da will be newly generated. 
+The `classes` subtool will then be executed for all compounds.
 
 **Recompute all results:** 
 If you run the same workflow with the `--recompute` option, all results will be recomputed. 
 
 **Recompute results for a single subtool:** 
 Assume you have a [project-space]({{ "/io/#sirius-project-space" | relative_url }}) 
-with complete results for `formula`, `fingerprint`, `structure`, and `canopus`, but you need to recompute the `structure` results due to incorrect parameters. 
+with complete results for `formulas`, `fingerprints`, `structures`, and `classes`, but you need to recompute the `structures` results due to incorrect parameters. 
 Executing ```sirius -i <projekt> --recompute structure -db mydb```
-will recompute all `structure` results without affecting the existing `formula` results. 
-The `canopus` results will also not be affected, as they only depend on the `fingerprint` results, not on the `strucure` tool results.
-**Note:** Recomputing the `fingerprint` tool results would cause the loss of both `structure` and `canopus` results.
+will recompute all `structures` results without affecting the existing `formulas` results. 
+The `classes` results will also not be affected, as they only depend on the `fingerprints` results, not on the `strucures` tool results.
+**Note:** Recomputing the `fingerprints` tool results would cause the loss of both `structures` and `classes` results.
 
 **Proceed with interrupted computations:** 
 If a computation is interrupted, simply rerun the same command to resume the process. 
@@ -85,28 +96,30 @@ can be visualized, modified, or further analyzed in the [SIRIUS GUI]({{ "/gui/" 
 
 ## PREPROCESSING TOOLS {#preprocessing}
 
-### LCMS-align: Feature detection and feature alignment (Preprocessing) {#lcms-align}
+### `lcms-align`: Feature detection and feature alignment (Preprocessing) {#lcms-align}
 
 The `lcms-align` tool enables the import of multiple `.mzML`/`.mzXML` files into SIRIUS. It performs feature detection and alignment based on MS/MS spectra, creating a SIRIUS project-space. 
 
 This project-space can then be used for subsequent analysis steps, for example:
 
 ```shell
-sirius -i <mzml(s)> -o <projectspace> lcms-run formula
+sirius -i <mzml(s)> -o <projectspace> lcms-align formula
 ```
 
 ## COMPOUND TOOLS {#compound-tools}
-### `formula`: Identifying molecular formulas with SIRIUS (Compound Tool) {#formula}
+### `formulas`: Identifying molecular formulas with SIRIUS (Compound Tool) {#formula}
 
 One of the primary functions of SIRIUS is identifying the molecular formula of a
-measured ion. For this task, SIRIUS provides the `formula` tool. 
+measured ion. For this task, SIRIUS provides the `formulas` tool. 
 
 The most basic way
-to use the `formula` tool is with a generic text or CSV input:
+to use the `formulas` tool is with a generic text or CSV input:
 
 ```shell
-sirius [OPTIONS] -1 <MS FILE> -2 <MS/MS FILES comma separated> -z <PARENTMASS> --adduct <adduct> --output <projectspace> formula
+sirius [OPTIONS] -1 <MS FILE> -2 <MS/MS FILES comma separated> -z <PARENTMASS> --adduct <adduct> --output <projectspace> formulas
 ```
+**Available aliases:** `trees`, `formula`, `sirius`
+
 `MS FILE` is the MS1 spectrum containing the isotope pattern, and `MS/MS FILES` are the MS/MS fragmentation spectra. You can provide multiple MS/MS files (comma separated) if you have several measurements of the same compound with different collision energies; SIRIUS will merge these spectra into a single spectrum. If you omit the `--adduct` option, `[M+?]+` is used as default. 
 
 The command also works for [MGF files]({{ "/io/#mgf-format" | relative_url}}), where you can omit the `-z` option for specifying the parent mass, if it is already given in the file. 
@@ -116,7 +129,7 @@ which contain all spectra for a compound as well as metainformation, such as par
 the files. They can also contain multiple compounds per file. 
 
 ```shell
-sirius [OPTIONS] --input <inputFile> --output <projectspace> formula [OPTIONS]
+sirius [OPTIONS] --input <inputFile> --output <projectspace> formulas [OPTIONS]
 ```
 If you specify a directory instead of a single file, SIRIUS will crawl the directory for supported files, allowing for batch processing of multiple compounds.
 
@@ -135,6 +148,7 @@ If the `IsotopeScore` is negative, it is set to zero. If at least one
 to have *good quality* and only the candidates with best isotope pattern
 scores are selected for further fragmentation pattern analysis.
 
+
 #### Computing fragmentation trees only
 
 If you already know the correct molecular formula and only need to 
@@ -144,7 +158,7 @@ If your input data is in `.ms` format, the molecular formula might already be in
 The `--formulas` option also accepts a comma-separated list of candidate molecular formulas.
 
 ```shell
-sirius -i <input> --output <projectspace> formula --formulas <formula>
+sirius -i <input> --output <projectspace> formulas --formulas <formula>
 ```
 
 #### Instrument-specific parameters
@@ -160,55 +174,66 @@ For FT-ICR data, we recommend using the `orbitrap` profile and specify an even l
 You can specify the maximum allowed mass deviations for MS1 and MS2 separately:
 
 ```shell
-sirius -i <input> --output <projectspace> formula -p orbitrap --ppm-max 2 --ppm-max-ms2 5
+sirius -i <input> --output <projectspace> formulas -p orbitrap --ppm-max 2 --ppm-max-ms2 5
 ```
 
 ### `fingerprints`: Predicting molecular fingerprints (Compound Tool) {#fingerprints}
 
-[Molecular fingerprints]({{ "/advanced-background-information/#molecular-fingerprints" | relative_url}}) can be predicted using the `fingerprints` command after calculating molecular formula candidates with the `formula` tool. 
+[Molecular fingerprints]({{ "/methods-background/#molecular-fingerprint" | relative_url}}) can be predicted using the `fingerprints` command after calculating molecular formula candidates with the `formulas` tool. 
 A fingerprint is generated based for a specific molecular formula candidate and its corresponding fragmentation tree. By default, SIRIUS predicts fingerprints for multiple high-scoring formula candidates by applying a soft threshold on the SIRIUS score.
 
 ```shell
-sirius -i <input> -o <projectspace> formula fingerprint
+sirius -i <input> -o <projectspace> formulas fingerprints
 ```
 
+**Available aliases:** `fingerprint`
 
-### `structure`: Identifying molecular structures (Compound Tool) {#structure}
 
-The `structure` tool in SIRIUS allows you to for molecular structures in a structure database
-using CSI:FingerID.
-To perform structure database search, molecular fingerprints must first be predicted using the `fingerprint` tool. For improved formula ranking within biologically derived samples (or any other set of derivatives), we recommend to run the [`zodiac` tool](#zodiac) beforehand.
+### `classes`: Database-free compound classes prediction with CANOPUS (Compound Tool) {#canopus}
 
-You can specify the database for CSI:FingerID to search in, using the `--databases` option. [Available databases]({{ "/advanced-background-information/#molecular-structures" | relative_url}}) include `pubchem` and `bio`, among others.
+The `classes` tool enables the prediction of compound classes directly from the probabilistic molecular fingerprints generated by CSI:FingerID (using the `fingerprints` command). One key advantage of CANOPUS is its ability to provide compound class information even for compounds that have no matching hit in a structure database. CANOPUS classes are required for confidence score estimation.
 
 ```shell
-sirius -i <input> -o <projectspace> formula fingerprint structure --database pubchem
+sirius -i <input> -o <projectspace> formulas fingerprints classes
 ```
+
+**Available aliases:** `canopus`, `compound-classes`
+
+### `structures`: Identifying molecular structures (Compound Tool) {#structure}
+
+The `structures` tool in SIRIUS allows you to for molecular structures in a structure database
+using CSI:FingerID.
+To perform structure database search, molecular fingerprints must first be predicted using the `fingerprints` tool. For improved formula ranking within biologically derived samples (or any other set of derivatives), we recommend to run the [`zodiac` tool](#zodiac) beforehand.
+
+You can specify the database for CSI:FingerID to search in, using the `--databases` option. [Available databases]({{ "/methods-background/#CSIFingerID" | relative_url}}) include `pubchem` and `bio`, among others.
+
+```shell
+sirius -i <input> -o <projectspace> formulas fingerprints structures --database pubchem
+```
+**Available aliases:** `structure-db-search`, `structure`
 
 The `write-summaries` tool will generate a `structure_candidates.csv` file for each compound, containing an ranked list of structure
 candidates along with their CSI:FingerID scores. Additionally, a project space-wide `compound_identification.csv`
 file will be generated, listing the top candidate structure for each compound,
 ordered by their confidence score.
 
-
-
-### `canopus`: Database-free compound classes prediction (Compound Tool) {#canopus}
-
-The `canopus` tool enables the prediction of compound classes directly from the probabilistic molecular fingerprints generated by CSI:FingerID (using the `fingerprint` command). One key advantage of CANOPUS is its ability to provide compound class information even for compounds that have no matching hit in a structure database:
+### `denovo-structures`: Generate *de novo* molecular structures (Compound Tool) {#msnovelist}
 
 ```shell
-sirius -i <input> -o <projectspace> formula fingerprint canopus
+sirius -i <input> -o <projectspace> formulas fingerprints denovo-structures
 ```
+**Available aliases:** `msnovelist`
 
+TODO: fill
 
 ### `passattuto`: Decoy spectra from fragmentation trees (Compound Tool) {#passatutto}
 
 The `passattuto` tool is designed to generate high-quality decoy spectra from
-fragmentation trees obtained using the `formula` tool. If you're working with a spectral library, 
+fragmentation trees obtained using the `formulas` tool. If you're working with a spectral library, 
 you can easily create a decoy database based on these spectra:
 
 ```shell
-sirius -i <spectral-lib> -o <projectspace> formula passatutto
+sirius -i <spectral-lib> -o <projectspace> formulas passatutto
 ```
 
 If no molecular formulas are annotated to the input spectra, 
@@ -222,10 +247,10 @@ When working with input data derived from biological samples or sets of derivati
 similarities between different compounds can be used to enhance molecular formula annotations. 
 ZODIAC leverages these similarities by constructing a network of molecular formula candidates (generated by the `formula` tool) and re-ranking these candidates using Bayesian statistics (Gibbs Sampling). This approach can reduce the error rate of the top-ranked candidates by approximately 2 fold, with even more significant improvements on challenging datasets containing large compounds.
 
-The `zodiac` tool is executed after the `formula` tool:
+The `zodiac` tool is executed after the `formulas` tool:
 
 ```shell
-sirius -i <input> -o <projectspace> formula -c 50 zodiac
+sirius -i <input> -o <projectspace> formulas -c 50 zodiac
 ```
 
 We recommend to increase the maximum number of

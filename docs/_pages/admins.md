@@ -35,7 +35,7 @@ data in the cloud. Moreover, this approach allows for continuous improvements an
 ### Offline features (Open Source)
 * [Data import]({{"/gui/#data-import" | relative_url }}); [result export]({{"/gui/#data-export" | relative_url}}) and storage. 
 * [Result visualization via the GUI]({{"/gui/#visualize-results" | relative_url}}), even for web service-based results, which are available offline once stored
-* [SIRIUS molecular formula identification]({{"/methods-background/#SIRIUS-molecular-formula" | relative_url}}) ([fragmentation tree computation]({{"/methods-background/#fragmentation-tree" | relative_url}}) and [isotope pattern analysis]())
+* [SIRIUS molecular formula identification]({{"/methods-background/#SIRIUS-molecular-formula" | relative_url}}) ([fragmentation tree computation]({{"/methods-background/#fragmentation-trees" | relative_url}}) and [isotope pattern analysis]())
 * [ZODIAC]({{"/methods-background/#ZODIAC" | relative_url}}) network-based molecular formula re-ranking
 * [Passatutto]({{"/cli/#passatutto" | relative_url}}) decoy spectra generation
 * Most [standalone helper sub-tools in the CLI]({{"/cli-standalone/" | relative_url}})

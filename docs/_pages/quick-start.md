@@ -31,7 +31,7 @@ each with one or more mass spectra. You can also use this workflow to analyze a 
 5. Select SIRIUS. <span style="color:red">[3]</span>
 6. Change the instrument type as well as the maximum  mass deviation allowed. Be aware that these settings
     will be used for all imported compounds.
-7. Verify that the currently selected molecular [molecular formula generation strategy]({{ "/advanced-background-information/#molecular-formula-annotation-strategies" | relative_url }}) matches your research question. <span style="color:red">[4]</span>
+7. Verify that the currently selected molecular [molecular formula generation strategy]({{ "/methods-background/#annotation-strategies" | relative_url }}) matches your research question. <span style="color:red">[4]</span>
 8. Select `Predict Properties & CANOPUS` to predict the molecular fingerprints of the compounds with CSI:FingerID and their compound classes with CANOPUS. <span style="color:red">[5]</span>
 9. Select `CSI:FingerID structure database search` to search compounds in a structure database with CSI:FingerID. <span style="color:red">[6]</span>
 10. Click `Compute`.
