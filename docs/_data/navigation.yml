@@ -10,11 +10,11 @@ global:
       - title: "Windows"
         url: /install/#windows
       - title: "MacOS"
-        url: /install/#mac-osx
+        url: /install/#macosx
       - title: "Linux"
         url: /install/#linux
       - title: "User account and License"
-        url: /install/#user-account-and-license-since-v500
+        url: /install/#account-license
       - title: "ILP Solver"
         url: /install/#ILP-solvers
 #      - title: "Proxy Setting"
@@ -25,11 +25,11 @@ global:
     url: /quick-start
     children:
       - title: "Quick start GUI"
-        url: /quick-start/#graphical-user-interface
+        url: /quick-start/#GUI
       - title: "Quick start CLI"
-        url: /quick-start/#command-line-interface
+        url: /quick-start/#CLI
       - title: "Quick start API"
-        url: /quick-start/#background-service---generic-sirius-api
+        url: /quick-start/#API
   - title: "Advanced background information"
     url: /advanced-background-information
     children:
@@ -38,7 +38,7 @@ global:
       - title: "Monoisotopic masses"
         url: /advanced-background-information/#monoisotopic-masses
       - title: "Theoretical masses of ions"
-        url: /advanced-background-information/#theoretical-masses-of-ions
+        url: /advanced-background-information/#theoretical-masses
       - title: "Mass deviations"
         url: /advanced-background-information/#mass-deviations
       - title: "Training data"
@@ -70,18 +70,18 @@ global:
         url: /gui/#overview
       - title: "Data Import"
         url: /gui/#data-import
-      - title: "Compute dialogue"
-        url: /gui/#compute-dialogue
-      - title: "Molecular formula identification"
-        url: /gui/#identifying-molecular-formulas-with-sirius
-      - title: "Predicting molecular fingerprints & compound classes"
-        url: /gui/#predicting-molecular-fingerprints-with-csifingerid-and-compound-classes-with-canopus
-      - title: "Structure database search"
-        url: /gui/#identifying-the-molecular-structure-with-csifingerid
-      - title: "De novo structure generation"
-        url: /gui/#generating-de-novo-structure-candidates-with-msnovelist
       - title: "Custom database import"
         url: /gui/#custom-database-import
+      - title: "Compute dialog"
+        url: /gui/#compute-dialog
+      - title: "Molecular formula identification"
+        url: /gui/#SIRIUS-molecular-formula
+      - title: "Predicting molecular fingerprints & compound classes"
+        url: /gui/#CSIFingerID-CANOPUS
+      - title: "Structure database search"
+        url: /gui/#CSIFingerID-structure
+      - title: "De novo structure generation"
+        url: /gui/#MSNovelist-denovo-structure
       - title: "Visualizing results"
         url: /gui/#visualize-results
       - title: "Data export"
@@ -92,30 +92,17 @@ global:
       - title: "Workflow principles"
         url: /cli/#basic-principles
       - title: "SIRIUS"
-        url: /cli/#formula
+        url: /cli/#SIRIUS-formulas
       - title: "ZODIAC"
-        url: /cli/#zodiac
+        url: /cli/#ZODIAC
       - title: "CSI:FingerID"
-        url: /cli/#structure
+        url: /cli/#CSIFingerID-structures
       - title: "CANOPUS"
-        url: /cli/#canopus
-      - title: "PASSATUTTO"
-        url: /cli/#passatutto
+        url: /cli/#CANOPUS-classes
+      - title: "MSNovelist"
+        url: /cli/#MSNovelist-denovo-structures
   - title: "Standalone CLI tools"
     url: /cli-standalone
-    children:
-      - title: "Custom database"
-        url: /cli-standalone/#custom-database-tool
-      - title: "Similarity"
-        url: /cli-standalone/#similarity-tool
-      - title: "Mass decomposition"
-        url: /cli-standalone/#mass-decomposition-tool
-      - title: "MGF export"
-        url: /cli-standalone/#mgf-export-tool
-      - title: "Fragmentation tree export"
-        url: /cli-standalone/#fragmentation-tree-export-tool
-      - title: "Project-Space"
-        url: /cli-standalone/#project-space-tool
   - title: "Bug reports / feature requests "
     url: /bugs/
   - title: "Administrators"

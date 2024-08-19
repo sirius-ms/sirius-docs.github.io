@@ -3,7 +3,7 @@ permalink: /advanced-background-information/
 title: "Advanced background information"
 ---
 
-## Spectral quality
+## Spectral quality {#spectral-quality}
 
 SIRIUS and CSI:FingerID have been trained on a wide variety of data,
 including data from different instrument types. Nevertheless, certain
@@ -38,7 +38,7 @@ successfully process your data:
 
   - Some instrument types, such as time-of-flight, can experience detector saturation, resulting in peaks with mass differences much larger than expected. Unfortunately, most peak picking software does not mark these peaks as "misshaped". As a result, the most intense peak in a spectrum may remain unexplained due to its extreme mass deviation.
 
-## Monoisotopic masses
+## Monoisotopic masses {#monoisotopic-masses}
 
 The monoisotopic mass of a molecule (or ion) is formally defined as "the
 sum of the masses of the atoms in a molecule (or ion) using the unbound,
@@ -70,7 +70,7 @@ undetectable in an MS experiments.
 SIRIUS uses the second, more practical definition of "monoisotopic".
 This difference is only relevant for molecules that contain "uncommon elements" such as boron or selenium.
 
-## Theoretical masses of ions
+## Theoretical masses of ions {#theoretical-masses}
 
 There are different ways to compute the mass of an ionized molecule such as C<sub>6</sub>H<sub>7</sub>O + 
 or C<sub>6</sub>H<sub>6</sub>ONa + which result in slightly different values. In particular, one can either add the mass of a proton or subtract the mass of an electron. Following
@@ -84,7 +84,7 @@ C<sub>6</sub>H<sub>6</sub>ONa + is calculated as 117.031634 Da - 0.000549 Da, re
 above.** In any case, it is important to keep these small mass differences in mind, as they may lead to unexpected behavior when decomposing
 masses; see for example [Pluskal *et al.*](https://doi.org/10.1021/ac3000418).
 
-### Isotopes with masses and abundances as used by SIRIUS
+### Isotopes with masses and abundances as used by SIRIUS {#isotopes}
 In the examples above and in the table below, the masses have been rounded to six decimal places. 
 SIRIUS internally uses double precision to represent masses. 
 Isotope masses are derived from the [AME2016 atomic mass evaluation](http://nuclearmasses.org/resources_folder/Wang_2017_Chinese_Phys_C_41_030003.pdf) 
@@ -129,7 +129,7 @@ molecular formula in case boron is present.
 
 
 
-## Mass deviations
+## Mass deviations {#mass-deviations}
 
 SIRIUS assumes that mass deviations (the difference between measured
 and theoretical ion masses) follow a normal distribution ([Jaitly *et al.*](https://doi.org/10.1021/ac052197p), 
@@ -145,7 +145,7 @@ spectrum. For masses below 200 Da, we use the absolute mass deviation at
 found that small masses vary according to an absolute rather than a
 relative error.
 
-## Adducts
+## Adducts {#adducts}
 
 Adduct information can be provided in two ways
 1. Specified in the input file created by third-party preprocessing tools (using peak list-based formats such as .mgf).
@@ -167,7 +167,7 @@ Two specific details must be noted:
 1. Fragmentation trees which are used to score molecular formula candidates, are provided in neutral form. For all adducts with the same ionization (e.g. [M+H]+ for [M+H]+, [M+H-H<sub>2</sub>O]+ and [M+NH<sub>4</sub>]+), a common fragmentation tree is computed. Then, fragmentation trees are resolved for each specific adduct. During this process, some fragments maynot be explained by a resolved formula and are removed from the tree. For example, resolving C<sub>6</sub>H<sub>10</sub>NO for adduct [M+NH<sub>4</sub>]+ is possible (C<sub>6</sub>H<sub>6</sub>O), but not for C<sub>6</sub>H<sub>12</sub>O<sub>6</sub>. Despite removing these fragments, we do not alter the score for the fragmentation tree, as the fragment could have had another possible explanation, and we do not want to penalize the candidate due to this post-processing.
 2. We do not differentiate between [M+H]+ and [M]+. In LC-MS experiments [M]+ is very uncommon. Moreover, for an unknown compound in an untargeted measurement it is challenging to determine if the compound was intrinsically charged or ionized later by the instrument. Therefore, SIRIUS considers the same neutral molecular formula for both adducts (as [M+H]+), but also searches for intrinsically charged molecular structures at the database search step. Per default [M+H]+ is considered, and [M]+ is merely treated as a special case of [M+H]+. [M]+ is used if directly specified in the input file or by the user.
 
-## Training data
+## Training data {#training-data}
 
 The fragmentation tree computation of SIRIUS is not based on machine learning and therefore *does not involve any training data*.
 Instead, the parameters for this step were estimated using
@@ -186,9 +186,9 @@ Support Vector Machines, is trained on spectra from NIST, Massbank and GNPS.
 An up-to-date list of all structures included in the CSI:FingerID training
 data can be downloaded from the webservice:
 
-##### Training structures for positive ion mode:
+##### Training structures for positive ion mode: {#training-positive}
 <https://www.csi-fingerid.uni-jena.de/v1.4.8/api/fingerid/trainingstructures?predictor=1>
-##### Training structures for negative ion mode:
+##### Training structures for negative ion mode: {#training-negative}
 <https://www.csi-fingerid.uni-jena.de/v1.4.8/api/fingerid/trainingstructures?predictor=2>
 
 **We would like to explicitly extend our heartfelt thanks to everyone who has made

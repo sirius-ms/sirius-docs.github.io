@@ -10,11 +10,11 @@ included tools and methods please have a look into the [user documentation]({{ "
 SIRIUS is written in JAVA, but **no** separate JRE is required. A compatible JRE is  included in the SIRIUS release.
 For more information on installation and hardware requirements, please refer to the [Installation]({{ "/install/" | relative_url }}) section.
 
-## Offline vs Online features
+## Offline vs Online features {offline-online}
 SIRIUS is both, a desktop application, performing computations locally, 
 and a client for web services such as 
-[CSI:FingerID]({{ "/cli/#csifingerid-identifying-molecular-structures" | relative_url }}) and 
-[CANOPUS]({{ "/cli/#canopus-predicting-compound-classes-without-identification" | relative_url }}).
+[CSI:FingerID]({{ "/cli/#CSIFingerID-structures" | relative_url }}) and 
+[CANOPUS]({{ "/cli/#CANOPUS-classes" | relative_url }}).
 The web services are seamlessly integrated to provide a user experience akin to classic desktop (or command-line) applications.
 
 {% capture fig_img %}
@@ -26,13 +26,13 @@ The web services are seamlessly integrated to provide a user experience akin to 
   <figcaption>Basic Architecture Diagram of SIRIUS and its web services.</figcaption>
 </figure>
 
-#### Why are some features implemented as web service?
+#### Why are some features implemented as web service? {#web-service}
 The structure and compound class predictions rely on complex infrastructure that is not suitable for execution on laptops or workstation computers. 
 Therefore, these tasks are handled by scalable cloud infrastructure.
 In our case, the web service is about computations in the cloud and not about storing 
 data in the cloud. Moreover, this approach allows for continuous improvements and bug fixes without requiring users to install updates.
 
-### Offline features (Open Source)
+### Offline features (Open Source) {#offline}
 * [Data import]({{"/gui/#data-import" | relative_url }}); [result export]({{"/gui/#data-export" | relative_url}}) and storage. 
 * [Result visualization via the GUI]({{"/gui/#visualize-results" | relative_url}}), even for web service-based results, which are available offline once stored
 * [SIRIUS molecular formula identification]({{"/methods-background/#SIRIUS-molecular-formula" | relative_url}}) ([fragmentation tree computation]({{"/methods-background/#fragmentation-trees" | relative_url}}) and [isotope pattern analysis]())
@@ -40,7 +40,7 @@ data in the cloud. Moreover, this approach allows for continuous improvements an
 * [Passatutto]({{"/cli/#passatutto" | relative_url}}) decoy spectra generation
 * Most [standalone helper sub-tools in the CLI]({{"/cli-standalone/" | relative_url}})
 
-### Online features (Proprietary)
+### Online features (Proprietary) {#online}
 * Chemical structure database-based features, such as 
   * CSI:FingerID [structure database search]({{"/methods-background/#CSIFingerID" | relative_url}}) 
   * [restricting formula candidates to a structure database]() during molecular formula identification
@@ -49,7 +49,7 @@ data in the cloud. Moreover, this approach allows for continuous improvements an
 * [CANOPUS]({{"/methods-background/#CANOPUS" | relative_url}}) compound class prediction
 * [MSNovelist]({{"/methods-background/#MSNovelist" | relative_url}}) de novo structure generation
 
-## Connections for online features
+## Connections for online features {#connections}
 To ensure that SIRIUS functions correctly, three main servers need to be accessible
 - **Login Server:** `https://auth0.bright-giant.com`
 - **License Server:** `https://gate.bright-giant.com`
@@ -74,16 +74,16 @@ de.unijena.bioinf.fingerid.web.external=https://my.custom.url/
 ```
 The connection check expects an HTTP head response value `OK` (e.g. 200) to be successful.
 
-## Proxy Settings
+## Proxy Settings {#proxy}
 If your institution uses a proxy server to connect to the internet you need to configure the proxy settings within SIRIUS. 
 See [Network Settings]({{ "/gui/#settings" | relative_url }}) for details.
 
-## Security and ata Usage
+## Security and Data Usage {#security}
 
-#### Data in transit
+#### Data in transit {#data-transit}
 All communication between SIRIUS on your local computer and its web services is secured with HTTPS and TLS encryption.
 
-#### Data at rest
+#### Data at rest {#data-rest}
 **No data is stored at rest.** Data sent to our servers is only stored temporarily for computation and is deleted immediately after the results have been fetched by your local SIRIUS client. Typically, data remains on our servers for just a few minutes until the transfer is complete.
   
 **Special case:** If you have a subscription with a compound limit (e.g. Bright Giant Shared subscription),
@@ -94,24 +94,24 @@ if a spectrum has already been processed in a previous job.
 For subscriptions without a compound limit 
 (e.g. FSU Jena version or Bright Giant Private subscription), this hash is not stored.
 
-#### What data is transferred to the Web Services?
+#### What data is transferred to the Web Services? {#transferring-data}
 For each instance (compound) to be  analyzed, SIRIUS transmits the mass spectra, 
 the locally computed fragmentation tree, the parameters for the computation, 
 and a unique session key to the web services. 
 The only personal data transmitted is your account information (user ID and email address), which is securely sent as a JSON Web Token (JWT).
 
-#### How is it ensured that only I can fetch the results of my computation jobs?
+#### How is it ensured that only I can fetch the results of my computation jobs? {#fetching-results}
 Every time you start SIRIUS on your local computer, it generates a unique session key used to submit computation jobs to the server. 
 This key is never stored and exists only in system memory during the session. 
 Only the SIRIUS process with this key can retrieve the results. 
 Once the results are fetched, they are immediately deleted from the server. 
 If a client with a specific session key loses its connection to the server for more than a few hours, all associated jobs are permanently deleted.
 
-#### What kind of statistics are collected?
+#### What kind of statistics are collected? {#statistics}
 We only track the number, duration, and type of computation jobs to ensure our infrastructure scales appropriately.
 
 
-## SIRIUS workspace - Configs, Logs and Caches
+## SIRIUS workspace - Configs, Logs and Caches {#SIRIUS-workspace}
 SIRIUS stores its configuration files, logs and caches in the SIRIUS workspace directory at `<USER_HOME>/.sirius-<X.Y>`, where `X` and `Y` are the **major** and **minor** version numbers of SIRIUS. 
 When using SIRIUS in virtual machines (VMs) or containers, it is advisable to persist this directory to retain configurations and benefit from performance improvements due to structure database caching. 
 In versions **prior to 5.7**, this directory also served as the default location for custom databases. 
@@ -133,19 +133,19 @@ Starting with version 5.7, custom databases can be stored in any directory on th
 * ...
 
 
-## Release Policy
+## Release Policy {#realese-policy}
 SIRIUS and its backend (web service) follow a “rolling release” strategy with semantic versioning. Updates and bug fixes are deployed as soon as they are stable, sometimes even for a single bug fix. 
 
 New releases of *vanilla* SIRIUS are available [here](https://github.com/boecker-lab/sirius/releases). 
 Signed SIRIUS installers provided by Bright Giant can be found [here](https://github.com/bright-giant/sirius/releases).
 Unless stated otherwise, both version are interchangable, no matter whether a commercial or academic license/subscription is used.
 
-## Versioning
+## Versioning {#versioning}
 Following the Apache Maven convention, we distinguish between *stable* (`x.y.z`) and *SNAPSHOT* (`x.y.z-SNAPSHOT`) builds.
 The `x.y.z-SNAPSHOT` build can be considered the development version until `x.y.z` is released, so `x.y.z.SNAPSHOT` < `x.y.z`.
 Development (`x.y.z-SNAPSHOT`) builds are declared as pre-release if they are publicly available.
 
-### What do SIRIUS version numbers mean?
+### What do SIRIUS version numbers mean? {#version-numbers}
 **`x`:** Major changes in the application:
 * CLI commands may be changed or removed.
 * Input formats  may be altered in a non-backward-compatible manner.
@@ -165,17 +165,17 @@ Development (`x.y.z-SNAPSHOT`) builds are declared as pre-release if they are pu
 * Bug fixes, typo corrections, etc.
 * Minor improvements that do not risk breaking anything (e.g., new or corrected tooltips, additional documentation).
 
-### Upgrade Recommendations
+### Upgrade Recommendations {#upgrad-recommendations}
 From a *system administrator's* or *system integration* perspective, **minor** and **build** number changes are safe to upgrade and should not cause disruptions.
 From a *user's perspective*, a **minor** update might alter (typically improve)
 the results of the methods. 
 The corresponding entry in the [changelog]({{ "/changelog/" | relative_url }}) will provide the relevant details.
 
-### Multiple versions alongside
+### Multiple versions alongside {#multiple versions}
 * Multiple different **minor** versions can safely be used side by side without interfering with each other.
 * Different **build**s of the same **minor** version should not be used side by side as they would share configs, logs and caches, which can lead to unexpected behaviour.
   
-### Major web service changes and end-of-life
+### Major web service changes and end-of-life {#web-service-changes}
 When a **major** web service update is released, this also causes an update of the SIRIUS client to a new **minor** version (`x.y+1.0`). 
 The previous version (`x.y.z`) then becomes a legacy version, which remains fully functional for a limited time (usually at least three months).
 Extensions beyond this period may be considered based on user requests.

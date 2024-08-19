@@ -12,7 +12,7 @@ sirius --help
 **TIP: We recommend using the `--help` option to get an overview of the available commands and options.**
 This ensures that the command descriptions are accurate and match your specific version of SIRIUS.
 
-## Introduction
+## Introduction {#introduction}
 
 The SIRIUS command-line program is a versatile
 toolbox designed for metabolite
@@ -30,7 +30,7 @@ The subcommands are categorized into different types:
 - [**PREPROCESSING TOOLS:**](#preprocessing) Tools that prepare input data to be compatible
     with SIRIUS. For example, [`lcms-align`](#lcms-align) is used for feature detection and alignment.
 - [**COMPOUND TOOLS:**](#compound-tools) These tools analyze each compound (instance) in
-    the dataset individually and can be concatenated with other tools. Examples are molecular formula annotation ([`formulas`](#formula)), structure database search ([`structures`](#structure)) or compound class prediction ([`classes`](#canopus)).
+    the dataset individually and can be concatenated with other tools. Examples are molecular formula annotation ([`formulas`](#SIRIUS-formulas)), structure database search ([`structures`](#CSI-FingerID-structures)) or compound class prediction ([`classes`](#CANOPUS-classes)).
 - [**DATASET TOOLS:**](#dataset-tools) These tools analyze all compounds (instances) in
     the dataset simultaneously and can be concatenated with other tools. For example, dataset-wide molecular formula annotation with [`zodiac`](#zodiac).
 
@@ -41,7 +41,7 @@ toolchain. For example, to get help for the `formulas` tool, use:
 ```shell
 sirius formulas --help
 ```
-### Basic principles
+### Basic principles {#basic-principles}
 
 {% capture fig_img %}
 ![Foo]({{ "/assets/images/CLI-workflow.png" | relative_url }})
@@ -63,7 +63,7 @@ adhering to the following principles:
 
 
 
-### Examples
+### Examples {#examples}
 
 **Compute missing results without recomputing:** 
 Assume you have previously computed results for the `formulas` and `structures` subtools for compounds with a mass less than 600 Da. 
@@ -107,7 +107,8 @@ sirius -i <mzml(s)> -o <projectspace> lcms-align formula
 ```
 
 ## COMPOUND TOOLS {#compound-tools}
-### `formulas`: Identifying molecular formulas with SIRIUS (Compound Tool) {#formula}
+
+### `formulas`: Identifying molecular formulas with SIRIUS (Compound Tool) {#SIRIUS-formulas}
 
 One of the primary functions of SIRIUS is identifying the molecular formula of a
 measured ion. For this task, SIRIUS provides the `formulas` tool. 
@@ -124,7 +125,7 @@ sirius [OPTIONS] -1 <MS FILE> -2 <MS/MS FILES comma separated> -z <PARENTMASS> -
 
 The command also works for [MGF files]({{ "/io/#mgf-format" | relative_url}}), where you can omit the `-z` option for specifying the parent mass, if it is already given in the file. 
 
-Instead of the generic text or CSV input, we **recommend** using [input files in `.ms` or `.mgf` format]({{ "/io/#peak-list-based-formats" | relative_url}}), 
+Instead of the generic text or CSV input, we **recommend** using [input files in `.ms` or `.mgf` format]({{ "/io/#peak-lists" | relative_url}}), 
 which contain all spectra for a compound as well as metainformation, such as parent mass, ionization and MS level. SIRIUS will extract the meta information from
 the files. They can also contain multiple compounds per file. 
 
@@ -177,6 +178,13 @@ You can specify the maximum allowed mass deviations for MS1 and MS2 separately:
 sirius -i <input> --output <projectspace> formulas -p orbitrap --ppm-max 2 --ppm-max-ms2 5
 ```
 
+#### Large data sets with high mass compounds
+When computing molecular formulas with SIRIUS a few high mass compounds usually need most of the computing time, and some of them might not finish computing in reasonable time at all and block your whole analysis.
+
+The most straightforward solution is to exclude high mass compounds from the analysis, by setting a mass threshold. This will usually allow you to annotate the vast majority of your data. However, many of the higher mass compounds will work just fine, and it would be a pity to not annotate them. Therefore, the recommended solution is to set a per-compound timeout (`--compound-timeout`) so that a few hard cases cannot block your analysis. Read mor about [How to deal with high mass compounds]({{"/faq/how-to-large-comp" | relative_url}}).
+
+
+
 ### `fingerprints`: Predicting molecular fingerprints (Compound Tool) {#fingerprints}
 
 [Molecular fingerprints]({{ "/methods-background/#molecular-fingerprint" | relative_url}}) can be predicted using the `fingerprints` command after calculating molecular formula candidates with the `formulas` tool. 
@@ -189,7 +197,7 @@ sirius -i <input> -o <projectspace> formulas fingerprints
 **Available aliases:** `fingerprint`
 
 
-### `classes`: Database-free compound classes prediction with CANOPUS (Compound Tool) {#canopus}
+### `classes`: Database-free compound classes prediction with CANOPUS (Compound Tool) {#CANOPUS-classes}
 
 The `classes` tool enables the prediction of compound classes directly from the probabilistic molecular fingerprints generated by CSI:FingerID (using the `fingerprints` command). One key advantage of CANOPUS is its ability to provide compound class information even for compounds that have no matching hit in a structure database. CANOPUS classes are required for confidence score estimation.
 
@@ -199,7 +207,7 @@ sirius -i <input> -o <projectspace> formulas fingerprints classes
 
 **Available aliases:** `canopus`, `compound-classes`
 
-### `structures`: Identifying molecular structures (Compound Tool) {#structure}
+### `structures`: Identifying molecular structures (Compound Tool) {#CSIFingerID-structures}
 
 The `structures` tool in SIRIUS allows you to for molecular structures in a structure database
 using CSI:FingerID.
@@ -217,7 +225,7 @@ candidates along with their CSI:FingerID scores. Additionally, a project space-w
 file will be generated, listing the top candidate structure for each compound,
 ordered by their confidence score.
 
-### `denovo-structures`: Generate *de novo* molecular structures (Compound Tool) {#msnovelist}
+### `denovo-structures`: Generate *de novo* molecular structures (Compound Tool) {#MSNovelist-denovo-structures}
 
 ```shell
 sirius -i <input> -o <projectspace> formulas fingerprints denovo-structures
@@ -241,7 +249,7 @@ PASSATUTTO will use the best-scoring candidate for decoy computation.
 
 ## DATASET TOOLS {#dataset-tools}
 
-### `zodiac`: Improve molecular formula identifications (Dataset Tool) {#zodiac}
+### `zodiac`: Improve molecular formula identifications (Dataset Tool) {#ZODIAC}
 
 When working with input data derived from biological samples or sets of derivatives, 
 similarities between different compounds can be used to enhance molecular formula annotations. 

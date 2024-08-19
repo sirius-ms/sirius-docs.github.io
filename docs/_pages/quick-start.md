@@ -8,9 +8,11 @@ from the SIRIUS website.
  - For a quick start, you can also watch our [video tutorials](https://www.youtube.com/playlist?list=PL57Jv_39fTdc_j8eHrH6At81n1AtxeKar).
  - To process a full LC-MS/MS run, you can also use your own `.mzML` files and run the following examples. This will first perform feature detection. Be aware that annotating 100s or 1000s of features may take a while. 
 
-## Graphical User Interface
+## Graphical User Interface {#GUI}
 
-### Analyzing multiple compounds
+For a quick start, you can also watch our [tutorial video introducing basic elements and functionality of the SIRIUS 4 GUI](https://www.youtube.com/watch?v=SWkukL88ljo).
+
+### Analyzing multiple compounds {#batch-mode}
 
 SIRIUS’s "Batch mode"  is equivalent to analyzing many compounds at once,
 each with one or more mass spectra. You can also use this workflow to analyze a single compound.
@@ -151,11 +153,11 @@ each with one or more mass spectra. You can also use this workflow to analyze a 
 
 [//]: # (    list)
 
-## Command Line Interface
+## Command Line Interface {#CLI}
 
 The demo data contains examples of three different data formats that can be read by SIRIUS. 
 
-### Example 1: MGF file
+### Example 1: MGF file {#CLI-example-MGF}
 The MGF folder contains an example of an MGF file containing a
 single compound with mutliple MS/MS spectra measured on an Orbitrap
 instrument. SIRIUS recognizes that these MS/MS spectra belong to the
@@ -219,7 +221,7 @@ The output can be imported by dragging the `<outputdir>` into the SIRIUS GUI app
 Note that the viewer can also export the tree as vector graphics (svg/pdf).
 
 
-### Example 2: MS files
+### Example 2: MS files {#CLI-example-MS}
 
 The `demo-data/ms/` directory contains two examples of this format. Each file contains a
 single compound measured on an Orbitrap instrument. To analyze this
@@ -249,7 +251,7 @@ SIRIUS will ignore the correct molecular formula in the file and
 output the 5 best candidates.
 
 
-## Background Service - Generic SIRIUS API
+## Background Service - Generic SIRIUS API {#API}
 
 SIRIUS provides a REST API to access data from the project space and to run computations. 
 You can either  interact with this API directly or use the Python SDK.
@@ -271,7 +273,7 @@ The page should look something like this:
 Because there are so many endpoints, getting started can be a bit overwhelming.
 The following explanations will help you get an overview and get the most out of the API.
 
-### Hello <del>world</del> structure candidates (your first tiny example)
+### Hello <del>world</del> structure candidates (your first tiny example) {#hello-world}
 First of all, remember that the API supports multiple SIRIUS projects. Therefore, you must always specify the `projectId` when you want to query a feature.
 
 Say you want to get the structure hits for the feature with named `InterestingCompound12`. You need to do the following.
@@ -352,7 +354,7 @@ Say you want to get the structure hits for the feature with named `InterestingCo
 ]
 ```
 
-### Class hierarchy
+### Class hierarchy {#class-hierarchy}
 
 The main classes in the hierarchy are `projects`, `alignedFeatures` and `formulas`. These have a one-to-many relation. 
 See below an exemplary representation. 

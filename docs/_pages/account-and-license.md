@@ -16,7 +16,7 @@ No worries, these and future features **will remain free for academic use**
 and will be provided/hosted by the FSU Jena. [Bright Giant GmbH](https://bright-giant.com/) 
 offers SIRIUS web service hosting for commercial users. 
 
-### Academic users
+### Academic users {#academic-users}
 Access to the academic license is automatically granted based on the domain of your 
 **institutional email address**. You must use your institutional email address for your SIRIUS account
 to benefit from free academic licenses.
@@ -26,14 +26,11 @@ list will never be complete. If your institution does not have access but you th
 [email](mailto:sirius@uni-jena.de) with information about your institution that will allow us to assess the academic/non-profit status of your institution (e.g. official website). 
 We will perform a manual validation and grant your institution access if it meets the academic license requirements. 
 
-### Non-academic users
+### Non-academic users {#non-academic-users}
 Please contact [Bright Giant](https://bright-giant.com/) by [email](mailto:info@bright-giant.com) for quotes and pricing.
 
-### Account creation
-User accounts can be created directly from the SIRIUS GUI.
-Open `Webservice -> Account`. Click `Create Account` and enter your **institutional** (not personal) email address
-and choose a password for your account. Verify your email address with the link sent to your inbox.
-Finally, click `Log in` and log using your account credentials.
+### Account creation and login {#account-creation}
+User accounts can be created directly from the [SIRIUS GUI]({{ "/gui/#account-creation" | relative_url}}) or from the [user portal](https://portal.bright-giant.com/). After logging into the user portal, you can request a license.
 
 To login from the CLI, use the following command:
 ```

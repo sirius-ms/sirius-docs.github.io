@@ -6,10 +6,10 @@ title: "Methods and algorithms"
 ## SIRIUS Workflows {#workflows}
 
 SIRIUS is the umbrella application comprising several workflows:
-- molecular formula annotation (SIRIUS + ZODIAC),
-- fingerprint prediction and compound class prediction (CSI:FingerID + CANOPUS),
-- structure database searching (CSI:FingerID + COSMIC),
-- de novo structure generation (MSNovelist).
+- molecular formula annotation ([SIRIUS](#SIRIUS-molecular-formula) + [ZODIAC](#ZODIAC)),
+- fingerprint prediction and compound class prediction ([CSI:FingerID](#molecular-fingerprint) + [CANOPUS](#CANOPUS)),
+- structure database searching ([CSI:FingerID](#CSIFingerID) + [COSMIC](#COSMIC)),
+- de novo structure generation ([MSNovelist](#MSNovelist)).
 
 These workflows follow a certain hierarchy, and cannot be freely combined. For example, to predict CANOPUS compound classes, the molecular formula annotation workflow must be run first (or results from a previous run must be available). See the following figure on how the different workflows depend on each other.
 
@@ -29,7 +29,7 @@ SIRIUS 6 allows importing local libraries containing spectral reference data. Su
 SIRIUS will automatically perform spectral library search against all available libraries whenever the molecular formula annotation workflow is used. 
 Spectral library matching is performed using the cosine score with squared peak intensities, ignoring the precursor peak.
 
-### Spectral matching influence on SIRIUS and CSI:FingerID results
+### Spectral matching influence on SIRIUS and CSI:FingerID results {#spectral-matching-influence}
 
 In SIRIUS 6, spectral library matches are added as annotations to CSI:FingerID results and do not influence the ranking of structure candidates. If a high-quality spectral library hit is found for a molecular formula that SIRIUS would not have otherwise considered, that molecular formula is forcibly added to the list of candidates.
 This ensures that no spectral library matches are overlooked when using CSI:FingerID.
@@ -38,6 +38,8 @@ This ensures that no spectral library matches are overlooked when using CSI:Fing
 ## Molecular formula identification with SIRIUS {#SIRIUS-molecular-formula}
 
 SIRIUS is the name of the umbrella application, but (for historic reasons) also the name for the identification of the molecular formula. First, a set of [candidate molecular formulas is generated](#generating-candidates). For this set, molecular formula identification is done using [isotope pattern analysis](#isotope-analysis) on the MS1 data as well as [fragmentation tree computation](#fragmentation-trees) on the MS2 data. The score of a molecular formula candidate is a [combination of the isotope pattern score and the fragmentation tree score]({{"/gui/#formulas-tab" | relative_url}}).
+
+For a deeper understanding of how SIRIUS and [ZODIAC](#ZODIAC) work,  why they work and how well they work, you can watch the [Behind the Scenes](https://www.youtube.com/watch?v=EpDKLzG0qVc) talk. Try using SIRIUS in the [GUI]({{"/gui/#SIRIUS-molecular-formula" | relative_url}}) or [CLI]({{"/cli/#SIRIUS-formulas" | relative_url}}).
 
 ### Generating molecular formula candidates {#generating-candidates}
 
@@ -182,7 +184,11 @@ spectra contain isotope patterns, which are disturbed through the mass filter, l
 
 ## ZODIAC {#ZODIAC}
 
-## Molecular fingerprint prediction with CSIFingerID {#molecular-fingerprint}
+For a deeper understanding of how SIRIUS and [ZODIAC](#ZODIAC) work,  why they work and how well they work, you can watch the [Behind the Scenes](https://www.youtube.com/watch?v=EpDKLzG0qVc) talk. Try using ZODIAC in the [GUI]({{"/gui/#ZODIAC-ranking" | relative_url}}) or [CLI]({{"/cli/#ZODIAC" | relative_url}}).
+
+## Molecular fingerprint prediction with CSI:FingerID {#molecular-fingerprint}
+
+CSI:FIngerID identifies the structure of a molecule by predicting its molecular fingerprint and using this fingerprint to [search in a molecular structure database](#CSIFingerID). For more details, watch the [CSI:FingerID behind the scenes](https://www.youtube.com/watch?v=oEQoB2aaV2E). Try using molecular fingerprint prediction in the [GUI]({{"/gui/#CSIFingerID-CANOPUS" | relative_url}}) or [CLI]({{"/cli/#fingerprints" | relative_url}}).
 
 *Molecular fingerprints* can be used to encode the structural features of 
 molecules. These fingerprints are typically represented as binary vectors 
@@ -247,7 +253,7 @@ It is crucial to understand that the molecular fingerprint predicted by CSI:Fing
 means that **even if the correct molecular structure is absent from all known structure databases, the predicted fingerprint remains valid**
 within the limitations of the predictive power of the method. This allows users to hypothesize about the structure of "unknown unknowns" not present in any existing structure database. Use the `Predicted Fingerprints` view  in the Graphical User Interface (GUI) to examine the predicted molecular fingerprint in detail.
 
-## Structure database search with CSIFingerID {#CSIFingerID}
+## Structure database search with CSI:FingerID {#CSIFingerID}
 
 By default, SIRIUS searches for molecular structures in a biomolecule 
 structure database. It can also search in the (extremely large) PubChem database or in custom "suspect databases" provided by the user.
@@ -277,7 +283,9 @@ structure database. It can also search in the (extremely large) PubChem database
     [LIPIDMAPS](https://www.lipidmaps.org/)
     and structures from [PubChem](https://pubchem.ncbi.nlm.nih.gov/) annotated with [MeSH](https://www.nlm.nih.gov/mesh/meshhome.html) 
     terms or  classified under "bio and metabolites", "drug", "safety and toxic" or "food". he exact composition of this database may vary depending on the version of SIRIUS in use.
-    
+
+Try using CSI:FingerID in the [GUI]({{"/gui/#CSIFingerID-structure" | relative_url}}) or [CLI]({{"/cli/#CSIFingerID-structures" | relative_url}}).
+
 ### Expansive search (structure database search with fallback) {#expansive-search}
 
 SIRIUS 6 introduces *expansive search*, which allows for structure database searches with a [confidence score](#COSMIC)-based fallback.
@@ -297,6 +305,17 @@ structure candidates of a particular feature nor does it discard any identificat
 
 The confidence score is calculated using Support Vector Machines (SVMs) with enforced feature directionality (different SVMs are applied based on the length of the structure candidate list). The resulting score is a Platt-probability estimate and thus, ranging from 0 to 1.0. However, it's important to note that this score should not be interpreted as a direct probability of correctness.
 During evaluation, we found that a score of 0.64 approximately corresponded to a 10% FDR. However, this might vary significantly depending on the specific characteristics of your dataset.
+
+**Interpretation of COSMIC confidence values:**
+COSMIC confidence scores should be interpreted with caution. It’s crucial to understand that these scores are not probabilities and, therefore, do not have a direct statistical interpretation. When performing large-scale analyses, it's advisable to focus on the highest-confidence hits (e.g., the top 1/5/10%), generally independent of their specific confidence value.
+
+**Correct annotation with low confidence value:**
+If the database being searched contains multiple highly similar structures with nearly identical fingerprint representations and CSI:FingerID
+scores, correct structure annotations might receive low confidence values.
+Without prior knowledge of the correct structure, any of these highly similar compounds could be the true structure, leading to a lower confidence score. This is not a limitation of CSI:FingerID
+or COSMIC, but rather of mass spectrometry itself, as the MS/MS spectra of these similar structures will appear almost identical. We recommend using the `approximate mode` [described below](#confidence-score-modes), which provides a higher confidence score for hits that are highly similar to the true structure.
+
+For a deeper understanding of how COSMIC works,  why it works and how well it works, you can watch the [Behind the Scenes](https://www.youtube.com/watch?v=akMkDK5O2rk) talk. COSMIC is part of the structure database search in the [GUI]({{"/gui/#CSIFingerID-structure" | relative_url}}) and [CLI]({{"/cli/#CSIFingerID-structures" | relative_url}}).
 
 ### Confidence score modes {#confidence-score-modes}
 
@@ -340,6 +359,8 @@ classification system is more general, but may aligns better with the
 concept of biosynthetic pathway mapping. However, it is still not using 
 taxonomic information, relying solely on MS/MS data for its predictions.
 
+For a deeper understanding of how CANOPUS works, why it works and how well it works, you can watch the [CANOPUS behind the Scenes](https://www.youtube.com/watch?v=kgTS5hGiPXg) talk. Try using CANOPUS in the [GUI]({{"/gui/#CSIFingerID-CANOPUS" | relative_url}}) or [CLI]({{"/cli/#CANOPUS-classes" | relative_url}}).
+
 ## De novo structure generation with MSNovelist {#MSNovelist}
 
 MSNovelist ([Stravs *et al.*](https://doi.org/10.1038/s41592-022-01486-3)) generates molecular structures *de novo* from  MS/MS data - without relying on any database. 
@@ -349,3 +370,5 @@ However, it is not intended to replace database searches altogether, as structur
 MSNovelist generates structures which can serve as a great starting point for elucidation of specific unknowns.
 MSNovelist generates multiple candidate structures from the predicted molecular fingerprint. These candidates are represented in SMILES format and are sampled using an autoregressive model, which generates each SMILES token by token. Once the candidate structures are generated, they are ranked using CSI:FingerID. 
 The proposed structures can serve as an excellent starting point for the elucidation of specific unknown compounds. This information can be further enriched by [CANOPUS](#CANOPUS) compound class predictions, providing a broader context for the identified structures.
+
+Try using MSNovelist in the [GUI]({{"/gui/#MSNovelist-denovo-structure" | relative_url}}) or [CLI]({{"/cli/#MSNovelist-denovo-structures" | relative_url}}).

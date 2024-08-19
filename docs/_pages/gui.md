@@ -3,7 +3,7 @@ permalink: /gui/
 title: "Graphical User Interface"
 ---
 
-## Overview
+## Overview {#overview}
 
 SIRIUS 6 comes equipped with a comprehensive Graphical User Interface. Here's a breakdown of the key components and their functions.
 
@@ -22,19 +22,32 @@ The second button group <span style="color:red">[2]</span> facilitates
 [importing](#data-import) single features or data containing multiple features into
 your project space. The third button group <span style="color:red">[3]</span> handles exporting data, e.g. for [GNPS FBMN](https://doi.org/10.1038/s41592-020-0933-6) analysis
 or generating [project space summaries]({{ "/io/#sirius-project-space" | relative_url }}). 
-The fourth button group <span style="color:red">[4]</span> is dedicated to computations, including [starting the computations](#compute-dialog), getting the job view and [importing custom databases](#import-of-custom-structure-and-spectra-databases).  
-The last button group on the right <span style="color:red">[5]</span> provides access  access to the log, [settings](#settings), [webservice information](#webservice), and account details. Here you can also find a link to the online documentation (`Help`) as well as information on software licence and related publications (`About`).
+The fourth button group <span style="color:red">[4]</span> is dedicated to computations, including [starting the computations](#compute-dialog), getting the job view and [importing custom databases](#custom-database-import).  
+The last button group on the right <span style="color:red">[5]</span> provides access  access to the log, [settings](#settings), [webservice information](#webservice), and [account details](#account-creation). Here you can also find a link to the online documentation (`Help`) as well as information on software licence and related publications (`About`).
 
 - The **feature list <span style="color:red">[6]</span>** on the left side contains all imported (aligned) features. 
 A *feature* contains all MS and MS/MS spectra corresponding to a measured aligned
-feature. For each feature, adduct type, precursor mass, retention time and confidence score (if computed) are shown in this panel. 
+feature. For each feature, adduct type, precursor mass, retention time and [confidence score](#COSMIC) (if computed) are shown in this panel. 
 
 - The **result view <span style="color:red">[8]</span>** is displayed to the right of the feature list and allows users to [examine different result views](#visualize-results). The tab selector <span style="color:red">[7]</span> at the top of this panel lets you switch between these views, offering various perspectives on your data.
 
-- The **bottom information bar <span style="color:red">[9]</span>** provides details about your license status for the webservice-based structure elucidation tools,  
+- The **bottom information bar <span style="color:red">[9]</span>** provides details about your license status for the webservice-based structure elucidation tools, 
 the number of computed features and feature limits.  
 
-## Data import
+For a quick start, you can also watch our [tutorial video introducing basic elements and functionality of the SIRIUS 4 GUI](https://www.youtube.com/watch?v=SWkukL88ljo).
+
+## Account creation {#account-creation}
+
+Open `Account` in the top-right toolbar <span style="color:red">[5]</span>, and click `Create Account` to get to our [user portal](https://portal.bright-giant.com/auth/register/).
+Enter your name and your **institutional** (not personal) email address and choose a password for your account. Verify your email address with the link sent to your inbox. 
+
+<img src="{{ "/assets/images/user-portal.png" | relative_url }}" alt="Create new account in the user portal." width="300">
+
+After logging into the user portal, you can [request a license]({{"/account-and-license/" | relative_url}}).
+
+In the SIRIUS GUI, click `Log in` to enter your account credentials and login.
+
+## Data import {#data-import}
 
 You can import `.ms`, `.mgf`, Agilent's `.cef`, `.mzml` and `.mzxml` files using the `Import` button or by drag-and-drop. 
 SIRIUS will automatically extract all relevant attributes (such as MS level, ionization, and precursor mass)
@@ -45,7 +58,7 @@ For more information on supported file formats, refer to the [Input]({{ "/io/#in
 
 [//]: # (## Sorting features, filtering features and changing displayed confidence score mode)
 
-### Sort and filter
+### Sort and filter {#sort-filter}
 
 To sort the feature list, use right-click to open the <span style="color:red">[sort]</span> dialog below.
 
@@ -66,8 +79,50 @@ The feature list can further be refined by clicking the filter button (three dot
 - In the `Results` tab (right), you can filter for specific element constraints in either the neutral molecular formula or precursor formula,
 as well as for specific detected adducts. If structure database results are available, you can filter for hits in specific structure databases.  `Candidates to check` allows you to specify the number of top candidates to consider.
 
+### Import of custom structure and spectra databases {#custom-database-import}
 
-## Computing results
+Custom structure databases and spectral libraries can be added via the `Databases` dialog, accessible via the
+top center of the GUI ribbon.
+Starting with version 6.0, SIRIUS supports the import of spectral libraries. 
+The supported import formats for spectral
+data are .ms, .mgf, .msp, .mat, .txt (MassBank), .mb, .json (GNPS, MoNA). Spectra must be annotated with a structure and must be centroided.
+Custom structures can be used in [structure database search](#CSIFingerID-structure). Imported spectra will be used for [spectral library matching]({{ "/methods-background/#spectral-library-search" | relative_url }}).
+
+{% capture fig_img %}
+![Foo]({{ "/assets/images/customDbs_marked.png" | relative_url }})
+{% endcapture %}
+
+<figure>
+  {{ fig_img | markdownify | remove: "<p>" | remove: "</p>" }}
+  <figcaption>Custom database dialog.</figcaption>
+</figure>
+
+Custom databases are stored as files with the `.siriusdb` extension. 
+If you already have a database with this format on your local machine, you can add it to SIRIUS by clicking the 
+`Add existing Database` button on the bottom right. To create a new custom database,
+click the `Create custom Database` button.
+Imported databases can be deleted or modified using the `-` or pencil icon button, respectively. 
+
+{% capture fig_img %}
+![Foo]({{ "/assets/images/customDbs_import_marked.png" | relative_url }})
+{% endcapture %}
+
+<figure>
+  {{ fig_img | markdownify | remove: "<p>" | remove: "</p>" }}
+  <figcaption>Custom database import dialog.</figcaption>
+</figure>
+
+To create a custom database, enter a name for the database <span style="color:red">[1]</span> (maximum length: 15 characters), which will be displayed in the structure database search dialog. 
+Specify the file name for the database, ensuring it ends with `.siriusdb` <span style="color:red">[2]</span>. 
+Choose be any valid, writeable path on your local machine to store the database <span style="color:red">[3]</span>.
+Adjust the buffer size <span style="color:red">[4]</span> to control how many structures or spectra should be kept in memory. This can be increased when importing large files on a faster machine.
+Drag and drop files or directories containing structure/spectra files to the input area <span style="color:red">[5]</span>, or use the `+` button to browse your file system.
+
+For more details on custom database import and supported file formats, please see the [Custom database tool]({{ "/cli-standalone/#custom-database-tool" | relative_url }}) section.
+
+**Please note that you have to be logged in to your SIRIUS account to import custom databases.**
+
+## Computing results {#computing-results}
 SIRIUS offers two computation modes for processing data: *Single
 Computation* and *Batch Computation*. Both computation dialogs are similar in layout and functionality.
 
@@ -83,7 +138,7 @@ can choose whether to recompute and override results for features that  have alr
 
 The following section provides a detailed explanation of the compute dialog, using the *Batch Computation* dialog as example.
 
-### Compute dialog
+### Compute dialog {#compute-dialog}
 
 Starting with SIRIUS 6, the compute dialog has been streamlined to improve clarity by displaying only those settings that are essential for any type of analysis. Use the `Show advanced settings` button at the bottom <span style="color:red">[7]</span> to include additional settings that are relevant for specific use cases or to set limits for computation times.
 
@@ -97,10 +152,10 @@ Starting with SIRIUS 6, the compute dialog has been streamlined to improve clari
 </figure>
 
 The compute dialog is divided into five subtools: 
-[SIRIUS molecular formula annotation](#identifying-molecular-formulas-with-sirius) <span style="color:red">[1]</span>, 
-[ZODIAC](#improve-molecular-formula-ranking-with-zodiac) <span style="color:red">[2]</span>, 
-[CSI:FingerID fingerprint prediction with CANOPUS](#predicting-molecular-fingerprints-with-csifingerid-and-compound-classes-with-canopus) <span style="color:red">[3]</span>, 
-[CSI:FingerID structure database search](#identifying-the-molecular-structure-with-the-csifingerid-tool) <span style="color:red">[4]</span> and 
+[SIRIUS molecular formula annotation](#SIRIUS-molecular-formula) <span style="color:red">[1]</span>, 
+[ZODIAC](#ZODIAC-ranking) <span style="color:red">[2]</span>, 
+[CSI:FingerID fingerprint prediction with CANOPUS](#CSIFingerID-CANOPUS) <span style="color:red">[3]</span>, 
+[CSI:FingerID structure database search](#CSIFingerID-structure) <span style="color:red">[4]</span> and 
 [MSNovelist](#generating-de-novo-structure-candidates-with-msnovelist) <span style="color:red">[5]</span>. As of SIRIUS 6, CANOPUS is automatically executed together with the fingerprint prediction. 
 **Subtools can be selected individually or combined, but note that the selection must align with a [valid SIRIUS workflow]({{ "/methods-background/#workflows" | relative_url }}).**
 For example, you cannot search structure databases without predicting fingerprints first. 
@@ -108,12 +163,12 @@ For example, you cannot search structure databases without predicting fingerprin
 If the `Recompute already computed tasks?` checkbox <span style="color:red">[6]</span> is checked, all previously existing results for the selected features in the current project space will be invalidated and overwritten to execute the newly selected workflow. Additional parameters for specific subtools can be displayed using the `Show advanced settings` button  <span style="color:red">[7]</span>. 
 To easily convert the current workflow selections into a CLI command, use the `Show Command` button <span style="color:red">[8]</span> at the bottom right.
 
-### Spectral library matching
+### Spectral library matching {#spectral-library-matching}
 
 If imported spectral libraries are available, SIRIUS will automatically perform spectral matching. This process runs in the background without the need for any addiotional parameters. For more information, refer to the [Spectral library matching]({{ "/methods-background/#spectral-library-search" | relative_url }}) section.
 
 
-### Identifying molecular formulas with SIRIUS
+### Identifying molecular formulas with SIRIUS {#SIRIUS-molecular-formula}
 
 To identify molecular formulas using SIRIUS, you can 
 set general parameters <span style="color:red">[A]</span>, 
@@ -212,7 +267,7 @@ Applying an element filter <span style="color:red">[2]</span> is not mandatory f
 
 Also for bottom up search, applying an element filter <span style="color:red">[1]</span> is not mandatory, but can be used to narrow down molecular formula candidates. `Allowed elements` and `Autodetect` elements can again be adjusted using the `...` button.
 
-#### Advanced settings for molecular formula annotation
+#### Advanced settings for molecular formula annotation {#SIRIUS-advanced}
 
 {% capture fig_img %}
 ![Foo]({{ "/assets/images/formula_advanced_marked.png" | relative_url }})
@@ -245,7 +300,7 @@ Also for bottom up search, applying an element filter <span style="color:red">[1
 - For very high masses, exact solutions may be impractical, and only
   heuristic trees should be computed. Set the m/z value above which trees will exclusively be computed using the heuristic <span style="color:red">[8]</span>. 
 
-### Improve molecular formula ranking with ZODIAC
+### Improve molecular formula ranking with ZODIAC {#ZODIAC-ranking}
 
 ZODIAC enhances *de novo* molecular formula annotation for complete biological datasets, that is high-resolution, high-mass-accuracy LC-MS/MS runs. It refines the ranking of molecular formula candidates by analyzing similarities among features in the dataset, using fragmentation trees as input.
 
@@ -254,7 +309,7 @@ To increase the chance of the correct molecular formula candidate to be in the r
 
 For more details, visit the [Zodiac release page](https://bio.informatik.uni-jena.de/software/zodiac/).
 
-#### Advanced settings for ZODIAC
+#### Advanced settings for ZODIAC {#ZODIAC-advanced}
 
 These parameters are very advanced and require a thorough understanding of ZODIAC and its underlying Gibbs sampler.
 
@@ -282,7 +337,7 @@ These parameters are very advanced and require a thorough understanding of ZODIA
   <span style="color:red">[5]</span>
 
 
-### Predicting molecular fingerprints with CSI:FingerID and compound classes with CANOPUS
+### Predicting molecular fingerprints with CSI:FingerID and compound classes with CANOPUS {#CSIFingerID-CANOPUS}
 
 After computing the fragmentation trees, you can predict [molecular fingerprints]({{ "/methods-background/#molecular-fingerprint" | relative_url }}) 
 and [CANOPUS compound classes]({{ "/methods-background/#CANOPUS" | relative_url }}).
@@ -297,11 +352,11 @@ molecular formula.
 
 For more details, visit the [CANOPUS release page](https://bio.informatik.uni-jena.de/software/canopus/).
 
-### Identifying the molecular structure with CSI:FingerID
+### Identifying the molecular structure with CSI:FingerID {#CSIFingerID-structure}
 
 CSI:FingerID facilitates the identification of molecular structures by matching 
 predicted molecular fingerprints against database structures. SIRIUS ships with a wide range of [built-in databases]({{ "/methods-background/#CSIFingerID" | relative_url }}). 
-Additionally, users can enhance the search capabilities by adding their own structures as a "custom database" (see [Import of custom structure and spectra databases]({{ "/gui/#Import-of-custom-structure-and-spectra-databases" | relative_url }})) which can then be searched alongside
+Additionally, users can enhance the search capabilities by adding their own structures as a "custom database" (see [Import of custom structure and spectra databases](#custom-database-import) which can then be searched alongside
 the existing databases.
 
 {% capture fig_img %}
@@ -313,7 +368,7 @@ the existing databases.
   <figcaption>Parameters for structure database search.</figcaption>
 </figure>
 
-**Expansive search:**
+#### Expansive search {#expansive-search}
 Structure database search is conducted within the user-selected databases. 
 You can choose to use PubChem as a fallback database <span style="color:red">[1]</span> in case it contains a hit with higher confidence than
 those found in the selected databases.
@@ -323,65 +378,11 @@ The `Confidence mode` controls whether the approximate or exact [confidence mode
 hit in PubChem is more reliable than the hits in the selected databases.
 
 Per default the structure databases constituting the "bio" database are selected <span style="color:red">[2]</span>. De-select `PubChem as fallback` to fully search in PubChem. 
-If database search was used for [molecular formula identification](#identifying-molecular-formulas-with-sirius), the same databases are selected here. 
+If database search was used for [molecular formula identification](#SIRIUS-molecular-formula), the same databases are selected here. 
 You can revert to the default selection by clicking `bio`. If any custom database was loaded, 
 they can be selected here as well.
 
-
-### Generating *de novo* structure candidates with MSNovelist
-
-In some cases, it is necessary to go beyond the limits of structure database search.
-To address this, SIRIUS 6 newly offers *de novo* generation of candidate structures through [MSNovelist]({{ "/methods-background/#MSNovelist" | relative_url }}), in addition to predicting molecular fingerprints and compound classes, as well as searching in custom databases.
-
-Be aware that the likelihood of any *de novo* generation method performing well for truly novel compounds is very low. Therefore, the results from MSNovelist should rather be considered as suggestion or starting point
-for semi-manual analysis of compounds that cannot be elucidated otherwise. 
-
-**MSNovelist will significantly slow down your SIRIUS workflow; use with caution.**
-
-#### Import of custom structure and spectra databases {#custom-database-import}
-
-Custom structure databases and spectral libraries can be added via the `Databases` dialog, accessible via the
-top center of the GUI ribbon.
-Starting with version 6.0, SIRIUS supports the import of spectral libraries. 
-The supported import formats for spectral
-data are .ms, .mgf, .msp, .mat, .txt (MassBank), .mb, .json (GNPS, MoNA). Spectra must be annotated with a structure and must be centroided.
-Custom structures can be used in [structure database search](#identifying-the-molecular-structure-with-csifingerid). Imported spectra will be used for [spectral library matching]({{ "/methods-background/#spectral-library-search" | relative_url }}).
-
-{% capture fig_img %}
-![Foo]({{ "/assets/images/customDbs_marked.png" | relative_url }})
-{% endcapture %}
-
-<figure>
-  {{ fig_img | markdownify | remove: "<p>" | remove: "</p>" }}
-  <figcaption>Custom database dialog.</figcaption>
-</figure>
-
-Custom databases are stored as files with the `.siriusdb` extension. 
-If you already have a database with this format on your local machine, you can add it to SIRIUS by clicking the 
-`Add existing Database` button on the bottom right. To create a new custom database,
-click the `Create custom Database` button.
-Imported databases can be deleted or modified using the `-` or pencil icon button, respectively. 
-
-{% capture fig_img %}
-![Foo]({{ "/assets/images/customDbs_import_marked.png" | relative_url }})
-{% endcapture %}
-
-<figure>
-  {{ fig_img | markdownify | remove: "<p>" | remove: "</p>" }}
-  <figcaption>Custom database import dialog.</figcaption>
-</figure>
-
-To create a custom database, enter a name for the database <span style="color:red">[1]</span> (maximum length: 15 characters), which will be displayed in the structure database search dialog. 
-Specify the file name for the database, ensuring it ends with `.siriusdb` <span style="color:red">[2]</span>. 
-Choose be any valid, writeable path on your local machine to store the database <span style="color:red">[3]</span>.
-Adjust the buffer size <span style="color:red">[4]</span> to control how many structures or spectra should be kept in memory. This can be increased when importing large files on a faster machine.
-Drag and drop files or directories containing structure/spectra files to the input area <span style="color:red">[5]</span>, or use the `+` button to browse your file system.
-
-For more details on custom database import and supported file formats, please see the [Custom database tool]({{ "/cli-standalone/#custom-database-tool" | relative_url }}) section.
-
-**Please note that you have to be logged in to your SIRIUS account to import custom databases.**
-
-#### COSMIC - confidence values for CSI:FingerID searches
+#### COSMIC - confidence values for CSI:FingerID searches {#COSMIC}
 COSMIC confidence scores are calculated automatically and without requiring any parameters every time a CSI:FingerID search is performed. 
 COSMIC scores are displayed in the feature list on the left. Starting with SIRIUS 6, confidence scores
 are computed in both `exact` and `approximate` mode. 
@@ -390,6 +391,15 @@ For more details,
 see the [COSMIC]({{ "/methods-background/#COSMIC"  | relative_url }}) section or
 visit the [COSMIC release page](https://bio.informatik.uni-jena.de/software/cosmic/).
 
+### Generating *de novo* structure candidates with MSNovelist {#MSNovelist-denovo-structure}
+
+In some cases, it is necessary to go beyond the limits of structure database search.
+To address this, SIRIUS 6 newly offers *de novo* generation of candidate structures through [MSNovelist]({{ "/methods-background/#MSNovelist" | relative_url }}), in addition to predicting molecular fingerprints and compound classes, as well as searching in custom databases.
+
+Be aware that the likelihood of any *de novo* generation method performing well for truly novel compounds is very low. Therefore, the results from MSNovelist should rather be considered as suggestion or starting point
+for semi-manual analysis of compounds that cannot be elucidated otherwise. 
+
+**MSNovelist will significantly slow down your SIRIUS workflow; use with caution.**
 
 ## Visualization of the results {#visualize-results}
 The feature provides not only information about the input and compute state, it also displays the COSMIC
@@ -647,7 +657,7 @@ You can navigated through the peaks using left-click or the arrow keys.
 The `Library Matches` tab displays the spectral library matches for the measured query spectrum against a reference library. 
 To zoom into the spectrum, hold the right mouse button and drag to select an area, or scroll while hovering over an axis.
 
-For more information on spectral library searches in SIRIUS, please refer to the sections on [spectral library matching]({{ "/methods-background/#spectral-library-search" | relative_url }}) and [Import of Custom Structure and Spectra Databases]({{ "/gui/#Import-of-custom-structure-and-spectra-databases" | relative_url }}).
+For more information on spectral library searches in SIRIUS, please refer to the sections on [spectral library matching]({{ "/methods-background/#spectral-library-search" | relative_url }}) and [Import of Custom Structure and Spectra Databases](#custom-database-import).
 
 ## Data export (Summaries and FBMN export) {#data-export}
 
@@ -668,10 +678,9 @@ export adducts belonging to the top hits.
 
 [//]: # (TODO: this part is very confusing...)
 
-### Feature based molecular networking (FBMN) export
+### Feature based molecular networking (FBMN) export {#FBMN-export}
 
 TODO
-
 
 ## Settings {#settings}
 
@@ -695,8 +704,6 @@ Add or remove custom adducts for positive and negative ion mods
 
 **Network settings:**
 SIRIUS supports using a proxy server to access our webservices by changing `Use Proxy Server` from `NONE` to `SIRIUS` and entering all required information. Your   configuration will be tested when you click the save button.
-
- 
 
 ## Webservice {#webservice}
 
