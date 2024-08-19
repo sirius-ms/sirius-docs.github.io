@@ -10,10 +10,6 @@ The *Java Runtime Environment* (JRE) needed to run SIRIUS is already included.
 but may require admin permissions. As we do not pay Microsoft/Apple for certification, 
 you may need to confirm that you want to trust software from an unknown source on Windows/MacOS.
 
-**Further, [Bright Giant](https://bright-giant.com/) is offering 
-[signed installers](https://github.com/bright-giant/sirius/releases) free of charge. 
-These installers ease installation process a lot by triggering no (or less) security issues of the respective OS.**
-
 The installation should take no more than **10 minutes**.
 
 If you have any problems installing SIRIUS, please contact support or ask for help in the [community](https://matrix.to/#/#sirius-ms:gitter.im). You can also use the forum to let us know if you find that our installation guide is incomplete, or if you have

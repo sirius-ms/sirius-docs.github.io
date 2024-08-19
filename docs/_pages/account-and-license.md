@@ -3,18 +3,17 @@ permalink: /account-and-license/
 title: "Account and License"
 ---
 
-Since SIRIUS 5, a user account and license are required to use the webservice-based
+Since SIRIUS 5, a license is required to use the webservice-based
 features of SIRIUS.
 
-**Non-webservice-based features** include molecular formula annotation using fragmentation trees and isotope pattern analysis. Fragmentation tree computation and isotope pattern analysis are
-performed on your local computer and do not require license. Some molecular formula annotation strategies (like formula database search)
-may require a web service connection.
+**Non-webservice-based features** include molecular formula annotation using fragmentation trees and isotope pattern analysis. 
+Fragmentation tree computation and isotope pattern analysis are performed on your local computer and do not require license.
+Be aware that [molecular formula annotation using database search]({{ "/methods-background/#formula-db-search" | relative_url}}) requires a web service connection.
 
-**Webservice-based features** are essentially advanced structure elucidation features including structure database search 
-with CSI:FingerID, compound class prediction with CANOPUS and *de novo* structure generation with MSNovelist.  
-No worries, these and future features **will remain free for academic use**
-and will be provided/hosted by the FSU Jena. [Bright Giant GmbH](https://bright-giant.com/) 
-offers SIRIUS web service hosting for commercial users. 
+**Webservice-based features** include all advanced structure elucidation features, such as [structure database search 
+with CSI:FingerID]({{ "/methods-background/#molecular-fingerprint" | relative_url}}), [compound class prediction with CANOPUS]({{ "/methods-background/#CANOPUS" | relative_url}}) and [*de novo* structure generation with MSNovelist]({{ "/methods-background/#MSNovelist" | relative_url}}).
+These and future features **will remain free for academic use** 
+provided/hosted by the FSU Jena. [Bright Giant GmbH](https://bright-giant.com/) offers SIRIUS web service hosting for commercial users. 
 
 ### Academic users {#academic-users}
 Access to the academic license is automatically granted based on the domain of your 

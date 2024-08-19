@@ -136,10 +136,6 @@ Starting with version 5.7, custom databases can be stored in any directory on th
 ## Release Policy {#realese-policy}
 SIRIUS and its backend (web service) follow a “rolling release” strategy with semantic versioning. Updates and bug fixes are deployed as soon as they are stable, sometimes even for a single bug fix. 
 
-New releases of *vanilla* SIRIUS are available [here](https://github.com/boecker-lab/sirius/releases). 
-Signed SIRIUS installers provided by Bright Giant can be found [here](https://github.com/bright-giant/sirius/releases).
-Unless stated otherwise, both version are interchangable, no matter whether a commercial or academic license/subscription is used.
-
 ## Versioning {#versioning}
 Following the Apache Maven convention, we distinguish between *stable* (`x.y.z`) and *SNAPSHOT* (`x.y.z-SNAPSHOT`) builds.
 The `x.y.z-SNAPSHOT` build can be considered the development version until `x.y.z` is released, so `x.y.z.SNAPSHOT` < `x.y.z`.

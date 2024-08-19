@@ -541,6 +541,8 @@ CSI:FingerID to be present in the measured feature. The intensity of the color i
 are predicted to be absent but are, nevertheless, found in the candidate
 structure. The intensity of the color reflects the probablity that the structure should be absent. 
 
+<img src="{{ "/assets/images/boxes.png" | relative_url }}" alt="Fingerprint box representation" width="800">
+
 Overall, a correct prediction is typically characterized by many large, intense blue squares and as few large, intense red squares as possible.
 
 Hovering over a square displays the description 
@@ -559,6 +561,14 @@ Right-clicking on a proposed structure opens a context menu <span style="color:r
 - Open the compound in all databases 
 - Highlight matching substructures 
 - Show the annotated spectrum in the `Substructure Annotations` tab
+
+**Highlight matching substructures:**
+When you choose `Highlight matching substructures` from the context menu, substructures in all structure candidates will be color-coded as follows:
+
+* **blue:** substructures that are supported by fingerprint evidence.
+* **red:** substructures that contradict fingerprint evidence.
+* **yellow:** substructures with mixed support, where both agreeing and disagreeing fingerprint evidence is present.
+* **no color:** substructures that are not clearly covered by fingerprint evidence
 
 {% capture fig_img %}
 ![Foo]({{ "/assets/images/matching-substructures.png" | relative_url }})
