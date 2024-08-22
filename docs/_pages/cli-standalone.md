@@ -28,9 +28,9 @@ which may take some time, especially for a large number of structures.
 sirius -i <structure.tsv> custom-db --name myDB --output /some/dir
 ```
 
-Note, that PubChem standardized SMILES are typically used to represent structures in our machine learning methods. 
-However, the PubChem standardization is not integrated into this import process. For optimal results, we recommend standardizing
-your SMILES using the PubChem standardization before importing them. This step is **not** mandatory, but recommended.
+In our machine learning methods, we use **PubChem standardized** SMILES to represent structures. 
+However, the PubChem standardization is not integrated into the import process. For optimal results, we recommend standardizing
+your SMILES using the [PubChem standardization](https://pubchem.ncbi.nlm.nih.gov/standardize/standardize.cgi) before importing them. This step is **not** mandatory, but recommended.
 
 
 ## Similarity tool {#similarity-tool}

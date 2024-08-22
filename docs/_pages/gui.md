@@ -589,8 +589,9 @@ is not available on the current system.
 - **black:** Additional information such as whether the candidate 
 is part of the CSI:FingerID training data.
 
-This view also includes visualization for the "El Gordo" lipid class annotation functionality. Lipid structures are often extremely similar to each other,
-often only differing in the position of the double bonds. These extremely similar structures are often not even differentiable by mass spectrometry at all, which is why the overarching lipid class is shown above the structure candidates. 
+This view also includes visualization for the "El Gordo" lipid class annotation functionality. Lipid structures are often highly similar, 
+differing only in the position of double bonds. 
+These subtle differences can be indistinguishable using mass spectrometry alone, which is why the overarching lipid class is displayed above the structure candidates.
 
 If the PubChem fallback was activated as part of [Expansive search]({{ "/methods-background/#expansive-search" | relative_url }}), a notification will be displayed below the top ribbon.
 
@@ -656,7 +657,7 @@ You can navigated through the peaks using left-click or the arrow keys.
 ### Library Matches view {#library-matches-tab}
 
 {% capture fig_img %}
-![Foo]({{ "/assets/images/library_matches.png" | relative_url }})
+![Foo]({{ "/assets/images/library-matches-view.png" | relative_url }})
 {% endcapture %}
 
 <figure>
@@ -664,7 +665,8 @@ You can navigated through the peaks using left-click or the arrow keys.
   <figcaption>Spectral library matches tab.</figcaption>
 </figure>
 
-The `Library Matches` tab displays the spectral library matches for the measured query spectrum against a reference library. 
+The `Library Matches` tab displays the spectral library matches for the measured query spectrum against a reference library. If you have multiple MS2 spectra (with different collision energies) for a feature, the best matching spectrum is shown by default. The `Similarity Score` and number of `Shared Peaks` in the list is given for this spectrum <span style="color:red">[1]</span>. However, you can switch to other MS2 spectra to examine their mirror plots as well <span style="color:red">[2]</span>.
+
 To zoom into the spectrum, hold the right mouse button and drag to select an area, or scroll while hovering over an axis.
 
 For more information on spectral library searches in SIRIUS, please refer to the sections on [spectral library matching]({{ "/methods-background/#spectral-library-search" | relative_url }}) and [Import of Custom Structure and Spectra Databases](#custom-database-import).

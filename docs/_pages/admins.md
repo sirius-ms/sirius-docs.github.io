@@ -64,9 +64,10 @@ The **login** and **license servers** are the same for commercial and academic u
 The URL of the **web service** itself may differ based on the type of subscription.
 Users with a dedicated hosting subscription need to ensure that their custom web service URL is accessible from the system where SIRIUS is installed.
 
-Additionally, there is an **optional URL** to check the internet connection that can be accessed for debugging and error reporting purposes, e.g. if the web service or the login server is not available. 
-This URL is **optional** and **not** required for SIRIUS to work properly. However, blocking it may result in less detailed error messages if connection issues arise. 
+If SIRIUS cannot connect to its servers, it automatically runs a series of diagnostic tests to identify the issue. One of these tests involves pinging a website to check if SIRIUS can access the internet (**Internet connection check**) or if it is being blocked by a firewall or incorrect proxy settings. 
+This test is *optional* and not required for SIRIUS to function. It is designed to provide more useful information in the event of a connection error. Blocking it may result in less detailed error messages if connection issues arise. 
 
+We use Google by default because it is a reliable website that is almost never down. 
 If you are using SIRIUS in a location where Google is inaccessible, you can replace the Google URL with another reliable URL outside your institutional network to check the internet connection. To do this, add or replace the following entry in `<USER_HOME>/.sirius-<X.Y>/sirius.properties`:
 
 ```

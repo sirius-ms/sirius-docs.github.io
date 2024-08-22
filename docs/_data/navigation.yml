@@ -91,6 +91,10 @@ global:
     children:
       - title: "Workflow principles"
         url: /cli/#basic-principles
+      - title: "Input / Output"
+        url: /cli/#ipo
+      - title: "Recompute Results"
+        url: /cli/#recompute
       - title: "SIRIUS"
         url: /cli/#SIRIUS-formulas
       - title: "ZODIAC"
