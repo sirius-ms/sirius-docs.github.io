@@ -182,7 +182,17 @@ pattern analysis. However, be aware that SIRIUS assumes that only a single ion s
 For Data-Dependent Acquisition (DDA), fragmentation
 spectra contain isotope patterns, which are disturbed through the mass filter, leading to non-trivial modifications of masses and intensities. Currently, SIRIUS does not use these altered isotope patterns in its analysis. Instead, it flags these peaks and ignores them during the optimization process.
 
-## ZODIAC {#ZODIAC}
+## Improved molecular formula identification with ZODIAC {#ZODIAC}
+
+ZODIAC stands for [*ZODIAC: Organic compound Determination by Integral Assignment of elemental Compositions*](https://doi.org/10.1038%2Fs42256-020-00234-6).
+
+ZODIAC improves the ranking of the formula candidates provided by SIRIUS. 
+Organisms produce related metabolites derived from multiple but limited biosynthetic pathways. 
+For a full [LC-MS/MS run]({{"/io/#lcms-runs" | relative_url}}) that is derived from a biological sample or any other set of derivatives the relation of the metabolites is reflected in their similarity. 
+Those similarities are in turn reflected in joint fragments and losses between the fragmentation trees and can be leveraged to improve molecular formula identification of the individual molecules.
+
+ZODIAC uses the [top X molecular formula candidates]({{"/gui/#ZODIAC-advanced" | relative_url}}) for each molecule from SIRIUS to build a similarity network, and uses Bayesian statistics to re-rank those candidates. 
+Prior probabilities are derived from fragmentation tree similarity. Finding an optimal solution to the resulting computational problem is NP-hard, therefore Gibbs sampling is used.
 
 For a deeper understanding of how SIRIUS and [ZODIAC](#ZODIAC) work,  why they work and how well they work, you can watch the [Behind the Scenes](https://www.youtube.com/watch?v=EpDKLzG0qVc) talk. Try using ZODIAC in the [GUI]({{"/gui/#ZODIAC-ranking" | relative_url}}) or [CLI]({{"/cli/#ZODIAC" | relative_url}}).
 
@@ -200,7 +210,7 @@ One example is the **PubChem CACTVS fingerprint**, which consists of 881 bits.Mo
 Specification) strings. For example, molecular property 357 corresponds to the SMARTS string  <span>\[#6\](&#126;\[#6\])(:c)(:n)</span>. This string describes a  central carbon atom connected to another carbon atom 
 via any bond, to a third aromatic carbon atom via an aromatic bond, and 
 to an aromatic nitrogen atom via an aromatic bond. 
-For a complete description of the CACTVS fingerprint, refer to the official specification document [here](ftp://ftp.ncbi.nlm.nih.gov/pubchem/specifications/pubchem_fingerprints.pdf). We ignore all
+For a complete description of the CACTVS fingerprint, refer to the [official specification document](ftp://ftp.ncbi.nlm.nih.gov/pubchem/specifications/pubchem_fingerprints.pdf). We ignore all
 molecular properties that can be derived from the molecular formula of
 the query compound (i.e., bits 0 to 114 from PubChem CACTVS).
 

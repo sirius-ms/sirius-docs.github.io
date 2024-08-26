@@ -10,7 +10,7 @@ from the SIRIUS website.
 
 ## Graphical User Interface {#GUI}
 
-For a quick start, you can also watch our [tutorial video introducing basic elements and functionality of the SIRIUS 4 GUI](https://www.youtube.com/watch?v=SWkukL88ljo).
+For a quick start, you can also watch our [tutorial video introducing basic elements and functionality of the SIRIUS 4 GUI](https://www.youtube.com/watch?v=SWkukL88ljo). [Find more details on the GUI here]({{"/gui/" | relative_url}}).
 
 ### Analyzing multiple compounds {#batch-mode}
 
@@ -155,20 +155,20 @@ each with one or more mass spectra. You can also use this workflow to analyze a 
 
 ## Command Line Interface {#CLI}
 
-The demo data contains examples of three different data formats that can be read by SIRIUS. 
+The demo data contains examples of three different data formats that can be read by SIRIUS. [Find more details on the CLI here]({{"/cli/" | relative_url}}).
 
 ### Example 1: MGF file {#CLI-example-MGF}
-The MGF folder contains an example of an MGF file containing a
+The MGF folder contains an example of an [MGF file]({{"/io/#mgf-format" | relative_url}}) containing a
 single compound with mutliple MS/MS spectra measured on an Orbitrap
 instrument. SIRIUS recognizes that these MS/MS spectra belong to the
 same compound because they have the same parent mass. To analyze this
 compound, run:
 
 ```shell
-sirius --input demo-data/mgf/laudanosine.mgf --output <output.sirius> formula -p orbitrap fingerprint compound-classes structure write-summaries --output <summary-files-dir>
+sirius --input demo-data/mgf/laudanosine.mgf --project <project-space> formulas -p orbitrap fingerprints classes structures write-summaries --output <summary-files-dir>
 ```
 
-This command runs 4 subtools at once: `formula annotation`, `molecular fingerprint prediction`, `compound class annotation`, and `structure database search`.
+This command runs 4 subtools at once: [`formulas` (to identify molecular formulas)]({{"/cli/#SIRIUS-formulas"|relative_url}}),[`fingerprints` (to predict molecular fingerprints)]({{"/cli/#fingerprints"|relative_url}}), [`classes` (to predict compound classes)]({{"/cli/#CANOPUS-classes" |relative_url}}), and [`structures` (to identify molecular structures)]({{"/cli/#CSIFingerID-structures" | relative_url}}).
 
 The `formula_candidates.tsv` in `<summary-files-dir>/0_laudanosine_FEATURE1` should look similar to this:
 
@@ -187,7 +187,7 @@ rank	molecularFormula	adduct	precursorFormula	SiriusScore	TreeScore	IsotopeScore
 ```
 
 This is a ranking list of the top molecular formula candidates. The best
-candidate is C<sub>21</sub>H<sub>27</sub>NO<sub>4</sub> with a total score (`SiriusScore`) of 24.654. This score
+candidate is C<sub>21</sub>H<sub>27</sub>NO<sub>4</sub> with a [total score (`SiriusScore`)]({{"/methods-background/#SIRIUS-molecular-formula" | relative_url}}) of 24.654. This score
 is the sum of the `TreeScore` (16.674) and the `IsotopeScore` (7.980).
 
 The rear columns contain the number of explained peaks in the MS/MS
@@ -215,27 +215,28 @@ The file contains all structure information (InChI, SMILES) and also structure d
 The `formula_identifications.tsv` and `compound_identifications.tsv` in `<summary-files-dir>` contain similar information, but only for the top hit of each  compound analyzed.
 The `formula_identifications_adduct.tsv` and `compound_identifications_adduct.tsv` contain this information for each possible adduct of each compound. 
 
-If you wish to view the fragmentation trees, structures or compound classes visually, you can open the output (`<outputdir>`) 
-in the GUI and use the `Formulas` (for fragmentation trees), `Structure`, and `Compound Classes` views.
-The output can be imported by dragging the `<outputdir>` into the SIRIUS GUI application window.
-Note that the viewer can also export the tree as vector graphics (svg/pdf).
+If you wish to view the fragmentation trees, structures or compound classes visually, you can open the project space (`<project-space>`) 
+in the GUI and use the [`Formulas` (for fragmentation trees)]({{"/gui/#formulas-tab" | relative_url}}), [`Structures`]({{"/gui/#structures-tab" | relative_url}}), and [`Compound Classes`]({{"/gui/#CANOPUS-tab" | relative_url}}) views.
+The output can be imported by dragging the `<project-space>` into the SIRIUS GUI application window.
+Note that the viewer can also export the tree as vector graphics (SVG/PDF).
 
 
 ### Example 2: MS files {#CLI-example-MS}
 
-The `demo-data/ms/` directory contains two examples of this format. Each file contains a
+The `demo-data/ms/` directory contains two examples in [`.ms` format]({{"/io/#ms-format" | relative_url}}). Each file contains a
 single compound measured on an Orbitrap instrument. To analyze this
 compound, run:
+
 ```shell
-sirius -o <outputdir> -i demo-data/ms/Bicuculline.ms formula -p orbitrap
+sirius --input demo-data/ms/Bicuculline.ms --project <projectspace> formulas -p orbitrap
 ```
 for formula annotation only, or
 ```shell
-sirius -o <outputdir> -i demo-data/ms/Bicuculline.ms formula -p orbitrap fingerprint compound-classes structure
+sirius --input demo-data/ms/Bicuculline.ms --project <projectspace> formulas -p orbitrap fingerprints classes structures
 ```
 for structure database search and compound class annotation.
 
-Since the ms file already contains the correct molecular formula, SIRIUS
+Since the `.ms` file already contains the correct molecular formula, SIRIUS
 will compute the fragmentation tree directly without having to decompose the mass (the same as when specifying exactly one molecular formula with the `-f` option).
 
 If you want to enforce a molecular formula analysis and ranking
@@ -244,7 +245,7 @@ the `--ignore-formula` option to ignore the molecular formula in the file.
 The number of  formula candidates can be specified with the `-c` option.
 
 ```shell
-sirius -o <outputdir> -i demo-data/ms/Bicuculline.ms --ignore-formula formula -p orbitrap -c 5
+sirius --input demo-data/ms/Bicuculline.ms --ignore-formula --project <projectspace> formulas -p orbitrap -c 5
 ```
 
 SIRIUS will ignore the correct molecular formula in the file and

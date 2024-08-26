@@ -124,12 +124,12 @@ author:
 # Site Footer
 footer:
   links:
-    - label: "Twitter"
-      icon: "fab fa-fw fa-twitter-square"
-      url: https://twitter.com/boeckerlab
-    - label: "LinkedIn"
+    - label: "Bright Giant on LinkedIn"
       icon: "fab fa-fw fa-linkedin"
       url: https://www.linkedin.com/company/bright-giant/
+    - label: "Böcker Lab on X"
+      icon: "fab fa-fw fa-twitter-square"
+      url: https://twitter.com/boeckerlab
     - label: "Facebook"
       icon: "fab fa-fw fa-facebook-square"
       # url:

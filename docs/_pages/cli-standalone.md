@@ -10,8 +10,10 @@ help message, which can be accessed by `sirius <TOOLNAME> -h`.
 
 
 ## Custom database tool {#custom-database-tool}
-The `custom-db` tool enabled the import of custom structure databases from a CSV or TSV (tab-separated), where 
-structures are provided in `SMILES` format. Optionally, you can also provide a database `id` and a `name` for the entries. 
+The `custom-db` tool enabled the import of custom structure databases and spectral libraries.
+
+- **Structure database from single file** can be imported from a CSV or TSV file, where 
+    structures are provided in `SMILES` format. You can also provide a database `id` and a `name` for the entries. You can import multiple files containing compounds in SMILES format into a single database. 
 
 ```
 CN1CCCC1C2=C[N+](=CC=C2)[O-]	id-01	Nicotin
@@ -19,14 +21,21 @@ CN1C=NC2=C1C(=O)N(C(=O)N2C)C	id-03	Caffein
 CN1CCC2=CC3=C(C=C2C1C4C5=C(C6=C(C=C5)OCO6)C(=O)O4)OCO3 id-05 Bicculine
 ```
 
-You can import multiple files containing compounds in SMILES format into a single database. If a structure is already present in
+```shell
+sirius --input <structure.tsv> custom-db --name <myStructureDB> --location </some/dir>
+```
+
+- **Structure databases** can also be imported from directories or `.zip` files containing SDF files. 
+- **Spectral libraries** can be imported from directories or `.zip` files. The supported import formats for spectral data are `.ms`, `.mgf`, `.msp`, `.mat`, `.txt` (MassBank), `.mb`, `.json` (GNPS, MoNA). Spectra must be annotated with a structure and must be centroided. As they mus containd structure annotations, they can be also used as custom sttructure database.
+
+```shell
+sirius --input </specDir/> custom-db --name <mySpectralDB> --location </some/dir>
+```
+
+If a structure is already present in
 SIRIUS' internal structure database, the fingerprint will be downloaded automatically. Otherwise, the fingerprint is computed locally on your computer, 
 which may take some time, especially for a large number of structures.
 
-
-```shell
-sirius -i <structure.tsv> custom-db --name myDB --output /some/dir
-```
 
 In our machine learning methods, we use **PubChem standardized** SMILES to represent structures. 
 However, the PubChem standardization is not integrated into the import process. For optimal results, we recommend standardizing

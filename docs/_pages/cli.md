@@ -135,6 +135,15 @@ The project-space can then be used for subsequent analysis steps.
 
 ## COMPOUND TOOLS {#compound-tools}
 
+### `spectra-search`: Spectral library matching {#spectral-matching}
+
+The `spectra-search` subtool computes the [similarity]({{"/methods-background/#spectral-library-search" | relative_url}}) between all features in the project-space against a selected spectral database. The spectral database must be imported first using the [`custom-db` tool]({{"/cli-standalone/#custom-database-tool" | relative_url}})
+
+```shell
+sirius --input <dbfiles> custom-db --name <mySpectralDB> --location </some/dir>
+sirius --input <input> --project <projectspace> spectra-search --db <mySpectralDB>
+```
+
 ### `formulas`: Identifying molecular formulas with SIRIUS (Compound Tool) {#SIRIUS-formulas}
 
 One of the primary functions of SIRIUS is identifying the molecular formula of a
@@ -179,7 +188,6 @@ When computing molecular formulas with SIRIUS a few high mass compounds usually 
 The most straightforward solution is to exclude high mass compounds from the analysis, by setting a mass threshold. This will usually allow you to annotate the vast majority of your data. However, many of the higher mass compounds will work just fine, and it would be a pity to not annotate them. Therefore, the recommended solution is to set a per-compound timeout (`--compound-timeout`) so that a few hard cases cannot block your analysis. Read more about [How to deal with high mass compounds]({{"/faq/how-to-large-comp" | relative_url}}).
 
 
-
 ### `fingerprints`: Predicting molecular fingerprints (Compound Tool) {#fingerprints}
 
 [Molecular fingerprints]({{ "/methods-background/#molecular-fingerprint" | relative_url}}) can be predicted using the `fingerprints` command after calculating molecular formula candidates with the `formulas` tool. 
@@ -204,7 +212,7 @@ sirius --i <input> --project <projectspace> formulas fingerprints classes
 
 ### `structures`: Identifying molecular structures (Compound Tool) {#CSIFingerID-structures}
 
-The `structures` tool in SIRIUS allows you to for molecular structures in a structure database
+The `structures` tool in SIRIUS allows you to search for molecular structures in a structure database
 using CSI:FingerID.
 To perform structure database search, molecular fingerprints must first be predicted using the `fingerprints` tool. For improved formula ranking within biologically derived samples (or any other set of derivatives), we recommend to run the [`zodiac` tool](#zodiac) beforehand.
 
@@ -222,12 +230,12 @@ ordered by their confidence score.
 
 ### `denovo-structures`: Generate *de novo* molecular structures (Compound Tool) {#MSNovelist-denovo-structures}
 
+The `denovo-structures` subtool in SIRIUS allows you to [generate molecular structures]({{"/methods-background/#MSNovelist" | relative_url}}) *de novo* from MS/MS data - without relying on any database. To perform *de novo* structure generation, molecular fingerprints must first be predicted using the `fingerprints` tool. 
+
 ```shell
 sirius --input <input> --project <projectspace> formulas fingerprints denovo-structures
 ```
 **Available aliases:** `msnovelist`
-
-TODO: fill
 
 ### `passattuto`: Decoy spectra from fragmentation trees (Compound Tool) {#passatutto}
 

@@ -38,13 +38,7 @@ For a quick start, you can also watch our [tutorial video introducing basic elem
 
 ## Account creation {#account-creation}
 
-Open `Account` in the top-right toolbar <span style="color:red">[5]</span>, and click `Create Account` to get to our [user portal](https://portal.bright-giant.com/auth/register/).
-Enter your name and your **institutional** (not personal) email address and choose a password for your account. Verify your email address with the link sent to your inbox. 
-
-<img src="{{ "/assets/images/user-portal.png" | relative_url }}" alt="Create new account in the user portal." width="300">
-
-After logging into the user portal, you can [request a license]({{"/account-and-license/" | relative_url}}).
-
+Open `Account` in the top-right toolbar <span style="color:red">[5]</span>, and click `Create Account` to get to our [user portal](https://portal.bright-giant.com/auth/register/) and [create an account]({{"/account-and-license/#account-creation" | relative_url}}). After logging into the user portal, you can [request a license]({{"/account-and-license/" | relative_url}}).
 In the SIRIUS GUI, click `Log in` to enter your account credentials and login.
 
 ## Data import {#data-import}

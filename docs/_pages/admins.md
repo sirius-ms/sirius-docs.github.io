@@ -10,7 +10,7 @@ included tools and methods please have a look into the [user documentation]({{ "
 SIRIUS is written in JAVA, but **no** separate JRE is required. A compatible JRE is  included in the SIRIUS release.
 For more information on installation and hardware requirements, please refer to the [Installation]({{ "/install/" | relative_url }}) section.
 
-## Offline vs Online features {offline-online}
+## Offline vs Online features {#offline-online}
 SIRIUS is both, a desktop application, performing computations locally, 
 and a client for web services such as 
 [CSI:FingerID]({{ "/cli/#CSIFingerID-structures" | relative_url }}) and 
