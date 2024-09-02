@@ -5,6 +5,20 @@ title: "Changelog"
 
 ### SIRIUS 6
 
+#### 6.0.0 (2024-06-03)
+- feature: *de novo* generation of candidate structures through MSNovelist
+- feature: spectral library matching
+- feature: expansive search allows for structure database searches in user-selected databases with a confidence score-based fallback on PubChem
+- feature: additional molecular formula generation strategy via bottom-up serach
+- feature: SIRIUS service via REST API including Python SDK
+
+- improvement: CANOPUS is automatically executed together with the fingerprint prediction
+- improvement: entire adduct is now used already for the first step of the annotation workflow
+- improvement: updated fingerprint model; now consistent between positive and negative ion mode
+- improvement: LCMS data preprocessing also include MS1-only features
+- improvement: LCMS quality tags for features
+- improvement: compute dialog has been streamlined to improve clarity
+- improvement: transition from a file-based project space to a Nitrite database 
 
 ### SIRIUS 5
 #### 5.8.4 (2023-11-04)
