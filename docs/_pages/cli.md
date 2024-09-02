@@ -72,7 +72,7 @@ There are three different cases for importing spectra (we highly recommend using
 2. [Importing multiple compounds from `.ms` or `.mgf` files](#import-multiple)
 3. [Importing full LCMS runs from `.mzML` or `.mzXML` files](#import-lcms)
  
-The **import** is not a subtool and hence requires at least one of the subtools to be executed on the imported data. For case 3, `lcms-align` must be executed as first subtool. For cases 1 and 2, either `formulas` or `spectra-search` must be executed as first subtool. Once the first subtool has been executed, a [**project-space**]({{ "/io/#sirius-project-space" | relative_url}}) (`--project <projectspace>`) is created. Subsequent commands will be executed on this project-space. All results are saved in the project-space. From the project-space you can [write summary files (**output**)]({{ "/io/#output" | relative_url}}) into a custom location.
+The **import** is not a subtool and hence requires at least one of the subtools to be executed on the imported data. For case 3, `lcms-align` must be executed as first subtool. For cases 1 and 2, either `formulas` or `spectra-search` must be executed as first subtool. Once the first subtool has been executed, a [**project-space**]({{ "/io/#sirius-project-space" | relative_url}}) (`--project <projectspace>`) is created. Subsequent commands will be executed on this project-space. All results are saved in the project-space. From the project-space you can [write summary files (**output**)]({{ "/cli-standalone/#write-summaries-tool" | relative_url}}) into a custom location.
 
 **Example:**
 
@@ -222,11 +222,6 @@ You can specify the database for CSI:FingerID to search in, using the `--databas
 sirius --input <input> --project <projectspace> formulas fingerprints structures --database pubchem
 ```
 **Available aliases:** `structure-db-search`, `structure`
-
-The `write-summaries` tool will generate a `structure_candidates.csv` file for each compound, containing an ranked list of structure
-candidates along with their CSI:FingerID scores. Additionally, a project space-wide `compound_identification.csv`
-file will be generated, listing the top candidate structure for each compound,
-ordered by their confidence score.
 
 ### `denovo-structures`: Generate *de novo* molecular structures (Compound Tool) {#MSNovelist-denovo-structures}
 

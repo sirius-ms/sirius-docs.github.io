@@ -4,6 +4,11 @@ title: "Changelog"
 ---
 
 ### SIRIUS 6
+#### 6.0.5 (2024-09-02)
+- improvement: new export options and file formats for writing summaries in the CLI  and GUI 
+- improvement: export of data quality summaries
+
+
 
 #### 6.0.0 (2024-06-03)
 - feature: *de novo* generation of candidate structures through MSNovelist

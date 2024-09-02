@@ -42,6 +42,11 @@ However, the PubChem standardization is not integrated into the import process. 
 your SMILES using the [PubChem standardization](https://pubchem.ncbi.nlm.nih.gov/standardize/standardize.cgi) before importing them. This step is **not** mandatory, but recommended.
 
 
+## Summary tool {#write-summaries-tool}
+
+The `write-summaries` tool allows you to export [summary files]({{"/io/#summary-files" | relative_url }}) from the project space, that provide convenient access to the results for downstream analysis, data sharing and data visualization. You can export in `TSV`, `ZIP` or `XLSX` format using `--format=<format>`. The ZIP file is a zipped TSV file. Using `--quote-strings` will write quotes to all string values in TSV files. `--data-quality-summary` generates a data quality summary with [data quality]({{"/gui/#lcms-tab" | relative_url}}) values for the aligned features.
+
+
 ## Similarity tool {#similarity-tool}
 The `similarity` tool allows you to compute different similarity measures between compounds.
 It accepts a SIRIUS project-space (or any input format that SIRIUS can convert into a project, such as `.ms`, `.mgf` or `.cef`) 
