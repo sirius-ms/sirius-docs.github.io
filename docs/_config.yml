@@ -124,12 +124,12 @@ author:
 # Site Footer
 footer:
   links:
-    - label: "Twitter"
-      icon: "fab fa-fw fa-twitter-square"
-      url: https://twitter.com/boeckerlab
-    - label: "LinkedIn"
+    - label: "Bright Giant on LinkedIn"
       icon: "fab fa-fw fa-linkedin"
       url: https://www.linkedin.com/company/bright-giant/
+    - label: "Böcker Lab on X"
+      icon: "fab fa-fw fa-twitter-square"
+      url: https://twitter.com/boeckerlab
     - label: "Facebook"
       icon: "fab fa-fw fa-facebook-square"
       # url:
@@ -299,14 +299,16 @@ defaults:
 #        overlay_filter: 0.5 # same as adding an opacity of 0.5 to a black background
         #  caption: "Photo credit: [**Unsplash**](https://unsplash.com)"
         actions:
-          - label: "Docu GitHub"
-            url: "https://github.com/sirius-ms/sirius-docs.github.io"
+          # - label: "Docu GitHub"
+            # url: "https://github.com/sirius-ms/sirius-docs.github.io"
           # - label: "SIRIUS Website"
             # url: "https://sirius-ms.io"
           - label: "SIRIUS GitHub"
             url: "https://github.com/sirius-ms/sirius"
-          - label: "YouTube"
-            url: "https://www.youtube.com/channel/UCIbW_ZFSADRUQ-T5nmgU4VA"
+          - label: "SIRIUS Community on Gitter"
+            url: "https://matrix.to/#/#sirius-ms:gitter.im"
+          - label: "YouTube Tutorials"
+            url: "https://youtube.com/playlist?list=PL8R4DKiWsw-tIG8w3hZWJunWZyy-qnIZM&si=4iDXS2ifTaMd7n_F"
           - label: "AlgoMS Textbook"
             url: "https://bio.informatik.uni-jena.de/wp/wp-content/uploads/2019/09/Boecker_AlgorithmicMassSpectrometry_v083_2019.pdf"
       layout: single

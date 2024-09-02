@@ -3,7 +3,6 @@ permalink: /faq/
 title: "Frequently asked questions (FAQ)"
 ---
 
-
 ## Common Issues
 ### I am getting the error message: "Could not load a valid TreeBuilder (ILP solvers), tried '[GUROBI, CPLEX, CLP, GLPK]'. Please read the installation instructions."
 SIRIUS uses an ILP solver to calculate fragmentation trees. It ships with the non-commercial CLP solver and should work out-of-the box. If you are nevertheless experiencing this issues, please contact us. 
@@ -31,7 +30,7 @@ SIRIUS 4.4 saves all results and data immediately to disk. This output is a well
 If you have not specified any custom location (`SaveAs` button), SIRIUS stores everything in a temporary location per default. 
 You can see the path of current project-space location in the header of the SIRIUS window.
 
-### How can I access the Probability of [ClassyFire](http://classyfire.wishartlab.com/) classes predicted by [CANOPUS]({{ "/cli/#canopus-predicting-compound-classes-without-identification" | relative_url }})
+### How can I access the Probability of [ClassyFire](http://classyfire.wishartlab.com/) classes predicted by [CANOPUS]({{ "/cli/#CANOPUS-classes" | relative_url }})
 In your project space directory there should be a `canopus.tsv` file. 
 This file lists all compound classes with meta information, and their *relative index*. 
 The relative index (starting with 0) tells you which line in the canopus `.fpt` files belongs to which compound class.

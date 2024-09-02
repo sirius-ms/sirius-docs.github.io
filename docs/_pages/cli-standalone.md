@@ -2,15 +2,18 @@
 permalink: /cli-standalone/
 title: "Standalone CLI tools"
 ---
-Standalone tools provide additional SIRIUS related tasks that do not fit into the SIRIUS identification workflow.
-These can e.g. be configuration tasks, file conversion tasks or features that might be helpful for downstream analysis.
-These tool cannot be part of a toolchain and have to be executed in a separate command. Each of these tools has its own
-help message (`sirius <TOOLNAME> -h`).
+Standalone tools offer additional SIRIUS-related functionalities that fall outside the standard identification workflow.
+These tools include configuration tasks, file conversion utilities, and features that may assist with downstream analysis.
+They must be executed separately and cannot be integrated into a toolchain.
+Each standalone tool comes with its own
+help message, which can be accessed by `sirius <TOOLNAME> -h`.
 
 
-## Custom database tool
-The `custom-db` tool allows you to import custom structure databases from a `csv/tsv` (tab separated) file with 
-structures given in `SMILES` format. Optionally a database `id` and a `name` can be given. 
+## Custom database tool {#custom-database-tool}
+The `custom-db` tool enabled the import of custom structure databases and spectral libraries.
+
+- **Structure database from single file** can be imported from a CSV or TSV file, where 
+    structures are provided in `SMILES` format. You can also provide a database `id` and a `name` for the entries. You can import multiple files containing compounds in SMILES format into a single database. 
 
 ```
 CN1CCCC1C2=C[N+](=CC=C2)[O-]	id-01	Nicotin
@@ -18,133 +21,113 @@ CN1C=NC2=C1C(=O)N(C(=O)N2C)C	id-03	Caffein
 CN1CCC2=CC3=C(C=C2C1C4C5=C(C6=C(C=C5)OCO6)C(=O)O4)OCO3 id-05 Bicculine
 ```
 
-You can import multiple files with compounds as SMILES into one DB. If a given structure can be found in
-SIRIUS' internal structure DB then fingerprint is downloaded from there, otherwise it is computed locally on your computer 
-which might take some time for many structures.
-
-
 ```shell
-sirius -i <structure.tsv> cistom-db --name myDB --output /some/dir
+sirius --input <structure.tsv> custom-db --name <myStructureDB> --location </some/dir>
 ```
 
-Note, that we usually use PubChem standardized SMILES to represent the structures for our machine learning methods. 
-PubChem standardization is not yet part of this import process. For best possible results we recommend standardizing
-your SMILES using the PubChem standardization before importing them, but this step is **not** mandatory.
+- **Structure databases** can also be imported from directories or `.zip` files containing SDF files. 
+- **Spectral libraries** can be imported from directories or `.zip` files. The supported import formats for spectral data are `.ms`, `.mgf`, `.msp`, `.mat`, `.txt` (MassBank), `.mb`, `.json` (GNPS, MoNA). Spectra must be annotated with a structure and must be centroided. As they mus containd structure annotations, they can be also used as custom sttructure database.
+
+```shell
+sirius --input </specDir/> custom-db --name <mySpectralDB> --location </some/dir>
+```
+
+If a structure is already present in
+SIRIUS' internal structure database, the fingerprint will be downloaded automatically. Otherwise, the fingerprint is computed locally on your computer, 
+which may take some time, especially for a large number of structures.
 
 
-## Similarity tool
+In our machine learning methods, we use **PubChem standardized** SMILES to represent structures. 
+However, the PubChem standardization is not integrated into the import process. For optimal results, we recommend standardizing
+your SMILES using the [PubChem standardization](https://pubchem.ncbi.nlm.nih.gov/standardize/standardize.cgi) before importing them. This step is **not** mandatory, but recommended.
+
+
+## Summary tool {#write-summaries-tool}
+
+The `write-summaries` tool allows you to export [summary files]({{"/io/#summary-files" | relative_url }}) from the project space, that provide convenient access to the results for downstream analysis, data sharing and data visualization. You can export in `TSV`, `ZIP` or `XLSX` format using `--format=<format>`. The ZIP file is a zipped TSV file. Using `--quote-strings` will write quotes to all string values in TSV files. `--data-quality-summary` generates a data quality summary with [data quality]({{"/gui/#lcms-tab" | relative_url}}) values for the aligned features.
+
+
+## Similarity tool {#similarity-tool}
 The `similarity` tool allows you to compute different similarity measures between compounds.
-It takes a SIRIUS project-space (or any input format SIRIUS can convert into a project such as `ms`, `mgf` or `cef`) 
-as input (`sirius -i <INPUT>`) and calculates all against all similarity matrices for the compounds
-in the project-space and stores them in the given output directory given by `-d`.
+It accepts a SIRIUS project-space (or any input format that SIRIUS can convert into a project, such as `.ms`, `.mgf` or `.cef`) 
+as input using the `sirius -i <INPUT>` command.
+The tool computes all against all similarity matrices for the compounds in
+the project-space and saves the results in the specified output directory defined by the `-d` option.
 
 ```shell
 sirius -i <project-space> similarity --cosine --ftalign --ftblast <SPECTRA_LIB> --tanimoto -d <OUTPUT>
 ```
 
-### Cosine Similarity   (`--cosine`)
-Computes the cosine similarity of the merged MS/MS between all compounds.
-Just the spectra are needed no additional computation have to be performed beforehand.
+### Cosine Similarity   (`--cosine`) {#cosine}
+This option computes the cosine similarity of the merged MS/MS spectra between all compounds in the dataset.
+It requires only the spectra, so no additional preprocessing is needed.
 
-### Fragmentation Tree alignment Similarity  (`--ftalign`)
-Computes the tree alignment score of the top ranked fragmentation tree between all compounds.
-To perform this computation the input project-space needs to contain the fragmentation trees from the `formula`/`sirius`
-subtool. So the `formula` subtool has to be executed beforehand. The Alignment method is described in
-["*Identifying the Unknowns by Aligning Fragmentation Trees*"](https://doi.org/10.1021/ac300304u)
+### Fragmentation Tree alignment Similarity  (`--ftalign`) {frag-tree-similarity}
+This option computes the tree alignment score between the top ranked fragmentation trees of all compounds.
+For this computation, the input project-space must already contain the fragmentation trees generated by the `formula` subtool of the [SIRIUS CLI]({{ "/cli/" | relative_url }}). So the `formula` subtool must be executed beforehand. 
 
-### FT-Blast (`--ftblast`)
-Computes fragmentation tree alignments between all compounds in the dataset, incorporating the given fragmentation
-tree library as described in ["*Identifying the Unknowns by Aligning Fragmentation Trees*"](https://doi.org/10.1021/ac300304u).
-The input project-space needs to contain fragmentation trees computed with the `formula`/`sirius` subtool. 
-So the `formula` subtool has to be executed beforehand. The given library (`--ft-blast=<LIB_PATH>`) can either be another
-SIRIUS project-space containing fragmentation trees, or a directory containing fragmentation trees in `json` format.
+### FT-Blast (`--ftblast`) {ft-blast}
+This option aligns the fragmentation tree of the compounds in the dataset against a library of fragmentation trees. 
+The input project-space must already contain fragmentation trees computed with the `formula` subtool of the [SIRIUS CLI]({{ "/cli/" | relative_url }}).
+So the `formula` subtool must be executed beforehand. The fragmentation tree library (`--ft-blast=<LIB_PATH>`) can either be another
+SIRIUS project-space containing fragmentation trees, or a directory containing fragmentation trees in JSON format.
+The alignment method is described by [Rasche *et al.*](https://doi.org/10.1021/ac300304u)
 
-### Tanimoto Similarity (`--tanimoto`)
-Computes the tanimoto similarity of the top ranked predicted fingerprints between all compounds.
-The input project-space needs to contain the predicted fingerprints from the `structure`/`fingerid`
-subtool. So the `formula` and the `structure` subtool have to executed beforehand.
-Note that the fingerprints compared are probabilistic. The tanimoto computation for two probabilistic fingerprints 
-$F$ and $F'$ of length $n$ is computed as follows:
+### Tanimoto Similarity (`--tanimoto`) {#tanimoto}
+This option computes the Tanimoto similarity between the top-ranked predicted fingerprints of all compounds in the dataset.
+The input project-space must already contain the predicted fingerprints generated by the `structure` subtool of the [SIRIUS CLI]({{ "/cli/" | relative_url }}).
+So both the `formula` and `structure` subtools must be executed beforehand.
+Note that the fingerprints being compared are probabilistic. The Tanimoto similarity
+between two probabilistic fingerprints, 
+$F$ and $F'$, of length $n$ is computed as follows:
 
 $$\frac{ \sum_{i=1}^{n} F_i \cdot F'_i } { \sum_{i=1}^{n} 1 - (1 - F_i) \cdot (1 - F'_i) }$$
 
-##### Example 1
-Let's say we want to compute  `--cosine`, `--ftalign`  and `--tanimoto` similarities. For that we need a proeject-space
-that contains spectra, fragmetations trees and fingerprints. So we start computing them with the following command:
+### Examples {#examples}
+
+**Example 1:**
+To compute  `--cosine`, `--ftalign`  and `--tanimoto` similarities, we first need a project-space
+that contains spectra, fragmetations trees and fingerprints. We generate these with the following command:
 ```shell
 sirius -i <input-data.mgf> -o <my-project> formula structure
 ```
 
-We can now use the resulting project-space (`my-project`) as input for the similarity computation:
+This command processes the input data to create the necessary project-space (`my-project`). 
+Once this project-space is created, it can be used as input for the similarity computation:
 ```shell
 sirius -i <my-project> similarity --cosine --ftalign --tanimoto --d <output-dir>
 ```
 
-##### Example 2
-Let's say we want to compute `--ftblast` similarities. For that we need one project-space (my-project)
-that contains fragmentation trees and another project-space that contains fragmentation trees for our spectral library 
-(library-project). Assuming we use `.mgf` format for both, our input spectra and the library spectra, we have to execute 
+**Example 2:**
+To compute `--ftblast` similarities, we first need a project-space (`my-project`)
+that contains fragmentation trees computed from our input spectral data and another project-space (`library-project`) that contains a fragmentation tree library, e.g. computed from a spectral library. 
+Assuming both the input and library spectra are in [MGF format]({{ "/io/#mgf-format" | relative_url }}), we have to execute 
 the following commands.
 
-Compute fragmentation trees for input data:
+Compute fragmentation trees for the input data:
 ```shell
-sirius -i <input-data.mgf> -o <my-project> sirius
+sirius -i <input-data.mgf> -o <my-project> formula
 ```
 
 Compute fragmentation trees for the library spectra:
 ```shell
-sirius -i <library-data.mgf> -o <library-project> sirius
+sirius -i <library-data.mgf> -o <library-project> formula
 ```
 
-No we have the input we need for the `--ftblast` similarity computation
+No that both project-spaces are prepared, we can proceed with the `--ftblast` similarity computation:
 ```shell
 sirius -i <my-project> similarity --ftblast <library-project> -d <output-dir>
 ```
 
+## Mass Decomposition tool {#mass-decomposition-tool}
+The `decomp` tool provides the SIRIUS internal [efficient mass decomposition 
+algorithm by Böcker and Lipták](https://doi.org/10.1145/1066677.1066715) as standalone tool to decompose masses with given deviation, ionization, chemical alphabet and chemical filter.
 
-## Mass Decomposition tool
-The `decomp` tool provides the SIRIUS internal ["*Efficient mass decomposition*"](https://doi.org/10.1145/1066677.1066715) 
-algorithm as standalone tool to decompose masses with given deviation, ionization, chemical alphabet and chemical filter.
-
-## MGF export tool
-The `mgf-export` tool exports the spectra of a given input project-space as `.mgf` for use with other tools like [GNPS](https://gnps.ucsd.edu/ProteoSAFe/static/gnps-splash.jsp).
-The `--quant-table` option allows to export an additional feature quantification table (`csv`),
-e.g. to export a SIRIUS project-space for [GNPS Feature Based Molecular Networking](https://ccms-ucsd.github.io/GNPSDocumentation/featurebasedmolecularnetworking/):
+## MGF export tool {#mgf-export-tool}
+The `mgf-export` tool exports the spectra from a given project-space as [MGF file]({{ "/io/#mgf-format" | relative_url }}) for use with other tools, such as [GNPS](https://gnps.ucsd.edu/ProteoSAFe/static/gnps-splash.jsp).
+The `--quant-table` option allows to export an additional feature quantification table in CSV format,
+e.g. for [GNPS Feature-Based Molecular Networking](https://ccms-ucsd.github.io/GNPSDocumentation/featurebasedmolecularnetworking/):
 ```shell
 sirius --input <project-space> MGF --merge-ms2 --quant-table <table.csv> --output <spectra.mgf>
 ```
-Note, quantification information are only available if the source of the project-space was in `mzml`(`mzxml`).
-
-## Fragmentation tree export tool
-The `ftree-export` tool exports the fragmentation trees of a given project-space (`sirius -i <INPUT>`) in
-various formats (`--json`, `--dot`) to a given output directory (`--output <DIR>`). The `--all` option specifies whether
- fragmentation trees of *all* formula candidates (of a compound) or only of the top formula candidate will be exported.
-
-The following example will export the top ranked fragmentation tree of all compounds in the project space in `dot` format.
-```shell
-sirius --input <project-space> ftree-export --dot --output <output-dir>
-```
-
-The commandline tool [Graphviz](https://www.graphviz.org/) can transform `.dot` files into image formats (PDF, SVG, PNG etc.). 
-After [installing Graphviz](https://graphviz.org/download/) you can create a `.pdf` files as follows:
-
-```shell
-dot -Tpdf <tree-file.dot> > <tree-file.pdf>
-```
-
-{% capture fig_img %}
-![Foo]({{ "/assets/images/bicculine_frag_tree.svg" | relative_url }})
-{% endcapture %}
-
-<figure>
-  {{ fig_img | markdownify | remove: "<p>" | remove: "</p>" }}
-  <figcaption>Fragmentation Tree exported as .dot and converted to svg.</figcaption>
-</figure>
-
-Note: The [SIRIUS GUI]({{ "/gui/#export-tree-visualization" | relative_url }}) allows to directly export the rendered 
-tree as vector or pixel graphics. 
-
-## Project-space tool
-The `project-space` tool Modifies a given project-space (e.g. merging, splitting, filtering, version conversion). 
-Read project(s) with `--input`, apply modification and write the result via `--output`. If either only `--input` or 
-`--output` is given the modifications will be made in-place.
+Please not that quantification information is only available if the source of the project-space was in `.mzml` or `.mzxml` format.

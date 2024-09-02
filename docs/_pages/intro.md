@@ -3,130 +3,140 @@ permalink: /
 title: "Welcome"
 ---
 
-## SIRIUS Science
- 
+**Welcome to the official online documentation for SIRIUS -- a *Java* software for the analysis of small molecules from tandem mass spectrometry data.**
 
-SIRIUS is a *Java* software for analyzing small molecules from tandem mass
-spectrometry data. The primary focus of SIRIUS is structure elucidation of novel
-molecules (drug leads, contaminants in synthesis or food items), but it is also
-well-equipped to handle more standard tasks like dereplication of known structures.
+**Quick Start:** For getting started quickly, see the [quick-start guide]({{ "/quick-start/" | relative_url }}).
 
-SIRIUS is hghly integrateable into existing workflows and offers interfaces for manual as well
-as fully automated analysis.
+**Licenses:** As of SIRIUS 5, a user account and license are required to use the webservice-based features of SIRIUS. 
+[Find out more about academic and non-academic user accounts.]({{"/account-and-license/" | relative_url}})
+
+**Tutorials:** Check our [YouTube Playlist](https://youtube.com/playlist?list=PL8R4DKiWsw-tIG8w3hZWJunWZyy-qnIZM&si=xcaOZ3PILt7I2UB5) to find tutorials and learning resources. Whether you are new to SIRIUS or looking to expand your knowledge, this playlist has you covered.
+
+**Community Forum:** For community support and discussions, join our [SIRIUS Community space on Gitter](https://matrix.to/#/#sirius-ms:gitter.im). 
+Here, you can connect with other users and get help from the community.
+
+**Bug Reports and Feature Requests:** If you encounter any problems or have suggestions for new 
+features, please submit them via [GitHub](https://github.com/sirius-ms/sirius/issues/new/choose).
+Please ensure to submit all [required information]({{ "/bugs/#templates" | relative_url}}). 
+
+**SIRIUS Integration:** SIRIUS can be easily integrated into existing workflows and provides 
+interfaces for both manual and fully automated analysis. If you're looking for help with 
+integrating SIRIUS into your workflow or want to share tips and code snippets, visit our 
+[SIRIUS Community space on Gitter](https://matrix.to/#/#sirius-ms:gitter.im).
+
+[**Help us improve the SIRIUS Documentation!**](https://github.com/sirius-ms/sirius-docs.github.io)
+
+## SIRIUS introduction {#SIRIUS-Introduction}
+
+The primary focus of SIRIUS is the structure elucidation of novel
+molecules (drug leads, contaminants in synthesis or food), but it is also
+well equipped to handle more standard tasks such as dereplication of known structures.
 
 It combines the analysis of isotope patterns in MS
 spectra with the analysis of fragmentation patterns in MS/MS spectra,
-and uses CSI:FingerID as a web service to search in molecular structure
-databases. Further it integrates CANOPUS for de novo compound class prediction and
-MSNovelist for de novo structure generation.
-
-For getting started quickly see the [**quick-start guide**]({{ "/quick-start/" | relative_url }}).
-
-
-## SIRIUS introduction
-
+and uses CSI:FingerID as a web service for searching molecular structure
+databases. It also integrates CANOPUS for *de novo* compound class prediction and
+MSNovelist for *de novo* structure generation.
 
 SIRIUS requires **high mass accuracy** data. The mass deviation of your
-MS and MS/MS spectra should be within 20 ppm. Mass Spectrometry
-instruments such as TOF, Orbitrap and FT-ICR usually provide high mass
-accuracy data, as well as coupled instruments like Q-TOF, IT-TOF or
+MS and MS/MS spectra should be within 20 ppm. Mass spectrometry
+instruments such as TOF, Orbitrap and FT-ICR typically provide high mass
+accuracy data, as do coupled instruments such as Q-TOF, IT-TOF or
 IT-Orbitrap. Spectra measured with a quadrupole or linear trap do not
-provide the high mass accuracy that is required for our method. See [Mass deviations]({{ "/advanced-background-information/#mass-deviations" | relative_url }}) on what "mass accuracy" means in
-detail for SIRIUS.
+provide the high mass accuracy that is required for our method. See [Mass deviations]({{ "/advanced-background-information/#mass-deviations" | relative_url }})  for a detailed explanation what "mass accuracy" means in SIRIUS.
 
 SIRIUS expects **MS and MS/MS** spectra as input. It is possible to omit
-the MS data, but it will make the analysis more time-consuming and might
-give you worse results. In this case, you should consider limiting the
+the MS data, but this will make the analysis more time-consuming and may
+give you poorer results. In this case, you should consider restricting the
 candidate molecular formulas to those found in PubChem.
 
 SIRIUS expects **processed peak lists** (centroided spectra). It does
-not contain routines for peak picking from profiled spectra. This is a deliberate
-design decision: We want you to use the best peak picking software out
-there — or alternatively, your favorite software. There are several
-tools specialized for this task, such as [OpenMS](https://www.openms.de/), 
+not provide routines for peak picking from profiled spectra. This is a deliberate
+design choice: We want you to use the best peak picking software available — or alternatively your favorite software. There are several
+tools that specialise in this task, such as [OpenMS](https://www.openms.de/), 
 [MZmine](http://mzmine.github.io/) or [XCMS](https://github.com/sneumann/xcms). 
-**See our video tutorials on how to preprocess tour data for SIRIUS
+**See our video tutorials on how to preprocess your data for SIRIUS
 with [OpenMS](https://www.youtube.com/watch?v=ZTEY8_fnuZE) or 
 [MZmine](https://www.youtube.com/watch?v=Q0D6q9xQLSE)**.
 
-However, SIRIUS also contains a zero parameter
-preprocessing tool to directly import LCMS-Runs from `.mzml` (or `mzxml`) format 
+However, SIRIUS also provides a zero parameter
+pre-processing tool to import LCMS-Runs directly from `.mzml` (or `mzxml`) format 
 to help you get started quickly. Most modern MS vendor instruments are able to
-export measured data from their native format to .mzML. Alternatively, **see how to use 
-[MSconvert/ProteoWizard](http://proteowizard.sourceforge.net/index.html) to convert your vendor formats to `mzml` for SIRIUS in this 
-[video tutorial](https://www.youtube.com/watch?v=xnjvZlSlp40)**. 
+export measured data from their native format to .mzML. **Alternatively, watch this this 
+[video tutorial](https://www.youtube.com/watch?v=xnjvZlSlp40) how to use
+[MSconvert/ProteoWizard](http://proteowizard.sourceforge.net/index.html) to convert your vendor formats to `mzml` for SIRIUS.** 
 
-**SIRIUS** will identify the molecular formula of the measured precursor
-ion, and will also annotate the spectrum by providing a molecular
-formula for each fragment peak. Peaks that receive no annotation are
-assumed to be noise peaks. Furthermore, a **fragmentation tree** is
-predicted; this tree contains the predicted fragmentation reaction
+**SIRIUS** identifies the molecular formula of the measured precursor
+ion, and annotates the spectrum by providing a molecular
+formula for each fragment peak. Peaks are assumed to be noise peaks if they are not annotated. Furthermore, a **fragmentation tree** is
+predicted that contains the predicted fragmentation reactions
 leading to the fragment peaks.
+* For more details, consult the [method background]({{"/methods-background/#SIRIUS-molecular-formula" | relative_url}}) or watch the [Behind the Scenes](https://www.youtube.com/watch?v=EpDKLzG0qVc) talk.
+* Try using SIRIUS in the [GUI]({{"/gui/#SIRIUS-molecular-formula" | relative_url}}) or [CLI]({{"/cli/#SIRIUS-formulas" | relative_url}}).
 
 **ZODIAC** improves the ranking of the formula candidates provided by SIRIUS. It 
-re-ranks the candidates by considering joint fragments 
+re-ranks the candidates by taking into account joint fragments 
 and losses between fragmentation trees of different compounds in a data set.
+
+* For more details, consult the [method background]({{"/methods-background/#ZODIAC" | relative_url}}) or watch the [Behind the Scenes](https://www.youtube.com/watch?v=EpDKLzG0qVc) talk.
+* Try using ZODIAC in the [GUI]({{"/gui/#ZODIAC-ranking" | relative_url}}) or [CLI]({{"/cli/#ZODIAC" | relative_url}}).
 
 **CSI:FingerID** identifies the structure of a compound by
 searching in a molecular structure database. Here and in the following,
 "*structure*" refers to the identity and connectivity (with bond
-multiplicities) of the atoms, but **no** stereochemistry information.
+multiplicities) of the atoms, but **not** to stereochemistry information.
 Elucidation of stereochemistry is currently beyond the power of
 automated search engines.
+
+* For more details, consult the [method background]({{"/methods-background/#molecular-fingerprint" | relative_url}}) or watch the [CSI:FingerID Behind the Scenes](https://www.youtube.com/watch?v=oEQoB2aaV2E) talk.
+* Try using CSI:FingerID in the [GUI]({{"/gui/#CSIFingerID-structure" | relative_url}}) or [CLI]({{"/cli/#CSIFingerID-structures" | relative_url}}).
 
 **COSMIC confidence score** assigns a confidence to CSI:FingerID structure identifications.
 The idea is similar to False Discovery Rates: It allows to run CSI:FingerID in high-throughput 
 on thousands of compounds and select the most confident identifications. The workflow of generating 
-a structure database, searching with CSI:FingerID and ranking hits by confidence score is termed the COSMIC workflow.
-Make your data interpretation workflow easier by first identifying the most confident compounds in your sample, then use them 
+a structure database, searching with CSI:FingerID and ranking hits by confidence score is called the COSMIC workflow.
+Simplify your data interpretation workflow by first identifying the most confident compounds in your sample and then using them 
 to generate knowledge or hypotheses.
 
+* For more details, consult the [method background]({{"/methods-background/#COSMIC" | relative_url}}) or watch the [COSMIC Behind the Scenes](https://www.youtube.com/watch?v=akMkDK5O2rk) talk.
+* COSMIC is part of the structure database search in the [GUI]({{"/gui/#CSIFingerID-structure" | relative_url}}) and [CLI]({{"/cli/#CSIFingerID-structures" | relative_url}}).
+ 
 **CANOPUS** predicts compound classes from the molecular fingerprint predicted by CSI:FingerID 
-without any database search involved. Hence, it provides structural information for compounds 
+without any database searching. It therefore provides structural information for compounds 
 for which neither spectral nor structural reference data are available.
 
-**MSNovelist** generates de novo structure candidates to help overcome the limits of structure database search.
+* For more details, consult the [method background]({{"/methods-background/#CANOPUS" | relative_url}}) or watch the [CANOPUS Behind the Scenes](https://www.youtube.com/watch?v=kgTS5hGiPXg) talk.
+* Try using CANOPUS in the [GUI]({{"/gui/#CSIFingerID-CANOPUS" | relative_url}}) or [CLI]({{"/cli/#CANOPUS-classes" | relative_url}}).
+
+**MSNovelist** generates de novo structure candidates to overcome the limitations of structure database searching.
 Structures are generated based on molecular formula and fingerprint.
 
-SIRIUS ships with a **Graphical User Interface** (GUI), a **Command Line
-Interface** (CLI) and an API that comes with a client in Python.
+* For more details, consult the [method background]({{"/methods-background/#MSNovelist" | relative_url}}).
+* Try using MSNovelist in the [GUI]({{"/gui/#MSNovelist-denovo-structure" | relative_url}}) or [CLI]({{"/cli/#MSNovelist-denovo-structures" | relative_url}}).
 
+SIRIUS comes with a [**Graphical User Interface** (GUI)]({{"/quick-start/#GUI" | relative_url}}), a [**Command Line
+Interface** (CLI)]({{ "/quick-start/#CLI" | relative_url }}) and an [**Application Programming Interface** (API)]({{"/quick-start/#API" | relative_url}}) that comes with a client in Python.
 All these interfaces share the same persistence layer, allowing for high-throughput computation using e.g. the CLI
 on a compute cluster and then manual inspection of selected results using the GUI.
 
-## Literature
+## Literature {#literature}
 
-The *scientific development* behind SIRIUS, ZODIAC, CSI:FingerID and CANOPUS required
-numerous man-years of PhD students, postdocs and principal
-investigators; an educated guess would be roughly 35 man-years. This
-estimate does not include building the shiny Graphical User Interface
-that was introduced in version 3.1. But it is not the user interface or
+The *scientific development* behind SIRIUS, ZODIAC, CSI:FingerID, CANOPUS, and MSNovelist started in 2005 and has required over 50 person-years (and counting) of PhD students, post-docs and principal investigators. And we're not even talking about the development of the shiny graphical user interface introduced in version 3.1. But it is not the GUI or
 software development that does the work here; it is our scientific
-research that made SIRIUS, ZODIAC, CSI:FingerID and CANOPUS possible. 
-It is understood that the work of 15 years cannot be described in a single paper.
+research that has made SIRIUS, ZODIAC, CSI:FingerID, CANOPUS, and MSNovelist possible. 
+ It goes without saying that 20 years of work cannot be described in a single paper.
 
-Please cite all papers that you feel relevant for your work. Please do
-**not** cite this manual or the SIRIUS or CSI:FingerID website, but rather
+Please cite all papers that you feel are relevant to your work. Please do
+**not** cite this manual or the SIRIUS or CSI:FingerID website, but 
 our scientific papers.
 
-### SIRIUS 4
+### SIRIUS 4 {#lit-SIRIUS4}
 
  - Kai Dührkop, Markus Fleischauer, Marcus Ludwig, Alexander A. Aksenov, Alexey V. Melnik, Marvin Meusel, Pieter C. Dorrestein, Juho Rousu, and Sebastian Böcker.
 [**Sirius 4: turning tandem mass spectra into metabolite structure information.**](https://doi.org/10.1038/s41592-019-0344-8)
 *Nat Methods*, 2019.
 
-### CANOPUS – Compound Class Prediction 
- - Kai Dührkop, Louis-Félix Nothias, Markus Fleischauer, Raphael Reher, Marcus Ludwig, Martin A. Hoffmann, Daniel Petras, William H. Gerwick, Juho Rousu, Pieter C. Dorrestein and Sebastian Böcker.
-[**Systematic classification of unknown metabolites using high-resolution fragmentation mass spectra.**](https://doi.org/10.1038/s41587-020-0740-8)
-*Nat Biotechnol*, 2020.
-
-### ZODIAC – molecular formula annotation
-
- - Marcus Ludwig, Louis-Félix Nothias, Kai Dührkop, Irina Koester, Markus Fleischauer, Martin A. Hoffmann, Daniel Petras, Fernando Vargas, Mustafa Morsy, Lihini Aluwihare, Pieter C. Dorrestein, Sebastian Böcker.
-[**Database-independent molecular formula annotation using Gibbs sampling through ZODIAC.**](https://doi.org/10.1038/s42256-020-00234-6)
-*Nat Mach Intell*, 2020.
-
-### CSI:FingerID – Searching in molecular structure databases
+### CSI:FingerID – searching in molecular structure databases {#lit-CSIFingerID}
 
   - Kai Dührkop, Huibin Shen, Marvin Meusel, Juho Rousu and Sebastian
     Böcker. [**Searching molecular structure databases with tandem mass
@@ -137,12 +147,26 @@ our scientific papers.
     Fragmentation Trees.**](https://doi.org/10.1093/bioinformatics/btu275) *Bioinformatics*, 2014.
     Proc. of *Intelligent Systems for Molecular Biology* (ISMB 2014).
 
-### COSMIC confidence score
+### COSMIC confidence score {#lit-COSMIC}
+  - Martin A. Hoffmann, Louis-Félix Nothias, Marcus Ludwig, Markus Fleischauer, Emily C. Gentry, Michael Witting, Pieter C. Dorrestein, Kai Dührkop and Sebastian Böcker. [**High-confidence structural annotation of metabolites absent from spectral libraries.**](https://doi.org/10.1038/s41587-021-01045-9) *Nat Biotechnol*, 2022.
 
-- **PREPRINT:** Martin A. Hoffmann, Louis-Félix Nothias, Marcus Ludwig, Markus Fleischauer, Emily C. Gentry, Michael Witting, Pieter C. Dorrestein, Kai Dührkop and Sebastian Böcker. 
-  [**Assigning confidence to structural annotations from mass spectra with COSMIC**](https://doi.org/10.1101/2021.03.18.435634) *bioRxiv*, 2021.
+### CANOPUS – compound class prediction {#lit-CANOPUS}
+ - Kai Dührkop, Louis-Félix Nothias, Markus Fleischauer, Raphael Reher, Marcus Ludwig, Martin A. Hoffmann, Daniel Petras, William H. Gerwick, Juho Rousu, Pieter C. Dorrestein and Sebastian Böcker.
+[**Systematic classification of unknown metabolites using high-resolution fragmentation mass spectra.**](https://doi.org/10.1038/s41587-020-0740-8)
+*Nat Biotechnol*, 2020.
 
-### Fragmentation Tree Computation
+### MSNovelist – *de novo* structure generation {#lit-MSNovelist}
+
+- Michael A. Stravs, Kai Dührkop, Sebastian Böcker and Nicola Zamboni. [**MSNovelist: de novo structure generation from mass spectra.**](https://doi.org/10.1038/s41592-022-01486-3) *Nat Methods*, 2022. 
+
+
+### ZODIAC – molecular formula annotation {#lit-ZODIAC}
+
+ - Marcus Ludwig, Louis-Félix Nothias, Kai Dührkop, Irina Koester, Markus Fleischauer, Martin A. Hoffmann, Daniel Petras, Fernando Vargas, Mustafa Morsy, Lihini Aluwihare, Pieter C. Dorrestein, Sebastian Böcker.
+[**Database-independent molecular formula annotation using Gibbs sampling through ZODIAC.**](https://doi.org/10.1038/s42256-020-00234-6)
+*Nat Mach Intell*, 2020.
+
+### Fragmentation tree computation {#lit-fragtree}
 
   - Sebastian Böcker and Kai Dührkop. [**Fragmentation trees reloaded.**](https://doi.org/10.1007/978-3-319-16706-0_10)
     *J Cheminform*, 2016.
@@ -163,7 +187,7 @@ our scientific papers.
     identification of metabolites by analyzing tandem mass spectra.**](https://doi.org/10.1093/bioinformatics/btn270)
     *Bioinformatics*, 2008.
 
-### Isotope pattern analysis
+### Isotope pattern analysis {#lit-isotope}
 
   - Sebastian Böcker, Matthias C. Letzel, Zsuzsanna Lipták and Anton
     Pervukhin. [**SIRIUS: decomposing isotope patterns for metabolite
@@ -174,7 +198,7 @@ our scientific papers.
     of Workshop on Algorithms in Bioinformatics* (WABI 2006), volume
     4175 of *Lect Notes Comput Sci*, 2006.
 
-### Passatutto – Fragmentation tree based decoy spectra
+### Passatutto – Fragmentation tree based decoy spectra {#lit-passatutto}
 
   - Kerstin Scheubert, Franziska Hufsky, Daniel Petras, Mingxun Wang,
     Louis-Felix Nothias, Kai Dührkop, Nuno Bandeira, Pieter C.
@@ -182,14 +206,14 @@ our scientific papers.
     scale metabolomics annotations by spectral matching.**](https://doi.org/10.1038/s41467-017-01318-5) 
     *Nat Commun*, 2017
 
-### Auto-detection of elements
+### Auto-detection of elements {#lit-elements}
 
   - Marvin Meusel, Franziska Hufsky, Fabian Panter, Daniel Krug, Rolf
     Müller and Sebastian Böcker. [**Predicting the presence of uncommon
     elements in unknown biomolecules from isotope patterns.**](https://doi.org/10.1021/acs.analchem.6b01015) *Anal
     Chem*, 2016.
 
-### Mass decomposition
+### Mass decomposition {#lit-mass-decomp}
 
   - Kai Dührkop, Marcus Ludwig, Marvin Meusel and Sebastian Böcker.
     [**Faster mass decomposition.**](https://doi.org/10.1007/978-3-642-40453-5_5) In *Proc. of Workshop on Algorithms

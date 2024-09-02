@@ -9,10 +9,10 @@ Contributions from the community are very welcome. The content of this documenta
 [Markdown](https://guides.github.com/features/mastering-markdown/), so no programming skills 
 needed to create content.
 
-If your are looking for the sources of the SIRIUS Software see  [*boecker-lab/sirius*](https://github.com/boecker-lab/sirius). 
-To download the SIRIUS software see <https://bio.informatik.uni-jena.de/software/sirius/>.
+If your are looking for the sources of the SIRIUS Software see  [*sirius-ms/sirius*](https://github.com/sirius-ms/sirius). 
+To download the SIRIUS software see the [recent SIRIUS releases](https://github.com/sirius-ms/sirius/releases).
 For bug reports and feature requests regarding the SIRIUS software please
-use  [*boecker-lab/sirius*](https://github.com/boecker-lab/sirius/issues).
+use  [*sirius-ms/sirius*](https://github.com/sirius-ms/sirius/issues/new/choose).
 
 ## Contributing to the SIRIUS Documentation
 **Help us improving the SIRIUS Documentation!**

@@ -4,7 +4,26 @@ title: "Changelog"
 ---
 
 ### SIRIUS 6
+#### 6.0.5 (2024-09-02)
+- improvement: new export options and file formats for writing summaries in the CLI  and GUI 
+- improvement: export of data quality summaries
+- improvement: `lcms-align` is automatically executed in the CLI when importing `.mzML` / `.mzXML` files
 
+
+#### 6.0.0 (2024-06-03)
+- feature: *de novo* generation of candidate structures through MSNovelist
+- feature: spectral library matching
+- feature: expansive search allows for structure database searches in user-selected databases with a confidence score-based fallback on PubChem
+- feature: additional molecular formula generation strategy via bottom-up serach
+- feature: SIRIUS service via REST API including Python SDK
+
+- improvement: CANOPUS is automatically executed together with the fingerprint prediction
+- improvement: entire adduct is now used already for the first step of the annotation workflow
+- improvement: updated fingerprint model; now consistent between positive and negative ion mode
+- improvement: LCMS data preprocessing also include MS1-only features
+- improvement: LCMS quality tags for features
+- improvement: compute dialog has been streamlined to improve clarity
+- improvement: transition from a file-based project space to a Nitrite database 
 
 ### SIRIUS 5
 #### 5.8.4 (2023-11-04)
@@ -300,7 +319,7 @@ regarding the command line interface and project-space output.
 - improvement: Character separated files in project-space have now .tsv extension for better excel compatibility.
 - feature: Windows headless executable respects `%JAVA_HOME%` as JRE location.
 - improvement: Improved packaging and startup of the GUI version
-- fixes GitHub issues: [4](https://github.com/boecker-lab/sirius/issues/4) and [6](https://github.com/boecker-lab/sirius/issues/6)
+- fixes GitHub issues: [#4](https://github.com/boecker-lab/sirius/issues/4) and [#6](https://github.com/boecker-lab/sirius/issues/6)
 
 #### 4.4.16
 - feature: **CSI:FingerID for negative ion mode is available**
