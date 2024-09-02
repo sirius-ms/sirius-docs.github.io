@@ -7,7 +7,7 @@ title: "Changelog"
 #### 6.0.5 (2024-09-02)
 - improvement: new export options and file formats for writing summaries in the CLI  and GUI 
 - improvement: export of data quality summaries
-
+- improvement: `lcms-align` is automatically executed in the CLI when importing `.mzML` / `.mzXML` files
 
 
 #### 6.0.0 (2024-06-03)

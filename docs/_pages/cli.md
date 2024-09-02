@@ -117,21 +117,25 @@ Either `formulas` or `spectra-search` must be executed as first subtool.
 
 ### Importing full LCMS runs from `.mzML` or `.mzXML` files {#import-lcms}
 
-See [`lcms-align`](#lcms-align)
-
+See [`lcms-align`](#lcms-align).
 
 
 ## PREPROCESSING TOOLS {#preprocessing}
 
 ### `lcms-align`: Feature detection and feature alignment (Preprocessing) {#lcms-align}
 
-The `lcms-align` tool enables the import of multiple `.mzML`/`.mzXML` files into SIRIUS. It performs feature detection and alignment based on MS/MS spectra, creating a SIRIUS project-space.
+The `lcms-align` tool enables the import of multiple `.mzML`/`.mzXML` files into SIRIUS. It performs feature **detection** and **alignment** based on MS/MS spectra, creating a SIRIUS project-space, which can then be used for subsequent analysis steps. `lcms-align` is automatically executed when running the [`formulas` tool](#SIRIUS-formulas) on `.mzML`/`.mzXML` files:
 
 ```shell
-sirius --input <mzml(s)> --project <projectspace> lcms-align
+sirius --input <mzml(s)> --project <projectspace> formulas
 ```
 
-The project-space can then be used for subsequent analysis steps.
+If you want to perform feature detection **without alignment**, you need to use the `lcms-align` tool with the `--no-align` option:
+
+```shell
+sirius --input <mzml(s)> --project <projectspace> lcms-align --no-align formulas
+```
+
 
 ## COMPOUND TOOLS {#compound-tools}
 
