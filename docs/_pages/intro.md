@@ -13,7 +13,7 @@ title: "Welcome"
 **Tutorials:** Check our [YouTube Playlist](https://youtube.com/playlist?list=PL8R4DKiWsw-tIG8w3hZWJunWZyy-qnIZM&si=xcaOZ3PILt7I2UB5) to find tutorials and learning resources. Whether you are new to SIRIUS or looking to expand your knowledge, this playlist has you covered.
 
 **Community Forum:** For community support and discussions, join our [SIRIUS Community space on Gitter](https://matrix.to/#/#sirius-ms:gitter.im). 
-Here, you can connect with other users and get help from the community.
+Here, you can connect with other users and get help from the community. Entering the Community, you can join different rooms, e.g. *Troubleshooting* to get assistance from other SIRIUS users.
 
 **Bug Reports and Feature Requests:** If you encounter any problems or have suggestions for new 
 features, please submit them via [GitHub](https://github.com/sirius-ms/sirius/issues/new/choose).

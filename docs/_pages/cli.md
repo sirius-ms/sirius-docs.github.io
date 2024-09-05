@@ -240,14 +240,9 @@ sirius --input <input> --project <projectspace> formulas fingerprints denovo-str
 
 The `passattuto` tool is designed to generate high-quality decoy spectra from
 fragmentation trees obtained using the `formulas` tool. If you're working with a spectral library, 
-you can easily create a decoy database based on these spectra:
+you can easily create a decoy database. 
 
-```shell
-sirius --input <spectral-lib> --project <projectspace> formulas passatutto
-```
-
-If no molecular formulas are annotated to the input spectra, 
-PASSATUTTO will use the best-scoring candidate for decoy computation.
+In SIRIUS 6 `passatutto` is not available but will be deeply integrated in SIRIUS in the future.
 
 ## DATASET TOOLS {#dataset-tools}
 
