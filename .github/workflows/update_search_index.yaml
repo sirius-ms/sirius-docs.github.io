@@ -6,15 +6,18 @@ on:
 jobs:
   updateIndex:
     runs-on: ubuntu-latest
+    env:
+      SECRET_ALGOLIA_API_KEY: ${{ secrets.ALGOLIA_API_KEY }}
     steps:
-      - env:
-          SECRET_ALGOLIA_API_KEY: ${{ secrets.ALGOLIA_API_KEY }}
       - uses: actions/checkout@v4
       - uses: ruby/setup-ruby@v1
-      - name: Setup jekyll and Update Algolia Index
+      - name: Setup gems and jekyll
         working-directory: ./docs
         run: |
             gem install jekyll bundler
             bundle install
             bundle update
-            ALGOLIA_API_KEY="$SECRET_ALGOLIA_API_KEY" bundle exec jekyll algolia
+      - name: Update Algolia Index
+        working-directory: ./docs
+        run: |
+          ALGOLIA_API_KEY="$SECRET_ALGOLIA_API_KEY" bundle exec jekyll algolia
