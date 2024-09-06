@@ -11,7 +11,6 @@ jobs:
           SECRET_ALGOLIA_API_KEY: ${{ secrets.ALGOLIA_API_KEY }}
       - uses: actions/checkout@v4
       - uses: ruby/setup-ruby@v1
-      - name: Change dir to doc
       - name: Setup gems and jekyll
         working-directory: ./docs
         run: |
