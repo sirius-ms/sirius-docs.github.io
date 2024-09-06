@@ -11,13 +11,10 @@ jobs:
           SECRET_ALGOLIA_API_KEY: ${{ secrets.ALGOLIA_API_KEY }}
       - uses: actions/checkout@v4
       - uses: ruby/setup-ruby@v1
-      - name: Setup gems and jekyll
+      - name: Setup jekyll and Update Algolia Index
         working-directory: ./docs
         run: |
             gem install jekyll bundler
             bundle install
             bundle update
-      - name: Update Algolia Index
-        working-directory: ./docs
-        run: |
-          ALGOLIA_API_KEY="$SECRET_ALGOLIA_API_KEY" bundle exec jekyll algolia
+            ALGOLIA_API_KEY="$SECRET_ALGOLIA_API_KEY" bundle exec jekyll algolia
