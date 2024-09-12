@@ -187,9 +187,8 @@ CANOPUS results are reported separately for molecular formula annotations and mo
 In both files, the column `most specific class` indicates the most specific compound class identified for this feature. The columns
 `level 5`, `subclass`, `class`, and `superclass` refer to the ancestors of this most specific class.
 
-If case multiple molecular formulas share the 
-same score ([typically due to adducts](#molecular-formula-results-summary)), the
-`canopus_summary.[tsv|xlsx]` file selects one molecular formula for each feature. We select the molecular formula
+In case multiple molecular formulas share the 
+same score ([typically due to adducts](#molecular-formula-summary)), we select one molecular formula for each feature, namely the molecular formula
 for which the CANOPUS probability of the most specific class is highest.
 
 #### De novo structure generation results summary {#de-novo-summary}
