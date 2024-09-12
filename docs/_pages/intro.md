@@ -29,7 +29,7 @@ integrating SIRIUS into your workflow or want to share tips and code snippets, v
 ## SIRIUS introduction {#SIRIUS-Introduction}
 
 The primary focus of SIRIUS is the structure elucidation of novel
-molecules (drug leads, contaminants in synthesis or food), but it is also
+molecules (drug leads, leachables or contaminants in synthesis or food, new psychoactive substances, PFAS, transformation products,...), but it is also
 well equipped to handle more standard tasks such as dereplication of known structures.
 
 It combines the analysis of isotope patterns in MS
@@ -37,6 +37,8 @@ spectra with the analysis of fragmentation patterns in MS/MS spectra,
 and uses CSI:FingerID as a web service for searching molecular structure
 databases. It also integrates CANOPUS for *de novo* compound class prediction and
 MSNovelist for *de novo* structure generation.
+
+SIRIUS is built for the analysis of **small molecules**, usually below 1000 Da, from all compound classes **except polymers** (e.g. peptides). 
 
 SIRIUS requires **high mass accuracy** data. The mass deviation of your
 MS and MS/MS spectra should be within 20 ppm. Mass spectrometry
@@ -49,6 +51,10 @@ SIRIUS expects **MS and MS/MS** spectra as input. It is possible to omit
 the MS data, but this will make the analysis more time-consuming and may
 give you poorer results. In this case, you should consider restricting the
 candidate molecular formulas to those found in PubChem.
+
+SIRIUS is designed to work off-the-shelf only for **Data Dependent Acquisition** (DDA) data with no or very few chimerics. 
+While SIRIUS has been applied to Data Independent Acquisition (DIA) data, too, it's important to note that our methods were not specifically developed for DIA and may perform less effectively in that context. 
+For DIA data, spectra must first be deconvoluted using other software (e.g., vendor-specific tools or MSDial) before being imported into SIRIUS for analysis.
 
 SIRIUS expects **processed peak lists** (centroided spectra). It does
 not provide routines for peak picking from profiled spectra. This is a deliberate
