@@ -193,8 +193,7 @@ for which the CANOPUS probability of the most specific class is highest.
 
 #### De novo structure generation results summary {#de-novo-summary}
 
-The summary file `denovo_structure_identifications.[tsv|xlsx]` contains the top-ranked de novo structure generation result for each feature,
-based on the CSI:FingerID score.
+The summary file `denovo_structure_identifications.[tsv|xlsx]` contains the top-ranked (based on the CSI:FingerID score) de novo structure generation result for each feature. The file also reports the score from MSNovelist (`ModelScore`).
 
 
 ### Standardized project space summary with mzTab-M {#project-space-summary}
