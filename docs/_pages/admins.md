@@ -59,7 +59,11 @@ To ensure that SIRIUS functions correctly, three main servers need to be accessi
   - **Dedicated hosting subscription:** `<companyname>.csi.bright-giant.com`
 - **Internet connection check (optional):** `https://www.google.com`
 
-The **login** and **license servers** are the same for commercial and academic users, with services provided by Bright Giant and FSU Jena, respectively.
+The **login** and **license servers** are the same for no-academic and academic users, with services provided by Bright Giant and FSU Jena, respectively.
+
+Our **login** server sends emails from `noreply@mailgun.bright-giant.com`. In case users do not receive emails from our 
+system (e.g. for email verification or password reset) please make sure that the email address is not blocked by your 
+institution's spam detection system.
 
 The URL of the **web service** itself may differ based on the type of subscription.
 Users with a dedicated hosting subscription need to ensure that their custom web service URL is accessible from the system where SIRIUS is installed.

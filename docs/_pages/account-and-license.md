@@ -16,7 +16,13 @@ These and future features **will remain [free for academic use](#academic-users)
 provided/hosted by the FSU Jena. [Bright Giant GmbH](https://bright-giant.com/) offers SIRIUS web service hosting for [non-academic users](#non-academic-users). 
 
 ### Account creation and login {#account-creation}
-User accounts can be created directly from the [user portal](https://portal.bright-giant.com/). Enter your name and your **institutional** (not personal) email address and choose a password for your account. Verify your email address with the link sent to your inbox. 
+User accounts can be created directly from the [user portal](https://portal.bright-giant.com/). Enter your name and your **institutional** 
+(not personal) email address and choose a password for your account. Verify your email address with the link sent to 
+your inbox.
+
+**NOTE:** In case you are not receiving
+emails from our system, please check your spam folder and/or ask your IT team whether the address 
+`noreply@mailgun.bright-giant.com` is blocked by your institution's spam detection system.
 
 <img src="{{ "/assets/images/user-portal.png" | relative_url }}" alt="Create new account in the user portal." width="300">
 

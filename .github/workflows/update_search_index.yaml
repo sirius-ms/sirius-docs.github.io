@@ -1,0 +1,26 @@
+name: Update Search Index
+on:
+  push:
+    branches:
+      - main
+jobs:
+  updateIndex:
+    runs-on: ubuntu-latest
+    env:
+      SECRET_ALGOLIA_API_KEY: ${{ secrets.ALGOLIA_API_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.3' # Not needed with a `.ruby-version` or `.tool-versions`
+          bundler-cache: true # runs 'bundle install' and caches installed gems automatically
+      - name: Setup gems and jekyll
+        working-directory: ./docs
+        run: |
+            gem install jekyll bundler
+            bundle install
+            bundle update
+      - name: Update Algolia Index
+        working-directory: ./docs
+        run: |
+          ALGOLIA_API_KEY="$SECRET_ALGOLIA_API_KEY" bundle exec jekyll algolia
