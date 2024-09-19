@@ -7,6 +7,8 @@ title: "Changelog"
 #### 6.0.6 (2024-09-xx)
 - improvement: "data quality summary" renamed to "feature quality summary"
 - improvement: `.csv` export for all summary files
+- improvement: export of ChemVista summary files
+- improvement: in the summary files, features are always sorted by retention time 
 
 #### 6.0.5 (2024-09-02)
 - improvement: new export options and file formats for writing summaries in the CLI  and GUI 
