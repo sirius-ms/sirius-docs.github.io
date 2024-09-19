@@ -684,7 +684,7 @@ By default, only the top hit is exported for each feature (`Top Hits (recommende
 For formula annotation summaries, you can also
 export adducts belonging to the top hits (`Top Hits with Adducts`). 
 
-In addition, you can export a `Data quality summary`, with [data quality]({{"/gui/#lcms-tab" | relative_url}}) values of different categories for all features. 
+In addition, you can export a `Feature quality summary`, with [feature quality]({{"/gui/#lcms-tab" | relative_url}}) values of different categories for all features. 
 
 You can export the files in TSV, ZIP or XLSX format. You might want to use `Quote strings` to quote all string values.
 

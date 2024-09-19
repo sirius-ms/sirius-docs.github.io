@@ -153,7 +153,7 @@ sharing and data visualization. The summaries are not imported into
 SIRIUS but are (re-)created every time a
 project-space is exported, ensuring that the summaries reflect the most current results. 
 
-All files also contain the overal quality of the feature (<span style="background-color: #8ee481; padding: 3px">GOOD</span>, <span style="background-color: #feff99; padding: 3px">DECENT</span>, <span style="background-color: #f570a1; padding: 3px">BAD</span>). You can also export a `Data quality summary`, containing the basic [quality assessment results]({{"/gui/#lcms-tab" | relative_url}}) for all features. 
+All files also contain the overal quality of the feature (<span style="background-color: #8ee481; padding: 3px">GOOD</span>, <span style="background-color: #feff99; padding: 3px">DECENT</span>, <span style="background-color: #f570a1; padding: 3px">BAD</span>). You can also export a `Feature quality summary`, containing the basic [quality assessment results]({{"/gui/#lcms-tab" | relative_url}}) for all features. 
 
 #### Molecular formula results summary {#molecular-formula-summary}
 
