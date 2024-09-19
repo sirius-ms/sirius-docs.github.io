@@ -682,9 +682,11 @@ Analysis results can be exported using the `Summaries` button in the top left to
 
 By default, only the top hit is exported for each feature (`Top Hits (recommended)`). You can use the drop down menu to export `All Hits`, `Top k Hits`, or `Top Hits with Adducts` instead. Learn more about the different [export options here]({{"/io/#summary-files" | relative_url }}). 
 
-In addition, you can export a `Feature quality summary`, with [feature quality]({{"/gui/#lcms-tab" | relative_url}}) values of different categories for all features. 
-
 You can export the files in TSV, CSV, ZIP or XLSX format. You might want to use `Quote strings` to quote all string values.
+
+In addition, you can export a `Feature quality summary`, with [feature quality]({{"/gui/#lcms-tab" | relative_url}}) values of different categories for all features, as well as a `ChemVista summary` file
+which can be imported directly to the [Agilent ChemVista](https://www.agilent.com/en/product/software-informatics/mass-spectrometry-software/library-management) software.
+
 
 ### Feature based molecular networking (FBMN) export {#FBMN-export}
 

@@ -155,6 +155,9 @@ project-space is exported, ensuring that the summaries reflect the most current 
 
 All files also contain the overal quality of the feature (<span style="background-color: #8ee481; padding: 3px">GOOD</span>, <span style="background-color: #feff99; padding: 3px">DECENT</span>, <span style="background-color: #f570a1; padding: 3px">BAD</span>). You can also export a `Feature quality summary`, containing the basic [quality assessment results]({{"/gui/#lcms-tab" | relative_url}}) for all features. 
 
+In addition, you can export a ChemVista summary file `chemvista_summary.csv`
+which can be imported directly to the [Agilent ChemVista](https://www.agilent.com/en/product/software-informatics/mass-spectrometry-software/library-management) software.
+
 #### Molecular formula results summary {#molecular-formula-summary}
 
 The summary file `formula_identifications.[tsv|csv|xlsx]` contains the top-ranked molecular formula for each feature, based on the SIRIUS score or ZODIAC score, if available.
