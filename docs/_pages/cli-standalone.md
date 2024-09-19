@@ -45,7 +45,7 @@ your SMILES using the [PubChem standardization](https://pubchem.ncbi.nlm.nih.gov
 
 ## Summary tool {#write-summaries-tool}
 
-The `write-summaries` tool allows you to export [summary files]({{"/io/#summary-files" | relative_url }}) from the project space, that provide convenient access to the results for downstream analysis, data sharing and data visualization. You can export in `TSV`, `ZIP` or `XLSX` format using `--format=<format>`. The ZIP file is a zipped TSV file. Using `--quote-strings` will write quotes to all string values in TSV files. `--feature-quality-summary` generates a feature quality summary with [feature quality]({{"/gui/#lcms-tab" | relative_url}}) values for the aligned features.
+The `write-summaries` tool allows you to export [summary files]({{"/io/#summary-files" | relative_url }}) from the project space, that provide convenient access to the results for downstream analysis, data sharing and data visualization. You can export in TSV, CSV, ZIP or XLSX format using `--format=<format>`. The ZIP file is a zipped TSV file. Using `--quote-strings` will write quotes to all string values in TSV and CSV files. `--feature-quality-summary` generates a feature quality summary with [feature quality]({{"/gui/#lcms-tab" | relative_url}}) values for the aligned features.
 
 
 ## Similarity tool {#similarity-tool}

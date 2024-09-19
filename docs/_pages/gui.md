@@ -670,7 +670,7 @@ For more information on spectral library searches in SIRIUS, please refer to the
 
 Analysis results can be exported using the `Summaries` button in the top left tool bar. 
 
-<img src="{{ "/assets/images/write-summary.png" | relative_url }}" width="400">
+<img src="{{ "/assets/images/export.png" | relative_url }}" width="400">
 <img src="{{ "/assets/images/write-summary2.png" | relative_url }}" width="400">
 
 [Summary files]({{ "/io/#summary-files" | relative_url }}) include five types of data:
@@ -680,13 +680,11 @@ Analysis results can be exported using the `Summaries` button in the top left to
 - [MSNovelist summaries]({{ "/io/#structure-summary" | relative_url }})
 - spectral library matching summaries.
 
-By default, only the top hit is exported for each feature (`Top Hits (recommended)`). You can use the drop down menu to export either `All Hits` (which may result in very large files) or the `Top k Hits` (where you can choose `k`). 
-For formula annotation summaries, you can also
-export adducts belonging to the top hits (`Top Hits with Adducts`). 
+By default, only the top hit is exported for each feature (`Top Hits (recommended)`). You can use the drop down menu to export `All Hits`, `Top k Hits`, or `Top Hits with Adducts` instead. Learn more about the different [export options here]({{"/io/#summary-files" | relative_url }}). 
 
 In addition, you can export a `Feature quality summary`, with [feature quality]({{"/gui/#lcms-tab" | relative_url}}) values of different categories for all features. 
 
-You can export the files in TSV, ZIP or XLSX format. You might want to use `Quote strings` to quote all string values.
+You can export the files in TSV, CSV, ZIP or XLSX format. You might want to use `Quote strings` to quote all string values.
 
 ### Feature based molecular networking (FBMN) export {#FBMN-export}
 

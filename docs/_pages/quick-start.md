@@ -169,56 +169,12 @@ sirius --input demo-data/mgf/laudanosine.mgf --project <project-space> formulas 
 ```
 
 This command runs 4 subtools at once: [`formulas` (to identify molecular formulas)]({{"/cli/#SIRIUS-formulas"|relative_url}}),[`fingerprints` (to predict molecular fingerprints)]({{"/cli/#fingerprints"|relative_url}}), [`classes` (to predict compound classes)]({{"/cli/#CANOPUS-classes" |relative_url}}), and [`structures` (to identify molecular structures)]({{"/cli/#CSIFingerID-structures" | relative_url}}).
-
-The `formula_candidates.tsv` in `<summary-files-dir>/0_laudanosine_FEATURE1` should look similar to this:
-
-```
-rank	molecularFormula	adduct	precursorFormula	SiriusScore	TreeScore	IsotopeScore	numExplainedPeaks	explainedIntensity	medianMassErrorFragmentPeaks(ppm)	medianAbsoluteMassErrorFragmentPeaks(ppm)	massErrorPrecursor(ppm)	lipidClass
-1	C21H27NO4	[M + H]+	C21H27NO4	24.65417225757305	16.673823307501223	7.98034895007183	10	0.9945969759520045	0.007637492516338191	0.4982304820065859	0.7071154657093854	
-2	C19H29NO4	[M + Na]+	C19H29NO4	21.14569419257409	15.328042039004671	5.817652153569419	10	0.9945969759520045	0.8982080585874639	1.2778688586195766	7.423133528795216	
-3	C17H23N7O2	[M + H]+	C17H23N7O2	19.270167038174378	14.209441689860592	5.060725348313786	10	0.9945969759520045	0.8982080585874639	1.2778688586195766	8.203923029468156	
-4	C15H28N5O3P	[M + H]+	C15H28N5O3P	18.874745611339133	13.87676301554373	4.997982595795404	10	0.9945969759520045	0.8982080585874639	1.2778688586195766	3.5880578691669838	
-5	C19H25N4O3	[M + H]+	C19H25N4O3	18.047443230086564	10.915836537157713	7.131606692928852	9	0.9900893988366646	-0.01690518911597119	0.6982192702970249	4.455519247668116	
-6	C17H29N5O	[M + K]+	C17H29N5O	15.00462580213599	14.724156079206512	0.28046972292947725	11	0.9999999999999998	-1.461376225764996	2.4522252659018866	3.2647482579632285	
-7	C17H30N2O4P	[M + H]+	C17H30N2O4P	14.662475232609417	8.064939679043038	6.597535553566379	9	0.9888793275025645	-0.28967448264108003	0.9201704555380266	-0.1603459126330561	
-8	C13H33N3O4P2	[M + H]+	C13H33N3O4P2	14.270528279509012	11.207732656567146	3.0627956229418665	10	0.9945969759520047	-0.4982304820065859	1.2778688586195766	-1.0278072909754976	
-9	C19H31N2O2	[M + K]+	C19H31N2O2	11.942179098282763	10.62247877626541	1.3197003220173515	10	0.9945969759520045	-2.150500852166065	2.150500852166065	-0.48365552383681126	
-10	C15H34N3O2P	[M + K]+	C15H34N3O2P	11.940863632556848	11.940863632556848	0.0	10	0.9945969759520045	-2.2458900015019885	2.2458900015019885	-1.351116902337944	
-```
-
-This is a ranking list of the top molecular formula candidates. The best
-candidate is C<sub>21</sub>H<sub>27</sub>NO<sub>4</sub> with a [total score (`SiriusScore`)]({{"/methods-background/#SIRIUS-molecular-formula" | relative_url}}) of 24.654. This score
-is the sum of the `TreeScore` (16.674) and the `IsotopeScore` (7.980).
-
-The rear columns contain the number of explained peaks in the MS/MS
-spectrum and the relative amount of explained intensity. The relative amount of explained intensity should normally be above 80 % or even 90 %. If this value is very
-low, either you have strangely intense noise in your spectrum, or
-the allowed mass deviation may be too low to explain all the peaks.
-
-
-The `structure_candidates.tsv` in `<summary-files-dir>/0_laudanosine_FEATURE1` should look similar to this (truncated version):
-
-```
-rank	formulaRank	ConfidenceScore	CSI:FingerIDScore	molecularFormula	adduct	InChIkey2D	InChI	name	smiles
-1	1	0.8708826550014862	-3.262869483152835	C21H27NO4	[M + H]+	KGPAYJZAMGEDIQ	InChI=1S/C21H27NO4/c1-22-9-8-15-12-20(25-4)21(26-5)13-16(15)17(22)10-14-6-7-18(23-2)19(11-14)24-3/h6-7,11-13,17H,8-10H2,1-5H3	Laudanosine	CN1CCC2=CC(=C(C=C2C1CC3=CC(=C(C=C3)OC)OC)OC)OC
-2	1	N/A	-86.96508835580653	C21H27NO4	[M + H]+	VDGYRASFPNRLPJ	InChI=1S/C21H27NO4/c1-22(2)9-8-15-12-18(23)20(25-4)13-16(15)17(22)10-14-6-7-19(24-3)21(11-14)26-5/h6-7,11-13,17H,8-10H2,1-5H3/p+1	1-[(3,4-dimethoxyphenyl)methyl]-7-methoxy-2,2-dimethyl-3,4-dihydro-1H-isoquinolin-2-ium-6-ol	C[N+]1(CCC2=CC(=C(C=C2C1CC3=CC(=C(C=C3)OC)OC)OC)O)C
-3	1	N/A	-102.18328682988958	C21H27NO4	[M + H]+	VHLMUHYXPXECPC	InChI=1S/C21H27NO4/c1-22(2)9-8-15-12-20(25-4)21(26-5)13-16(15)17(22)10-14-6-7-19(24-3)18(23)11-14/h6-7,11-13,17H,8-10H2,1-5H3/p+1	null	C[N+]1(CCC2=CC(=C(C=C2C1CC3=CC(=C(C=C3)OC)O)OC)OC)C
-4	1	N/A	-224.48821737216022	C21H27NO4	[M + H]+	ILJTXKNIYLUOKP	InChI=1S/C21H27NO4/c1-14-18(23-2)7-6-16(21(14)26-5)12-22-9-8-15-10-19(24-3)20(25-4)11-17(15)13-22/h6-7,10-11H,8-9,12-13H2,1-5H3	Oprea1_099380	CC1=C(C=CC(=C1OC)CN2CCC3=CC(=C(C=C3C2)OC)OC)OC
-...
-```
-
-This is a ranking of the top candidate structures. The best hit is given a confidence score, which indicates how certain this prediction is.
-Each structure hit also has a `formulaRank`, since a compound may have several molecular formula candidates. 
-The file contains all structure information (InChI, SMILES) and also structure database IDs (not shown here). 
-
-
-The `formula_identifications.tsv` and `compound_identifications.tsv` in `<summary-files-dir>` contain similar information, but only for the top hit of each  compound analyzed.
-The `formula_identifications_adduct.tsv` and `compound_identifications_adduct.tsv` contain this information for each possible adduct of each compound. 
+[Result sumamries]({{"/io/#summary-files" | relatuve_url }}) are written into the `<summary-files-dir>/`.
 
 If you wish to view the fragmentation trees, structures or compound classes visually, you can open the project space (`<project-space>`) 
 in the GUI and use the [`Formulas` (for fragmentation trees)]({{"/gui/#formulas-tab" | relative_url}}), [`Structures`]({{"/gui/#structures-tab" | relative_url}}), and [`Compound Classes`]({{"/gui/#CANOPUS-tab" | relative_url}}) views.
 The output can be imported by dragging the `<project-space>` into the SIRIUS GUI application window.
-Note that the viewer can also export the tree as vector graphics (SVG/PDF).
+Note that the viewer can also [export the tree]({{"/gui/#formulas-tab" | relative_url }}) as vector graphics (SVG/PDF).
 
 
 ### Example 2: MS files {#CLI-example-MS}

@@ -6,7 +6,7 @@ title: "Changelog"
 ### SIRIUS 6
 #### 6.0.6 (2024-09-xx)
 - improvement: "data quality summary" renamed to "feature quality summary"
-
+- improvement: `.csv` export for all summary files
 
 #### 6.0.5 (2024-09-02)
 - improvement: new export options and file formats for writing summaries in the CLI  and GUI 
