@@ -193,7 +193,7 @@ choose the appropriate molecular formula annotation strategy <span style="color:
   according to that prediction can be added and enforced (default).
 
 - **Fallback Adducts <span style="color:red">[B]</span>:**
-  You can specify fallback adducts that will be used for all features for which no adducts were detected during SIRIUS import or prior external annotation. Using the `enforce` option, you can even enforce to consider the selected adducts for all features (in addition to the detected adducts).<br> 
+  You can specify fallback adducts that will be used for all features for which no adducts were detected during SIRIUS import or prior external annotation. Using the `enforce` option, you can even enforce to consider the selected adducts for all features (in addition to the detected adducts). [The "base ionization" of the detected adduct will be considered by default.]({{"/io/#lcms-runs" | relative_url}}) <br> 
   **Possible Adducts:** Be aware that in the **compute dialogue for a single compound**, the adduct selection is different. The detected adducts (or SIRIUS default adducts) are pre-selected. Select the adducts you want to be considered for computation and deselect the adducts you not want to be considered for computation.<br>
   <img src="{{ "/assets/images/compute_single.png" | relative_url }}" alt="Molecular formula annotation compute dialog for a single compound" height="400">
 

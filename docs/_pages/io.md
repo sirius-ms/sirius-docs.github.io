@@ -115,7 +115,12 @@ A more detailed and commented example (which is still a work in progress) of an 
 ### LCMS-Runs {#lcms-runs}
 
 SIRIUS can import full LCMS runs in `.mzML` and `.mzXML` formats through its
-prepossessing tool. In the GUI, this is done automatically when you import your data. In the CLI, the process can be managed explicitly by using the [LC-align]({{ "/cli/#lcms-align" | relative_url }}) subtool.
+prepossessing tool. 
+The LCMS preprocessing performs feature detection and alignment based on MS/MS spectra, as well as adduct detection and assigns ion types with specific adducts or in-source losses to the features.
+Both in the GUI and CLI, this is done automatically when you import your data. Parameters of the feature detection can be modified 
+using the [LC-align]({{ "/cli/#lcms-align" | relative_url }}) subtool.
+
+Be aware that formula annotation (and thus subsequent tools as well) will additionally consider the "base ionization". For example, if the preprocessing assigns [M+H<sub>2</sub>O+K]+, formula annotation will also consider [M+K]+. However, SIRIUS only displays [M+H<sub>2</sub>O+K]+ as detected adduct for the input data, while [M+K]+ is only part of the results (formula annotation and so on).
 
 ## Output {#output}
 

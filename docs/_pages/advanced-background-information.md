@@ -149,7 +149,7 @@ relative error.
 
 Adduct information can be provided in two ways
 1. Specified in the input file created by third-party preprocessing tools (using peak list-based formats such as .mgf).
-2. Adducts can be detected by the SIRIUS preprocessing based on .mzml input files.
+2. Adducts can be detected by the [SIRIUS preprocessing]({{"/io/#lcms-runs" | relative_url }}) based on `.mzml` input files.
 
 The specified adduct will affect the possible molecular formula candidates of a feature and consequently the fingerprint prediction, compound class prediction, and molecular structure hit.
 
