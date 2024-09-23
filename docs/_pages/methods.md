@@ -369,6 +369,13 @@ classification system is more general, but may aligns better with the
 concept of biosynthetic pathway mapping. However, it is still not using 
 taxonomic information, relying solely on MS/MS data for its predictions.
 
+Be aware that there is no universally accepted threshold to classify predictions as "good" or "bad." 
+The posterior probability estimates provided do not adhere to a fixed standard, and while a binary classifier might suggest a threshold of 0.5, this is not always sufficient in real-world applications. 
+If a user desires more nuanced classifications, such as "Yes," "No," and "Maybe," thresholds like 0.15 and 0.85 may be helpful, although these are just approximations. 
+Moreover, for statistical analysis, such as determining the number of occurrences of a specific compound class in a sample, users can sum up the probabilities to get an expected count. 
+It's also important to consider that when a compound is significantly different from known compounds, CANOPUS may return lower probabilities for all compound classes, which means users might need to accept predictions with probabilities below 0.5 depending on their specific needs. 
+Thus, the choice of threshold depends on the context and the user's tolerance for uncertainty.
+
 For a deeper understanding of how CANOPUS works, why it works and how well it works, you can watch the [CANOPUS behind the Scenes](https://www.youtube.com/watch?v=kgTS5hGiPXg) talk. Try using CANOPUS in the [GUI]({{"/gui/#CSIFingerID-CANOPUS" | relative_url}}) or [CLI]({{"/cli/#CANOPUS-classes" | relative_url}}).
 
 ## De novo structure generation with MSNovelist {#MSNovelist}
