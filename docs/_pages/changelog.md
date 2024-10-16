@@ -4,11 +4,34 @@ title: "Changelog"
 ---
 
 ### SIRIUS 6
-#### 6.0.6 (2024-09-xx)
-- improvement: "data quality summary" renamed to "feature quality summary"
-- improvement: `.csv` export for all summary files
-- improvement: export of ChemVista summary files
-- improvement: in the summary files, features are always sorted by retention time 
+#### 6.0.6 (2024-09-28)
+
+- fixed: When importing large mzml/mzxml runs, the feature list filter is not refreshed properly after import.
+- fixed: Problem when deleting feature via GUI filtering
+- fixed: Empty list of affected Compound and feature IDs when importing mzML/mzXML files via /import/ms-data-files API endpoint.
+- fixed: Error handling for fiels with empty values for given key in .mat/.msp parser
+- fixed: Number of explained peaks incorrect for in-source losses.
+- fixed: Enforced adducts ignored during formula computation
+- fixed: GNPS FBMN does not work with SIRIUS files (https://github.com/sirius-ms/sirius/issues/167)
+- fixed: Cannot enforce adducts for features detected as multimere
+- fixed: Missing Ids in API fragtree export (https://github.com/sirius-ms/sirius/issues/199)
+- fixed: ZODIAC score is missing from the `formula_identifications` file.
+- fixed: MGF parser cannot parse `CHARGE=-`` or `CHARGE=+`
+- fixed: Formula candidates and adducts introduced by spectral library search are not reset correctly during recompute
+- fixed: Adducts from LCMS preprocessing may be ignored if not part of detectable adducts.
+- fixed: SDF custom database import with spectra cancels the import if one compound in the file has invalid spectrum data.
+
+- improvement Show all detected adducts in the GUI
+- improvement Export summary in ChemVista compatible csv format.
+- improvement Export summary files as `CSV` and `XLXS`
+- improvement Scrollable Quality assessment panel
+- improvement Temprorary unavailable custom-dbs are no longer permanently removed from SIRIUS.
+- improvement Sort features by RT in summary files
+- improvement: `data quality summary` renamed to `feature quality summary`
+- improvement https://github.com/sirius-ms/sirius/issues/159
+- improvement Renamed SIRIUS java sdk package to `sirius-sdk`
+
+- **Known Issues:** Sometimes all jobs of a computation are finished but the Gui compute button and feature list stays in compute state. This issue has **not*- yet been resolved but a workarount has been added to reset the state and make the gui controllable again when clicking `Cancel all`. However, after doing so SIRIUS needs to be restarted to work properly again.
 
 #### 6.0.5 (2024-09-02)
 - improvement: new export options and file formats for writing summaries in the CLI  and GUI 
