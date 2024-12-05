@@ -131,7 +131,7 @@ The following section provides a detailed explanation of the compute dialog, usi
 Starting with SIRIUS 6, the compute dialog has been streamlined to improve clarity by displaying only those settings that are essential for any type of analysis. Use the `Show advanced settings` button at the bottom <span style="color:#d40f57">**[7]**</span> to include additional settings that are relevant for specific use cases or to set limits for computation times.
 
 {% capture fig_img %}
-![Foo]({{ "/assets/images/compute-dialogue.png" | relative_url }})
+![Foo]({{ "/assets/images/compute-dialog.png" | relative_url }})
 {% endcapture %}
 
 <figure>
@@ -150,6 +150,7 @@ For example, you cannot search structure databases without predicting fingerprin
 
 If the `Recompute already computed tasks?` checkbox <span style="color:#d40f57">**[6]**</span> is checked, all previously existing results for the selected features in the current project space will be invalidated and overwritten to execute the newly selected workflow. Additional parameters for specific subtools can be displayed using the `Show advanced settings` button  <span style="color:#d40f57">**[7]**</span>. 
 To easily convert the current workflow selections into a CLI command, use the `Show Command` button <span style="color:#d40f57">**[8]**</span> at the bottom right.
+You can save your computation setup as a preset to reload for the next computation <span style="color:#d40f57">**[9]**</span>. 
 
 ### Spectral library matching {#spectral-library-matching}
 
