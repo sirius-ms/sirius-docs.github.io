@@ -148,7 +148,7 @@ On Windows, the CPLEX installer usually sets the system variable automatically, 
 
 
 SIRIUS will automatically detect Gurobi or CPLEX as possible solvers if the respective environment variables are specified. You can specify the preferred solver in the settings 
-dialogue (GUI) or in the command line with the `--ilp-solver` parameter.
+dialog (GUI) or in the command line with the `--ilp-solver` parameter.
 To permanently change the setting (e.g. for SIRIUS version 4.6.x) open: 
 `<USER_HOME>/.sirius-4.6/sirius.properties`  and edit the following line as required:
 

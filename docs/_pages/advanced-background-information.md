@@ -145,28 +145,6 @@ spectrum. For masses below 200 Da, we use the absolute mass deviation at
 found that small masses vary according to an absolute rather than a
 relative error.
 
-## Adducts {#adducts}
-
-Adduct information can be provided in two ways
-1. Specified in the input file created by third-party preprocessing tools (using peak list-based formats such as .mgf).
-2. Adducts can be detected by the [SIRIUS preprocessing]({{"/io/#lcms-runs" | relative_url }}) based on `.mzml` input files.
-
-The specified adduct will affect the possible molecular formula candidates of a feature and consequently the fingerprint prediction, compound class prediction, and molecular structure hit.
-
-_Note: In SIRIUS 6 we have moved away from using ionization (e.g. [M+H]+) in the formula annotation step and expanding with the adduct (e.g. [M+H]+ to [M+H-H<sub>2</sub>O]+) in the structure database search step.
-Instead, the entire adduct is now used from the beginning on._
-
-Preprocessing detects adducts from a predefined list and selects them based on correlating chromatographic peaks with indicative mass differences in the data. 
-It is often challenging to assign a single unambiguous adduct to every feature. In case the adduct assignment is ambiguous, SIRIUS will consider multiple possible adducts.  If the data does not even allow to assign a subset of possible adducts, a set of fallback adducts is used which can be specified by the user.
-
-During the formula annotation step, SIRIUS generates and scores molecular formula candidates that match the specified adduct(s). 
-A single precursor molecular formula can correspond to multiple compound formulas (using different adduct candidates).
-All adducts of the same precursor formula receive identical scores, since it is not possible to distinguish between them based on the isotope pattern and MS/MS spectrum: The isotope patterns will be identical and a loss observed in the MS/MS spectrum could stem from either the adduct or a covalently bonded part of the molecule.
-
-Two specific details must be noted:
-1. Fragmentation trees which are used to score molecular formula candidates, are provided in neutral form. For all adducts with the same ionization (e.g. [M+H]+ for [M+H]+, [M+H-H<sub>2</sub>O]+ and [M+NH<sub>4</sub>]+), a common fragmentation tree is computed. Then, fragmentation trees are resolved for each specific adduct. During this process, some fragments maynot be explained by a resolved formula and are removed from the tree. For example, resolving C<sub>6</sub>H<sub>10</sub>NO for adduct [M+NH<sub>4</sub>]+ is possible (C<sub>6</sub>H<sub>6</sub>O), but not for C<sub>6</sub>H<sub>12</sub>O<sub>6</sub>. Despite removing these fragments, we do not alter the score for the fragmentation tree, as the fragment could have had another possible explanation, and we do not want to penalize the candidate due to this post-processing.
-2. We do not differentiate between [M+H]+ and [M]+. In LC-MS experiments [M]+ is very uncommon. Moreover, for an unknown compound in an untargeted measurement it is challenging to determine if the compound was intrinsically charged or ionized later by the instrument. Therefore, SIRIUS considers the same neutral molecular formula for both adducts (as [M+H]+), but also searches for intrinsically charged molecular structures at the database search step. Per default [M+H]+ is considered, and [M]+ is merely treated as a special case of [M+H]+. [M]+ is used if directly specified in the input file or by the user.
-
 ## Training data {#training-data}
 
 The fragmentation tree computation of SIRIUS is not based on machine learning and therefore *does not involve any training data*.

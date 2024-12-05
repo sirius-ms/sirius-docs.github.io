@@ -46,6 +46,8 @@ global:
   - title: "Methods"
     url: /methods-background
     children:
+      - title: "Adduct handling"
+        url: /adducts/
       - title: "Molecular formula identification"
         url: /methods-background/#SIRIUS-molecular-formula
       - title: "Fingerprint prediction"

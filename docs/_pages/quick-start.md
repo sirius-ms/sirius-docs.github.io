@@ -18,7 +18,7 @@ SIRIUS’s "Batch mode"  is equivalent to analyzing many compounds at once,
 each with one or more mass spectra. You can also use this workflow to analyze a single compound.
 
 {% capture fig_img %}
-![Foo]({{ "/assets/images/quick_start_many_compounds.png" | relative_url }})
+![Foo]({{ "/assets/images/quick-start.png" | relative_url }})
 {% endcapture %}
 
 <figure>
@@ -27,23 +27,24 @@ each with one or more mass spectra. You can also use this workflow to analyze a 
 </figure>
 
 1. Drag the files `demo-data/ms/Bicuculline.ms` and `demo-data/ms/Kaempferol.ms` from the demo data into the application window.
-2. The two compounds now appear in the compound list. <span style="color:red">[1]</span>
+2. The two compounds now appear in the compound list. <span style="color:#d40f57">**[1]**</span>
 3. Verify that the ionization and parent masses are annotated correctly.
-4. Click the `Compute All` button. <span style="color:red">[2]</span>
-5. Select SIRIUS. <span style="color:red">[3]</span>
+4. Click the `Compute All` button. <span style="color:#d40f57">**[2]**</span>
+5. Select SIRIUS. <span style="color:#d40f57">**[3]**</span>
 6. Change the instrument type as well as the maximum  mass deviation allowed. Be aware that these settings
     will be used for all imported compounds.
-7. Verify that the currently selected molecular [molecular formula generation strategy]({{ "/methods-background/#annotation-strategies" | relative_url }}) matches your research question. <span style="color:red">[4]</span>
-8. Select `Predict Properties & CANOPUS` to predict the molecular fingerprints of the compounds with CSI:FingerID and their compound classes with CANOPUS. <span style="color:red">[5]</span>
-9. Select `CSI:FingerID structure database search` to search compounds in a structure database with CSI:FingerID. <span style="color:red">[6]</span>
+7. Verify that the currently selected molecular [molecular formula generation strategy]({{ "/methods-background/#annotation-strategies" | relative_url }}) matches your research question. <span style="color:#d40f57">**[4]**</span>
+8. Select `Predict properties: CSI:FingerID - Fingerprint Prediction & CANOPUS - Compound Class Prediction` to predict the molecular fingerprints of the compounds with CSI:FingerID and their compound classes with CANOPUS. <span style="color:#d40f57">**[5]**</span>
+9. Select `CSI:FingerID - Structure Database Search` to search compounds in a structure database with CSI:FingerID. <span style="color:#d40f57">**[6]**</span>
+10. Select `MSNovelist - De Novo Structure Generation` to predict de novo structures for compounds not in a database. <span style="color:#d40f57">**[7]**</span>
 10. Click `Compute`.
 11. A *gear* icon appears in the lower right corner of each compound.
      This indicates that the compound is part of a computation job.
 12. Sometimes a computation can take a long time (e.g. for compounds
      with many elements or very high masses). You can cancel
      computations by selecting `Cancel All` in the toolbar.
-13. Exmine the results using the `Formulas`, `Structure`, and `Compound Classes` views.
-    For more details, use the  `Substructure Annotation` and `Predicted Fingerprint` views.
+13. Examine the results using the `Formulas`, `Compound Classes`, `Structures`, and `De Novo Structures`  views.
+    For more details, use the  `Substructure Annotation` and `Predicted Fingerprints` views. <span style="color:#d40f57">**[8]**</span>
 
 [//]: # (one or more mass spectra as individual peak list files. )
 

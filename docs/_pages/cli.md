@@ -59,7 +59,7 @@ adhering to the following principles:
 - Once the first subtool has been executed, a project-space is created. Subsequent commands will be executed on this project-space.
 - If a mandatory input from a previous step (subtool) is missing, the computation for the current compound will be skipped.
 - By default, the toolbox does **not** override existing results. Compounds for which results are already available will be skipped.
-- If the `--recompute` option is specified, [existing results will be replaced with new ones for **all** subtools]({#recompute-all}) that are specified in the command.
+- If the `--recompute` option is specified, [existing results will be replaced with new ones for **all** subtools](#recompute-all) that are specified in the command.
 - When [results for one subtool are recomputed](#recompute-subtool) (`--recompute`), the results of downstream subtools that depend on recomputed results will be deleted, to ensure that all results remain consistent with the newly computed data. 
 - Results from all subtools are stored in the 
 [project-space]({{ "/io/#sirius-project-space" | relative_url }}) which
@@ -95,7 +95,7 @@ sirius --input <inputFile> --project <projectspace> formulas fingerprints write-
 sirius -1 <ms1File> -2 <ms2Files (comma separated)> -z <parentmass> --adduct <adduct> --project <projectspace> formula
 ```
 
-`ms1File` is the MS1 spectrum containing the isotope pattern, and `MS/ms2Files` are the MS/MS fragmentation spectra. You can provide multiple MS/MS files (comma separated) if you have several measurements of the same compound with different collision energies; SIRIUS will merge these spectra into a single spectrum. If you omit the `--adduct` option, `[M+?]+` is used as default. 
+`ms1File` is the MS1 spectrum containing the isotope pattern, and `MS/ms2Files` are the MS/MS fragmentation spectra. You can provide multiple MS/MS files (comma separated) if you have several measurements of the same compound with different collision energies; SIRIUS will merge these spectra into a single spectrum. Adduct nomenclature is described [here]({{"/adducts/#nomenclature" | relative_url}}). If you omit the `--adduct` option, `[M+?]+` is used as default. 
 
 The command also works for [MGF files]({{ "/io/#mgf-format" | relative_url}}), where you can omit the `-z` option for specifying the parent mass, if it is already given in the file. 
 
