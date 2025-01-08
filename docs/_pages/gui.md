@@ -69,9 +69,9 @@ The feature list can further be refined by clicking the filter button (three dot
 
 <img src="{{ "/assets/images/filter-collage.png" | relative_url }}">
 
-- In the `Input` tab (left), aligned features can be filtered by mass range, retention time range, and confidence score range, as well as by specific detected adducts. 
+- In the `Input` tab (left), aligned features can be filtered by mass range and retention time range, as well as by specific detected adducts. 
 - In the `Data Quality` tab (middle), you can refine the preset quality filter.
-- In the `Results` tab (right), you can filter for specific element constraints in either the neutral molecular formula or precursor formula,
+- In the `Results` tab (right), you can filter for confidence score range, specific element constraints in either the neutral molecular formula or precursor formula,
  as well as by detected lipid classes. If structure database results are available, you can filter for hits in specific structure databases.  `Candidates to check` allows you to specify the number of top candidates to consider.
 
 For all filters, you can also choose to invert the filter, and whether you want to delete all **non**-matching compounds.
@@ -83,7 +83,7 @@ top center of the GUI ribbon.
 Starting with version 6.0, SIRIUS supports the import of spectral libraries. 
 The supported import formats for spectral
 data are .ms, .mgf, .msp, .mat, .txt (MassBank), .mb, .json (GNPS, MoNA). Spectra must be annotated with a structure and must be centroided.
-Custom structures can be used in [structure database search](#CSIFingerID-structure). Imported spectra will be used for [spectral library matching]({{ "/methods-background/#spectral-library-search" | relative_url }}).
+Custom structures can be used in [structure database search](#CSIFingerID-structure). All imported spectra will automatically be used for [spectral library matching]({{ "/methods-background/#spectral-library-search" | relative_url }}) during molecular formula annotation. A spectral library is also a molecular structure database and thus can be used for CSI:FingerID structure database search.
 
 {% capture fig_img %}
 ![Foo]({{ "/assets/images/custom-db-loader-collage.png" | relative_url }})
@@ -146,7 +146,9 @@ The compute dialog is divided into five subtools:
 [CSI:FingerID structure database search](#CSIFingerID-structure) <span style="color:#d40f57">**[4]**</span> and 
 [MSNovelist](#generating-de-novo-structure-candidates-with-msnovelist) <span style="color:#d40f57">**[5]**</span>. As of SIRIUS 6, CANOPUS is automatically executed together with the fingerprint prediction. 
 **Subtools can be selected individually or combined, but note that the selection must align with a [valid SIRIUS workflow]({{ "/methods-background/#workflows" | relative_url }}).**
-For example, you cannot search structure databases without predicting fingerprints first. 
+For example, you cannot search structure databases without predicting fingerprints first.
+Subtools are automatically enabled/disabled to match the [workflow principles]({{"/cli/#basic-principles" | relative_url }}).
+
 
 If the `Recompute already computed tasks?` checkbox <span style="color:#d40f57">**[6]**</span> is checked, all previously existing results for the selected features in the current project space will be invalidated and overwritten to execute the newly selected workflow. Additional parameters for specific subtools can be displayed using the `Show advanced settings` button  <span style="color:#d40f57">**[7]**</span>. 
 To easily convert the current workflow selections into a CLI command, use the `Show Command` button <span style="color:#d40f57">**[8]**</span> at the bottom right.
@@ -154,8 +156,9 @@ You can save your computation setup as a preset to reload for the next computati
 
 ### Spectral library matching {#spectral-library-matching}
 
-If imported spectral libraries are available, SIRIUS will automatically perform spectral matching. This process runs in the background without the need for any addiotional parameters. For more information, refer to the [Spectral library matching]({{ "/methods-background/#spectral-library-search" | relative_url }}) section.
+If imported spectral libraries are available, SIRIUS will automatically perform spectral matching. This process runs in the background without the need for any additional parameters. For more information, refer to the [Spectral library matching]({{ "/methods-background/#spectral-library-search" | relative_url }}) section.
 
+Since structure database results depend on the selected molecular formula, SIRIUS ensures that molecular structures with a formula corresponding to a good spectral library hit are considered - even if this molecular formula receives a low score, i.e. molecular structures of well-matching reference spectra are automatically included in the structure database search.
 
 ### Identifying molecular formulas with SIRIUS {#SIRIUS-molecular-formula}
 
@@ -363,7 +366,8 @@ For more details, visit the [CANOPUS release page](https://bio.informatik.uni-je
 CSI:FingerID facilitates the identification of molecular structures by matching 
 predicted molecular fingerprints against database structures. SIRIUS ships with a wide range of [built-in databases]({{ "/methods-background/#CSIFingerID" | relative_url }}). 
 Additionally, users can enhance the search capabilities by adding their own structures as a "custom database" (see [Import of custom structure and spectra databases](#custom-database-import) which can then be searched alongside
-the existing databases.
+the existing databases. If you have imported your own spectral library that should be considered for structure database search, select these libraries (databases) in the structure database search step <span style="color:#d40f57">**[2]**</span>.
+
 
 {% capture fig_img %}
 ![Foo]({{ "/assets/images/compute-dialogue-csifingerid.png" | relative_url }})
@@ -427,7 +431,7 @@ In all views, the top CSI:FingerID hit (as well as "highly similar" compounds in
 
 ### LC-MS view {#lcms-tab}
 
-The `LC-MS` tab is empty when no LC-MS data (`.mzML` or `.mzXML`) was imported, i.e. if the data is imported as `.mgf`, `.ms` or similar file formats, no LC-MS information is available. This is also the case when LC-MS data has been processed with OpenMS or MZMine and then imported to SIRIUS.
+The `LC-MS` tab is hidden when no LC-MS data (`.mzML` or `.mzXML`) was imported, i.e. if the data is imported as `.mgf`, `.ms` or similar file formats, no LC-MS information is available. This is also the case when LC-MS data has been processed with OpenMS or MZMine and then imported to SIRIUS.
 
 {% capture fig_img %}
 ![Foo]({{ "/assets/images/lcms-view-features.png" | relative_url }})
@@ -441,12 +445,12 @@ The `LC-MS` tab is empty when no LC-MS data (`.mzML` or `.mzXML`) was imported, 
 The LC-MS view displays the ion chromatogram of a feature.
 You can choose whether to show the feature alignment or the adduct/isotope assignment <span style="color:#d40f57">**[1]**</span>. Retention times are always given in minutes.
 
-For the feature alignment, the mass traces of all runs aligned for this feature are displayed in different colors <span style="color:#d40f57">**[2]**</span>. The thick black line is the merged mass trace <span style="color:#d40f57">**[3]**</span>. The bold grey box highlights the selected feature <span style="color:#d40f57">**[4]**</span>. Other nearby features are marked with thin grey boxes and features with low quality are marked with dashed boxes <span style="color:#d40f57">**[5]**</span>. You can click on a box to zoom into the feature. A gray dashed line marks the *noise level*; its exact computation may vary from version to version, but it is related to the median intensity of all peaks in the MS scan.
+For the feature alignment, the mass traces of all runs aligned for this feature are displayed in different colors <span style="color:#d40f57">**[2]**</span>. The thick black line is the merged mass trace <span style="color:#d40f57">**[3]**</span>. The bold grey box highlights the selected feature <span style="color:#d40f57">**[4]**</span>. Other nearby features are marked with thin grey boxes and features with low quality are marked with dashed boxes <span style="color:#d40f57">**[5]**</span>. The circles indicate where the MS2 spectrum was measured. You can click on a box to zoom into the feature. A gray dashed line marks the *noise level*; its exact computation may vary from version to version, but it is related to the median intensity of all peaks in the MS scan.
 
 {% capture fig_img %}
 ![Foo]({{ "/assets/images/lcms-view-features-zoom.png" | relative_url }})
 {% endcapture %}
-<figure>
+<figure style="width: 700px;">
   {{ fig_img | markdownify | remove: "<p>" | remove: "</p>" }}
   <figcaption>Zoom into feature alignment.</figcaption>
 </figure>
@@ -550,7 +554,7 @@ in green <span style="color:#d40f57">**[1]**</span>. If you have enabled [approx
 will also be highlighted (see [Expansive search]({{ "/methods-background/#expansive-search" | relative_url }})).
 To filter the candidate list by a specific database (e.g., only compounds from KEGG
 and BioCyc), click the filter button <span style="color:#d40f57">**[2]**</span> in the top left corner. A menu <span style="color:#d40f57">**[3]**</span> will open, displaying
-all available databases. Only candidates from the selected databases will be shown. 
+all available databases. Only candidates from the selected databases will be shown. The databases that have been used for the structure database search are highlighted in blue.
 
 The green and pink squares are a visualization of the CSI:FingerID
 predictions and scoring <span style="color:#d40f57">**[4]**</span>.
@@ -674,6 +678,18 @@ You can navigate through the peaks using left-click or the arrow keys.
 
 ### Library Matches view {#library-matches-tab}
 
+#### Activate spectral library results tab
+SIRIUS automatically searches in your spectral libraries as part of the molecular formula annotation step. 
+Library hits are integrated to the `Structures` tab to seamlessly compare structure database and spectral library hits.
+
+<img src="{{ "/assets/images/activate-spectral-matches-tab.png" | relative_url }}" width="400">
+
+To additionally activate the `Library Matches` tab, go to `Settings` and check `Show "Library Matches" tab`. You will get a warning dialogue explaining the spectral library search settings: 
+- A spectral library is also a molecular structure database. ANY hit in the spectral library can also be found via CSI:FingerID structure database search. 
+- Since structure database results depend on the selected molecular formula, SIRIUS ensures that molecular structures with a formula corresponding to a good spectral library hit are considered - even if this molecular formula receives a low score, i.e. molecular structures of well-matching reference spectra are automatically included in the structure database search.
+- Structure database search is only performed on [databases selected by the user](#CSIFingerID-structure). To ensure that all your spectral libraries are considered by CSI:FingerID, select these libraries (databases) in the structure database search step.
+
+
 {% capture fig_img %}
 ![Foo]({{ "/assets/images/library-matches-view.png" | relative_url }})
 {% endcapture %}
@@ -683,7 +699,7 @@ You can navigate through the peaks using left-click or the arrow keys.
   <figcaption>Spectral library matches tab.</figcaption>
 </figure>
 
-The `Library Matches` tab displays the spectral library matches for the measured query spectrum against a reference library. If you have multiple MS2 spectra (with different collision energies) for a feature, the best matching spectrum is shown by default. The `Similarity Score` and number of `Shared Peaks` in the list is given for this spectrum <span style="color:#d40f57">**[1]**</span>. You can switch to other MS2 spectra to examine their mirror plots as well <span style="color:#d40f57">**[2]**</span>.
+The `Library Matches` tab displays the spectral library matches for the measured query spectrum against a reference library. If you have multiple MS2 spectra (with different collision energies) for a feature, the best matching spectrum is shown by default. The `Similarity Score` and number of `Shared Peaks` in the list is given for this spectrum <span style="color:#d40f57">**[1]**</span>. You can switch to other MS2 spectra to examine their mirror plots as well <span style="color:#d40f57">**[2]**</span>. Additional metadata for the spectral hit is given on the right <span style="color:#d40f57">**[3]**</span>. 
 
 To zoom into the spectrum, hold the right mouse button and drag to select an area, or scroll while hovering over an axis.
 

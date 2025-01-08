@@ -4,6 +4,51 @@ title: "Changelog"
 ---
 
 ### SIRIUS 6
+
+#### 6.1.0 (2025-01-04)
+
+- fixed: unavailable `Compute all` button after finishing computations
+- fixed: GUI freezing when submitting many jobs
+- fixed: element-selection-panel not using the currently selected elements as initialization state in molecular formula computation panel
+- fixed: incorrect relative intensities in the MS1 mirror plot in the `Formulas` view
+- fixed: missing peak coloring for some peaks explained by the fragmentation tree
+- fixed: ZODIAC score incorrectly displayed
+- fixed: incorrect column name `median absolute mass error` in `Formulas` view
+- fixed: fragmentation tree viewer resolves molecular formula for adducts incorrectly
+- fixed: missing parent information in the `Compound Classes` view
+- fixed: linked database labels in the `Structures` and `De Novo Structures` views not recognised as links on hover
+- fixed: duplicated DB labels for compound candidates that are part of de novo and structure database search results
+- fixed: `De Novo Structures` view not shown if structure database search was not performed
+- fixed: sorting by columns in `Library Matches` view not working
+- fixed: crashing SDF import if a record cannot be parsed
+- fixed: incorrect intensities in FBMN export
+- fixed: removed non-functioning `Similarity` CLI tool
+
+- improvement: new color scheme with more consistent coloring throughout the whole identification process
+- improvement: option to enable/disable CPK colors for all structures in the settings
+- improvement: consistent top hit highlighting: the best structure database search hit (and its similar structures) is highlighted green in all views.
+- improvement: new welcome page
+- improvement: three decimal places of precursor masses of the aligned features in the feature list (full decimal number displayed in tooltip)
+- improvement: 'Da' renamed to 'm/z' in feature list and fragmenation tree viewer
+- improvement: confidence filter moved to `Results` tab in filter panel
+- improvement: `LC-MS` view is hidden if no LC-MS data was loaded
+- improvement: adding data to LC-MS projects after initial import is prohibited
+- improvement: new ordering of runs in `LC-MS` view
+- improvement: computation setup can be saved and reloaded as a preset for the next computation
+- improvement: automated enabling/disabling of tools in compute dialog to match the [workflow principles]({{"/cli/#basic-principles" | relative_url }})
+- improvement: easy setting of molecular formula to run formula annotation in single-feature computation mode
+- improvement: formula annotation results in the `Formulas` view are sorted by ZODIAC score if performed
+- improvement: normalized SIRIUS score added to summary files
+- improvement: table obtained via the `fingerid-data` endpoint includes information about the fingerprint type
+- improvement: additional column in the `Compound Classes` view showing the level of the class
+- improvement: databases that have been used for the structure database search are highlighted (in the filter menu in the `Structures` view)
+- improvement: `Library Matches` tab needs to be activated in `Settings` to ensure understanding of the library matching workflow
+- improvement: polarity is checked for spectral library search: negative ion mode spectra are only compared to negative; positive to positive
+- improvement: added metadata to spectral library hits in the `Library Matches` view
+- improvement: collision energy sorting in the `Library Matches` view is now number based.
+
+- **Known Issue:** Adduct/isotope assignment view in `LC-MS` tab deactivated for a short time until the next release.
+
 #### 6.0.6 (2024-09-28)
 
 - fixed: When importing large mzml/mzxml runs, the feature list filter is not refreshed properly after import.

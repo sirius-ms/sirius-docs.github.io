@@ -53,6 +53,9 @@ The `write-summaries` tool allows you to export [summary files]({{"/io/#summary-
 
 
 ## Similarity tool {#similarity-tool}
+
+<span style="color:#d40f57">**This tool is not part of the current SIRIUS version.**</span>
+
 The `similarity` tool allows you to compute different similarity measures between compounds.
 It accepts a SIRIUS project-space (or any input format that SIRIUS can convert into a project, such as `.ms`, `.mgf` or `.cef`) 
 as input using the `sirius -i <INPUT>` command.
