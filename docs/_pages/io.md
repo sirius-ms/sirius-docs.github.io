@@ -213,6 +213,8 @@ In case multiple molecular formulas share the
 same score ([typically due to adducts](#molecular-formula-summary)), we select one molecular formula for each feature, namely the molecular formula
 for which the CANOPUS probability of the most specific class is highest.
 
+When exporting summaries for the top <k> hits or all hits, only the CANOPUS formula summaries will be exported.
+
 #### De novo structure generation results summary {#de-novo-summary}
 
 The summary file `denovo_structure_identifications.[tsv|csv|xlsx]` contains the top-ranked (based on the CSI:FingerID score) de novo structure generation result for each feature. The file also reports the score from MSNovelist (`ModelScore`).

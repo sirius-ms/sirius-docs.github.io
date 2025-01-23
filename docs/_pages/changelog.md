@@ -5,6 +5,24 @@ title: "Changelog"
 
 ### SIRIUS 6
 
+#### 6.1.1 (2025-01-22)
+
+- fixed: parameters for molecular formula annotation were read-only for MS1 data only
+- fixed: landing page connection info was not updated after license change
+- fixed: decimal character in the summaries files was influenced by region settings
+- fixed: internal browser for custom DB links was not working
+- fixed: when importing multiple `.mzml`  files without aligning, the project space displayed only features from the last file
+- fixed: ZODIAC parameters were not deactivated after clicking "No" in a question dialog
+- fixed: Hidden parameter warning for El Gordo lipid identification
+- fixed: inefficient index search for spectral library search
+
+- improvement: batch compute dialog can be opened via `Settings` dialog to view and edit computation presets
+- improvement: three predefined computation presets for different applications are now available
+- improvement: proper error handling for exceeding query quota
+- improvement: performance improvement of custom databases in CLI
+- improvement: CANOPUS summary exports for "all" hits and "top k" added. 
+
+
 #### 6.1.0 (2025-01-04)
 
 - fixed: unavailable `Compute all` button after finishing computations

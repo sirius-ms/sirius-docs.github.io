@@ -154,6 +154,17 @@ If the `Recompute already computed tasks?` checkbox <span style="color:#d40f57">
 To easily convert the current workflow selections into a CLI command, use the `Show Command` button <span style="color:#d40f57">**[8]**</span> at the bottom right.
 You can save your computation setup as a preset to reload for the next computation <span style="color:#d40f57">**[9]**</span>. 
 
+### Computation presets {#computation-presets}
+
+You can save your computation parameters  in the compute dialog as a preset to reload for the next computation. For editing, you can access the computation presets also via the [settings dialog](#settings).
+
+Three predefined presets are available, which can be loaded, customized, and saved as personalized computation workflows (note that the predefined presets themselves cannot be edited):
+- `Default`: This workflow is recommended for general applications. It includes molecular formula annotation, fingerprint prediction, compound class prediction, and structure database search. Molecular formula annotation is performed using the `De novo + bottom-up` approach for comprehensive results.
+- `DB-Search`: Designed for users focused solely on structure database hits, this preset greatly reduces the computational effort of molecular formula annotation. Molecular formula annotation only considers formulas contained in databases, with biomolecule structure databases selected by default. Note that confidence scores may be less reliable in this preset due to the absence of the full range of de novo candidates for comparison.
+- `MS1`: Specifically for MS1-only data, this preset supports molecular formula annotation exclusively. The De novo approach is recommended here to limit bias by considering all potential candidates. 
+
+Learn more about [molecular formula identification with SIRIUS]({{"/methods-background/#SIRIUS-molecular-formula" | relative_url }}).
+
 ### Spectral library matching {#spectral-library-matching}
 
 If imported spectral libraries are available, SIRIUS will automatically perform spectral matching. This process runs in the background without the need for any additional parameters. For more information, refer to the [Spectral library matching]({{ "/methods-background/#spectral-library-search" | relative_url }}) section.
@@ -678,7 +689,7 @@ You can navigate through the peaks using left-click or the arrow keys.
 
 ### Library Matches view {#library-matches-tab}
 
-#### Activate spectral library results tab
+#### Activate spectral library results tab {#activate-library-matches-tab}
 SIRIUS automatically searches in your spectral libraries as part of the molecular formula annotation step. 
 Library hits are integrated to the `Structures` tab to seamlessly compare structure database and spectral library hits.
 
@@ -741,12 +752,15 @@ You can access the settings dialog by clicking the `Settings` button at the top 
 - `UI Theme`: Choose your preferred display mode to reduce eye strain (requires restart).
 - `Scaling Factor`: Adjust the size of the GUI by the selected factor (requires restart).
 - `Confidence score display mode`: Sets the mode for displaying the [confidence score]({{ "/methods-background/#confidence-score-modes" | relative_url }}) (either `approximate` or `exact`). 
+- `Molecular structure display color`: Enable/disable CPK colors for all structures
+- `Show "Library Matches" tab`: The `Library Matches` can be activated here after agreeing to a warning dialogue [explaining the spectral library search settings](#activate-library-matches-tab) 
 - `Allowed solvers`: Select the [ILP solver]({{ "/install/#ILP-solvers" | relative_url }}) for SIRIUS to use in
         fragmentation tree computation. GLPK is free, while Gurobi is
         commercial but offers a free academic license.
 - `Database cache`: Specifies the location of the cache directory. CSI:FingerID
         downloads candidate structures from our server and caches them
         for faster retrieval.
+- `Presets`: Open compute dialog to view and edit [computation presets](#computation-presets)
 - `REST API`: Use the button to open the API in your browser. The REST API provides the full functionality of SIRIUS and its web services as background service. It is intended as entry-point for scripting languages and software integration SDKs.
 
 **Adduct settings:**
