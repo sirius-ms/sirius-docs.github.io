@@ -44,7 +44,7 @@ Access to the academic license is automatically granted based on the domain of y
 **institutional email address**. You must use your institutional email address for your SIRIUS account
 to benefit from free academic licenses.
 
-The FSU Jena maintains an allow list of academic/non-profit intuitions/organizations. However, such a 
+The FSU Jena maintains an allow list of academic organizations. However, such a 
 list will never be complete. If your institution does not have access but you think it should, request an academic license <span style="color:red">[1]</span> in the user portal, providing information to identify your institution, including the official email domain, website and a short description what kind of institution you are requesting an academic license for (publishing and educational activities) <span style="color:red">[2]</span>.
 We will perform a manual validation and grant your institution access if it meets the academic license requirements. 
 
