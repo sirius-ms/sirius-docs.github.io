@@ -10,7 +10,7 @@ title: "Welcome"
 **Licenses:** As of SIRIUS 5, a user account and license are required to use the webservice-based features of SIRIUS. 
 [Find out more about academic and non-academic user accounts.]({{"/account-and-license/" | relative_url}})
 
-**Tutorials:** Check our [YouTube Playlist](https://youtube.com/playlist?list=PL8R4DKiWsw-tIG8w3hZWJunWZyy-qnIZM&si=xcaOZ3PILt7I2UB5) to find tutorials and learning resources. Whether you are new to SIRIUS or looking to expand your knowledge, this playlist has you covered.
+**Tutorials:** Check our [YouTube Playlist](https://bright-giant.com/short-course-tutorial-series) to find tutorials and learning resources. Whether you are new to SIRIUS or looking to expand your knowledge, this playlist has you covered.
 
 **Community Forum:** For community support and discussions, join our [SIRIUS Community space on Gitter](https://matrix.to/#/#sirius-ms:gitter.im). 
 Here, you can connect with other users and get help from the community. Entering the Community, you can join different rooms, e.g. *Troubleshooting* to get assistance from other SIRIUS users.

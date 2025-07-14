@@ -119,6 +119,19 @@ Either `formulas` or `spectra-search` must be executed as first subtool.
 
 See [`lcms-align`](#lcms-align).
 
+### Filtering {#filtering}
+
+You can filter features by precursor mass range, retention time range, data quality or the presence of MS/MS spectra. The filter does not apply for import but only to the subsequently applied tools.
+
+```shell
+sirius --input <inputFile> --project <projectspace> --<filteroption> formulas
+```
+
+Filter options are:
+- `--mzmin=<mzmin>` and `--mzmax=<mzmax>` for precursor mass range
+- `--rtmin=<rtmin>` and `--rtmax=<rtmax>` for retention time range
+- `--hasmsms` to use only features  with MS/MS data available
+- `--quality=<quality>[,<quality>...]` to filter by data quality (`LOWEST`, `BAD`, `DECENT`, `GOOD`, `NOT_APPLICABLE`)
 
 ## PREPROCESSING TOOLS {#preprocessing}
 

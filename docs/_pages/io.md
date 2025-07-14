@@ -56,6 +56,8 @@ END IONS
 ```
 See also the GNPS database for other examples of MGF files.
 
+If neither `NAME` nor `FEATURE_ID` are given in the file (e.g when importing MGF files from MSDIAL), the value of `SCANS` will be used as the feature identifier.
+
 #### SIRIUS MS-Format {#ms-format}
 
 While the above-mentioned data formats may lack some
@@ -121,10 +123,41 @@ A more detailed and commented example (which is still a work in progress) of an 
 SIRIUS can import full LCMS runs in `.mzML` and `.mzXML` formats through its
 pre-processing tool. 
 The LCMS pre-processing performs feature detection and alignment based on MS/MS spectra, as well as [adduct]({{"/adducts"| relative_url }}) detection and assigns ion types with specific adducts or in-source losses to the features.
-Both in the GUI and CLI, this is done automatically when you import your data. Parameters of the feature detection can be modified 
-using the [LC-align]({{ "/cli/#lcms-align" | relative_url }}) subtool.
+Both in the GUI and CLI, this is done automatically when you import your data. In the GUI, parameters of the feature detection are estimated from the data. To specify parameters yourself, use the CLI
+([LC-align]({{ "/cli/#lcms-align" | relative_url }}) subtool) or API.
 
 Be aware that formula annotation (and thus subsequent tools as well) will additionally consider the "base ionization". For example, if the preprocessing assigns [M+H<sub>2</sub>O+K]+, formula annotation will also consider [M+K]+. However, SIRIUS only displays [M+H<sub>2</sub>O+K]+ as detected adduct for the input data, while [M+K]+ is only part of the results (formula annotation and so on).
+
+### Custom databases {#custom-dbs}
+
+SIRIUS allows you to import custom structure databases and spectral libraries. Any spectral library you import also functions as a structure database. This means that when you add a spectral library, SIRIUS can leverage both the spectral information and the associated structural data for its analyses.
+
+- **Structure database from single file** can be imported from a CSV or TSV file, where
+  structures are provided in `SMILES` format <span style="color:#d40f57">**[1]**</span>. You can also provide a database `id` and a `name` for the entries. You can import multiple files containing compounds in SMILES format into a single database.
+
+```
+CN1CCCC1C2=C[N+](=CC=C2)[O-]	id-01	Nicotin
+CN1C=NC2=C1C(=O)N(C(=O)N2C)C	id-03	Caffein
+CN1CCC2=CC3=C(C=C2C1C4C5=C(C6=C(C=C5)OCO6)C(=O)O4)OCO3 id-05 Bicculine
+```
+
+- **Structure databases** can also be imported from directories or `.zip` files containing SDF files.
+- **Spectral libraries** can be imported from directories or `.zip` files. The supported import formats for spectral data are `.ms`, `.mgf`, `.msp`, `.mat`, `.txt` (MassBank), `.mb`, `.json` (GNPS, MoNA). Spectra must be annotated with a structure and must be centroided.
+
+![Custom database import overiew]({{ "/assets/images/custom-db-import_overview.png" | relative_url }})
+
+
+In our machine learning methods, we use **PubChem standardized** SMILES to represent structures.
+However, the PubChem standardization is not integrated into the import process. For optimal results, we recommend standardizing
+your SMILES using the [PubChem standardization](https://pubchem.ncbi.nlm.nih.gov/standardize/standardize.cgi) before importing them. This step is **not** mandatory, but recommended.
+
+For efficient searching and annotation, SIRIUS generates fingerprints <span style="color:#d40f57">**[2]**</span> from all imported structures. This enables the software to perform rapid and accurate structure database searches. If a structure is already present in
+SIRIUS' internal structure database, the fingerprint will be downloaded automatically. Otherwise, the fingerprint is computed locally on your computer,
+which may take some time, especially for a large number of structures.
+
+When reference spectra are provided <span style="color:#d40f57">**[3]**</span>, SIRIUS computes fragmentation trees <span style="color:#d40f57">**[4]**</span> from these spectra. This process allows for efficient substructure annotation, enhancing the utility of the reference data.
+
+SIRIUS offers the option to perform automated computation of bio-transformations during the import process. This feature can be particularly valuable for researchers studying metabolic pathways or drug metabolism, as it helps to identify related compounds within the database.
 
 ## Output {#output}
 
@@ -134,6 +167,10 @@ Since SIRIUS 6, the project space is stored in a singular `.sirius` file, which 
 This change was implemented to ensure performance for many of the new features and is in no way intended to "close off" results.
 You can still generate summaries using the GUI or CLI. To access advanced information or intermediate results (e.g., predicted
 fingerprints) you can use the new API.
+
+For robustness, SIRIUS projects require URL-safe names. This means your project name can only contain letters (a-z, A-Z), numbers (0-9), hyphens (-), and underscores (_). Spaces, dots or other special characters are not permitted.
+
+
 
 ### Summary files {#summary-files}
 
@@ -149,14 +186,11 @@ When exporting the top hits with adducts, you will get results for the [molecula
 
 You will get the following summary files:
 - `formula_identifications.[tsv|csv|xlsx]`,
-- `spectral_matches.[sv|csv|xlsx]`,
+- `spectral_matches.[tsv|csv|xlsx]`,
 - `canopus_formula_summary.[tsv|csv|xlsx]`, 
 - `canopus_structure_summary.[tsv|csv|xlsx]`, 
-- `structure_identifications.[sv|csv|xlsx]` and 
-- `denovo_structure_identifications.[sv|csv|xlsx]`.
-
-[//]: # (TODO: add spectral matching results)
-
+- `structure_identifications.[tsv|csv|xlsx]` and 
+- `denovo_structure_identifications.[tsv|csv|xlsx]`.
 
 These files provide convenient access to the results for downstream analysis, data
 sharing and data visualization. 
@@ -176,6 +210,11 @@ All files also contain the overall quality of the feature `overallFeatureQuality
 
 In addition, you can export a ChemVista summary file `chemvista_summary.csv`
 which contains the structure identifications and can be imported directly to the [Agilent ChemVista](https://www.agilent.com/en/product/software-informatics/mass-spectrometry-software/library-management) software.
+
+#### Spectral matches results summary {#spectral-matches-summary}
+
+The summary file `spectral_matches.[tsv|csv|xlsx]` contains the best spectral hit (highest cosine similarity) for each feature. If you have also conducted analog search, this might also be an analog hit (column `analogHit` is `TRUE`).
+
 
 #### Molecular formula results summary {#molecular-formula-summary}
 

@@ -308,7 +308,7 @@ defaults:
           - label: "SIRIUS Community on Gitter"
             url: "https://matrix.to/#/#sirius-ms:gitter.im"
           - label: "YouTube Tutorials"
-            url: "https://youtube.com/playlist?list=PL8R4DKiWsw-tIG8w3hZWJunWZyy-qnIZM&si=4iDXS2ifTaMd7n_F"
+            url: "https://bright-giant.com/short-course-tutorial-series"
           - label: "AlgoMS Textbook"
             url: "https://bio.informatik.uni-jena.de/wp/wp-content/uploads/2019/09/Boecker_AlgorithmicMassSpectrometry_v083_2019.pdf"
       layout: single

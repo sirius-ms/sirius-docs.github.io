@@ -34,7 +34,7 @@ feature. For each feature, adduct type, precursor mass, retention time and [conf
 - The **bottom information bar <span style="color:#d40f57">[9]</span>** provides details about your license status for the webservice-based structure elucidation tools, 
 the number of computed features and feature limits.  
 
-For a quick start, you can also watch our [tutorial video introducing basic elements and functionality of the SIRIUS 4 GUI](https://www.youtube.com/watch?v=SWkukL88ljo).
+For a quick start, you can also watch our [SIRIUS Short Course Tutorial Series introducing basic elements and functionality of the SIRIUS 6 GUI](https://bright-giant.com/short-course-tutorial-series).
 
 ## Account creation {#account-creation}
 
@@ -49,7 +49,7 @@ from the file.
 When importing multiple `.mzml` (or `.mzxml`) at once, SIRIUS will ask you if it should align them.
 When importing a [peak list file]({{ "/io/#peak-lists" | relative_url }}) containing a molecular formula, select `Ignore Formulas` if you would like to do the molecular formula annotation using SIRIUS.
 
-For more information on supported file formats, refer to the [Input]({{ "/io/#input/" | relative_url }}) section.
+For more information on supported file formats, refer to the [Input]({{ "/io/#input/" | relative_url }}) section and watch the [Tutorial on Data Import & Preprocessing](https://www.youtube.com/watch?v=Begq5bqg_lw).
 
 [//]: # (## Sorting features, filtering features and changing displayed confidence score mode)
 
@@ -69,9 +69,9 @@ The feature list can further be refined by clicking the filter button (three dot
 
 <img src="{{ "/assets/images/filter-collage.png" | relative_url }}">
 
-- In the `Input` tab (left), aligned features can be filtered by mass range and retention time range, as well as by specific detected adducts. 
-- In the `Data Quality` tab (middle), you can refine the preset quality filter.
-- In the `Results` tab (right), you can filter for confidence score range, specific element constraints in either the neutral molecular formula or precursor formula,
+- In the `Input` tab <span style="color:#d40f57">**[1]**</span>, aligned features can be filtered by mass range and retention time range, as well as by specific detected adducts. 
+- In the `Data Quality` tab <span style="color:#d40f57">**[2]**</span>, you can refine the preset quality filter.
+- In the `Results` tab <span style="color:#d40f57">**[3]**</span>, you can filter for confidence score range, specific element constraints in either the neutral molecular formula or precursor formula,
  as well as by detected lipid classes. If structure database results are available, you can filter for hits in specific structure databases.  `Candidates to check` allows you to specify the number of top candidates to consider.
 
 For all filters, you can also choose to invert the filter, and whether you want to delete all **non**-matching compounds.
@@ -79,11 +79,7 @@ For all filters, you can also choose to invert the filter, and whether you want 
 ### Import of custom structure and spectra databases {#custom-database-import}
 
 Custom structure databases and spectral libraries can be added via the `Databases` dialog, accessible via the
-top center of the GUI ribbon.
-Starting with version 6.0, SIRIUS supports the import of spectral libraries. 
-The supported import formats for spectral
-data are .ms, .mgf, .msp, .mat, .txt (MassBank), .mb, .json (GNPS, MoNA). Spectra must be annotated with a structure and must be centroided.
-Custom structures can be used in [structure database search](#CSIFingerID-structure). All imported spectra will automatically be used for [spectral library matching]({{ "/methods-background/#spectral-library-search" | relative_url }}) during molecular formula annotation. A spectral library is also a molecular structure database and thus can be used for CSI:FingerID structure database search.
+top center of the GUI ribbon. SIRIUS allows you to import custom structure databases and spectral libraries. Any spectral library you import also functions as a structure database. [Learn more about custom database import and supported file formats here]({{ "/io/#custom-dbs" | relative_url}}).
 
 {% capture fig_img %}
 ![Foo]({{ "/assets/images/custom-db-loader-collage.png" | relative_url }})
@@ -96,17 +92,24 @@ Custom structures can be used in [structure database search](#CSIFingerID-struct
 
 Custom databases are stored as files with the `.siriusdb` extension. 
 If you already have a database with this format on your local machine, you can add it to SIRIUS by clicking the 
-`Add existing Database` button on the bottom right <span style="color:#d40f57">**[1]**</span>. To create a new custom database,
-click the `Create custom Database` button.
+`Add existing Database` button <span style="color:#d40f57">**[1]**</span> on the bottom right. To create a new custom database,
+click the `Create custom Database` button <span style="color:#d40f57">**[2]**</span>.
 Imported databases can be deleted or modified using the `-` or pencil icon button, respectively.
 
-To create a custom database, enter a name for the database <span style="color:#d40f57">**[2]**</span> (maximum length: 15 characters), which will be displayed in the structure database search dialog. 
-Specify the file name for the database, ensuring it ends with `.siriusdb` <span style="color:#d40f57">**[3]**</span>. 
-Choose be any valid, writeable path on your local machine to store the database <span style="color:#d40f57">**[4]**</span>.
-Adjust the buffer size <span style="color:#d40f57">**[5]**</span> to control how many structures or spectra should be kept in memory. This can be increased when importing large files on a faster machine.
-Drag and drop files or directories containing structure/spectra files to the input area <span style="color:#d40f57">**[6]**</span>, or use the `+` button to browse your file system.
+To create a custom database, enter a name for the database <span style="color:#d40f57">**[3]**</span> (maximum length: 15 characters) that is used within SIRIUS. 
+Specify the file name for the database, ensuring it ends with `.siriusdb` <span style="color:#d40f57">**[4]**</span>. 
+Choose a valid, writeable path on your local machine to store the database <span style="color:#d40f57">**[5]**</span>.
+Adjust the buffer size <span style="color:#d40f57">**[6]**</span> to control how many structures or spectra should be kept in memory. This can be increased when importing large files on a faster machine.
+Drag and drop files or directories containing structure/spectra files to the input area <span style="color:#d40f57">**[7]**</span>, or use the `+` button to browse your file system.
 
-For more details on custom database import and supported file formats, please see the [Custom database tool]({{ "/cli-standalone/#custom-database-tool" | relative_url }}) section.
+SIRIUS integrates [BioTransformer 3.0](https://biotransformer.ca/) <span style="color:#d40f57">**[8]**</span> ([Wishart  et al., Nucleic Acids Res, 2022](https://doi.org/10.1093/nar/gkac313))  for generating custom transformation product databases. For detailed explanations of all options, please consult the official [BioTransformer documentation](https://biotransformer.ca/help). Here is only a selection:
+
+- `Metabolic Transformation` <span style="color:#d40f57">**[a]**</span>:  Coverage Options: 
+  - `Phase 1 (CYP450)`: Focuses on cytochrome P450-mediated transformations. 
+  - `EC-based`: Predicts transformations based on Enzyme Commission (EC) numbers. 
+  - ...
+  - `AllHuman`: Predicts all possible human metabolites from any applicable reaction (oxidation, reduction, deconjugation) at each step.
+- `Number of Reaction Iterations` <span style="color:#d40f57">**[c]**</span>: allows you to specify the number of transformation steps for the prediction. It is applicable for EC-based, CYP450, Phase II, and Environmental microbial biotransformers. The default value is typically 1.
 
 **Please note that you have to be logged in to your SIRIUS account to import custom databases.**
 
@@ -128,7 +131,9 @@ The following section provides a detailed explanation of the compute dialog, usi
 
 ### Compute dialog {#compute-dialog}
 
-Starting with SIRIUS 6, the compute dialog has been streamlined to improve clarity by displaying only those settings that are essential for any type of analysis. Use the `Show advanced settings` button at the bottom <span style="color:#d40f57">**[7]**</span> to include additional settings that are relevant for specific use cases or to set limits for computation times.
+Starting with SIRIUS 6, the compute dialog has been streamlined to improve clarity by displaying only those settings that are essential for any type of analysis. For a video Tutorial, click [here](https://www.youtube.com/watch?v=1WDT6EtWqQs).
+Use the `Advanced settings` toggle switch at the top <span style="color:#d40f57">**[1]**</span> 
+to include additional settings that are relevant for specific use cases or to set limits for computation times.
 
 {% capture fig_img %}
 ![Foo]({{ "/assets/images/compute-dialog.png" | relative_url }})
@@ -139,20 +144,28 @@ Starting with SIRIUS 6, the compute dialog has been streamlined to improve clari
   <figcaption>Batch compute dialog.</figcaption>
 </figure>
 
-The compute dialog is divided into five subtools: 
-[SIRIUS molecular formula annotation](#SIRIUS-molecular-formula) <span style="color:#d40f57">**[1]**</span>, 
-[ZODIAC](#ZODIAC-ranking) <span style="color:#d40f57">**[2]**</span>, 
-[CSI:FingerID fingerprint prediction with CANOPUS](#CSIFingerID-CANOPUS) <span style="color:#d40f57">**[3]**</span>, 
-[CSI:FingerID structure database search](#CSIFingerID-structure) <span style="color:#d40f57">**[4]**</span> and 
-[MSNovelist](#generating-de-novo-structure-candidates-with-msnovelist) <span style="color:#d40f57">**[5]**</span>. As of SIRIUS 6, CANOPUS is automatically executed together with the fingerprint prediction. 
+The compute dialog is divided into global settings <span style="color:#d40f57">**[2]**</span> 
+and settings for the following subtools: 
+- [Spectral Library Search](#spectral-library-matching) <span style="color:#d40f57">**[3]**</span>
+- [SIRIUS - Molecular Formula Annotation](#SIRIUS-molecular-formula) <span style="color:#d40f57">**[4]**</span>, 
+- [ZODIAC - Network-based Molecular Formula Re-ranking](#ZODIAC-ranking) <span style="color:#d40f57">**[5]**</span>, 
+- [CSI:FingerID - Fingerprint Prediction & CANOPUS - Compound Class Prediction](#CSIFingerID-CANOPUS) <span style="color:#d40f57">**[6]**</span>, 
+- [CSI:FingerID - Structure Database Search](#CSIFingerID-structure) <span style="color:#d40f57">**[7]**</span> and 
+- [MSNovelist - De Novo Structure Generation](#generating-de-novo-structure-candidates-with-msnovelist) <span style="color:#d40f57">**[8]**</span>. 
+
+Databases are selected as part of the global settings to ensure consistency throughout the identification workflow.
+As of SIRIUS 6, CANOPUS is automatically executed together with the fingerprint prediction. 
 **Subtools can be selected individually or combined, but note that the selection must align with a [valid SIRIUS workflow]({{ "/methods-background/#workflows" | relative_url }}).**
 For example, you cannot search structure databases without predicting fingerprints first.
 Subtools are automatically enabled/disabled to match the [workflow principles]({{"/cli/#basic-principles" | relative_url }}).
+ZODIAC will only be displayed if a sufficient number of features with MS/MS spectra have been selected.
 
-
-If the `Recompute already computed tasks?` checkbox <span style="color:#d40f57">**[6]**</span> is checked, all previously existing results for the selected features in the current project space will be invalidated and overwritten to execute the newly selected workflow. Additional parameters for specific subtools can be displayed using the `Show advanced settings` button  <span style="color:#d40f57">**[7]**</span>. 
-To easily convert the current workflow selections into a CLI command, use the `Show Command` button <span style="color:#d40f57">**[8]**</span> at the bottom right.
-You can save your computation setup as a preset to reload for the next computation <span style="color:#d40f57">**[9]**</span>. 
+If the `Recompute already computed tasks?` checkbox <span style="color:#d40f57">**[9]**</span> is checked, 
+all previously existing results for the selected features in the current project space will be invalidated and overwritten to execute the newly selected workflow. 
+Additional parameters for specific subtools can be displayed using the `Advanced settings` toggle switch at the top <span style="color:#d40f57">**[1]**</span>.
+To export your selected parameters to the CLI or the API use the `Show Command` and `Show JSON` button at the bottom <span style="color:#d40f57">**[10]**</span>.
+You can save your computation setup as a preset to reload for the next computation <span style="color:#d40f57">**[11]**</span>.
+Computation will start after pressing the `Compute` button on the bottom right <span style="color:#d40f57">**[12]**</span>.
 
 ### Computation presets {#computation-presets}
 
@@ -165,158 +178,124 @@ Three predefined presets are available, which can be loaded, customized, and sav
 
 Learn more about [molecular formula identification with SIRIUS]({{"/methods-background/#SIRIUS-molecular-formula" | relative_url }}).
 
+### Global Configuration {#global-config}
+
+{% capture fig_img %}
+![Foo]({{ "/assets/images/global-config.png" | relative_url }})
+{% endcapture %}
+
+<figure>
+  {{ fig_img | markdownify | remove: "<p>" | remove: "</p>" }}
+  <figcaption>Global settings for computation.</figcaption>
+</figure>
+
+Set the general parameters that define the characteristics of your mass spectrometry data, particularly concerning the instrument used and the expected mass accuracy <span style="color:#d40f57">**[A]**</span>. In the `Instrument` field, you can choose `Q-TOF`, `Orbitrap` or `FT-ICR`.
+The choice of instrument affects only a few parameters,
+primarily the allowed mass deviation. If your instrument is not among these options,
+select `Q-TOF` as default. You can  change the maximum allowed mass deviation, ensuring that
+SIRIUS only considers molecular formulas with mass deviations below
+the specified ppm threshold. For masses below 200 Da, the allowed mass deviation is
+$(200 \cdot \frac{ppm_{max}}{10^6})$.
+
+
+The set of **fallback adducts** <span style="color:#d40f57">**[B]**</span> will be used for all features for which no adducts were detected during preprocessing (or prior external annotation). Using the `enforce` option, you can even enforce to consider the selected adducts for all features (in addition to the detected adducts). [The "base ionization" of the detected adduct will be considered by default.]({{"/io/#lcms-runs" | relative_url}}) Refrain from selecting all adducts as fallback adducts, as multiple testing inflates the chance of errors. [Learn more about adduct handling here]({{"/adducts/" | relative_url }}). 
+
+In the **compute dialog for a single compound**, the adduct selection is different (set of **possible adducts**). The detected adducts (or SIRIUS default adducts) are pre-selected. Select the adducts you want to be considered for computation and deselect the adducts you not want to be considered for computation.
+
+Databases <span style="color:#d40f57">**[C]**</span> are selected as part of the global settings to ensure consistency throughout the identification workflow. Imported custom databases are displayed at the top of the list. Per default, the [*biomolecule structure databases*]({{ "/methods-background/#CSIFingerID" | relative_url }}) are selected. You can restore this default selection using the `bio` button.
+
+
 ### Spectral library matching {#spectral-library-matching}
 
-If imported spectral libraries are available, SIRIUS will automatically perform spectral matching. This process runs in the background without the need for any additional parameters. For more information, refer to the [Spectral library matching]({{ "/methods-background/#spectral-library-search" | relative_url }}) section.
+If [imported spectral libraries](#custom-database-import) are available, select them in the global settings <span style="color:#d40f57">**[A]**</span>. `Spectral Library Search` will then automatically be activated in the compute dialog <span style="color:#d40f57">**[B]**</span>. SIRIUS supports `Identity Search` <span style="color:#d40f57">**[C]**</span>, meaning that library spectra with the same precursor mass (within a given precursor mass deviation) are matched against the query spectrum, and `Analog Search` <span style="color:#d40f57">**[D]**</span>, meaning that library spectra with different precursor masses are matched against the query spectrum. For more information, refer to the [Spectral library matching]({{ "/methods-background/#spectral-library-search" | relative_url }}) section.
 
-Since structure database results depend on the selected molecular formula, SIRIUS ensures that molecular structures with a formula corresponding to a good spectral library hit are considered - even if this molecular formula receives a low score, i.e. molecular structures of well-matching reference spectra are automatically included in the structure database search.
+
+{% capture fig_img %}
+![Foo]({{ "/assets/images/compute-dialog-spectral-library-search.png" | relative_url }})
+{% endcapture %}
+
+<figure>
+  {{ fig_img | markdownify | remove: "<p>" | remove: "</p>" }}
+  <figcaption>Spectral library matching compute dialog.</figcaption>
+</figure>
+
+Since structure database results depend on the selected molecular formula, SIRIUS ensures that molecular structures with a formula corresponding to a good spectral library hit are considered (even if its molecular formula receives a low SIRIUS score). That means that molecular structures of well-matching reference spectra are automatically included in the structure database search.
 
 ### Identifying molecular formulas with SIRIUS {#SIRIUS-molecular-formula}
 
-To identify molecular formulas using SIRIUS, you can 
-set general parameters <span style="color:#d40f57">**[A]**</span>, 
-specify fallback adducts <span style="color:#d40f57">**[B]**</span>, and 
-choose the appropriate molecular formula annotation strategy <span style="color:#d40f57">**[C]**</span>.
-
 {% capture fig_img %}
-![Foo]({{ "/assets/images/compute-dialogue-sirius.png" | relative_url }})
+![Foo]({{ "/assets/images/SIRIUS-formula.png" | relative_url }})
 {% endcapture %}
 
 <figure>
   {{ fig_img | markdownify | remove: "<p>" | remove: "</p>" }}
-  <figcaption>Molecular formula annotation compute dialog.</figcaption>
+  <figcaption>Molecular formula annotation compute dialog (left) and advanced settings (right).</figcaption>
 </figure>
 
-- **General settings <span style="color:#d40f57">[A]</span>:** 
-  In the `Instrument` field, you can choose `Q-TOF`, `Orbitrap` or `FT-ICR`.
-  The choice of instrument affects only a few parameters,
-  primarily the allowed mass deviation. If your instrument is not among these options, 
-  select `Q-TOF` as default.
-  
-  You can  change the maximum allowed mass deviation, ensuring that
-  SIRIUS only considers molecular formulas with mass deviations below
-  the specified ppm threshold. For masses below 200 Da, the allowed mass deviation is
-  $(200 \cdot \frac{ppm_{max}}{10^6})$.
-
-  If SIRIUS predicts that the query spectrum may be a lipid, the molecular formula
-  according to that prediction can be added and enforced (default).
-
-- **Fallback Adducts <span style="color:#d40f57">[B]</span>:**
-  You can specify fallback adducts that will be used for all features for which no adducts were detected during SIRIUS import or prior external annotation. Using the `enforce` option, you can even enforce to consider the selected adducts for all features (in addition to the detected adducts). [The "base ionization" of the detected adduct will be considered by default.]({{"/io/#lcms-runs" | relative_url}}) <br> 
-  **Possible Adducts:** Be aware that in the **compute dialog for a single compound**, the adduct selection is different. The detected adducts (or SIRIUS default adducts) are pre-selected. Select the adducts you want to be considered for computation and deselect the adducts you not want to be considered for computation.<br>
-  <img src="{{ "/assets/images/compute-dialogue-sirius-single.png" | relative_url }}" alt="Molecular formula annotation compute dialog for a single compound" height="400">
-
-- **Molecular Formula Generation <span style="color:#d40f57">[C]</span>:**
-Selecting an appropriate molecular formula annotation strategy is crucial for a successful SIRIUS analysis, as it will significantly impact subsequent steps. Parameters for the different strategies are explained in the following. Before selecting a strategy, it is important to understand the differences between the [molecular formula annotation strategies]({{ "/methods-background/#annotation-strategies" | relative_url }}) to choose the most appropriate one for your analysis.
-
-***De novo* + bottom up search is recommended for generic applications.** [Learn more.]({{"/methods-background/#annotation-strategies" | relative_url}})
-
-{% capture fig_img %}
-![Foo]({{ "/assets/images/compute-dialogue-sirius-denovo-bottomup.png" | relative_url }})
-{% endcapture %}
-
-<figure>
-  {{ fig_img | markdownify | remove: "<p>" | remove: "</p>" }}
-  <figcaption>Settings for bottom up + de novo search.</figcaption>
-</figure>
-
- You can configure
-the m/z threshold <span style="color:#d40f57">**[1]**</span> below which *de novo* molecular formula annotation will be performed alongside the bottom up search.
-
-The element filter <span style="color:#d40f57">**[2]**</span> can be applied either solely to the *de novo* annotations or to the bottom-up search as well.
-`Allowed elements` specifies the elements in the element set and their upper and lower limits. `Autodetect` specifies the elements
-for which SIRIUS will automatically detect the presence, absence and quantity from the input data (requires MS1 spectra). The element set can
-be adjusted using the `...` button <span style="color:#d40f57">**[a]**</span>. Before making significant changes to the element set, please consider the potential impact on running time and result quality. 
-
-**De novo only is recommended for discovering "unknown unknowns".** [Learn more.]({{"/methods-background/#annotation-strategies" | relative_url}})
-
-{% capture fig_img %}
-![Foo]({{ "/assets/images/compute-dialogue-sirius-denovo.png" | relative_url }})
-{% endcapture %}
-
-<figure>
-  {{ fig_img | markdownify | remove: "<p>" | remove: "</p>" }}
-  <figcaption>Settings for de novo only annotation.</figcaption>
-</figure>
-
-Here, the expected element set needs to be well-defined using the `Element filter` settings <span style="color:#d40f57">**[2]**</span>. 
-`Allowed elements` and `Autodetect` elements can again be adjusted using the `...` button <span style="color:#d40f57">**[a]**</span>, with keeping in mind the impact on running time and result quality. 
-
-**Database search is recommended for known compounds and extremely fast computation times.** [Learn more.]({{"/methods-background/#annotation-strategies" | relative_url}})
-
-{% capture fig_img %}
-![Foo]({{ "/assets/images/compute-dialogue-sirius-dbsearch.png" | relative_url }})
-{% endcapture %}
-
-<figure>
-  {{ fig_img | markdownify | remove: "<p>" | remove: "</p>" }}
-  <figcaption>Settings for formula database search.</figcaption>
-</figure>
-
-Choose the databases <span style="color:#d40f57">**[1]**</span> to be used for molecular formula annotation. Per default, the [*biomolecule structure databases*]({{ "/methods-background/#CSIFingerID" | relative_url }}) are selected.
-You can restore this default selection using the `bio` button.
-
-Applying an element filter <span style="color:#d40f57">**[2]**</span> is not mandatory for formula database search, but it can be used to narrow down molecular formula candidates. `Allowed elements` and `Autodetect` elements can again be adjusted using the `...` button <span style="color:#d40f57">**[a]**</span>.
-
-**Bottom up search only can be used for a slight speed increase compared to the recommended combined approach.** [Learn more.]({{"/methods-background/#annotation-strategies" | relative_url}})
-
-{% capture fig_img %}
-![Foo]({{ "/assets/images/compute-dialogue-sirius-bottomup.png" | relative_url }})
-{% endcapture %}
-
-<figure>
-  {{ fig_img | markdownify | remove: "<p>" | remove: "</p>" }}
-  <figcaption>Settings for bottom up search only.</figcaption>
-</figure>
-
-Also for bottom up search, applying an element filter <span style="color:#d40f57">**[2]**</span> is not mandatory, but can be used to narrow down molecular formula candidates. `Allowed elements` and `Autodetect` elements can again be adjusted using the `...` button <span style="color:#d40f57">**[a]**</span>.
-
-**Specifying a molecular formula (or list of molecular formulas) to run formula annotation works in single computation mode only.**
-
-{% capture fig_img %}
-![Foo]({{ "/assets/images/compute-dialogue-sirius-provide.png" | relative_url }})
-{% endcapture %}
-
-<figure>
-  {{ fig_img | markdownify | remove: "<p>" | remove: "</p>" }}
-  <figcaption>Specify a (list of) molecular formula(s) to run formula annotation.</figcaption>
-</figure>
-
-If you have imported a [peak list file]({{ "/io/#peak-lists" | relative_url }}) containing a molecular formula, you cannot override this formula using the compute dialog. To avoid this, select `Ignore Formulas` during [import](#data-import).
-
+To identify molecular formulas using SIRIUS, choose the appropriate **molecular formula annotation strategy** <span style="color:#d40f57">**[A]**</span>. This is crucial for a successful SIRIUS analysis, as it will significantly impact subsequent steps. Parameters for the different strategies are explained [below](#SIRIUS-strategies). Before selecting a strategy, it is important to understand the differences between the [molecular formula annotation strategies]({{ "/methods-background/#annotation-strategies" | relative_url }}) to choose the most appropriate one for your analysis.
+For a video tutorial, click [here](https://www.youtube.com/watch?v=_NmHjru4omg).
 
 #### Advanced settings for molecular formula annotation {#SIRIUS-advanced}
 
+- By default, molecular formula candidates whose theoretical isotope patterns deviate significantly from the measured isotope pattern are discarded. You can disable this setting <span style="color:#d40f57">**[1]**</span> if you suspect poor quality isotope patterns in the input data.
+- If isotopic peaks are present in the input MS2 spectrum, they can
+  either be used for scoring (`SCORE`) or be ignored (`IGNORE`) <span style="color:#d40f57">**[2]**</span>.
+- You can select the number of molecular formula candidates that will be
+  saved <span style="color:#d40f57">**[3]**</span>.
+- Specify the minimum number of molecular formula candidates to store
+  for each ionization state, even if they are not among the top n candidates <span style="color:#d40f57">**[4]**</span>.
+- If SIRIUS predicts that the query spectrum may be a lipid, the molecular formula
+  according to that prediction can be added and enforced (default) <span style="color:#d40f57">**[5]**</span>.
+- Set a time limit (in seconds) for computing the fragmentation tree for
+  a single molecular formula candidate
+  <span style="color:#d40f57">**[6]**</span>. Set to 0 to disable the limit.
+- Set a total time limit (in seconds) for computing the fragmentation
+  trees for all molecular formula candidates of a feature
+  <span style="color:#d40f57">**[7]**</span>. Set to 0 to disable the limit.
+- For higher mass compounds, SIRIUS can compute fragmentation trees
+  heuristically instead of exactly. This heuristic method can be used to pre-rank molecular formula candidates, with exact trees
+  computed only for the top candidates. Set the m/z value above which this approach will be applied <span style="color:#d40f57">**[8]**</span>.
+- For very high masses, exact solutions may be impractical, and only
+  heuristic trees should be computed. Set the m/z value above which trees will exclusively be computed using the heuristic <span style="color:#d40f57">**[9]**</span>.
+
+
+#### Molecular formula annotation strategies {#SIRIUS-strategies}
+
 {% capture fig_img %}
-![Foo]({{ "/assets/images/compute-dialogue-sirius-advanced.png" | relative_url }})
+![Foo]({{ "/assets/images/SIRIUS-strategy.png" | relative_url }})
 {% endcapture %}
 
 <figure>
   {{ fig_img | markdownify | remove: "<p>" | remove: "</p>" }}
-  <figcaption>Advanced parameters for molecular formula annotation.</figcaption>
+  <figcaption>Settings for the different molecular formula annotation strategies.</figcaption>
 </figure>
 
-- By default, molecular formula candidates whose theoretical isotope     
-  patterns deviate significantly from the measured isotope pattern are discarded. 
-  You can disable this setting <span style="color:#d40f57">**[1]**</span>
-  if you suspect poor quality isotope patterns in the input data.
-- If isotopic peaks are present in the input MS2 spectrum, they can 
-  either be used for scoring (`SCORE`) or be ignored (`IGNORE`) <span style="color:#d40f57">**[2]**</span>.
-- You can select the number of molecular formula candidates that will be 
-  saved <span style="color:#d40f57">**[3]**</span>.
-- Specify the minimum number of molecular formula candidates to store 
-  for each ionization state, even if they are not among the top n candidates <span style="color:#d40f57">**[4]**</span>.
-- Set a time limit (in seconds) for computing the fragmentation tree for 
-  a single molecular formula candidate 
-  <span style="color:#d40f57">**[5]**</span>. Set to 0 to disable the limit.
-- Set a total time limit (in seconds) for computing the fragmentation 
-  trees for all molecular formula candidates of a feature 
-  <span style="color:#d40f57">**[6]**</span>. Set to 0 to disable the limit.
-- For higher mass compounds, SIRIUS can compute fragmentation trees 
-  heuristically instead of exactly. This heuristic method can be used to pre-rank molecular formula candidates, with exact trees 
-  computed only for the top candidates. Set the m/z value above which this approach will be applied <span style="color:#d40f57">**[7]**</span>. 
-- For very high masses, exact solutions may be impractical, and only
-  heuristic trees should be computed. Set the m/z value above which trees will exclusively be computed using the heuristic <span style="color:#d40f57">**[8]**</span>. 
+***De novo* + bottom up search <span style="color:#d40f57">[A]</span> is recommended for generic applications.** [Learn more.]({{"/methods-background/#annotation-strategies" | relative_url}})
+
+You can configure
+the m/z threshold <span style="color:#d40f57">**[1]**</span> below which *de novo* molecular formula annotation will
+be performed alongside the bottom up search.
+
+The element filter  can be applied either solely to the *de novo* annotations or to the bottom-up search as well <span style="color:#d40f57">**[2]**</span>. This filter only refers to the set of `Allowed elements`. You can set upper and lower limits for the elements in this set. The `Autodetect` set <span style="color:#d40f57">**[3]**</span> specifies the elements
+for which SIRIUS will automatically detect the presence, absence and quantity from the input data (requires MS1 spectra). This filter is applied to both, *de novo* and bottom-up search. Both sets can
+be adjusted using the `...` button <span style="color:#d40f57">**[4]**</span>. Before making significant changes to the element sets, please consider the potential impact on running time and result quality. 
+
+**De novo only <span style="color:#d40f57">[B]</span> is recommended for discovering "unknown unknowns".** [Learn more.]({{"/methods-background/#annotation-strategies" | relative_url}})
+
+Here, the expected element set needs to be well-defined using the `Element filter` settings <span style="color:#d40f57">**[2-4]**</span>. 
+`Allowed elements` and `Autodetect` elements can again be adjusted using the `...` button, with keeping in mind the impact on running time and result quality. 
+
+**Bottom up search only <span style="color:#d40f57">[C]</span> can be used for a slight speed increase compared to the recommended combined approach.** [Learn more.]({{"/methods-background/#annotation-strategies" | relative_url}})
+
+Applying an element filter <span style="color:#d40f57">**[5]**</span> is not mandatory for bottom-up search, but can be used to narrow down molecular formula candidates. `Allowed elements` and `Autodetect` elements can again be adjusted using the `...` button <span style="color:#d40f57">**[2-4]**</span>.
+
+**Database search <span style="color:#d40f57">[D]</span> is recommended for known compounds and extremely fast computation times.** [Learn more.]({{"/methods-background/#annotation-strategies" | relative_url}})
+
+Applying an element filter <span style="color:#d40f57">**[5]**</span> is not mandatory for formula database search, but can be used to narrow down molecular formula candidates. `Allowed elements` and `Autodetect` elements can again be adjusted using the `...` button <span style="color:#d40f57">**[2-4]**</span>.
+
+**Specifying a molecular formula (or list of molecular formulas) <span style="color:#d40f57">[E]</span> to run formula annotation.**
+
+If you have imported a [peak list file]({{ "/io/#peak-lists" | relative_url }}) containing a molecular formula, you cannot override this formula using the compute dialog. To avoid this, select `Ignore Formulas` during [import](#data-import).
 
 ### Improve molecular formula ranking with ZODIAC {#ZODIAC-ranking}
 
@@ -333,14 +312,8 @@ For more details, visit the [ZODIAC release page](https://bio.informatik.uni-jen
 
 These parameters are very advanced and require a thorough understanding of ZODIAC and its underlying Gibbs sampler.
 
-{% capture fig_img %}
-![Foo]({{ "/assets/images/compute-dialogue-zodiac-advanced.png" | relative_url }})
-{% endcapture %}
+<img src="{{ "/assets/images/zodiac-advanced.png" | relative_url }}" alt="Advanced ZODIAC Settings." width="500">
 
-<figure>
-  {{ fig_img | markdownify | remove: "<p>" | remove: "</p>" }}
-  <figcaption>Advanced parameters for ZODIAC molecular formula annotation.</figcaption>
-</figure>
 
 - Specify the maximum number of candidate molecular formulas considered  
   for features with m/z lower than 300. 
@@ -351,10 +324,12 @@ These parameters are very advanced and require a thorough understanding of ZODIA
 - Enable or disable the 2-step approach, where higher quality features 
   are processed first, followed by lower quality features second.
   <span style="color:#d40f57">**[3]**</span>
+- Use identity matches <span style="color:#d40f57">**[4]**</span> from spectral library search with given minimum similarity <span style="color:#d40f57">**[5]**</span> as anchors in the network. 
+- Use analog matches <span style="color:#d40f57">**[6]**</span> from spectral library search with given minimum similarity <span style="color:#d40f57">**[7]**</span> and given minimum number of matching peaks <span style="color:#d40f57">**[8]**</span> as anchors in the network.
 - Set the threshold for the ratio of edges of the complete network to be ignored.
-  <span style="color:#d40f57">**[4]**</span>
+  <span style="color:#d40f57">**[9]**</span>
 - Specify the minimum number of connections required for each candidate.
-  <span style="color:#d40f57">**[5]**</span>
+  <span style="color:#d40f57">**[10]**</span>
 
 
 ### Predicting molecular fingerprints with CSI:FingerID and compound classes with CANOPUS {#CSIFingerID-CANOPUS}
@@ -363,7 +338,7 @@ After computing the fragmentation trees, you can predict [molecular fingerprints
 and [CANOPUS compound classes]({{ "/methods-background/#CANOPUS" | relative_url }}).
 These predictions can then be used to search structure databases and/or to predict novel structures with [MSNovelist]({{ "/methods-background/#MSNovelist" | relative_url }}).
 If `Score threshold` is selected, fingerprints are only predicted for the top-scoring fragmentation trees (molecular formulas). This is recommended and should only be disabled if you need to examine 
-the fingerprint of a lower-scoring molecular formula.
+the fingerprint of a lower-scoring molecular formula. If ZODIAC scores were calculated, all molecular formulas with a probability ≥0.01 are used. Otherwise, the score threshold is the maximum of "85% of the top SIRIUS score" and "top SIRIUS score - 5". 
 
 CANOPUS predicts [ClassyFire](http://classyfire.wishartlab.com/) compound classes from the molecular fingerprint, without using any structure database. Classes are predicted for all features whose
 fragmentation tree contains at least three fragments, including features with no matching structure candidates in the
@@ -377,37 +352,17 @@ For more details, visit the [CANOPUS release page](https://bio.informatik.uni-je
 CSI:FingerID facilitates the identification of molecular structures by matching 
 predicted molecular fingerprints against database structures. SIRIUS ships with a wide range of [built-in databases]({{ "/methods-background/#CSIFingerID" | relative_url }}). 
 Additionally, users can enhance the search capabilities by adding their own structures as a "custom database" (see [Import of custom structure and spectra databases](#custom-database-import) which can then be searched alongside
-the existing databases. If you have imported your own spectral library that should be considered for structure database search, select these libraries (databases) in the structure database search step <span style="color:#d40f57">**[2]**</span>.
+the existing databases. If you have imported your own spectral library that should be considered for structure database search, select these libraries (databases) in the [global settings](#global-config).
 
-
-{% capture fig_img %}
-![Foo]({{ "/assets/images/compute-dialogue-csifingerid.png" | relative_url }})
-{% endcapture %}
-
-<figure>
-  {{ fig_img | markdownify | remove: "<p>" | remove: "</p>" }}
-  <figcaption>Parameters for structure database search.</figcaption>
-</figure>
-
-#### Expansive search {#expansive-search}
-Structure database search is conducted within the user-selected databases <span style="color:#d40f57">**[2]**</span>. 
-You can choose to use PubChem as a fallback database <span style="color:#d40f57">**[1]**</span> in case it contains a hit with higher confidence than
-those found in the selected databases.
-For a detailed explanation, please refer to the 
-[Methods]({{ "/methods-background/#expansive-search" | relative_url }}) section. 
-The `Confidence mode` controls whether the approximate or exact [confidence mode]({{ "/methods-background/#confidence-score-modes" | relative_url }}) is used to asses if a
+You can choose to use PubChem as a fallback database (if not selected as search space in the global settings) in case it contains a hit with higher confidence than
+those found in the selected databases. For a detailed explanation, please refer to the 
+[Methods]({{ "/methods-background/#expansive-search" | relative_url }}) section.
+The `Confidence mode` controls whether the approximate or exact [confidence mode]({{ "/methods-background/#confidence-score-modes" | relative_url }}) is used to assess if a
 hit in PubChem is more reliable than the hits in the selected databases.
 
-Per default the structure databases constituting the "bio" database are selected <span style="color:#d40f57">**[2]**</span>. De-select `PubChem as fallback` to fully search in PubChem. 
-If database search was used for [molecular formula identification](#SIRIUS-molecular-formula), the same databases are selected here. 
-You can revert to the default selection by clicking `bio`. If any custom database was loaded, 
-they can be selected here as well.
-
-#### COSMIC - confidence values for CSI:FingerID searches {#COSMIC}
-COSMIC confidence scores are calculated automatically and without requiring any parameters every time a CSI:FingerID search is performed. 
+**COSMIC confidence scores** are calculated automatically and without requiring any parameters every time a CSI:FingerID search is performed. 
 COSMIC scores are displayed in the feature list on the left. Starting with SIRIUS 6, confidence scores
 are computed in both `exact` and `approximate` mode. 
-
 For more details, 
 see the [COSMIC]({{ "/methods-background/#COSMIC"  | relative_url }}) section or
 visit the [COSMIC release page](https://bio.informatik.uni-jena.de/software/cosmic/).
@@ -437,6 +392,7 @@ the molecular properties of the molecular fingerprint predicted by CSI:FingerID.
 - The [Substructure Annotations view](#substructure-tab) shows possible substructures connected to
 the peaks of the MS/MS spectrumfor each candidate.
 - The [Library Matches view](#library-matches-tab) shows matches to reference spectra if a spectral library was imported.
+- The [Homologous Series view](#KMD-tab) visualizes groups of related molecules, that share the same basic structure but differ by a consistent building block.
 
 In all views, the top CSI:FingerID hit (as well as "highly similar" compounds in [approximate confidence mode]({{"/methods-background/#confidence-score-modes" | relative_url }})) is highlighted in green.
 
@@ -445,7 +401,7 @@ In all views, the top CSI:FingerID hit (as well as "highly similar" compounds in
 The `LC-MS` tab is hidden when no LC-MS data (`.mzML` or `.mzXML`) was imported, i.e. if the data is imported as `.mgf`, `.ms` or similar file formats, no LC-MS information is available. This is also the case when LC-MS data has been processed with OpenMS or MZMine and then imported to SIRIUS.
 
 {% capture fig_img %}
-![Foo]({{ "/assets/images/lcms-view-features.png" | relative_url }})
+![Foo]({{ "/assets/images/lcms-view-samples.png" | relative_url }})
 {% endcapture %}
 
 <figure>
@@ -454,21 +410,24 @@ The `LC-MS` tab is hidden when no LC-MS data (`.mzML` or `.mzXML`) was imported,
 </figure>
 
 The LC-MS view displays the ion chromatogram of a feature.
-You can choose whether to show the feature alignment or the adduct/isotope assignment <span style="color:#d40f57">**[1]**</span>. Retention times are always given in minutes.
+You can choose whether to show the sample alignment or the adduct/isotope assignment <span style="color:#d40f57">**[1]**</span>. Retention times are given in seconds.
 
-For the feature alignment, the mass traces of all runs aligned for this feature are displayed in different colors <span style="color:#d40f57">**[2]**</span>. The thick black line is the merged mass trace <span style="color:#d40f57">**[3]**</span>. The bold grey box highlights the selected feature <span style="color:#d40f57">**[4]**</span>. Other nearby features are marked with thin grey boxes and features with low quality are marked with dashed boxes <span style="color:#d40f57">**[5]**</span>. The circles indicate where the MS2 spectrum was measured. You can click on a box to zoom into the feature. A gray dashed line marks the *noise level*; its exact computation may vary from version to version, but it is related to the median intensity of all peaks in the MS scan.
+For the feature alignment, the mass traces of all runs aligned for this feature are displayed in different colors <span style="color:#d40f57">**[2]**</span>. The thick black line is the merged mass trace <span style="color:#d40f57">**[3]**</span>. The bold grey box highlights the selected feature <span style="color:#d40f57">**[4]**</span>. Other nearby features are marked with thin grey boxes and features with low quality are marked with dashed boxes <span style="color:#d40f57">**[5]**</span>. The circles <span style="color:#d40f57">**[6]**</span> indicate where the MS2 spectrum was measured. You can click on a box to zoom into the feature. A gray dashed line <span style="color:#d40f57">**[7]**</span> marks the *noise level*; its exact computation may vary from version to version, but it is related to the median intensity of all peaks in the MS scan.
+
+On the right, there is a basic quality assessment panel <span style="color:#d40f57">**[8]**</span>. It can be used to preemptively get an idea on overall quality of the MS and MS/MS of the feature.
 
 {% capture fig_img %}
-![Foo]({{ "/assets/images/lcms-view-features-zoom.png" | relative_url }})
+![Foo]({{ "/assets/images/lcms-view-adducts.png" | relative_url }})
 {% endcapture %}
-<figure style="width: 700px;">
+
+<figure>
   {{ fig_img | markdownify | remove: "<p>" | remove: "</p>" }}
-  <figcaption>Zoom into feature alignment.</figcaption>
+  <figcaption>LCMS view displaying the adduct/isotope assignment.</figcaption>
 </figure>
 
-In the [adduct/isotope assignment view]({{ "/adducts" | relative_url}}), you can find the merged mass trace of the feature (bold black line) as well as its isotopes (dashed black lines) and correlated adducts (grey lines) with their isotopes (dashed grey lines). 
 
-On the right, there is a basic quality assessment panel <span style="color:#d40f57">**[6]**</span>. It can be used to preemptively get an idea on overall quality of the MS and MS/MS of the feature.
+In the [adduct/isotope assignment view]({{ "/adducts" | relative_url}}), you can find the merged mass trace of the feature (`MAIN`, red) as well as its isotopes (lighter red  / dashed lines) and correlated adducts (`CORRELATED`, additional colors) with their isotopes (dashed lines). Hovering over the edges and nodes of the adduct network provides information about adduct probabilities and correlations.
+
 
 
 ### Formulas view {#formulas-tab}
@@ -476,7 +435,7 @@ On the right, there is a basic quality assessment panel <span style="color:#d40f
 The `Formulas` tab displays the molecular formula candidate list <span style="color:#d40f57">**[1]**</span>, the mass spectra <span style="color:#d40f57">**[2]**</span> and the fragmentation tree <span style="color:#d40f57">**[3]**</span> of the selected feature. 
 
 {% capture fig_img %}
-![Foo]({{ "/assets/images/formulas-view-custom.png" | relative_url }})
+![Foo]({{ "/assets/images/formulas-view.png" | relative_url }})
 {% endcapture %}
 
 <figure>
@@ -495,19 +454,12 @@ The `Formulas` tab displays the molecular formula candidate list <span style="co
 
   The `Zodiac Score` is also a probability, and here too, the bars directly represent this value. 
 
-- **Mass spectra** <span style="color:#d40f57">**[2]**</span>: In this panel you can switch between the MS1 spectrum, the MS1 isotope pattern mirror plot or the MS2 spectra <span style="color:#d40f57">**[a]**</span>. For MS2 spectra, per default a merged spectrum is displayed, but you can also choose to view individual spectra <span style="color:#d40f57">**[b]**</span>. To zoom, hold the right mouse button and drag to select an area, or scroll while hovering over an axis. In the MS2 view, peaks annotated by the fragmentation tree are highlighted in green, while those identified as noise are colored black. Hovering over a peak will display its detailed annotation <span style="color:#d40f57">**[c]**</span>, and clicking on a green peak will highlight the corresponding node in the fragmentation tree. 
-Spectra views can be exported using the top right export button <span style="color:#d40f57">**[d]**</span>.
+- **Mass spectra** <span style="color:#d40f57">**[2]**</span>: In this panel you can switch between the MS1 spectrum, the MS1 isotope pattern mirror plot or the MS2 spectra <span style="color:#d40f57">**[a]**</span>. For MS2 spectra, per default a merged spectrum is displayed, but you can also choose to view individual spectra <span style="color:#d40f57">**[b]**</span>. You can change the scaling of the intensities to different normalisations <span style="color:#d40f57">**[c]**</span>, with either the highest intensity peak in the spectrum normalized to 1, and all other peaks represented as fraction of this maximum (`l∞ (max)`), or the sum of the intensities normalized to 1 (`l1 (sum)`), or the sum of the squares of the intensities normalized to 1 (`l2`, Euclidean normalization). You can also apply a square root transformation to the intensity values (`Sqrt Intensity`) <span style="color:#d40f57">**[d]**</span>, which is particularly useful for spectra containing a few extremely high-intensity peaks alongside many low-intensity peaks that are nevertheless important for analysis. In the MS2 view, peaks annotated by the fragmentation tree are highlighted in blue, while those identified as noise are colored black. Hovering over a peak will display its detailed annotation <span style="color:#d40f57">**[f]**</span>, and clicking on a blue peak will highlight the corresponding node in the fragmentation tree <span style="color:#d40f57">**[i]**</span>. 
+Spectra views can be exported using the top right export button <span style="color:#d40f57">**[e]**</span>.
 
 - **Fragmentation tree** <span style="color:#d40f57">**[3]**</span>: In the computed
   [fragmentation tree]({{ "/methods-background/#fragmentation-trees" | relative_url }}), each node assigns a molecular formula to a peak in the (merged) MS2 spectrum. 
-  Each edge is a hypothetical fragmentation reaction. You can customize the tree's appearance by selecting different node styles and color schemes <span style="color:#d40f57">**[e]**</span>.
-
-  The tree can be exported <span style="color:#d40f57">**[f]**</span> as SVG or PDF vector graphics.
-  Alternatively, the DOT file format provides a text-based description of the
-  tree, which can be rendered externally using tools like Graphviz to convert
-  DOT files into image formats such as PDF, SVG, or PNG. 
-  The JSON format offers a machine-readable representation of the
-  tree. For instructions on exporting fragmentation trees from the command line, see the [Fragmentation tree export tool]({{ "/cli-standalone/#ftree-export" | relative_url }}).
+  Each edge is a hypothetical fragmentation reaction. You can customize the tree's appearance by selecting different node styles and color schemes <span style="color:#d40f57">**[g]**</span>. The tree can be exported <span style="color:#d40f57">**[h]**</span> as SVG vector graphics or PNG.
 
 ### Predicted Fingerprints view {#fingerprint-tab}
 Even if CSI:FingerID does not identify the correct structure — in
@@ -638,7 +590,7 @@ If the PubChem fallback was activated as part of [Expansive search]({{ "/methods
 
 Finally, if a structure candidate has a reference spectrum imported 
 via a custom database, the spectral match will be displayed.
-Clicking on this match will take you to the [`Library Matches` tab]({{ "/gui/#library-matches-tab" | relative_url }}).
+Clicking on this match will open an additional window with the [`Substructure Annotations` view]({{ "/gui/#substructure-tab" | relative_url }}) that you can use to compare the annotated structure to identity and analog spectral matches. `...show X more` is the number of identity matches for this feature.
 
 <img src="{{ "/assets/images/structures-view-spectrum.png" | relative_url }}" alt="Reference spectrum" width="800">
 
@@ -665,20 +617,23 @@ the left button in the top right corner.
 
 ### Substructure Annotation view {#substructure-tab}
 
-The `Substructure Annotations` tab visualizes the direct connection between the input MS/MS spectrum and the CSI:FingerID structure candidates.
-The table at the top <span style="color:#d40f57">**[1]**</span> displays all structure candidates for a given query (as listed in the `Structures` tab), and all structure candidates generated
-by MSNovelist. You can hide/unhide MSNovelist-generated structures by toggling 
-the left button in the top right corner <span style="color:#d40f57">**[2]**</span>.
-When you select a structure from the list, the lower part of the view shows the fragmentation spectrum on the left <span style="color:#d40f57">**[3]**</span> and the selected structure candidate on the right <span style="color:#d40f57">**[4]**</span>. 
+The `Substructure Annotations` tab visualizes the direct connection between the input MS/MS spectrum, the CSI:FingerID structure candidates and the (analog) spectral library matches. The substructure matching is not related to how CSI:FingerID scores structure candidates, but is a visualization tool based on combinatorial fragmentation of the candidate structure. Since combinatorial fragmentation cannot take rearrangements into account, they will not appear here, although CSI:FingerID can annotate structures that form rearrangements during fragmentation. 
+
+Details of this view are also covered in our [Tutorial Series](https://www.youtube.com/watch?v=YZ1qYnP_gSg&t=257s).
 
 {% capture fig_img %}
-![Foo]({{ "/assets/images/substructures-view.png" | relative_url }})
+![Foo]({{ "/assets/images/substructure_fragment.png" | relative_url }})
 {% endcapture %}
 
 <figure>
   {{ fig_img | markdownify | remove: "<p>" | remove: "</p>" }}
   <figcaption>Substructure annotation view.</figcaption>
 </figure>
+
+The table at the top <span style="color:#d40f57">**[1]**</span> displays all structure candidates for a given query (as listed in the `Structures` tab), and all structure candidates generated
+by MSNovelist. You can hide/unhide MSNovelist-generated structures by toggling
+the left button in the top right corner <span style="color:#d40f57">**[2]**</span>.
+When you select a structure from the list, the view shows the fragmentation spectrum on the left <span style="color:#d40f57">**[3]**</span> and the selected structure candidate on the right <span style="color:#d40f57">**[4]**</span>.
 
 Peaks in the fragmentation spectrum are color-coded as follows:
 - **Black peaks:** These peaks are not used to explain the molecular formula of the candidate and are not part of the fragmentation tree (similar to the spectrum in the [Formulas view](#formulas-tab). Typically, these peaks are considered noise or are not explainable by the precursor ion's molecular formula.
@@ -687,22 +642,24 @@ Peaks in the fragmentation spectrum are color-coded as follows:
 
 You can navigate through the peaks using left-click or the arrow keys.
 
+To inspect the peak annotations in the context of a spectral library match, select an available match from the dropdown menu <span style="color:#d40f57">**[5]**</span>. Matches can result from identity spectral library search (same precursor mass), or analog search (Δ-Mass <span style="color:#d40f57">**[6]**</span>). Selecting a peak will automatically highlight the corresponding peak in the matched spectrum that was determined during cosine matching <span style="color:#d40f57">**[7]**</span>.
+
+If the current library match we are inspecting is an analog match, some peak matches will represent shared losses instead of shared fragments. The corresponding loss’s substructure is highlighted in yellow instead. Using right-click on a selected peak, you can bring up a context menu to help find reference spectra that explain the specific peak.
+
+{% capture fig_img %}
+![Foo]({{ "/assets/images/substructure_loss.png" | relative_url }})
+{% endcapture %}
+
+<figure>
+  {{ fig_img | markdownify | remove: "<p>" | remove: "</p>" }}
+  <figcaption>Neutral loss annotation.</figcaption>
+</figure>
+
 ### Library Matches view {#library-matches-tab}
-
-#### Activate spectral library results tab {#activate-library-matches-tab}
-SIRIUS automatically searches in your spectral libraries as part of the molecular formula annotation step. 
-Library hits are integrated to the `Structures` tab to seamlessly compare structure database and spectral library hits.
-
-<img src="{{ "/assets/images/activate-spectral-matches-tab.png" | relative_url }}" width="400">
-
-To additionally activate the `Library Matches` tab, go to `Settings` and check `Show "Library Matches" tab`. You will get a warning dialogue explaining the spectral library search settings: 
-- A spectral library is also a molecular structure database. ANY hit in the spectral library can also be found via CSI:FingerID structure database search. 
-- Since structure database results depend on the selected molecular formula, SIRIUS ensures that molecular structures with a formula corresponding to a good spectral library hit are considered - even if this molecular formula receives a low score, i.e. molecular structures of well-matching reference spectra are automatically included in the structure database search.
-- Structure database search is only performed on [databases selected by the user](#CSIFingerID-structure). To ensure that all your spectral libraries are considered by CSI:FingerID, select these libraries (databases) in the structure database search step.
 
 
 {% capture fig_img %}
-![Foo]({{ "/assets/images/library-matches-view.png" | relative_url }})
+![Foo]({{ "/assets/images/spectral-matches-view.png" | relative_url }})
 {% endcapture %}
 
 <figure>
@@ -710,11 +667,51 @@ To additionally activate the `Library Matches` tab, go to `Settings` and check `
   <figcaption>Spectral library matches tab.</figcaption>
 </figure>
 
-The `Library Matches` tab displays the spectral library matches for the measured query spectrum against a reference library. If you have multiple MS2 spectra (with different collision energies) for a feature, the best matching spectrum is shown by default. The `Similarity Score` and number of `Shared Peaks` in the list is given for this spectrum <span style="color:#d40f57">**[1]**</span>. You can switch to other MS2 spectra to examine their mirror plots as well <span style="color:#d40f57">**[2]**</span>. Additional metadata for the spectral hit is given on the right <span style="color:#d40f57">**[3]**</span>. 
+The `Library Matches` tab lists <span style="color:#d40f57">**[1]**</span> all `IDENTITY` and `ANALOG` <span style="color:#d40f57">**[a]**</span> spectral library matches for the selected feature. For fast spectral search, spectra are grouped into clusters (by molecular structure and adduct type) with a merged spectrum as representative. The `MERGED_SPECTRUM` is also treated as valid hit <span style="color:#d40f57">**[b]**</span>. You can refine the displayed list by adjusting the `Similarity Score` and number of `Shared Peaks` range <span style="color:#d40f57">**[c]/[d]**</span>. 
 
-To zoom into the spectrum, hold the right mouse button and drag to select an area, or scroll while hovering over an axis.
+The selected library match is displayed as mirror spectrum, allowing for a direct comparison with your measured spectrum  <span style="color:#d40f57">**[2]**</span>. Hovering over a peak reveals its m/z and intensity, along with the corresponding matched peak in the mirror spectrum, which is particularly useful for analog matches. The structure and additional metadata of the selected library hit are provided on the right side of the interface <span style="color:#d40f57">**[3]**</span>. 
 
 For more information on spectral library searches in SIRIUS, please refer to the sections on [spectral library matching]({{ "/methods-background/#spectral-library-search" | relative_url }}) and [Import of Custom Structure and Spectra Databases](#custom-database-import).
+
+#### Activate spectral library results tab {#activate-library-matches-tab}
+<img src="{{ "/assets/images/activate-spectral-matches-tab.png" | relative_url }}" width="400">
+
+To additionally activate the `Library Matches` tab, go to `Settings` and check `Show "Library Matches" tab`. You will get a warning dialogue explaining the spectral library search settings:
+- A spectral library is also a molecular structure database. ANY hit in the spectral library can also be found via CSI:FingerID structure database search.
+- Since structure database results depend on the selected molecular formula, SIRIUS ensures that molecular structures with a formula corresponding to a good spectral library hit are considered - even if this molecular formula receives a low score, i.e. molecular structures of well-matching reference spectra are automatically included in the structure database search.
+- Structure database search is only performed on [databases selected by the user](#CSIFingerID-structure). To ensure that all your spectral libraries are considered by CSI:FingerID, select these libraries (databases) in the structure database search step.
+
+
+### Homologous Series view {#KMD-tab}
+
+The `Homologous Series` view helps you quickly find groups of related molecules, known as homologous series, within your complex samples using a Kendrick Mass Defect (KMD) plot <span style="color:#d40f57">**[1]**</span>.
+Think of a homologous series as a family of molecules that share the same basic structure but differ by a consistent building block <span style="color:#d40f57">**[2]**</span>, like a CH2 (methylene) group. 
+
+The Kendrick mass scale sets the exact mass of such a repeating unit to an integer value.
+The KMD is then calculated as the difference between the exact Kendrick mass and its nominal (integer) Kendrick mass.
+When data is transformed to the Kendrick mass scale and the KMD is plotted against the nominal Kendrick mass, a distinctive pattern emerges for homologous series.
+On a KMD plot, features belonging to the same homologous series will exhibit the same (or very similar) Kendrick mass defect.
+This results in these features aligning horizontally on the plot.
+
+{% capture fig_img %}
+![Foo]({{ "/assets/images/homologous-series.png" | relative_url }})
+{% endcapture %}
+
+<figure>
+  {{ fig_img | markdownify | remove: "<p>" | remove: "</p>" }}
+  <figcaption>Homologous Series tab with Kendrick Mass Defect (KMD) plot.</figcaption>
+</figure>
+
+
+
+In the  `Homologous Series` view you can select your repeating unit of interest <span style="color:#d40f57">**[2]**</span> to define the homologous series you want to visualize. The currently selected feature is highlighted with a pink outline <span style="color:#d40f57">**[a]**</span>. All features within a chosen KMD tolerance will appear as blue dots <span style="color:#d40f57">**[b]**</span>, while those at twice the tolerance are shown as light grey dots <span style="color:#d40f57">**[c]**</span>.
+Hovering over any dot will reveal the top CSI:FingerID structure identified for this feature <span style="color:#d40f57">**[d]**</span>.
+ If you include MS1-only features <span style="color:#d40f57">**[3]**</span>, no structure will be available for those features <span style="color:#d40f57">**[e]**</span>.
+
+
+#### Activate tab {#activate-KMD-tab}
+To  activate the `Homologous Series` tab, go to `Settings` and check `Show "Homologous Series" tab`. KMD plots are available after data import. Structure annotations are available after [Structure database search]({{"/gui/#CSIFingerID-structure" | relative_url }}).
+
 
 ## Data export (Summaries and FBMN export) {#data-export}
 

@@ -5,6 +5,34 @@ title: "Changelog"
 
 ### SIRIUS 6
 
+#### 6.2.0 (2025-05-30)
+- feature: BioTransformer integration
+- feature: analog spectral library search
+- feature: quick software tour guides users through welcome screen, compute dialog and the different results views to explain the most important components when first opening sirius
+- feature: Kendrick Mass Defect (KMD) plots to visualize groups of related molecules, that share the same basic structure but differ by a consistent building block
+
+- improvement: spectral library search can be (de)selected in the `Compute Dialog`
+- improvement: database selection is now a global setting to ensure consistent database use throughout all selected workflow steps
+- improvement: better `LC-MS view` including adduct network, improved sample sorting, improved color highlighting
+- improvement: better `Library Matches view` listing all identity and analog matches
+- improvement: mirror plots for substructure annotations for identity and analog spectral library matches, including neutral loss highlighting
+- improvement: tags to group and easily filter features via API; still under development, i.e. endpoints and their behavior may change in future versions of SIRIUS
+- improvement: default timeout for fragmentation tree computation
+- improvement: for MGF files with no `NAME` or `FEATURE_ID`, the value of `SCANS` will be used as the feature identifier
+- improvement: auto-detected element filters are always considered for bottom-up search
+- improvement: parameters for preprocessing can be changed via CLI/API
+- improvement: `Reference Spectra` in the `Structures` view will open the `Substructure Annotations` view
+- improvement: Changed behavior of paramter `--elements-extended-organic` in the formula CLI subtool (detectable elements set to `SBBrClSe` and fallback `S`)
+- improvement: consistent generation of merged MS/MS spectra across multiple usages (file import, feature import via API, preprocessing for molecular formula computation)
+- improvement: import for multiple charged ions and dimers (analysis not possible yet)
+
+- fixed: progress bar when importing custom databases
+- fixed: the timeout for tree computations with non-commercial CLP solver was falsely measuring the time from program initiation
+- fixed: minor bugs in the feature list filter 
+- fixed: adducts were not detected in single mzML/mzXML import
+- fixed: missing ion mass when importing certain `.cef` files
+- fixed: missing isotope pattern when importing via API
+
 #### 6.1.1 (2025-01-22)
 
 - fixed: parameters for molecular formula annotation were read-only for MS1 data only

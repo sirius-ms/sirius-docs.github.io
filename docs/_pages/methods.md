@@ -26,8 +26,13 @@ These workflows follow a certain hierarchy, and cannot be freely combined. For e
 ## Spectral library matching {#spectral-library-search}
 
 SIRIUS 6 allows importing local libraries containing spectral reference data. Supported import formats are `.ms`, `.mgf`, `.msp`, `.mat`, `.txt` (MassBank), `.mb`, `.json` (GNPS, MoNA). Spectra must be annotated with a structure and be centroided.
-SIRIUS will automatically perform spectral library search against all available libraries whenever the molecular formula annotation workflow is used. 
-Spectral library matching is performed using the cosine score with squared peak intensities, ignoring the precursor peak.
+Spectral library matching is performed using the cosine score with squared peak intensities, ignoring the precursor peak. SIRIUS supports **identity search**, meaning that library spectra with the same precursor mass (within a given precursor mass deviation) are matched against the query spectrum, and **analog search**, meaning that library spectra with different precursor masses are matched against the query spectrum. We developed a dynamic programming algorithm that computes the modified cosine similarity for analog search in linear time, to efficiently search datasets with thousands of features against large spectral libraries.
+
+To accelerate searches against large spectral libraries containing hundreds of thousands of spectra, we group spectra by molecular structure and adduct type into clusters. Each cluster is represented by the merged spectrum and a 2D molecular structure. We employ an upper-bound search strategy that estimates the maximum possible (modified) cosine similarity for each cluster. Instead of exhaustively scanning the entire library, we first compute these upper bounds. Only clusters whose estimated upper bound exceeds a predefined threshold then proceed to a full similarity calculation for every single spectrum in the cluster. The cluster representatives (merged spectra) are also treated as valid hits and are listed in all result views (e.g. for substructure annotation).
+
+### Spectral matching results improving ZODIAC
+
+ZODIAC uses the top X molecular formula candidates for each molecule to build a similarity network, and uses Bayesian statistics to re-rank those candidates. Spectral library matches with high cosine similarity are set as anchors in the network, meaning the molecular formula is fixed. For analog match we introduce a new node to the network which is also set as anchor.
 
 ### Spectral matching influence on SIRIUS and CSI:FingerID results {#spectral-matching-influence}
 

@@ -5,12 +5,12 @@ title: "Quick start"
 
  - You can download [sample spectra](https://bio.informatik.uni-jena.de/wp/wp-content/uploads/2015/05/demo.zip)
 from the SIRIUS website.
- - For a quick start, you can also watch our [video tutorials](https://www.youtube.com/playlist?list=PL57Jv_39fTdc_j8eHrH6At81n1AtxeKar).
+ - For a quick start, you can also watch our [video tutorials](https://bright-giant.com/short-course-tutorial-series).
  - To process a full LC-MS/MS run, you can also use your own `.mzML` files and run the following examples. This will first perform feature detection. Be aware that annotating 100s or 1000s of features may take a while. 
 
 ## Graphical User Interface {#GUI}
 
-For a quick start, you can also watch our [tutorial video introducing basic elements and functionality of the SIRIUS 4 GUI](https://www.youtube.com/watch?v=SWkukL88ljo). [Find more details on the GUI here]({{"/gui/" | relative_url}}).
+For a quick start, you can also watch our [SIRIUS Short Course Tutorial Series introducing basic elements and functionality of the SIRIUS 6 GUI](https://bright-giant.com/short-course-tutorial-series). [Find more details on the GUI here]({{"/gui/" | relative_url}}).
 
 ### Analyzing multiple compounds {#batch-mode}
 
@@ -30,21 +30,21 @@ each with one or more mass spectra. You can also use this workflow to analyze a 
 2. The two compounds now appear in the compound list. <span style="color:#d40f57">**[1]**</span>
 3. Verify that the ionization and parent masses are annotated correctly.
 4. Click the `Compute All` button. <span style="color:#d40f57">**[2]**</span>
-5. Select SIRIUS. <span style="color:#d40f57">**[3]**</span>
-6. Change the instrument type as well as the maximum  mass deviation allowed. Be aware that these settings
+5. The default workflow is already preselected. <span style="color:#d40f57">**[3]**</span>
+   - `SIRIUS - Molecular Formula Identification` to annotate molecular formulas from isotope pattern and MS/MS spectrum
+   - `Predict properties: CSI:FingerID - Fingerprint Prediction & CANOPUS - Compound Class Prediction` to predict the molecular fingerprints of the compounds with CSI:FingerID and their compound classes with CANOPUS.
+   - `CSI:FingerID - Structure Database Search` to search compounds in a structure database with CSI:FingerID.
+6. Change the instrument type as well as the maximum  mass deviation allowed. <span style="color:#d40f57">**[4]**</span> Be aware that these settings
     will be used for all imported compounds.
-7. Verify that the currently selected molecular [molecular formula generation strategy]({{ "/methods-background/#annotation-strategies" | relative_url }}) matches your research question. <span style="color:#d40f57">**[4]**</span>
-8. Select `Predict properties: CSI:FingerID - Fingerprint Prediction & CANOPUS - Compound Class Prediction` to predict the molecular fingerprints of the compounds with CSI:FingerID and their compound classes with CANOPUS. <span style="color:#d40f57">**[5]**</span>
-9. Select `CSI:FingerID - Structure Database Search` to search compounds in a structure database with CSI:FingerID. <span style="color:#d40f57">**[6]**</span>
-10. Select `MSNovelist - De Novo Structure Generation` to predict de novo structures for compounds not in a database. <span style="color:#d40f57">**[7]**</span>
-10. Click `Compute`.
-11. A *gear* icon appears in the lower right corner of each compound.
-     This indicates that the compound is part of a computation job.
-12. Sometimes a computation can take a long time (e.g. for compounds
+7. Verify that the currently selected molecular [molecular formula generation strategy]({{ "/methods-background/#annotation-strategies" | relative_url }}) matches your research question. <span style="color:#d40f57">**[5]**</span>
+8. Click `Compute`. <span style="color:#d40f57">**[6]**</span>
+9. A *gear* icon appears in the lower right corner of each compound.
+     This indicates that the compound is part of a computation job. 
+10. Sometimes a computation can take a long time (e.g. for compounds
      with many elements or very high masses). You can cancel
-     computations by selecting `Cancel All` in the toolbar.
-13. Examine the results using the `Formulas`, `Compound Classes`, `Structures`, and `De Novo Structures`  views.
-    For more details, use the  `Substructure Annotation` and `Predicted Fingerprints` views. <span style="color:#d40f57">**[8]**</span>
+     computations by selecting `Cancel All` in the toolbar. 
+11. Examine the results using the `Formulas`, `Compound Classes`, and `Structures` views.
+    For more details, use the  `Substructure Annotation` and `Predicted Fingerprints` views. <span style="color:#d40f57">**[7]**</span>
 
 [//]: # (one or more mass spectra as individual peak list files. )
 
@@ -211,7 +211,7 @@ output the 5 best candidates.
 
 ## Background Service - Generic SIRIUS API {#API}
 
-SIRIUS provides a REST API to access data from the project space and to run computations. 
+SIRIUS provides a [REST API](https://github.com/sirius-ms/sirius-client-openAPI) to access data from the project space and to run computations. 
 You can either  interact with this API directly or use the Python SDK.
 
 The openAPI specification and documentation can be viewed in the browser. Start SIRIUS, check which port the service is running
