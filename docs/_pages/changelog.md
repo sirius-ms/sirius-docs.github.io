@@ -5,6 +5,19 @@ title: "Changelog"
 
 ### SIRIUS 6
 
+#### 6.3.0 
+- feature: Structure Sketcher to manually modify candidate structures
+
+- improvement: improved LCMS pre-alignement using only high-quality features
+- improvement: mouseover zoom/preview for structures in "Structures" and "De Novo Structures" views
+- improvement: improved isotope detection
+
+- fixed: SIRIUS failed to start if an outdated subscription was active for the user account
+- fixed: fragmentation tree export was not working
+- fixed: adducts were not shown in filter view
+- fixed: missing MacOS builds
+- fixed: incorrect parsing from .cef files 
+
 #### 6.2.0 (2025-05-30)
 - feature: BioTransformer integration
 - feature: analog spectral library search
