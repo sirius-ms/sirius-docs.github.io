@@ -8,9 +8,10 @@ title: "Changelog"
 #### 6.3.0 
 - feature: Structure Sketcher to manually modify candidate structures
 
-- improvement: improved LCMS pre-alignement using only high-quality features
+- improvement: improved LCMS pre-alignment using only high-quality features
 - improvement: mouseover zoom/preview for structures in "Structures" and "De Novo Structures" views
 - improvement: improved isotope detection
+- improvement: preventing multiple API instance from being executed
 
 - fixed: SIRIUS failed to start if an outdated subscription was active for the user account
 - fixed: fragmentation tree export was not working
