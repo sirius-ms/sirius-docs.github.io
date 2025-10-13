@@ -5,7 +5,15 @@ title: "Changelog"
 
 ### SIRIUS 6
 
-#### 6.3.0 
+#### 6.3.1 (2025-09-18)
+- improvement: option to add a `SIRIUS_` prefix to summary columns in the summary files
+- improvement: increased the maximum value for the element filters
+- improvement: enabled export of "Formula only" data to ChemVista
+
+- fixed: Internal Server Error when using the API to create a custom database from an existing file.
+- fixed: recurring spectra view rendering bug on Linux
+
+#### 6.3.0 (2025-08-17)
 - feature: Structure Sketcher to manually modify candidate structures
 
 - improvement: improved LCMS pre-alignment using only high-quality features
