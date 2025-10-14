@@ -6,7 +6,7 @@ on:
 jobs:
   updateIndex:
     runs-on: ubuntu-latest
-    # The working-directory can be set for the entire job to avoid repeating it in each step.
+    # This default is still useful for the final 'run' step
     # This also solved ruby gems security issue popping up when installed in insecure location
     defaults:
       run:
@@ -15,9 +15,12 @@ jobs:
       SECRET_ALGOLIA_API_KEY: ${{ secrets.ALGOLIA_API_KEY }}
     steps:
       - uses: actions/checkout@v4
-      - uses: ruby/setup-ruby@v1
+      - name: Setup Ruby, Bundler, and Install Gems
+        uses: ruby/setup-ruby@v1
         with:
           ruby-version: '3.4'
+          # This tells the action where to find the Gemfile
+          working-directory: ./docs
           bundler-cache: true
 
       - name: Update Algolia Index
