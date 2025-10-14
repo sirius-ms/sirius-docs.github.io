@@ -57,7 +57,7 @@ To ensure that SIRIUS functions correctly, three main servers need to be accessi
   - **Academic subscription (FSU Jena):** `https://www.csi-fingerid.uni-jena.de`
   - **Commercial subscriptions (Bright Giant GmbH):** `https://csi.bright-giant.com`   
   - **Dedicated hosting subscription:** `<companyname>.csi.bright-giant.com`
-- **Internet connection check (optional):** `https://www.google.com`
+- **Internet connection check (optional):** `https://github.com`
 
 The **login** and **license servers** are the same for no-academic and academic users, with services provided by Bright Giant and FSU Jena, respectively.
 
