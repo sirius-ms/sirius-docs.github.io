@@ -31,7 +31,6 @@ jobs:
         uses: peter-evans/create-pull-request@v7
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          path: ./docs
           commit-message: "chore: auto-update gem dependencies"
           title: "Update Ruby Dependencies"
           body: |
