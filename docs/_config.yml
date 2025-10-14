@@ -21,7 +21,6 @@ title_separator          : "-"
 subtitle                 : "Official online documentation for the SIRIUS MS/MS Software" # site tagline that appears below site title in masthead
 name                     : "SIRIUS Software Project"
 description              : "Official online documentation for the SIRIUS MS/MS Software"
-url                      : "https://v6.docs.sirius-ms.io/" # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
 baseurl                  : "/" # the subpath of your site, e.g. "/blog"
 repository               : "sirius-ms/sirius-docs.github.io" # GitHub username/repo-name e.g. "mmistakes/minimal-mistakes"
 teaser                   : "/assets/images/sirius.png"# path of fallback teaser image, e.g. "/assets/images/500x300.png"

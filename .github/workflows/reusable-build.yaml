@@ -3,9 +3,12 @@ name: Reusable Jekyll Build
 
 on:
   workflow_call:
-    # Define an optional input for the baseurl
     inputs:
       baseurl:
+        required: false
+        type: string
+        default: '""'
+      url:
         required: false
         type: string
         default: '""'
@@ -25,10 +28,10 @@ jobs:
 
       - name: Build Jekyll Site
         working-directory: ./docs
-        env:
-          JEKYLL_ENV: production
-        # Use the input to set the baseurl, otherwise it's an empty string
-        run: bundle exec jekyll build --baseurl "${{ inputs.baseurl }}"
+        run: >
+          bundle exec jekyll build
+          --baseurl "${{ inputs.baseurl }}"
+          --config "_config.yml,url:${{ inputs.url }}"
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

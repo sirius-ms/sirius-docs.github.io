@@ -3,21 +3,15 @@ name: Build and Deploy Main Branch
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
 
 permissions:
   pages: write
   id-token: write
 
 jobs:
-  # Call the reusable build workflow
-  build:
-    uses: ./.github/workflows/reusable-build.yaml
-
-  # The deploy job stays the same, as it depends on the output of the build job
+  # This job gets the environment URL and triggers the build
   deploy:
-    needs: build
     runs-on: ubuntu-latest
     environment:
       name: github-pages
@@ -26,3 +20,11 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
+  # This job is now triggered by the deploy job
+  build:
+    needs: deploy
+    uses: ./.github/workflows/reusable-build.yaml
+    with:
+      # Pass the final deployment URL to the build
+      url: ${{ needs.deploy.outputs.page_url }}
