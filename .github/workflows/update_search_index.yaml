@@ -6,21 +6,20 @@ on:
 jobs:
   updateIndex:
     runs-on: ubuntu-latest
+    # The working-directory can be set for the entire job to avoid repeating it in each step.
+    # This also solved ruby gems security issue popping up when installed in insecure location
+    defaults:
+      run:
+        working-directory: ./docs
     env:
       SECRET_ALGOLIA_API_KEY: ${{ secrets.ALGOLIA_API_KEY }}
     steps:
       - uses: actions/checkout@v4
       - uses: ruby/setup-ruby@v1
         with:
-          ruby-version: '3.3' # Not needed with a `.ruby-version` or `.tool-versions`
-          bundler-cache: true # runs 'bundle install' and caches installed gems automatically
-      - name: Setup gems and jekyll
-        working-directory: ./docs
-        run: |
-            gem install jekyll bundler
-            bundle install
-            bundle update
+          ruby-version: '3.4'
+          bundler-cache: true
+
       - name: Update Algolia Index
-        working-directory: ./docs
         run: |
           ALGOLIA_API_KEY="$SECRET_ALGOLIA_API_KEY" bundle exec jekyll algolia
