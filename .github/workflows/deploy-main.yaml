@@ -10,6 +10,11 @@ permissions:
   id-token: write
 
 jobs:
+  build:
+    uses: ./.github/workflows/reusable-build.yaml
+    with:
+      url: ${{ steps.deployment.outputs.page_url }}
+
   # This job gets the environment URL and triggers the build
   deploy:
     runs-on: ubuntu-latest
@@ -21,10 +26,3 @@ jobs:
         id: deployment
         uses: actions/deploy-pages@v4
 
-  # This job is now triggered by the deploy job
-  build:
-    needs: deploy
-    uses: ./.github/workflows/reusable-build.yaml
-    with:
-      # Pass the final deployment URL to the build
-      url: ${{ needs.deploy.outputs.page_url }}

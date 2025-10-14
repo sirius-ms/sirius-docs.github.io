@@ -28,10 +28,16 @@ jobs:
 
       - name: Build Jekyll Site
         working-directory: ./docs
-        run: >
-          bundle exec jekyll build
-          --baseurl "${{ inputs.baseurl }}"
-          --config "_config.yml,url:${{ inputs.url }}"
+        run: |
+          # Create a temporary config file to override the URL
+          echo "url: ${{ inputs.url }}" > _override.yml
+          
+          # Build the site, passing both config files.
+          # The override file is loaded last, so its values take precedence.
+          bundle exec jekyll build --baseurl "${{ inputs.baseurl }}" --config "_config.yml,_override.yml"
+          
+          # Clean up the temporary file
+          rm _override.yml
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
