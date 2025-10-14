@@ -18,9 +18,6 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Remove CNAME for Preview Deployment
-        run: rm ./docs/CNAME
-
       - name: Setup Ruby and Install Gems
         uses: ruby/setup-ruby@v1
         with:
