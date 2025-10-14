@@ -1,3 +1,4 @@
+# deploy-pr.yaml
 name: Build and Deploy PR Preview
 
 on:
@@ -13,15 +14,15 @@ permissions:
 jobs:
   build:
     uses: ./.github/workflows/reusable-build.yaml
+    with:
+      # Pass the repository name as the baseurl for previews
+      baseurl: "/sirius-docs.github.io"
 
-  # This job now deploys to the 'staging' environment
   deploy:
     needs: build
     runs-on: ubuntu-latest
     environment:
-      # Use your new 'staging' environment
       name: staging
-      # The URL will be generated automatically by the deploy action
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - name: Deploy to Staging

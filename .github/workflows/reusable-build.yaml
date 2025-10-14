@@ -1,9 +1,14 @@
 # .github/workflows/reusable-build.yaml
 name: Reusable Jekyll Build
 
-# This trigger allows the workflow to be called by other workflows
 on:
   workflow_call:
+    # Define an optional input for the baseurl
+    inputs:
+      baseurl:
+        required: false
+        type: string
+        default: '""'
 
 jobs:
   build:
@@ -22,7 +27,8 @@ jobs:
         working-directory: ./docs
         env:
           JEKYLL_ENV: production
-        run: bundle exec jekyll build
+        # Use the input to set the baseurl, otherwise it's an empty string
+        run: bundle exec jekyll build --baseurl "${{ inputs.baseurl }}"
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
