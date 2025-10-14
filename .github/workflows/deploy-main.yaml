@@ -1,0 +1,28 @@
+# .github/workflows/deploy-main.yaml
+name: Build and Deploy Main Branch
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  pages: write
+  id-token: write
+
+jobs:
+  # Call the reusable build workflow
+  build:
+    uses: ./.github/workflows/reusable-build.yaml
+
+  # The deploy job stays the same, as it depends on the output of the build job
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

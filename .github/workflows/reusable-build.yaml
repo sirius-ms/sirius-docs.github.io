@@ -1,0 +1,30 @@
+# .github/workflows/reusable-build.yaml
+name: Reusable Jekyll Build
+
+# This trigger allows the workflow to be called by other workflows
+on:
+  workflow_call:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Ruby and Install Gems
+        uses: ruby/setup-ruby@v1
+        with:
+          working-directory: ./docs
+          bundler-cache: true
+
+      - name: Build Jekyll Site
+        working-directory: ./docs
+        env:
+          JEKYLL_ENV: production
+        run: bundle exec jekyll build
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./docs/_site

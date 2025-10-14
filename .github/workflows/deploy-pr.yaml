@@ -1,0 +1,29 @@
+name: Build and Deploy PR Preview
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+    branches:
+      - main
+
+permissions:
+  pages: write
+  id-token: write
+
+jobs:
+  build:
+    uses: ./.github/workflows/reusable-build.yaml
+
+  # This job now deploys to the 'staging' environment
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      # Use your new 'staging' environment
+      name: staging
+      # The URL will be generated automatically by the deploy action
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to Staging
+        id: deployment
+        uses: actions/deploy-pages@v4
