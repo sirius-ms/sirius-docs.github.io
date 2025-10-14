@@ -17,7 +17,7 @@ jobs:
         with:
           ruby-version: '3.3'
           working-directory: ./docs
-          bundler-cache: true
+          bundler-cache: false
 
       # Unfreeze and update the gems
       - name: Update gem dependencies
