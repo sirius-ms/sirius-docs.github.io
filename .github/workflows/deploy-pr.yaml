@@ -12,7 +12,6 @@ jobs:
     uses: ./.github/workflows/reusable-build.yaml
     with:
       baseurl: "/sirius-docs.github.io"
-      url: ${{ steps.deployment.outputs.page_url }}
 
   deploy:
     needs: build

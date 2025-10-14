@@ -12,8 +12,6 @@ permissions:
 jobs:
   build:
     uses: ./.github/workflows/reusable-build.yaml
-    with:
-      url: ${{ steps.deployment.outputs.page_url }}
 
   # This job gets the environment URL and triggers the build
   deploy:
