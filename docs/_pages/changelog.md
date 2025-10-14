@@ -7,7 +7,7 @@ title: "Changelog"
 #### 6.3.3 (2025-09-18)
 - fix: application starting issue due to faulty logging config
 - fix: content-type of Multipart endpoints in SIRIUS API/SDKs.
-- 
+
 #### 6.3.2 (2025-09-25)
 - fix: accept-terms button not show when internet-check url not reachable
 - fix: issues with Windows system scaling
