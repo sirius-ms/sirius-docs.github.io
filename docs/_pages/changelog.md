@@ -4,6 +4,16 @@ title: "Changelog"
 ---
 
 ### SIRIUS 6
+#### 6.3.3 (2025-09-18)
+- fix: application starting issue due to faulty logging config
+- fix: content-type of Multipart endpoints in SIRIUS API/SDKs.
+- 
+#### 6.3.2 (2025-09-25)
+- fix: accept-terms button not show when internet-check url not reachable
+- fix: issues with Windows system scaling
+- fix: fractional scaling on Windows
+- fix: disable unsupported scaling options on linux (e.g. fractional scaling)
+- fix: disable custom scaling on Mac since it's handled/overwritten by the OS anyway  
 
 #### 6.3.1 (2025-09-18)
 - improvement: option to add a `SIRIUS_` prefix to summary columns in the summary files
@@ -12,6 +22,7 @@ title: "Changelog"
 
 - fixed: Internal Server Error when using the API to create a custom database from an existing file.
 - fixed: recurring spectra view rendering bug on Linux
+- fixed: add self-testing feature to fix conda-forge builds
 
 #### 6.3.0 (2025-08-17)
 - feature: Structure Sketcher to manually modify candidate structures
