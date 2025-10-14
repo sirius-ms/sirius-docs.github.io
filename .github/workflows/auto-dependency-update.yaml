@@ -1,41 +1,36 @@
 name: Auto-update Ruby Dependencies
 
-# Controls when the action will run.
-# Runs at 08:00 on Monday.
 on:
   schedule:
     - cron: '0 8 * * 1'
-  # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
 jobs:
   update-dependencies:
     runs-on: ubuntu-latest
     steps:
-      # Checks out your repository's code
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # Sets up Ruby and Bundler
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: '3.3' # Use a Ruby version compatible with your project
+          ruby-version: '3.3'
           working-directory: ./docs
           bundler-cache: true
 
-      # Updates the gems
+      # Unfreeze and update the gems
       - name: Update gem dependencies
         working-directory: ./docs
-        run: bundle update
+        run: |
+          # Temporarily disable deployment/frozen mode to allow Gemfile.lock to be updated
+          bundle config --local unset deployment
+          bundle update
 
-      # Creates a pull request if Gemfile.lock was changed
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v7
         with:
-          # The token is necessary to create a PR.
           token: ${{ secrets.GITHUB_TOKEN }}
-          # The working directory where Gemfile.lock is located.
           path: ./docs
           commit-message: "chore: auto-update gem dependencies"
           title: "Update Ruby Dependencies"
@@ -43,5 +38,4 @@ jobs:
             Automated dependency update.
             This PR was automatically created by a GitHub Action. Please review and merge.
           branch: "auto-gem-updates"
-          # Assign the PR to the user who triggered the workflow (or repo owner).
           assignees: ${{ github.actor }}
