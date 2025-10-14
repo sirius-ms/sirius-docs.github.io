@@ -123,7 +123,6 @@ author:
 
 # Site Footer
 footer:
-    show: true
     links:
     - label: "Imprint"
       icon: "fas fa-fw fa-info-circle"
@@ -149,15 +148,6 @@ footer:
     - label: "Instagram"
       icon: "fab fa-fw fa-instagram"
       # url:
-
-#copyright
-footer_text: >
-  The text of this website is available for modification and reuse under the terms of the
-  <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener">
-  Creative Commons Attribution-Sharealike 4.0 International License (CC BY-SA 4.0)</a>
-  and the
-  <a href="https://www.gnu.org/licenses/fdl-1.3-standalone.html" target="_blank" rel="noopener">
-  GNU Free Documentation License</a>.
 
 # Reading Files
 include:
