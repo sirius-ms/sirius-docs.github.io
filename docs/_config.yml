@@ -27,8 +27,10 @@ teaser                   : "/assets/images/sirius.png"# path of fallback teaser 
 logo                     : "/assets/images/sirius_logo.svg" # path of logo image to display in the masthead, e.g. "/assets/images/88x88.png"
 masthead_title           : "Documentation" # overrides the website title displayed in the masthead, use " " for no title
 breadcrumbs              : true # true, false (default)
-breadcrumb_home_label : "Welcome"
-breadcrumb_separator  : ">"
+breadcrumb_home_label    : "Welcome"
+breadcrumb_separator     : ">"
+copyright                : "Bright Giant GmbH"
+copyright_url            : "https://bright-giant.com"
 
 words_per_minute         : 200
 comments:
@@ -71,8 +73,8 @@ yandex_site_verification :
 naver_site_verification  :
 
 # Social Sharing
-twitter:
-  username               : "@boeckerlab"
+#twitter:
+#  username               : "@boeckerlab"
 facebook:
   username               :
   app_id                 :
@@ -129,9 +131,9 @@ footer:
     - label: "Bright Giant on LinkedIn"
       icon: "fab fa-fw fa-linkedin"
       url: https://www.linkedin.com/company/bright-giant/
-    - label: "Böcker Lab on X"
-      icon: "fab fa-fw fa-twitter-square"
-      url: https://twitter.com/boeckerlab
+    - label: "Böcker Lab on LinkedIn"
+      icon: "fab fa-fw fa-linkedin"
+      url: https://www.linkedin.com/company/boeckerlab/
     - label: "Facebook"
       icon: "fab fa-fw fa-facebook-square"
       # url:
