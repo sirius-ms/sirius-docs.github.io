@@ -1,7 +1,8 @@
+name: Build and Deploy PR Request
 on:
   pull_request:
-    types: [opened, synchronize]
-    branches: [main]
+    types: [ opened, synchronize ]
+    branches: [ main ]
 
 permissions:
   pages: write
