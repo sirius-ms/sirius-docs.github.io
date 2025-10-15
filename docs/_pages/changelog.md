@@ -4,7 +4,7 @@ title: "Changelog"
 ---
 
 ### SIRIUS 6
-#### 6.3.3 (2025-09-18)
+#### 6.3.3 (2025-10-15)
 - fix: application starting issue due to faulty logging config
 - fix: content-type of Multipart endpoints in SIRIUS API/SDKs.
 - fix: missing lcms view after initial data import
