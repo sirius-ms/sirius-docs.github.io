@@ -1,6 +1,6 @@
 ---
 permalink: /admins/
-title: Administrator/Technical information
+title: Administrator/Technical documentation
 ---
 
 SIRIUS is a software framework for MS/MS data analysis of small molecules. 
@@ -12,7 +12,7 @@ For more information on installation and hardware requirements, please refer to 
 
 ## Offline vs Online features {#offline-online}
 SIRIUS is both, a desktop application, performing computations locally, 
-and a client for web services such as 
+and a client for the _SIRIUS Web Services_ such as 
 [CSI:FingerID]({{ "/cli/#CSIFingerID-structures" | relative_url }}) and 
 [CANOPUS]({{ "/cli/#CANOPUS-classes" | relative_url }}).
 The web services are seamlessly integrated to provide a user experience akin to classic desktop (or command-line) applications.
@@ -32,7 +32,7 @@ Therefore, these tasks are handled by scalable cloud infrastructure.
 In our case, the web service is about computations in the cloud and not about storing 
 data in the cloud. Moreover, this approach allows for continuous improvements and bug fixes without requiring users to install updates.
 
-### Offline features (Open Source) {#offline}
+### Offline features - SIRIUS (Open Source) {#offline}
 * [Data import]({{"/gui/#data-import" | relative_url }}); [result export]({{"/gui/#data-export" | relative_url}}) and storage. 
 * [Result visualization via the GUI]({{"/gui/#visualize-results" | relative_url}}), even for web service-based results, which are available offline once stored
 * [SIRIUS molecular formula identification]({{"/methods-background/#SIRIUS-molecular-formula" | relative_url}}) ([fragmentation tree computation]({{"/methods-background/#fragmentation-trees" | relative_url}}) and [isotope pattern analysis]())
@@ -40,7 +40,7 @@ data in the cloud. Moreover, this approach allows for continuous improvements an
 * [Passatutto]({{"/cli/#passatutto" | relative_url}}) decoy spectra generation
 * Most [standalone helper sub-tools in the CLI]({{"/cli-standalone/" | relative_url}})
 
-### Online features (Proprietary) {#online}
+### Online features - SIRIUS Web Services (Proprietary) {#online}
 * Chemical structure database-based features, such as 
   * CSI:FingerID [structure database search]({{"/methods-background/#CSIFingerID" | relative_url}}) 
   * [restricting formula candidates to a structure database]() during molecular formula identification
@@ -53,7 +53,7 @@ data in the cloud. Moreover, this approach allows for continuous improvements an
 To ensure that SIRIUS functions correctly, three main servers need to be accessible
 - **Login Server:** `https://auth0.bright-giant.com`
 - **License Server:** `https://gate.bright-giant.com`
-- **Web Service:** The URL for the web service varies depending on your [subscription type]({{"/account-and-license" | relative_url }}) and will be provided as part of your access token after logging in. It will be displayed in the connection check panel if a valid license is detected after login.
+- **Application Server:** The URL for the _SIRIUS Web Services_ varies depending on your [subscription type]({{"/account-and-license" | relative_url }}) and will be provided as part of your access token after logging in. It will be displayed in the connection check panel if a valid license is detected after login.
   - **Academic subscription (FSU Jena):** `https://www.csi-fingerid.uni-jena.de`
   - **Commercial subscriptions (Bright Giant GmbH):** `https://csi.bright-giant.com`   
   - **Dedicated hosting subscription:** `<companyname>.csi.bright-giant.com`
@@ -65,14 +65,14 @@ Our **login** server sends emails from `noreply@mailgun.bright-giant.com`. In ca
 system (e.g. for email verification or password reset) please make sure that the email address is not blocked by your 
 institution's spam detection system.
 
-The URL of the **web service** itself may differ based on the type of subscription.
+The URL of the **application server** itself may differ based on the type of subscription.
 Users with a dedicated hosting subscription need to ensure that their custom web service URL is accessible from the system where SIRIUS is installed.
 
 If SIRIUS cannot connect to its servers, it automatically runs a series of diagnostic tests to identify the issue. One of these tests involves pinging a website to check if SIRIUS can access the internet (**Internet connection check**) or if it is being blocked by a firewall or incorrect proxy settings. 
-This test is *optional* and not required for SIRIUS to function. It is designed to provide more useful information in the event of a connection error. Blocking it may result in less detailed error messages if connection issues arise. 
+This test is *optional* and not required for SIRIUS to function properly. It is designed to provide more useful information in the event of a connection error. Blocking it may result in less detailed error messages if connection issues arise. 
 
-We use Google by default because it is a reliable website that is almost never down. 
-If you are using SIRIUS in a location where Google is inaccessible, you can replace the Google URL with another reliable URL outside your institutional network to check the internet connection. To do this, add or replace the following entry in `<USER_HOME>/.sirius-<X.Y>/sirius.properties`:
+We use GitHub by default because it is a reliable website that is almost never down und reachable from most regions of the world. 
+If you are using SIRIUS in a location where GitHub is inaccessible, you can replace the GitHub URL with another reliable URL outside your institutional network to check the internet connection. To do this, add or replace the following entry in `<USER_HOME>/.sirius-<X.Y>/sirius.properties`:
 
 ```
 de.unijena.bioinf.fingerid.web.external=https://my.custom.url/
