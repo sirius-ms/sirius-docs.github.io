@@ -4,7 +4,7 @@ title: "Adduct Handling in SIRIUS"
 ---
 
 {% capture fig_img %}
-![Foo]({{ "/assets/images/adduct-handling.pdf" | relative_url }})
+![Foo]({{ "/assets/images/adduct-handling.jpg" | relative_url }})
 {% endcapture %}
 
 <figure>
