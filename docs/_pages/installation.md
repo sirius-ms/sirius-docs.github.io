@@ -174,7 +174,7 @@ If SIRIUS cannot connect to the Internet, it will [report]({{ "/gui/#webservice"
 the error occurred.
 
 ## System Requirements {#system-requirements}
-* OS: Windows 10+, MacOS, Linux
-* CPU: Quad Core CPU (x86-64) is recommended (native Apple Silicon support only via conda package)
+* OS: Windows 10+ (x86-64), MacOS (x86-64, aarch64), Linux  (x86-64, aarch64)
+* CPU: Quad Core CPU
 * RAM: 8GB (but not less than 2GB per CPU core)
 * Internet: 1Mbit/s is recommended
