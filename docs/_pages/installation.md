@@ -176,5 +176,5 @@ the error occurred.
 ## System Requirements {#system-requirements}
 * OS: Windows 10+ (x86-64), MacOS (x86-64, aarch64), Linux  (x86-64, aarch64)
 * CPU: Quad Core CPU
-* RAM: 8GB (but not less than 2GB per CPU core)
+* RAM: 16GB (but not less than 2GB per CPU core)
 * Internet: 1Mbit/s is recommended
