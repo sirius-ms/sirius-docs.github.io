@@ -50,7 +50,7 @@ data in the cloud. Moreover, this approach allows for continuous improvements an
 * [MSNovelist]({{"/methods-background/#MSNovelist" | relative_url}}) de novo structure generation
 
 ## Connections for online features {#connections}
-To ensure that SIRIUS functions correctly, three main servers need to be accessible
+To ensure that SIRIUS functions correctly, three main servers need to be accessible (via port 443 or proxy as described in the next section):
 - **Login Server:** `https://auth0.bright-giant.com`
 - **License Server:** `https://gate.bright-giant.com`
 - **Application Server:** The URL for the _SIRIUS Web Services_ varies depending on your [subscription type]({{"/account-and-license" | relative_url }}) and will be provided as part of your access token after logging in. It will be displayed in the connection check panel if a valid license is detected after login.
