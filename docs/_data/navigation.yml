@@ -109,6 +109,8 @@ global:
         url: /cli/#MSNovelist-denovo-structures
   - title: "Standalone CLI tools"
     url: /cli-standalone
+  - title: "Software Integrations"
+    url: /integrations
   - title: "Bug reports / feature requests "
     url: /bugs/
   - title: "Administrators"
