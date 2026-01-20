@@ -172,7 +172,7 @@ From a *user's perspective*, a **minor** update might alter (typically improve)
 the results of the methods. 
 The corresponding entry in the [changelog]({{ "/changelog/" | relative_url }}) will provide the relevant details.
 
-### Multiple versions alongside {#multiple versions}
+### Multiple versions alongside {#multiple-versions}
 * Multiple different **minor** versions can safely be used side by side without interfering with each other.
 * Different **build**s of the same **minor** version should not be used side by side as they would share configs, logs and caches, which can lead to unexpected behaviour.
   

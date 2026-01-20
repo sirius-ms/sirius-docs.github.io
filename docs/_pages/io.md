@@ -15,9 +15,9 @@ SIRIUS supports multiple MS data formats:
 - `.mzml`, and `.mzxml`: For these formats, SIRIUS will perform feature detection and alignment. **Note that, all data must be centroided**.
 
 SIRIUS does not support input of raw file formats. Common workflows to process raw data before using SIRIUS include:
-- Use msconvert to convert raw format to `.mzML`. Import to SIRIUS. (Preprocessing is handled by SIRIUS.)
-- Use MassHunter to convert raw format to `.cef`. Import to SIRIUS. (Preprocessing is handled by MassHunter.)
-- Use MZmine export to SIRIUS to get a `.mgf` file. Import to SIRIUS. (Preprocessing is handled by MZmine.) [Watch this tutorial to get more information.](https://www.youtube.com/watch?v=Q0D6q9xQLSE)
+- Use msconvert to convert raw format to `.mzML`. Import to SIRIUS. (Preprocessing is handled by SIRIUS.) [Watch this tutorial to get more information.](https://www.youtube.com/watch?v=o-Paxth07ow)
+- Use [MassHunter]({{"/integrations/#MassHunter-Explorer" | relative_url }}) to convert raw format to `.cef`. Import to SIRIUS. (Preprocessing is handled by MassHunter.)
+- Use [mzmine]({{"/integrations/#mzmine" | relative_url }}) export to SIRIUS to get a `.mgf` file. Import to SIRIUS. (Preprocessing is handled by MZmine.) [Watch this tutorial to get more information.](https://www.youtube.com/watch?v=Q0D6q9xQLSE)
 - Use MS-DIAL export to SIRIUS to get a `.mat` file. → Import to SIRIUS. (Preprocessing handled by MS-DIAL.)
 
 Additionally, many vendor tools now offer `.mzML` export, which is a convenient and widely supported option for use with SIRIUS.

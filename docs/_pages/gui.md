@@ -27,7 +27,7 @@ The last button group on the right <span style="color:#d40f57">**[5]**</span> pr
 
 - The **feature list <span style="color:#d40f57">[6]</span>** on the left side contains all imported (aligned) features. 
 A *feature* contains all MS and MS/MS spectra corresponding to a measured aligned
-feature. For each feature, adduct type, precursor mass, retention time and [confidence score](#COSMIC) (if computed) are shown in this panel. 
+feature. For each feature, adduct type, precursor mass, retention time and [confidence score]({{ "/methods-background/#COSMIC" | relative_url }}) (if computed) are shown in this panel. `Confidence (A)` is the [approximate confidence mode]({{ "/methods-background/#confidence-score-modes" | relative_url }}), and `Confidence (E)` the [exact confidence mode]({{ "/methods-background/#confidence-score-modes" | relative_url }}).
 
 - The **result view <span style="color:#d40f57">[8]</span>** is displayed to the right of the feature list and allows users to [examine different result views](#visualize-results). The tab selector <span style="color:#d40f57">**[7]**</span> at the top of this panel lets you switch between these views, offering various perspectives on your data.
 
@@ -82,7 +82,7 @@ Custom structure databases and spectral libraries can be added via the `Database
 top center of the GUI ribbon. SIRIUS allows you to import custom structure databases and spectral libraries. Any spectral library you import also functions as a structure database. [Learn more about custom database import and supported file formats here]({{ "/io/#custom-dbs" | relative_url}}).
 
 {% capture fig_img %}
-![Foo]({{ "/assets/images/custom-db-loader-collage.png" | relative_url }})
+![Foo]({{ "/assets/images/custom-db_full.png" | relative_url }})
 {% endcapture %}
 
 <figure>
@@ -94,15 +94,15 @@ Custom databases are stored as files with the `.siriusdb` extension.
 If you already have a database with this format on your local machine, you can add it to SIRIUS by clicking the 
 `Add existing Database` button <span style="color:#d40f57">**[1]**</span> on the bottom right. To create a new custom database,
 click the `Create custom Database` button <span style="color:#d40f57">**[2]**</span>.
-Imported databases can be deleted or modified using the `-` or pencil icon button, respectively.
+You can also download a curated spectral database <span style="color:#d40f57">**[3]**</span> with public spectra from GNPS, MassBank and MsnLib for [spectral library matching](#spectral-library-matching).
 
-To create a custom database, enter a name for the database <span style="color:#d40f57">**[3]**</span> (maximum length: 15 characters) that is used within SIRIUS. 
-Specify the file name for the database, ensuring it ends with `.siriusdb` <span style="color:#d40f57">**[4]**</span>. 
-Choose a valid, writeable path on your local machine to store the database <span style="color:#d40f57">**[5]**</span>.
-Adjust the buffer size <span style="color:#d40f57">**[6]**</span> to control how many structures or spectra should be kept in memory. This can be increased when importing large files on a faster machine.
-Drag and drop files or directories containing structure/spectra files to the input area <span style="color:#d40f57">**[7]**</span>, or use the `+` button to browse your file system.
+To create a custom database, enter a name for the database <span style="color:#d40f57">**[4]**</span> (maximum length: 15 characters) that is used within SIRIUS. 
+Specify the file name for the database, ensuring it ends with `.siriusdb` <span style="color:#d40f57">**[5]**</span>. 
+Choose a valid, writeable path on your local machine to store the database <span style="color:#d40f57">**[6]**</span>.
+Adjust the buffer size <span style="color:#d40f57">**[7]**</span> to control how many structures or spectra should be kept in memory. This can be increased when importing large files on a faster machine.
+Drag and drop files or directories containing structure/spectra files to the input area <span style="color:#d40f57">**[8]**</span>, or use the `+` button to browse your file system.
 
-SIRIUS integrates [BioTransformer 3.0](https://biotransformer.ca/) <span style="color:#d40f57">**[8]**</span> ([Wishart  et al., Nucleic Acids Res, 2022](https://doi.org/10.1093/nar/gkac313))  for generating custom transformation product databases. For detailed explanations of all options, please consult the official [BioTransformer documentation](https://biotransformer.ca/help). Here is only a selection:
+SIRIUS integrates [BioTransformer 3.0](https://biotransformer.ca/) <span style="color:#d40f57">**[9]**</span> ([Wishart  et al., Nucleic Acids Res, 2022](https://doi.org/10.1093/nar/gkac313))  for generating custom transformation product databases. For detailed explanations of all options, please consult the official [BioTransformer documentation](https://biotransformer.ca/help). Here is only a selection:
 
 - `Metabolic Transformation` <span style="color:#d40f57">**[a]**</span>:  Coverage Options: 
   - `Phase 1 (CYP450)`: Focuses on cytochrome P450-mediated transformations. 
@@ -110,6 +110,8 @@ SIRIUS integrates [BioTransformer 3.0](https://biotransformer.ca/) <span style="
   - ...
   - `AllHuman`: Predicts all possible human metabolites from any applicable reaction (oxidation, reduction, deconjugation) at each step.
 - `Number of Reaction Iterations` <span style="color:#d40f57">**[c]**</span>: allows you to specify the number of transformation steps for the prediction. It is applicable for EC-based, CYP450, Phase II, and Environmental microbial biotransformers. The default value is typically 1.
+
+Imported databases can be deleted or modified using the `-` <span style="color:#d40f57">**[10]**</span> or pencil <span style="color:#d40f57">**[11]**</span> button, respectively. Databases can also be exported including the generated biotransformations <span style="color:#d40f57">**[12]**</span>.
 
 **Please note that you have to be logged in to your SIRIUS account to import custom databases.**
 
@@ -207,7 +209,7 @@ Databases <span style="color:#d40f57">**[C]**</span> are selected as part of the
 
 ### Spectral library matching {#spectral-library-matching}
 
-If [imported spectral libraries](#custom-database-import) are available, select them in the global settings <span style="color:#d40f57">**[A]**</span>. `Spectral Library Search` will then automatically be activated in the compute dialog <span style="color:#d40f57">**[B]**</span>. SIRIUS supports `Identity Search` <span style="color:#d40f57">**[C]**</span>, meaning that library spectra with the same precursor mass (within a given precursor mass deviation) are matched against the query spectrum, and `Analog Search` <span style="color:#d40f57">**[D]**</span>, meaning that library spectra with different precursor masses are matched against the query spectrum. For more information, refer to the [Spectral library matching]({{ "/methods-background/#spectral-library-search" | relative_url }}) section.
+If [imported or downloaded spectral libraries](#custom-database-import) are available, select them in the global settings <span style="color:#d40f57">**[A]**</span>. `Spectral Library Search` will then automatically be activated in the compute dialog <span style="color:#d40f57">**[B]**</span>. SIRIUS supports `Identity Search` <span style="color:#d40f57">**[C]**</span>, meaning that library spectra with the same precursor mass (within a given precursor mass deviation) are matched against the query spectrum, and `Analog Search` <span style="color:#d40f57">**[D]**</span>, meaning that library spectra with different precursor masses are matched against the query spectrum. For more information, refer to the [Spectral library matching]({{ "/methods-background/#spectral-library-search" | relative_url }}) section.
 
 
 {% capture fig_img %}
@@ -357,7 +359,7 @@ the existing databases. If you have imported your own spectral library that shou
 You can choose to use PubChem as a fallback database (if not selected as search space in the global settings) in case it contains a hit with higher confidence than
 those found in the selected databases. For a detailed explanation, please refer to the 
 [Methods]({{ "/methods-background/#expansive-search" | relative_url }}) section.
-The `Confidence mode` controls whether the approximate or exact [confidence mode]({{ "/methods-background/#confidence-score-modes" | relative_url }}) is used to assess if a
+The `Confidence mode` controls whether the approximate (A) or exact (E) [confidence mode]({{ "/methods-background/#confidence-score-modes" | relative_url }}) is used to assess if a
 hit in PubChem is more reliable than the hits in the selected databases.
 
 **COSMIC confidence scores** are calculated automatically and without requiring any parameters every time a CSI:FingerID search is performed. 
@@ -398,7 +400,7 @@ In all views, the top CSI:FingerID hit (as well as "highly similar" compounds in
 
 ### LC-MS view {#lcms-tab}
 
-The `LC-MS` tab is hidden when no LC-MS data (`.mzML` or `.mzXML`) was imported, i.e. if the data is imported as `.mgf`, `.ms` or similar file formats, no LC-MS information is available. This is also the case when LC-MS data has been processed with OpenMS or MZMine and then imported to SIRIUS.
+The `LC-MS` tab is hidden when no LC-MS data (`.mzML` or `.mzXML`) was imported, i.e. if the data is imported as `.mgf`, `.ms` or similar file formats, no LC-MS information is available. This is also the case when LC-MS data has been processed with OpenMS or [mzmine]({{"/integrations/#mzmine" | relative_url }}) and then imported to SIRIUS.
 
 {% capture fig_img %}
 ![Foo]({{ "/assets/images/lcms-view-samples.png" | relative_url }})
@@ -639,7 +641,7 @@ When you select a structure from the list, the view shows the fragmentation spec
 Peaks in the fragmentation spectrum are color-coded as follows:
 - **Black peaks:** These peaks are not used to explain the molecular formula of the candidate and are not part of the fragmentation tree (similar to the spectrum in the [Formulas view](#formulas-tab). Typically, these peaks are considered noise or are not explainable by the precursor ion's molecular formula.
 - **Blue peaks:** These peaks are part of the fragmentation tree and thus explain the molecular formula of the candidate. However, they do not have a substructure associated to them.
-- **Purple peaks:** These peaks explain the molecular formula of the candidate, AND are associated to a substructure of the candidate structure. Substructures are generated combinatorially and then scored against the peaks. By clicking on the peak, the highest scoring substructure for this peak will be highlighted within the structure. Pink bonds indicate the fragmentation that would have occurred to generate this fragment.
+- **Green peaks:** These peaks explain the molecular formula of the candidate, AND are associated to a substructure of the candidate structure. Substructures are generated combinatorially and then scored against the peaks. By clicking on the peak, the highest scoring substructure for this peak will be highlighted within the structure. Pink bonds indicate the fragmentation that would have occurred to generate this fragment.
 
 You can navigate through the peaks using left-click or the arrow keys.
 
@@ -716,6 +718,7 @@ To  activate the `Homologous Series` tab, go to `Settings` and check `Show "Homo
 ## Structure sketcher {#structure-sketcher}
 
 The Structure Sketcher enables users to manually modify candidate structures and integrate these new structures into the list of candidate structures. To access the `Structure Sketcher`, navigate to the `Structures` view. Right-click on any of the candidate structures and select `Modify structure` from the context menu. This action will launch the `Structure Sketcher` in a separate window. The interface of the Structure Sketcher is divided into two primary sections: the sketching area is located on the right <span style="color:#d40f57">**[1]**</span> and powered by [Ketcher](https://lifescience.opensource.epam.com/ketcher/), an open-source web-based chemical structure editor. Users can draw and modify chemical structures within this section. The list of allowed molecular formulas is positioned on the left <span style="color:#d40f57">**[2]**</span> and displays all molecular formula candidates for which a [fingerprint has been predicted]({{"/gui/#CSIFingerID-CANOPUS" | relative_url}}).
+This pane also provides immediate feedback if an error occurs while attempting to add a structure candidate. This feedback is triggered if no fingerprint was predicted for the molecular formula or if the generated structure is already in the candidate list, preventing the creation of a redundant entry.
 
 {% capture fig_img %}
 ![Foo]({{ "/assets/images/sketcher.png" | relative_url }})
