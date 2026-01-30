@@ -212,7 +212,7 @@ output the 5 best candidates.
 ## Background Service - Generic SIRIUS API {#API}
 
 SIRIUS provides a [REST API](https://github.com/sirius-ms/sirius-client-openAPI) to access data from the project space and to run computations. 
-You can either  interact with this API directly or use the Python SDK.
+You can either  interact with this API directly or use one of the [SDKs](https://github.com/sirius-ms/sirius-client-openAPI) which are provided for different programming languages.
 
 The openAPI specification and documentation can be viewed in the browser. Start SIRIUS, check which port the service is running
 on by clicking the "settings" button and open [http://localhost:8080/](http://localhost:8080/), where 8080 is replaced with your port.
