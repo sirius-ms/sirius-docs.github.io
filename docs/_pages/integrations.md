@@ -61,7 +61,7 @@ The integration with **Thermo Scientific Compound Discoverer (CD)** is handled v
 
 [**RuSirius**]() is an R package developed within the [**RforMassSpectrometry**](https://www.rformassspectrometry.org/) ecosystem to provide a high-level interface to SIRIUS. Unlike our self-provided SIRIUS API clients, RuSirius is built to handle the `Spectra` and `QFeatures` objects commonly used within the RforMassSpectrometry suite. It allows users to seamlessly push spectra to a local SIRIUS instance for processing and pull the resulting fragmentation trees and annotations back into R. This integration is essential for researchers who use `xcms` for peak picking and want to keep their entire post-processing workflow within a reproducible Bioconductor environment.
 
-**Benefits of the Integration:**
+**Benefits of the Integration:* *
 
 * **Native Object Support:** Works directly with `Spectra` objects, eliminating the need for manual file conversions to `.mgf` or `.ms` formats  or SIRIUS API’s specific json format.
 * **Bioconductor Synergy:** Seamlessly integrates SIRIUS results (formulas, fingerprints) into the metadata columns of `SummarizedExperiment` or `QFeatures` objects.
@@ -71,3 +71,7 @@ The integration with **Thermo Scientific Compound Discoverer (CD)** is handled v
 
 **Learn More:**
 * [Download RuSirius R package on github](https://github.com/rformassspectrometry/RuSirius)
+
+## Using SIRIUS With Data From Other Vendors (Bruker, Waters,...)
+
+While instrument manufacturers use closed, proprietary binary formats, **mzML** serves as the "universal translator" that bridges the gap between these native files and third-party software. Converting to mzML is essential for extracting raw signals from vendor containers and reformatting them into a standardized structure. While most modern mass spectrometry platforms can export directly to `.mzML`, you can also use [MSConvert (part of the ProteoWizard suite)](http://proteowizard.sourceforge.net/index.html) to facilitate this transition. **For a detailed walkthrough on preparing your files for SIRIUS, refer to this [video tutorial](https://www.youtube.com/watch?v=o-Paxth07ow).**

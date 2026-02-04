@@ -69,7 +69,7 @@ However, SIRIUS also provides a zero parameter
 pre-processing tool to import LCMS-Runs directly from `.mzml` (or `.mzxml`) format 
 to help you get started quickly. Most modern MS vendor instruments are able to
 export measured data from their native format to .mzML. **Alternatively, watch this 
-[video tutorial](https://www.youtube.com/watch?v=xnjvZlSlp40) how to use
+[video tutorial](https://www.youtube.com/watch?v=o-Paxth07ow) how to use
 [MSconvert/ProteoWizard](http://proteowizard.sourceforge.net/index.html) to convert your vendor formats to `mzml` for SIRIUS.** 
 
 **SIRIUS** identifies the molecular formula of the measured precursor
