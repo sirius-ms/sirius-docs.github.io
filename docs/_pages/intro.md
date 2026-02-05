@@ -7,6 +7,8 @@ title: "Welcome"
 
 **Quick Start:** For getting started quickly, see the [quick-start guide]({{ "/quick-start/" | relative_url }}).
 
+**Frequently Asked Question:** Find the [answers here]({{"/faq/" | relative_url }}).
+
 **Licenses:** As of SIRIUS 5, a user account and license are required to use the webservice-based features of SIRIUS. 
 [Find out more about academic and non-academic user accounts.]({{"/account-and-license/" | relative_url}})
 
