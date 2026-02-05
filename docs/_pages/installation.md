@@ -174,7 +174,10 @@ If SIRIUS cannot connect to the Internet, it will [report]({{ "/gui/#webservice"
 the error occurred.
 
 ## System Requirements {#system-requirements}
-* OS: Windows 10+ (x86-64), MacOS (x86-64, aarch64), Linux  (x86-64, aarch64)
-* CPU: Quad Core CPU
-* RAM: 16GB (but not less than 2GB per CPU core)
-* Internet: 1Mbit/s is recommended
+The hardware and software requirements for SIRIUS depend on the complexity of the data, the size of the molecules being analyzed, and the desired processing throughput. Below are the minimum and recommended specifications for optimal performance.
+
+* **Supported Operating Systems:** Windows 10+ (x86-64), MacOS (x86-64, aarch64), Linux  (x86-64, aarch64)
+* **CPU:** Quad Core CPU
+* **RAM:** 16 GB is recommended. As a general rule, allocate at least 2 GB of RAM per CPU core. Certain modules, such as ZODIAC (used for dataset-wide formula optimization), may require additional memory proportional to the number of compounds in the dataset.
+* **Storage:** An SSD is strongly recommended. SIRIUS frequently accesses project files and local databases; the high I/O speed of an SSD drastically reduces processing bottlenecks compared to traditional HDDs.
+* **Internet Connection:** A stable connection (minimum 1 Mbit/s) is required for communication with the SIRIUS web services.

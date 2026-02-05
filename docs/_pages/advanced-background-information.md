@@ -11,7 +11,7 @@ characteristics of the mass spectra are important for our software to
 successfully process your data:
 
   - SIRIUS requires **high mass accuracy** data: The
-    mass deviation should be within 20 ppm. We are confident that SIRIUS
+    mass deviation ideally should be within 10 ppm. We are confident that SIRIUS
     will also provide useful information for lower mass accuracy data (say,
     50 ppm), but you should know what you are doing if you are
     processing such data.

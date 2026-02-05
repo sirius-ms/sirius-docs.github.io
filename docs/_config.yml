@@ -315,6 +315,8 @@ defaults:
             url: "https://bright-giant.com/short-course-tutorial-series"
           - label: "AlgoMS Textbook"
             url: "https://bio.informatik.uni-jena.de/wp/wp-content/uploads/2019/09/Boecker_AlgorithmicMassSpectrometry_v083_2019.pdf"
+          - label: "FAQ"
+            url: /faq
       layout: single
       classes: wide
 #      pdf: true

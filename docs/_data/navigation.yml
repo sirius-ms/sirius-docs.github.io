@@ -30,6 +30,8 @@ global:
         url: /quick-start/#CLI
       - title: "Quick start API"
         url: /quick-start/#API
+  - title: "FAQ"
+    url: /faq
   - title: "Advanced background information"
     url: /advanced-background-information
     children:
