@@ -22,7 +22,9 @@ features, please submit them via [GitHub](https://github.com/sirius-ms/sirius/is
 Please ensure to submit all [required information]({{ "/bugs/#templates" | relative_url}}). 
 
 **SIRIUS Integration:** SIRIUS can be easily integrated into existing workflows and provides 
-interfaces for both manual and fully automated analysis. If you're looking for help with 
+interfaces for both manual and fully automated analysis. 
+SIRIUS’ powerful [integrations with prominent third-party tools]({{"/integrations/" | relative_url}}) automate data transfer and mapping of identification results. 
+If you're looking for help with 
 integrating SIRIUS into your workflow or want to share tips and code snippets, visit our 
 [SIRIUS Community space on Gitter](https://matrix.to/#/#sirius-ms:gitter.im).
 
