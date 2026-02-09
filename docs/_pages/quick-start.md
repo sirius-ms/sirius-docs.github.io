@@ -3,7 +3,7 @@ permalink: /quick-start/
 title: "Quick start"
 ---
 
- - You can download [sample spectra](https://bio.informatik.uni-jena.de/wp/wp-content/uploads/2015/05/demo.zip)
+ - You can download [sample spectra](https://github.com/sirius-ms/sirius/raw/refs/heads/stable/data/demo-data.zip?download=)
 from the SIRIUS website.
  - For a quick start, you can also watch our [video tutorials](https://bright-giant.com/short-course-tutorial-series).
  - To process a full LC-MS/MS run, you can also use your own `.mzML` files and run the following examples. This will first perform feature detection. Be aware that annotating 100s or 1000s of features may take a while. 
