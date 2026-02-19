@@ -77,6 +77,15 @@ By default, the additional description in the connection UI provides further inf
 This error occurs when the software cannot establish a local connection required for web service validation. It can sometimes be triggered if the URL for the general internet connection check is blocked. You can [set a custom reachable URL]({{"/admins/#connections" | relative_url }}) in your `sirius.properties` file as a workaround.
 </details>
 
+<details markdown="1">
+  <summary><strong>Why am I getting a certificate error with "PKIX path building failed"?</strong></summary>
+This error usually occurs due to SSL Inspection within your company's network. Security systems (like Firewalls or Proxies) intercept the encrypted traffic and re-sign it with a company-internal certificate. Since SIRIUS (Java) does not recognize this internal certificate, the connection is blocked for security reasons.
+
+If the issue is caused by your IT inspecting the traffic, you may safely disable the SSL validation.
+Go to `Settings`, select the `Network` tab, uncheck the `Enable SSL validation` option, and save the changes. This tells SIRIUS to trust the connection without verifying the certificate chain. After saving, try to log in again.
+Alternatively, contact your IT department and request that the following domain be whitelisted or excluded from SSL inspection: `*.bright-giant.com`
+</details>
+
 ## Data Privacy and Security
 
 <details markdown="1">
