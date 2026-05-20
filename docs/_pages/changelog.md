@@ -4,6 +4,12 @@ title: "Changelog"
 ---
 
 ### SIRIUS 6
+#### 6.3.6 (2025-10-15)
+fix: issue where Agilent Explorer license checker was not found
+#### 6.3.5 (2026-05-11)
+
+#### 6.3.4 (2026-03-21)
+
 #### 6.3.3 (2025-10-15)
 - fix: application starting issue due to faulty logging config
 - fix: content-type of Multipart endpoints in SIRIUS API/SDKs.
