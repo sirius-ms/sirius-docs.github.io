@@ -4,11 +4,15 @@ title: "Changelog"
 ---
 
 ### SIRIUS 6
-#### 6.3.6 (2025-10-15)
-fix: issue where Agilent Explorer license checker was not found
+#### 6.3.6 (2026-05-20)
+- fix: issue where Agilent Explorer license checker was not found
 #### 6.3.5 (2026-05-11)
 
 #### 6.3.4 (2026-03-21)
+- feature: downloadable curated spectral library with public spectra from GNPS, MassBank and MsnLib
+- feature: custom database exporter to export transformation products generated using BioTransformer
+- improvement: immediate feedback in the structure sketcher if the generated structure is already in the candidate list, preventing the creation of redundant entries
+- fixed: "unexpected error" in custom DB import on Mac
 
 #### 6.3.3 (2025-10-15)
 - fix: application starting issue due to faulty logging config
