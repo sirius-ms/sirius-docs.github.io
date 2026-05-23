@@ -4,6 +4,9 @@ title: "Changelog"
 ---
 
 ### SIRIUS 6
+#### 6.3.7 (2026-05-23)
+- fix: Fix bug where CEF file parser end parsing too early when certain features are skipped.
+
 #### 6.3.6 (2026-05-20)
 - fix: issue where Agilent Explorer license checker was not found
 
