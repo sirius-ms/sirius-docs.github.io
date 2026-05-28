@@ -6,10 +6,12 @@ title: "Installation"
 In principle, installing SIRIUS is as simple as extracting the downloaded archive to a directory where you have write permission. 
 The *Java Runtime Environment* (JRE) needed to run SIRIUS is already included.
 
+
 **For Windows/MacOS** we also provide **installer packages** (msi/pkg), which **should be preferred** 
 but may require admin permissions. As we do not pay Microsoft/Apple for certification, 
 you may need to confirm that you want to trust software from an unknown source on Windows/MacOS.
 
+[Download SIRIUS now.](https://github.com/sirius-ms/sirius/releases/latest)
 The installation should take no more than **10 minutes**.
 
 If you have any problems installing SIRIUS, please contact support or ask for help in the [community](https://matrix.to/#/#sirius-ms:gitter.im). You can also use the forum to let us know if you find that our installation guide is incomplete, or if you have
@@ -23,7 +25,7 @@ Friday in July is System Administrator Appreciation Day!)
 
 
 ## Windows {#windows}
-Built and tested on Windows 10 x64
+Built and tested on Windows 11 x64
 ##### MSI installer (preferred) {#msi-installer}
 Execute the installer, trust the unknown source (if asked) and follow the instructions.
 You will be asked to choose an installation location and to 

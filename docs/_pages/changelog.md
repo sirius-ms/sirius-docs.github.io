@@ -5,23 +5,38 @@ title: "Changelog"
 
 ### SIRIUS 6
 #### 6.3.7 (2026-05-23)
-- fix: Fix bug where CEF file parser end parsing too early when certain features are skipped.
+- fixed: CEF file parser end parsing too early when certain features are skipped.
 
 #### 6.3.6 (2026-05-20)
-- fix: issue where Agilent Explorer license checker was not found
+- fixed: License tester (Agilent Explorer) failed to register when the software was installed in paths containing whitespaces.
 
 #### 6.3.5 (2026-05-11)
+- fixed: Prevented MSNovelist jobs from crashing due to specific CDK exceptions during structure generation.
+- fixed: Ensured that redundantly specified adducts do not generate duplicate compound formulas during annotation, which previously caused database search errors. 
+- fixed: Improved robustness of the custom database SDF importer; it now continues processing even if individual molecules fail to read.
 
 #### 6.3.4 (2026-03-21)
-- feature: downloadable curated spectral library with public spectra from GNPS, MassBank and MsnLib
-- feature: custom database exporter to export transformation products generated using BioTransformer
-- improvement: immediate feedback in the structure sketcher if the generated structure is already in the candidate list, preventing the creation of redundant entries
+- feature: download and import curated spectral library with public spectra from GNPS, MassBank and MsnLib
+- feature: custom database exporter to export transformation products generated using BioTransformer as molecular structure database into `.tsv` and `.sdf` formats, including database links.
+- feature: export substructure annotations as SVG
+- feature: direct navigation (jump) to related features via right-click in LC-MS and KMD views.
+
+- improvement: immediate feedback in the Structure Sketcher if the generated structure is already in the candidate list, preventing the creation of redundant entries and enhanced error reporting
+- improvement: manually override automatic tool selection in the compute panel to prevent redundant re-computation of heavy jobs.
+- improvement: instrument filter for spectral library importer that automatically selects high-resolution spectra (Orbitrap, Q-TOF, FTICR) while filtering out low-resolution or GC-MS data.
+
 - fixed: "unexpected error" in custom DB import on Mac
+- fixed: MgfWriter incorrectly using locale-specific formats (e.g., using commas instead of dots for decimals), which previously caused parsing issues in downstream tools
+- fixed: improved handling and rejection of multiple charged ions during early preprocessing phases.
+- fixed: GUI minimized after closing the software tour guide on Windows.
+- fixed: missing 'M' prefix in intrinsic charge string generation.
+- fixed: CORS issues blocking PUT and DELETE requests in the REST API.
+
 
 #### 6.3.3 (2025-10-15)
 - fix: application starting issue due to faulty logging config
 - fix: content-type of Multipart endpoints in SIRIUS API/SDKs.
-- fix: missing lcms view after initial data import
+- fix: missing LC-MS view after initial data import
 
 #### 6.3.2 (2025-09-25)
 - fix: accept-terms button not show when internet-check url not reachable
@@ -52,6 +67,9 @@ title: "Changelog"
 - fixed: adducts were not shown in filter view
 - fixed: missing MacOS builds
 - fixed: incorrect parsing from .cef files 
+
+#### 6.2.2 (2025-06-03)
+- fixed: Missing AWT initialization error that prevented the REST API from starting correctly.
 
 #### 6.2.0 (2025-05-30)
 - feature: BioTransformer integration
