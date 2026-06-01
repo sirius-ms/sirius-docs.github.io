@@ -111,7 +111,7 @@ SIRIUS integrates [BioTransformer 3.0](https://biotransformer.ca/) <span style="
   - `AllHuman`: Predicts all possible human metabolites from any applicable reaction (oxidation, reduction, deconjugation) at each step.
 - `Number of Reaction Iterations` <span style="color:#d40f57">**[c]**</span>: allows you to specify the number of transformation steps for the prediction. It is applicable for EC-based, CYP450, Phase II, and Environmental microbial biotransformers. The default value is typically 1.
 
-Imported databases can be deleted or modified using the `-` <span style="color:#d40f57">**[10]**</span> or pencil <span style="color:#d40f57">**[11]**</span> button, respectively. Databases can also be exported including the generated biotransformations <span style="color:#d40f57">**[12]**</span>.
+Imported databases can be deleted or modified using the `-` <span style="color:#d40f57">**[10]**</span> or pencil <span style="color:#d40f57">**[11]**</span> button, respectively. Databases can also be exported as TSV or SDF files including the generated biotransformations <span style="color:#d40f57">**[12]**</span> and links to external databases.
 
 **Please note that you have to be logged in to your SIRIUS account to import custom databases.**
 
@@ -160,6 +160,8 @@ As of SIRIUS 6, CANOPUS is automatically executed together with the fingerprint 
 **Subtools can be selected individually or combined, but note that the selection must align with a [valid SIRIUS workflow]({{ "/methods-background/#workflows" | relative_url }}).**
 For example, you cannot search structure databases without predicting fingerprints first.
 Subtools are automatically enabled/disabled to match the [workflow principles]({{"/cli/#basic-principles" | relative_url }}).
+You can manually force to override automatic tool selection if you  already have intermediate results and wish to avoid redundant re-computation of computationally intensive jobs. You will receive a warning if subsequent tools are affected.
+<img src="{{ "/assets/images/compute-warning.png" | relative_url }}">
 ZODIAC will only be displayed if a sufficient number of features with MS/MS spectra have been selected.
 
 If the `Recompute already computed tasks?` checkbox <span style="color:#d40f57">**[9]**</span> is checked, 
@@ -428,7 +430,8 @@ On the right, there is a basic quality assessment panel <span style="color:#d40f
 </figure>
 
 
-In the [adduct/isotope assignment view]({{ "/adducts" | relative_url}}), you can find the merged mass trace of the feature (`MAIN`, red) as well as its isotopes (lighter red  / dashed lines) and correlated adducts (`CORRELATED`, additional colors) with their isotopes (dashed lines). Hovering over the edges and nodes of the adduct network provides information about adduct probabilities and correlations.
+In the [adduct/isotope assignment view]({{ "/adducts" | relative_url}}), you can find the merged mass trace of the feature (`MAIN`, red) as well as its isotopes (lighter red  / dashed lines) and correlated adducts (`CORRELATED`, additional colors) with their isotopes (dashed lines). Hovering over the edges and nodes of the adduct network provides information about adduct probabilities and correlations. Right-click on the nodes offers direct navigation (jump) to related features.
+
 
 
 
@@ -645,7 +648,7 @@ Peaks in the fragmentation spectrum are color-coded as follows:
 
 You can navigate through the peaks using left-click or the arrow keys.
 
-To inspect the peak annotations in the context of a spectral library match, select an available match from the dropdown menu <span style="color:#d40f57">**[5]**</span>. Matches can result from identity spectral library search (same precursor mass), or analog search (Δ-Mass <span style="color:#d40f57">**[6]**</span>). Selecting a peak will automatically highlight the corresponding peak in the matched spectrum that was determined during cosine matching <span style="color:#d40f57">**[7]**</span>.
+To inspect the peak annotations in the context of a spectral library match, select an available match from the dropdown menu <span style="color:#d40f57">**[5]**</span>. Matches can result from identity spectral library search (same precursor mass), or analog search (Δ-Mass <span style="color:#d40f57">**[6]**</span>). Selecting a peak will automatically highlight the corresponding peak in the matched spectrum that was determined during cosine matching <span style="color:#d40f57">**[7]**</span>. The highlighted spectrum alongside the spectral match and the substructure annotation of the selected peak can be exported as PNG or SVG file <span style="color:#d40f57">**[8]**</span>.
 
 If the current library match we are inspecting is an analog match, some peak matches will represent shared losses instead of shared fragments. The corresponding loss’s substructure is highlighted in yellow instead. Using right-click on a selected peak, you can bring up a context menu to help find reference spectra that explain the specific peak.
 
@@ -694,7 +697,8 @@ The Kendrick mass scale sets the exact mass of such a repeating unit to an integ
 The KMD is then calculated as the difference between the exact Kendrick mass and its nominal (integer) Kendrick mass.
 When data is transformed to the Kendrick mass scale and the KMD is plotted against the nominal Kendrick mass, a distinctive pattern emerges for homologous series.
 On a KMD plot, features belonging to the same homologous series will exhibit the same (or very similar) Kendrick mass defect.
-This results in these features aligning horizontally on the plot.
+This results in these features aligning horizontally on the plot. 
+
 
 {% capture fig_img %}
 ![Foo]({{ "/assets/images/homologous-series.png" | relative_url }})
@@ -709,7 +713,8 @@ This results in these features aligning horizontally on the plot.
 
 In the  `Homologous Series` view you can select your repeating unit of interest <span style="color:#d40f57">**[2]**</span> to define the homologous series you want to visualize. The currently selected feature is highlighted with a pink outline <span style="color:#d40f57">**[a]**</span>. All features within a chosen KMD tolerance will appear as blue dots <span style="color:#d40f57">**[b]**</span>, while those at twice the tolerance are shown as light grey dots <span style="color:#d40f57">**[c]**</span>.
 Hovering over any dot will reveal the top CSI:FingerID structure identified for this feature <span style="color:#d40f57">**[d]**</span>.
- If you include MS1-only features <span style="color:#d40f57">**[3]**</span>, no structure will be available for those features <span style="color:#d40f57">**[e]**</span>.
+ If you include MS1-only features <span style="color:#d40f57">**[3]**</span>, no structure will be available for those features <span style="color:#d40f57">**[e]**</span>. Right-click on the dot offers direct navigation (jump) to related features.
+
 
 
 #### Activate tab {#activate-KMD-tab}
@@ -730,7 +735,9 @@ This pane also provides immediate feedback if an error occurs while attempting t
 </figure>
 
 
-When modifying a candidate structure, ensure that the altered structure conforms to one of the allowed molecular formulas <span style="color:#d40f57">**[2]**</span>. Failure to do so will result in an error message indicating that no fingerprint was predicted for the generated molecular formula. Once modifications are complete, click either `Add` <span style="color:#d40f57">**[3]**</span> to include the new structure in the candidate list while keeping the sketcher open, or `Add and close` to add the structure and close the sketcher window. You can click `Reload` to revert to the structure you started with.
+When modifying a candidate structure, ensure that the altered structure conforms to one of the allowed molecular formulas <span style="color:#d40f57">**[2]**</span>. Failure to do so will result in an error message indicating that no fingerprint was predicted for the generated molecular formula. Once modifications are complete, click either `Add` <span style="color:#d40f57">**[3]**</span> to include the new structure in the candidate list while keeping the sketcher open, or `Add and close` to add the structure and close the sketcher window. 
+If the structure is already in the candidate list, you will get a warning, that the `Structure candidate already exists.`
+You can click `Reload` to revert to the structure you started with.
 
 After closing the `Structure Sketcher`, switch to the `De Novo Structures` view (usually done automatically) to observe the newly added candidates. Sketched structures are labeled `Skteched structure` <span style="color:#d40f57">**[a]**</span>. 
 Various filters are available to help manage and review the updated list. For example, users can toggle the display of database hits <span style="color:#d40f57">**[b]**</span> or apply the database filter called `Sketched` <span style="color:#d40f57">**[c]**</span> to show only the manually sketched candidates.
@@ -749,8 +756,7 @@ Finally, the `Substructure Annotations` view can be utilized to verify if the ma
 
 Analysis results can be exported using the `Summaries` button in the top left tool bar. 
 
-<img src="{{ "/assets/images/export.png" | relative_url }}" width="400">
-<img src="{{ "/assets/images/write-summary2.png" | relative_url }}" width="400">
+<img src="{{ "/assets/images/export1.png" | relative_url }}" width="600">
 
 [Summary files]({{ "/io/#summary-files" | relative_url }}) include five types of data:
 - [formula annotation summaries]({{ "/io/#molecular-formula-summary" | relative_url }})
@@ -759,12 +765,17 @@ Analysis results can be exported using the `Summaries` button in the top left to
 - [MSNovelist summaries]({{ "/io/#structure-summary" | relative_url }})
 - spectral library matching summaries.
 
-By default, only the top hit is exported for each feature (`Top Hits (recommended)`). You can use the drop down menu to export `All Hits`, `Top k Hits`, or `Top Hits with Adducts` instead. Learn more about the different [export options here]({{"/io/#summary-files" | relative_url }}). 
+By default, only the top hit is exported for each feature (`Top Hits (recommended)`) <span style="color:#d40f57">**[1]**</span>. You can use the drop down menu to export `All Hits`, `Top k Hits`, or `Top Hits with Adducts` instead. Learn more about the different [export options here]({{"/io/#summary-files" | relative_url }}). 
 
-You can export the files in TSV, CSV, ZIP or XLSX format. You might want to use `Quote strings` to quote all string values.
-
-In addition, you can export a `Feature quality summary`, with [feature quality]({{"/gui/#lcms-tab" | relative_url}}) values of different categories for all features, as well as a `ChemVista summary` file
+In addition, you can export a `Feature quality summary` <span style="color:#d40f57">**[2]**</span>, with [feature quality]({{"/gui/#lcms-tab" | relative_url}}) values of different categories for all features, as well as a `ChemVista summary` file <span style="color:#d40f57">**[3]**</span>
 which can be imported directly to the [Agilent ChemVista](https://www.agilent.com/en/product/software-informatics/mass-spectrometry-software/library-management) software.
+For sharing data with third-party tools or data archives, you can export an analysis report in the [standardized mzTab-M format]({{ "/io/#project-space-summary" | relative_url }}) (`analysis_report.mztab`) <span style="color:#d40f57">**[4]**</span>.
+
+You can export the files in TSV, CSV, ZIP or XLSX format <span style="color:#d40f57">**[5]**</span>. The `SIRIUS prefix` option <span style="color:#d40f57">**[6]**</span> will add a `SIRIUS_` prefix to all column headers in the summary files for better identification when merging data in external tools.
+You might want to use `Quote strings` <span style="color:#d40f57">**[7]**</span> to quote all string values.
+
+
+
 
 
 ### Feature based molecular networking (FBMN) export {#FBMN-export}

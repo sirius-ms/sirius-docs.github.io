@@ -88,6 +88,8 @@ global:
         url: /gui/#MSNovelist-denovo-structure
       - title: "Visualizing results"
         url: /gui/#visualize-results
+      - title: "Structure Sketcher"
+        url: /gui/#structure-sketcher
       - title: "Data export"
         url: /gui/#data-export
   - title: "Commandline interface"
