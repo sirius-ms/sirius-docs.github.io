@@ -5,7 +5,46 @@ title: "Graphical User Interface"
 
 ## Overview {#overview}
 
-SIRIUS 6 comes equipped with a comprehensive Graphical User Interface. Here's a breakdown of the key components and their functions.
+SIRIUS 6 comes equipped with a comprehensive Graphical User Interface.
+Upon launching the application, the **Welcome Screen** serves as the central hub for account management, network status monitoring, and learning resources.
+
+{% capture fig_img %}
+![Foo]({{ "/assets/images/welcome.png" | relative_url }})
+{% endcapture %}
+
+<figure>
+  {{ fig_img | markdownify | remove: "<p>" | remove: "</p>" }}
+  <figcaption>Welcome screen.</figcaption>
+</figure>
+
+The **toolbar <span style="color:#d40f57">[1-5]</span>** at the top of the screen provides quick access to the essential tools:
+The first button group <span style="color:#d40f57">**[1]**</span> on the left is for managing your project spaces, including creating, opening and saving them.
+The second button group <span style="color:#d40f57">**[2]**</span> facilitates
+[importing](#data-import) single features or data containing multiple features into
+your project space. The third button group <span style="color:#d40f57">**[3]**</span> handles exporting data, e.g. for [GNPS FBMN](https://doi.org/10.1038/s41592-020-0933-6) analysis
+or generating [project space summaries]({{ "/io/#sirius-project-space" | relative_url }}).
+The fourth button group <span style="color:#d40f57">**[4]**</span> is dedicated to computations, including [starting the computations](#compute-dialog), getting the job view and [importing custom databases](#custom-database-import). The last button group on the right <span style="color:#d40f57">**[5]**</span> provides access to the log, [settings](#settings), [webservice information](#webservice), and [account details](#account-creation). Here you can also find a link to the online documentation (`Help`) as well as information on software licence and related publications (`About`).
+
+## Account creation and login {#account-creation}
+
+To access the full capabilities of SIRIUS, you must log into your SIRIUS account or create a new one. This can be done via the `Login and Account` section on the Welcome Screen <span style="color:#d40f57">**[6]**</span> or by clicking the `Account` button in the top-right button group <span style="color:#d40f57">**[5]**</span>.
+click `Create Account` to get to our [user portal](https://portal.bright-giant.com/auth/register/) and [create an account]({{"/account-and-license/#account-creation" | relative_url}}). After logging into the user portal, you can [request a license]({{"/account-and-license/" | relative_url}}). In the SIRIUS GUI, click `Log in` to enter your account credentials and login.
+If you hold multiple licenses, you can switch your active subscription using the `Change Subscription` button <span style="color:#d40f57">**[7]**</span>. Once authenticated, SIRIUS establishes a connection to the update server and will notify you if a newer version of the software is available <span style="color:#d40f57">**[8]**</span>.
+
+Before logging in, the `Webservice Connection` <span style="color:#d40f57">**[9]**</span> is restricted. The `Description` field <span style="color:#d40f57">**[10]**</span> details the specific reason for any connection limitations.
+<img src="{{ "/assets/images/welcome-before-login.png" | relative_url }}">
+
+Once you log in, the application performs a comprehensive diagnostic check. A green indicator confirms that the connection is fully established and that SIRIUS is ready for use. This process verifies if basic internet access is available from within the application <span style="color:#d40f57">**[a]**</span>, if the login <span style="color:#d40f57">**[b]**</span> and license servers <span style="color:#d40f57">**[c]**</span> are reachable, if your user account is successfully authenticated <span style="color:#d40f57">**[d]**</span>, if a valid license or subscription is active <span style="color:#d40f57">**[e]**</span>, and finally if the connection to the SIRUS web service is established <span style="color:#d40f57">**[f]**</span>.
+
+The `Welcome Screen` also provides direct access to external resources to help you resolve issues and optimize your workflow:
+- [**Quick-Start Guide:**]({{ "/quick-start/" | relative_url }}) A brief introduction to guide your first analysis.
+- [**Online Documentation:**]({{ "/" | relative_url }}) The comprehensive user manual for detailed feature explanations.
+- [**Video Tutorials:**](https://www.youtube.com/playlist?list=PL8R4DKiWsw-vBpvrhtKaZT8UX5Zt08x9h) Step-by-step instructional videos hosted on YouTube.
+- [**Matrix Community:**](http://matrix.to/#/%23sirius-ms:gitter.im) A chat-based platform for peer support and discussion with the community and developers.
+- [**GitHub Repository:**](https://github.com/sirius-ms/sirius) The open-source code repository hosting the project.
+- [**Bug Reports:**](https://github.com/sirius-ms/sirius/issues/new/choose) The official way to [submit issues or feature requests]({{ "/bugs/" | relative_url }}).
+
+To [import you data](#data-import), use `Import` button <span style="color:#d40f57">**[2]**</span> or drag and drop your data to the **feature list <span style="color:#d40f57">[17]</span>** on the left. After import or after loading a previously saved project space <span style="color:#d40f57">**[1]**</span>, the welcome screen will disappear and the main application window with the various result views will open up.  
 
 {% capture fig_img %}
 ![Foo]({{ "/assets/images/gui-overview-marked.png" | relative_url }})
@@ -16,30 +55,18 @@ SIRIUS 6 comes equipped with a comprehensive Graphical User Interface. Here's a 
   <figcaption>SIRIUS main application window.</figcaption>
 </figure>
 
-- The **toolbar <span style="color:#d40f57">[1-5]</span>** at the top of the screen provides quick access to the essential tools: 
-The first button group <span style="color:#d40f57">**[1]**</span> on the left is for managing your project spaces, including creating, opening and saving them.
-The second button group <span style="color:#d40f57">**[2]**</span> facilitates
-[importing](#data-import) single features or data containing multiple features into
-your project space. The third button group <span style="color:#d40f57">**[3]**</span> handles exporting data, e.g. for [GNPS FBMN](https://doi.org/10.1038/s41592-020-0933-6) analysis
-or generating [project space summaries]({{ "/io/#sirius-project-space" | relative_url }}). 
-The fourth button group <span style="color:#d40f57">**[4]**</span> is dedicated to computations, including [starting the computations](#compute-dialog), getting the job view and [importing custom databases](#custom-database-import).  
-The last button group on the right <span style="color:#d40f57">**[5]**</span> provides access to the log, [settings](#settings), [webservice information](#webservice), and [account details](#account-creation). Here you can also find a link to the online documentation (`Help`) as well as information on software licence and related publications (`About`).
+Here's a breakdown of the main application window components and their functions.
 
-- The **feature list <span style="color:#d40f57">[6]</span>** on the left side contains all imported (aligned) features. 
+- The **feature list <span style="color:#d40f57">[17]</span>** on the left side contains all imported (aligned) features. 
 A *feature* contains all MS and MS/MS spectra corresponding to a measured aligned
 feature. For each feature, adduct type, precursor mass, retention time and [confidence score]({{ "/methods-background/#COSMIC" | relative_url }}) (if computed) are shown in this panel. `Confidence (A)` is the [approximate confidence mode]({{ "/methods-background/#confidence-score-modes" | relative_url }}), and `Confidence (E)` the [exact confidence mode]({{ "/methods-background/#confidence-score-modes" | relative_url }}).
 
-- The **result view <span style="color:#d40f57">[8]</span>** is displayed to the right of the feature list and allows users to [examine different result views](#visualize-results). The tab selector <span style="color:#d40f57">**[7]**</span> at the top of this panel lets you switch between these views, offering various perspectives on your data.
+- The **result view <span style="color:#d40f57">[18]</span>** is displayed to the right of the feature list and allows users to [examine different result views](#visualize-results). The tab selector <span style="color:#d40f57">**[19]**</span> at the top of this panel lets you switch between these views, offering various perspectives on your data.
 
-- The **bottom information bar <span style="color:#d40f57">[9]</span>** provides details about your license status for the webservice-based structure elucidation tools, 
-the number of computed features and feature limits.  
+- The **bottom information bar <span style="color:#d40f57">[20]</span>** provides details about your license status for the webservice-based structure elucidation tools, the number of computed features and feature limits.  
 
 For a quick start, you can also watch our [SIRIUS Short Course Tutorial Series introducing basic elements and functionality of the SIRIUS 6 GUI](https://bright-giant.com/short-course-tutorial-series).
 
-## Account creation {#account-creation}
-
-Open `Account` in the top-right toolbar <span style="color:#d40f57">**[5]**</span>, and click `Create Account` to get to our [user portal](https://portal.bright-giant.com/auth/register/) and [create an account]({{"/account-and-license/#account-creation" | relative_url}}). After logging into the user portal, you can [request a license]({{"/account-and-license/" | relative_url}}).
-In the SIRIUS GUI, click `Log in` to enter your account credentials and login.
 
 ## Data import {#data-import}
 
