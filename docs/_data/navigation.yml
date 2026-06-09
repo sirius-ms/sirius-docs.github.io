@@ -1,6 +1,6 @@
 global:
   - title: "What's new in SIRIUS"
-  - url: /news/
+    url: /news/
   - title: "Introduction"
     url: /
     children:
