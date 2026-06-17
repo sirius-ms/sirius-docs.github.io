@@ -128,9 +128,26 @@ strategy is integral for a successful analysis.  Below we describe some standard
      <span style="color:#d40f57">**This strategy can be used for a slight speed increase compared to the combined approach.**</span><br>
      However, it does not offer significant advantages over the recommended strategy, as the drawbacks of *de novo* annotation are primarily relevant for high-mass compounds.
 
+### Automated lipid detection {#lipid-detection}
+Lipid detection (_El Gordo_) automatically identifies and flags lipid species within complex biological samples.
+It runs automatically for every MS/MS spectrum, operating independently of the chosen molecular formula identification method.
+Lipid detection analyzes characteristic fragmentation patterns specific to various lipid classes to deduce the lipid's molecular formula.
+Annotations are adhering to standard shorthand nomenclature, such as `DG(10:1_8:1)` or `HexCer(d11:4_16:2)`.
+Identified lipids are flagged in SIRIUS, making them fully searchable and filterable via the user interface filter dialogue.
+Once a feature is flagged as a lipid, its molecular formula is automatically fixed, constraining subsequent downstream analysis to biologically relevant candidates.
+
+Be aware that lipid structures are often highly similar, differing only in the position of double bonds. 
+These subtle differences can be indistinguishable using mass spectrometry alone.
+Thus, annotations reflect the composition but not the exact stereochemistry. 
+SIRIUS also comes with a [KMD plot]({{"/gui/#KMD-tab"| relativ_url }}) to find related species, including the ones that only have MS1 - but it does not automatically flag those.
+
+**_The following lipid classes can be detected:_**<br>
+Monoradylglycerol, Diradylglycerol, Triradylglycerol, Betaine diradylglycerol, Betaine monoradylglycerol, Glycosyldiradylglycerol, Glycosyldiradylglycerol, Sulfoquinovosyldiacylglycerol, Sulfoquinovosylmonoacylglycerol, Diacylglycerophosphocholine, Monoacylglycerophosphocholine, Diacylglycerophosphoethanolamine, Monoacylglycerophosphoethanolamine, Diacylglycerophosphoserine, Monoacylglycerophosphoserine, Diacylglycerophosphoglycerol, Monoacylglycerophosphoglycerol, Diacylglycerophosphoinositol, Monoacylglycerophosphoinositol, Diacylglycerophosphate, Monoacylglycerophosphate, Diacylglycerophosphoglycerophosphodiradylglycerol, Ceramide, Hexose Ceramide, Sphingomyeline
+
+
 ### Isotope pattern analysis {#isotope-analysis}
 Isotope patterns of the candidate molecular formulas are simulated starting with the isotopic distributions of the individual elements, and then combining these distributions by folding (see [Böcker *et al.*](https://doi.org/10.1093/bioinformatics/btn603)).
-The simulated isotope pattern is compared with the measured pattern by assigning probabilities to the observed masses and intensities.[1]
+The simulated isotope pattern is compared with the measured pattern by assigning probabilities to the observed masses and intensities.
 
 ### Fragmentation tree computation {#fragmentation-trees}
 
