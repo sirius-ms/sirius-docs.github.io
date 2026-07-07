@@ -157,7 +157,7 @@ which may take some time, especially for a large number of structures.
 
 When reference spectra are provided <span style="color:#d40f57">**[3]**</span>, SIRIUS computes fragmentation trees <span style="color:#d40f57">**[4]**</span> from these spectra. This process allows for efficient substructure annotation, enhancing the utility of the reference data.
 
-SIRIUS offers the option to perform automated computation of bio-transformations during the import process. This feature can be particularly valuable for researchers studying metabolic pathways or drug metabolism, as it helps to identify related compounds within the database.
+SIRIUS offers the option to perform [automated computation of bio-transformations]({{ "/gui/#BioTransformer" | relative_url }}) during the import process. This feature can be particularly valuable for researchers studying metabolic pathways or drug metabolism, as it helps to identify related compounds within the database.
 
 ## Output {#output}
 

@@ -103,7 +103,26 @@ The feature list can further be refined by clicking the filter button (three dot
 
 For all filters, you can also choose to invert the filter, and whether you want to delete all **non**-matching compounds.
 
-### Import of custom structure and spectra databases {#custom-database-import}
+## Custom structure databases {#custom-databases}
+
+{% capture fig_img %}
+![Foo]({{ "/assets/images/molecular_space.png" | relative_url }})
+{% endcapture %}
+
+<figure>
+  {{ fig_img | markdownify | remove: "<p>" | remove: "</p>" }}
+  <figcaption>Space of molecular structures.</figcaption>
+</figure>
+
+You can extend the search space beyond  standard, public molecular structure databases or tailor the search space to individual research needs, isolate specific biological contexts, or even explore entirely novel chemical spaces.
+For an individual structure database, you can either 
+- [import a list of custom structures](#custom-database-import), 
+- [automatically generate bio-transformation products](#BioTransformer), 
+- generate transformation products by [applying custom reactions](#reaction-workflows),
+- or even [create candidate structures de novo](#MSNovelist-denovo-structure) (from the molecular fingerprint) when dealing with "unknown unknowns" or poorly represented analyte classes.
+
+
+### Import of custom structure databases and spectral libraries {#custom-database-import}
 
 Custom structure databases and spectral libraries can be added via the `Databases` dialog, accessible via the
 top center of the GUI ribbon. SIRIUS allows you to import custom structure databases and spectral libraries. Any spectral library you import also functions as a structure database. [Learn more about custom database import and supported file formats here]({{ "/io/#custom-dbs" | relative_url}}).
@@ -129,7 +148,15 @@ Choose a valid, writeable path on your local machine to store the database <span
 Adjust the buffer size <span style="color:#d40f57">**[7]**</span> to control how many structures or spectra should be kept in memory. This can be increased when importing large files on a faster machine.
 Drag and drop files or directories containing structure/spectra files to the input area <span style="color:#d40f57">**[8]**</span>, or use the `+` button to browse your file system.
 
-SIRIUS integrates [BioTransformer 3.0](https://biotransformer.ca/) <span style="color:#d40f57">**[9]**</span> ([Wishart  et al., Nucleic Acids Res, 2022](https://doi.org/10.1093/nar/gkac313))  for generating custom transformation product databases. For detailed explanations of all options, please consult the official [BioTransformer documentation](https://biotransformer.ca/help). Here is only a selection:
+Imported databases can be deleted or modified using the `-` <span style="color:#d40f57">**[10]**</span> or pencil <span style="color:#d40f57">**[11]**</span> button, respectively. Databases can also be exported as TSV or SDF files including the generated biotransformations <span style="color:#d40f57">**[12]**</span> and links to external databases.
+
+**Please note that you have to be logged in to your SIRIUS account to import custom databases.**
+
+
+### Creating bio-transformations {#BioTransformer}
+
+SIRIUS integrates [BioTransformer 3.0](https://biotransformer.ca/) <span style="color:#d40f57">**[9]**</span> ([Wishart  et al., Nucleic Acids Res, 2022](https://doi.org/10.1093/nar/gkac313)) for generating transformation products. BioTransformer is can be applied to custom structure databases during import. 
+For detailed explanations of all options, please consult the official [BioTransformer documentation](https://biotransformer.ca/help). Here is only a selection:
 
 - `Metabolic Transformation` <span style="color:#d40f57">**[a]**</span>:  Coverage Options: 
   - `Phase 1 (CYP450)`: Focuses on cytochrome P450-mediated transformations. 
@@ -138,9 +165,45 @@ SIRIUS integrates [BioTransformer 3.0](https://biotransformer.ca/) <span style="
   - `AllHuman`: Predicts all possible human metabolites from any applicable reaction (oxidation, reduction, deconjugation) at each step.
 - `Number of Reaction Iterations` <span style="color:#d40f57">**[c]**</span>: allows you to specify the number of transformation steps for the prediction. It is applicable for EC-based, CYP450, Phase II, and Environmental microbial biotransformers. The default value is typically 1.
 
-Imported databases can be deleted or modified using the `-` <span style="color:#d40f57">**[10]**</span> or pencil <span style="color:#d40f57">**[11]**</span> button, respectively. Databases can also be exported as TSV or SDF files including the generated biotransformations <span style="color:#d40f57">**[12]**</span> and links to external databases.
+### Reaction Workflows {#reaction-workflows}
 
-**Please note that you have to be logged in to your SIRIUS account to import custom databases.**
+{% capture fig_img %}
+![Foo]({{ "/assets/images/reaction_workflow.png" | relative_url }})
+{% endcapture %}
+
+<figure>
+  {{ fig_img | markdownify | remove: "<p>" | remove: "</p>" }}
+</figure>
+
+You can define custom chemical reactions and apply them to your custom structure databases.
+Select an imported custom database and open the Reaction Sketcher (gear symbol). 
+The left panel displays a list of saved reactions <span style="color:#d40f57">**[1]**</span>. Drag and drop reactions into the central workspace <span style="color:#d40f57">**[2]**</span> to build a reaction workflow.
+A reaction workflow consists of sequential rows <span style="color:#d40f57">**[3]-[5]**</span> that dictate how transformations are applied.
+
+- **Row-Level Execution:** A single row can contain multiple reactions <span style="color:#d40f57">**[3]**</span>. The software applies all reactions within a row concurrently to the input structures and saves the resulting transformation products.
+- **Sequential Processing:** Reactions in subsequent rows (e.g., Row 2 <span style="color:#d40f57">**[4]**</span>) are applied only to the generation of products resulting from the immediate predecessor (e.g., Row 1 <span style="color:#d40f57">**[3]**</span>) . They are not applied to the original starting structures. Each row's intermediate products are saved automatically.
+- **Looped Execution:** You can select one or multiple rows to form a loop <span style="color:#d40f57">**[3]/[6]**</span>. This applies the selected sequence of reactions iteratively a specified number of times before processing moves to the next row. Intermediate transformation products from each row and every iteration of the loop are preserved.
+
+Once your workflow is complete, click `Run Reactions` <span style="color:#d40f57">**[7]**</span> to generate the new structures. You must create or specify a new custom structure database to store the results of your reaction workflow.
+Be aware that processing can be computationally intensive and may take a long time if applied to a large number of input structures.
+The newly created database will automatically become available within SIRIUS and can be selected for structure searches.
+
+#### Create new reaction from SMARTS {#reactions-sketcher}
+
+{% capture fig_img %}
+![Foo]({{ "/assets/images/reaction_sketcher.jpg" | relative_url }})
+{% endcapture %}
+
+<figure>
+  {{ fig_img | markdownify | remove: "<p>" | remove: "</p>" }}
+</figure>
+
+You can define your own chemical reactions using the Reaction Sketcher:
+- **Define the Reactants:** Draw the reactant (educt) side of the reaction <span style="color:#d40f57">**[1]**</span>.
+- **Specify Atom Constraints:** To define specific chemical environments, click `Specify atom constraints` <span style="color:#d40f57">**[2]**</span>. Select a target atom <span style="color:#d40f57">**[3]**</span>, click `Modify Atom` <span style="color:#d40f57">**[4]**</span>, and draw the surrounding chemical environment <span style="color:#d40f57">**[5]**</span>. You can add this environment as either a strict restriction or a specific requirement <span style="color:#d40f57">**[6]**</span>.
+- **Define the Products:** Draw the product side to complete the chemical reaction <span style="color:#d40f57">**[7]**</span>.
+- **Verify SMARTS:** Review the final reaction mechanism <span style="color:#d40f57">**[8]**</span>. You can manually modify the reaction SMARTS string directly in the text field or return to the Sketcher to modify the reaction.
+
 
 ## Computing results {#computing-results}
 SIRIUS offers two computation modes for processing data: *Single

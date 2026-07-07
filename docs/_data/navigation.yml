@@ -76,8 +76,8 @@ global:
         url: /gui/#overview
       - title: "Data Import"
         url: /gui/#data-import
-      - title: "Custom database import"
-        url: /gui/#custom-database-import
+      - title: "Custom structure databases"
+        url: /gui/#custom-databases
       - title: "Compute dialog"
         url: /gui/#compute-dialog
       - title: "Molecular formula identification"
