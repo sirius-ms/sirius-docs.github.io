@@ -98,7 +98,7 @@ An example of an `.ms` file:
 >compound Gentiobiose
 >feature_id 13
 >formula C12H22O11 
->ionization \[M+Na\]+ 
+>ionization [M+Na]+ 
 >parentmass 365.10544
 
 >ms1 
