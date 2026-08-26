@@ -4,6 +4,9 @@ title: "Changelog"
 ---
 
 ### SIRIUS 6
+
+Starting from version 6.5, please [refer to the SIRIUS project for all changelog updates](https://github.com/sirius-ms/sirius/blob/stable/CHANGELOG.md).
+
 #### 6.3.7 (2026-05-23)
 - fixed: CEF file parser end parsing too early when certain features are skipped.
 

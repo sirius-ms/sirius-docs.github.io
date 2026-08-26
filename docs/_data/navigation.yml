@@ -126,4 +126,4 @@ global:
   - title: "Developer information"
     url: /developers/
   - title: "Changelog"
-    url: /changelog/
+    url: https://github.com/sirius-ms/sirius/blob/stable/CHANGELOG.md
