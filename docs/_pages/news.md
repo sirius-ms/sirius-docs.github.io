@@ -4,7 +4,7 @@ title: "What's new in SIRIUS"
 ---
 
 ## What's new in SIRIUS 6.5.4 {#SIRIUS-653}
-[Read the full changelog (2026-08-25) here.](https://github.com/sirius-ms/sirius/blob/stable/CHANGELOG.md#654-2026-08-25)
+[Read the full changelog (2026-08-25) here.]({{ "/changelog/#654-2026-08-25" | relative_url }})
 
 <img src="{{ '/assets/features/PFAS.png' | relative_url }}" alt="SIRIUS feature: PFAS detection" style="float: left; margin-right: 20px; width: 200px; max-width: 30%;">
 [**PFAS detection strategy:**]({{ "/methods-background/#pfas-detection" | relative_url }}) Integration of a specialized PFAS detection strategy as part of the pre-processing to merge PFAS detection with general small molecule annotation. Neural network-based fluorine prediction and homologous series detection trigger an expansion of the molecular formula search space to include high-fluorine candidates typically excluded by standard filters.
