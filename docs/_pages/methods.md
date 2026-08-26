@@ -22,6 +22,27 @@ These workflows follow a certain hierarchy, and cannot be freely combined. For e
   <figcaption>SIRIUS workflow dependencies.</figcaption>
 </figure>
 
+## Automated PFAS and special element detection {#pfas-detection}
+_De novo_ formula search space grows super-polynomially with the number of allowed elements.
+Expanding the alphabet beyond CHNOPS causes a combinatorial explosion, increasing computation time and false-positive rates.
+We use machine learning to reliably predict the presence of specific elements.
+This approach detects elements with characteristic stable isotopes (e.g., Cl, Br, S) and even identifies polyfluorination, as extensive hydrogen-to-fluorine substitutions significantly alter the mass defect of the observed isotopologues.
+
+Per- and polyfluoroalkyl substances (PFAS) are synthetic compounds characterized by carbon chains bonded to fluorine. The carbon-fluorine (C-F) bond makes them exceptionally stable “forever chemicals”. Due to their unique mass defects and lack of comprehensive spectral libraries, PFAS remain notoriously difficult to annotate. 
+
+Specialized PFAS detection approaches often do not account for the complex background of non-fluorinated compounds present in
+environmental or biological samples and thus suffer from high false-positive rates. 
+In contrast, while general-purpose annotation approaches usually filter out high-fluorine formulas to save computation time.
+SIRIUS automatically detects strong polyfluorination signatures directly from the data, dynamically enabling fluorine for _de novo_ formula annotation only when plausible. 
+
+**PFAS detection strategy in SIRIUS:**
+1. **Fluorine element prediction:** A transformer-based neural network trained on millions of simulated patterns accurately detects fluorinated compounds by integrating mass defects with isotope patterns.
+2. **Homologous series:** SIRIUS scans LC-MS data for repeating fixed mass shifts (e.g., CF2) and validates these series using MS/MS spectral cosine similarity to ensure structural relatedness. High-confidence, isotope-based PFAS predictions are then systematically propagated along these homologue series.
+
+Both trigger an expansion of the molecular formula search space to include high-fluorine candidates typically excluded by standard filters.
+
+Once a compound is flagged, fluorine is enabled for its de novo formula annotation. SIRIUS applies its core fragmentation tree approach, leveraging machine-learned fragments and losses that span diverse compound classes—not just PFAS. This guarantees that a compound is only annotated as PFAS if it is objectively the best hypothesis, seamlessly integrating PFAS screening into broad non-targeted metabolomics. You can use the [feature filter]({{ "/gui/#sort-filter" | relative_url }}) to view only PFAS-flagged features.
+
 
 ## Spectral library matching {#spectral-library-search}
 
@@ -193,6 +214,9 @@ restrictions: Namely, "pull-ups" and "parallelograms".
    lose H<sub>2</sub>O followed by CO<sub>2</sub>, **but also** 
    CO<sub>2</sub> followed by H<sub>2</sub>O. SIRIUS will always choose
    one order for such fragmentation reactions, as this is the only valid way to model the fragmentation as a tree.
+
+Different from CID, Electron-Activated Dissociation (EAD) uses precisely tuned electron energies to fragment a molecule's core backbone without stripping off fragile functional groups.
+The fragmentation tree scoring for EAD does not penalize radical losses.
 
 We have integrated support for experimental setups, such as MS<sup>E</sup>,
 MS<sup>all</sup> and All Ion Fragmentation, where isotope peaks and

@@ -74,8 +74,10 @@ global:
     children:
       - title: "Overview"
         url: /gui/#overview
-      - title: "Data Import"
+      - title: "Data import"
         url: /gui/#data-import
+      - title: "Sort and filter"
+        url: /gui/#sort-filter
       - title: "Custom structure databases"
         url: /gui/#custom-databases
       - title: "Compute dialog"

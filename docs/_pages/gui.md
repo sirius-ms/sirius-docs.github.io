@@ -70,17 +70,31 @@ For a quick start, you can also watch our [SIRIUS Short Course Tutorial Series i
 
 ## Data import {#data-import}
 
-You can import `.ms`, `.mgf`, Agilent's `.cef`, `.mzml` and `.mzxml` files using the `Import` button or by drag-and-drop. 
+You can import `.mzml` or `.mzxml` files, as well as `.ms`, `.mgf`, and Agilent's `.cef` files using the `Import` button or by drag-and-drop. 
 SIRIUS will automatically extract all relevant attributes (such as MS level, ionization, and precursor mass)
-from the file. 
-When importing multiple `.mzml` (or `.mzxml`) at once, SIRIUS will ask you if it should align them.
-When importing a [peak list file]({{ "/io/#peak-lists" | relative_url }}) containing a molecular formula, select `Ignore Formulas` if you would like to do the molecular formula annotation using SIRIUS.
+from the file. When importing a [peak list file]({{ "/io/#peak-lists" | relative_url }}) containing a molecular formula, select `Ignore Formulas` if you would like to do the molecular formula annotation using SIRIUS.
 
 For more information on supported file formats, refer to the [Input]({{ "/io/#input/" | relative_url }}) section and watch the [Tutorial on Data Import & Preprocessing](https://www.youtube.com/watch?v=Begq5bqg_lw).
 
-[//]: # (## Sorting features, filtering features and changing displayed confidence score mode)
+### Importing LCMS runs {#lcms-import}
 
-### Sort and filter {#sort-filter}
+When importing multiple `.mzml` (or `.mzxml`) at once, an import dialog will open. You can choose whether you want the LC/MS runs to be aligned and merged <span style="color:#d40f57">**[1]**</span>. Also, you can specify the type for each LC/MS run <span style="color:#d40f57">**[2]**</span>. Run types are used for blank/background subtraction:
+- **Sample:** Contains compounds of interest
+- **Blank:** Defines background for background subtraction
+- **Pooled QC:** Used for alignment but not for fold change computation
+
+{% capture fig_img %}
+![Foo]({{ "/assets/images/import.png" | relative_url }})
+{% endcapture %}
+
+<figure style="max-width: 500px;">
+  {{ fig_img | markdownify | remove: "<p>" | remove: "</p>" }}
+  <figcaption>Import dialog for LCMS runs.</figcaption>
+</figure>
+
+LC-MS runs are [pre-processed automatically]({{ "/io/#lcms-runs" | relative_url }}): SIRIUS performs feature detection and alignment using MS/MS spectra, assigns adducts and in-source losses to features via adduct detection, and [screens the raw data for strong polyfluorination signatures]({{ "/methods-background/#pfas-detection" | relative_url }}).
+
+## Sort and filter {#sort-filter}
 
 To sort the feature list, use right-click to open the <span style="color:#d40f57">**[sort]**</span> dialog below.
 
@@ -90,18 +104,22 @@ You can sort aligned features by retention time (RT), mass, name, ID or confiden
 this dialog, you can select the confidence mode (approximate or exact) to be displayed and 
 used for sorting. For more details, see the [confidence modes]({{ "/methods-background/#confidence-score-modes" | relative_url }}) section.
 
-The displayed feature list is already filtered by quality, i.e., features containing only MS1 spectra, features with bad quality and multimeric features are hidden. Use the switches on top of the feature list to unhide. 
+<img src="{{ "/assets/images/filter-search.png" | relative_url }}">
 
-The feature list can further be refined by clicking the filter button (three dots to the right of the search field) to open the filter dialog:
+By default, the feature list is filtered to hide MS1-only, poor-quality, and multimeric features <span style="color:#d40f57">**[1]**</span>. To view all features, clear the default filter <span style="color:#d40f57">**[2]**</span>; you can restore it anytime in the [`Filter configuration` dialog]({{"/gui/#filter-dialog" | relative_url}}) <span style="color:#d40f57">**[7]**</span>.
+For fine-grained filter control, enter criteria directly into the search field <span style="color:#d40f57">**[3]**</span> or use the `Filter configuration` dialog. As you type, auto-suggestions will appear <span style="color:#d40f57">**[4]**</span>, along with syntax instructions inside the search bar. You can invert your filter  <span style="color:#d40f57">**[6]**</span> to display non-matching features, or copy your current query to the clipboard <span style="color:#d40f57">**[5]**</span>.
+
+### Filter configuration dialog {#filter-dialog}
 
 <img src="{{ "/assets/images/filter-collage.png" | relative_url }}">
 
 - In the `Input` tab <span style="color:#d40f57">**[1]**</span>, aligned features can be filtered by mass range and retention time range, as well as by specific detected adducts. 
-- In the `Data Quality` tab <span style="color:#d40f57">**[2]**</span>, you can refine the preset quality filter.
-- In the `Results` tab <span style="color:#d40f57">**[3]**</span>, you can filter for confidence score range, specific element constraints in either the neutral molecular formula or precursor formula,
+- In the `Fold Change` tab <span style="color:#d40f57">**[2]**</span>, you can hide signals that don't exceed a set threshold (e.g., 2x the blank level), effectively eliminating background noise and instrument. This filter requires [sample type assignment]({{"/gui/#lcms-import" | relative_url}}).
+- In the `Data Quality` tab <span style="color:#d40f57">**[3]**</span>, you can refine the preset quality filter.
+- In the `Results` tab <span style="color:#d40f57">**[4]**</span>, you can filter for confidence score range, specific element constraints in either the neutral molecular formula or precursor formula,
  as well as by detected lipid classes. If structure database results are available, you can filter for hits in specific structure databases.  `Candidates to check` allows you to specify the number of top candidates to consider.
 
-For all filters, you can also choose to invert the filter, and whether you want to delete all **non**-matching compounds.
+If required, you can restore the default filter options <span style="color:#d40f57">**[5]**</span>. For all filters, you can also choose to invert the filter <span style="color:#d40f57">**[6]**</span>, and whether you want to delete all **non**-matching compounds <span style="color:#d40f57">**[7]**</span>.
 
 ## Custom structure databases {#custom-databases}
 
@@ -283,13 +301,14 @@ Learn more about [molecular formula identification with SIRIUS]({{"/methods-back
   <figcaption>Global settings for computation.</figcaption>
 </figure>
 
-Set the general parameters that define the characteristics of your mass spectrometry data, particularly concerning the instrument used and the expected mass accuracy <span style="color:#d40f57">**[A]**</span>. In the `Instrument` field, you can choose `Q-TOF`, `Orbitrap` or `FT-ICR`.
+Set the general parameters that define the characteristics of your mass spectrometry data, particularly concerning the instrument used and the expected mass accuracy <span style="color:#d40f57">**[A]**</span>. In the `Instrument` field, you can choose `Q-TOF`, `Orbitrap` or `Q-TOF EAD`.
 The choice of instrument affects only a few parameters,
 primarily the allowed mass deviation. If your instrument is not among these options,
 select `Q-TOF` as default. You can  change the maximum allowed mass deviation, ensuring that
 SIRIUS only considers molecular formulas with mass deviations below
 the specified ppm threshold. For masses below 200 Da, the allowed mass deviation is
 $(200 \cdot \frac{ppm_{max}}{10^6})$.
+The fragmentation tree scoring for `Q-TOF EAD` does not penalize radical losses.
 
 
 The set of **fallback adducts** <span style="color:#d40f57">**[B]**</span> will be used for all features for which no adducts were detected during preprocessing (or prior external annotation). Using the `enforce` option, you can even enforce to consider the selected adducts for all features (in addition to the detected adducts). [The "base ionization" of the detected adduct will be considered by default.]({{"/io/#lcms-runs" | relative_url}}) Refrain from selecting all adducts as fallback adducts, as multiple testing inflates the chance of errors. [Learn more about adduct handling here]({{"/adducts/" | relative_url }}). 

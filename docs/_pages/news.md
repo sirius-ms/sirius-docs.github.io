@@ -3,6 +3,31 @@ permalink: /news/
 title: "What's new in SIRIUS"
 ---
 
+## What's new in SIRIUS 6.5.3 {#SIRIUS-653}
+[Read the full changelog (2026-XX-XX) here.]({{ "/changelog/#" | relative_url }})
+
+<img src="{{ '/assets/features/PFAS.png' | relative_url }}" alt="SIRIUS feature: PFAS detection" style="float: left; margin-right: 20px; width: 200px; max-width: 30%;">
+[**PFAS detection strategy:**]({{ "/methods-background/#pfas-detection" | relative_url }}) Integration of a specialized PFAS detection strategy as part of the pre-processing to merge PFAS detection with general small molecule annotation. Neural network-based fluorine prediction and homologous series detection trigger an expansion of the molecular formula search space to include high-fluorine candidates typically excluded by standard filters.
+<div style="clear: both;"></div>
+
+<img src="{{ '/assets/features/reaction_sketcher.png' | relative_url }}" alt="SIRIUS feature: PFAS detection" style="float: left; margin-right: 20px; width: 200px; max-width: 30%;">
+[**Reaction Workflows & Sketcher:**]({{ "/gui/#reaction-workflows" | relative_url }}) 
+Generate transformation products to extend the search space by applying custom reactions. You can create a workflow of chemical reactions to be applied to your custom structure databases. Moreover, you can define your own chemical reactions using the Reaction Sketcher.
+<div style="clear: both;"></div>
+
+<img src="{{ '/assets/features/search_filter.png' | relative_url }}" alt="SIRIUS feature: Faster search and filter" style="float: left; margin-right: 20px; width: 200px; max-width: 30%;">
+[**Faster search and filter:**]({{ "/gui/#sort-filter" | relative_url }}) Search and filter results faster, giving you fine-grained control over criteria like confidence ranges, PFAS tags, executed annotation methods, and more.
+<div style="clear: both;"></div>
+
+<img src="{{ '/assets/features/EAD.png' | relative_url }}" alt="SIRIUS feature: New scoring for EAD data" style="float: left; margin-right: 20px; width: 200px; max-width: 30%;">
+[**Scoring for EAD data:**]({{ "/gui/#global-config" | relative_url }}) Electron-Activated Dissociation (EAD) uses precisely tuned electron energies to fragment a molecule's core backbone without stripping off fragile functional groups. We introduce a new fragmentation tree scoring that does not penalize radical losses. 
+<div style="clear: both;"></div>
+
+<img src="{{ '/assets/features/sample-type.png' | relative_url }}" alt="SIRIUS feature: Assign Sample Types to LCMS Runs" style="float: left; margin-right: 20px; width: 200px; max-width: 30%;">
+[**Assign Sample Types to LCMS Runs:**]({{ "/gui/#lcms-import" | relative_url }})  We have introduced sample groups to streamline data comparison, starting with automated blank subtraction. You can now use the filter panel to hide signals from background noise and instrument contamination. Custom group definition and advanced comparisons will follow in future updates.
+<div style="clear: both;"></div>
+
+
 ## What's new in SIRIUS 6.3.4 {#SIRIUS-634}
 [Read the full changelog (2026-03-21) here.]({{ "/changelog/#634-2026-03-21" | relative_url }})
 
