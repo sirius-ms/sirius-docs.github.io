@@ -94,7 +94,7 @@ When importing multiple `.mzml` (or `.mzxml`) at once, an import dialog will ope
 
 LC-MS runs are [pre-processed automatically]({{ "/io/#lcms-runs" | relative_url }}): SIRIUS performs feature detection and alignment using MS/MS spectra, assigns adducts and in-source losses to features via adduct detection, and [screens the raw data for strong polyfluorination signatures]({{ "/methods-background/#pfas-detection" | relative_url }}).
 
-## Sort and filter {#sort-filter}
+## Sort, filter, search {#sort-filter}
 
 To sort the feature list, use right-click to open the <span style="color:#d40f57">**[sort]**</span> dialog below.
 
@@ -106,8 +106,11 @@ used for sorting. For more details, see the [confidence modes]({{ "/methods-back
 
 <img src="{{ "/assets/images/filter-search.png" | relative_url }}">
 
-By default, the feature list is filtered to hide MS1-only, poor-quality, and multimeric features <span style="color:#d40f57">**[1]**</span>. To view all features, clear the default filter <span style="color:#d40f57">**[2]**</span>; you can restore it anytime in the [`Filter configuration` dialog]({{"/gui/#filter-dialog" | relative_url}}) <span style="color:#d40f57">**[7]**</span>.
-For fine-grained filter control, enter criteria directly into the search field <span style="color:#d40f57">**[3]**</span> or use the `Filter configuration` dialog. As you type, auto-suggestions will appear <span style="color:#d40f57">**[4]**</span>, along with syntax instructions inside the search bar. You can invert your filter  <span style="color:#d40f57">**[6]**</span> to display non-matching features, or copy your current query to the clipboard <span style="color:#d40f57">**[5]**</span>.
+By default, the feature list is filtered to hide MS1-only, poor-quality, and multimeric features <span style="color:#d40f57">**[1]**</span>. To view all features, clear the default filter <span style="color:#d40f57">**[2]**</span>; you can restore it anytime in the standard [`Filter configuration` dialog]({{"/gui/#filter-dialog" | relative_url}}) which is accessible via the funnel icon <span style="color:#d40f57">**[7]**</span>.
+For fine-grained filter control, enter criteria directly into the smart query bar <span style="color:#d40f57">**[3]**</span> located above the feature list or use the `Filter configuration` dialog. Manual panel filters and typed search queries merge into a single filter.
+The smart query bar offers auto-complete suggestions <span style="color:#d40f57">**[4]**</span> for fields, operators, and known values (e.g., adduct spellings, lipid class abbreviations, compound class ontologies, and tags), along with syntax instructions. Press `Enter` to apply.  You can invert your filter  <span style="color:#d40f57">**[6]**</span> to display non-matching features, or copy your current query to the clipboard <span style="color:#d40f57">**[5]**</span>.
+
+The search index builds automatically during [data import]({{ "/gui/#data-import" | relative_url }}) and can be rebuilt anytime from [Project Settings]({{ "gui/#settings" | relative_url }}) if out of sync. Projects created with older SIRIUS versions automatically migrate and index upon first open.
 
 ### Filter configuration dialog {#filter-dialog}
 
@@ -116,10 +119,14 @@ For fine-grained filter control, enter criteria directly into the search field <
 - In the `Input` tab <span style="color:#d40f57">**[1]**</span>, aligned features can be filtered by mass range and retention time range, as well as by specific detected adducts. 
 - In the `Fold Change` tab <span style="color:#d40f57">**[2]**</span>, you can hide signals that don't exceed a set threshold (e.g., 2x the blank level), effectively eliminating background noise and instrument. This filter requires [sample type assignment]({{"/gui/#lcms-import" | relative_url}}).
 - In the `Data Quality` tab <span style="color:#d40f57">**[3]**</span>, you can refine the preset quality filter.
-- In the `Results` tab <span style="color:#d40f57">**[4]**</span>, you can filter for confidence score range, specific element constraints in either the neutral molecular formula or precursor formula,
- as well as by detected lipid classes. If structure database results are available, you can filter for hits in specific structure databases.  `Candidates to check` allows you to specify the number of top candidates to consider.
+- In the `Results` tab <span style="color:#d40f57">**[4]**</span>, you can filter for
+  - confidence score range <span style="color:#d40f57">**[a]**</span>
+  - specific element constraints in the top molecular formula <span style="color:#d40f57">**[b]**</span>
+  - hits in specific structure databases (only if structure database search results are available) <span style="color:#d40f57">**[c]**</span>;  `Candidates to check` allows you to specify the number of top candidates to consider <span style="color:#d40f57">**[d]**</span>
+  - detected lipids <span style="color:#d40f57">**[e]**</span>; three-state selector (only lipids, no lipids, both)
+  - detected PFAS <span style="color:#d40f57">**[f]**</span>; three-state selector (only PFAS, no PFAS, both)
 
-If required, you can restore the default filter options <span style="color:#d40f57">**[5]**</span>. For all filters, you can also choose to invert the filter <span style="color:#d40f57">**[6]**</span>, and whether you want to delete all **non**-matching compounds <span style="color:#d40f57">**[7]**</span>.
+If required, you can restore the default filter options <span style="color:#d40f57">**[5]**</span>. For all filters, you can also choose to invert the filter <span style="color:#d40f57">**[6]**</span>. Deleting all **non**-matching features from a project is possible in a single step <span style="color:#d40f57">**[7]**</span>.
 
 ## Custom structure databases {#custom-databases}
 
@@ -140,7 +147,7 @@ For an individual structure database, you can either
 - or even [create candidate structures de novo](#MSNovelist-denovo-structure) (from the molecular fingerprint) when dealing with "unknown unknowns" or poorly represented analyte classes.
 
 
-### Import of custom structure databases and spectral libraries {#custom-database-import}
+### Import and export of custom structure databases and spectral libraries {#custom-database-import}
 
 Custom structure databases and spectral libraries can be added via the `Databases` dialog, accessible via the
 top center of the GUI ribbon. SIRIUS allows you to import custom structure databases and spectral libraries. Any spectral library you import also functions as a structure database. [Learn more about custom database import and supported file formats here]({{ "/io/#custom-dbs" | relative_url}}).
@@ -154,34 +161,32 @@ top center of the GUI ribbon. SIRIUS allows you to import custom structure datab
   <figcaption>Custom database dialog.</figcaption>
 </figure>
 
-Custom databases are stored as files with the `.siriusdb` extension. 
-If you already have a database with this format on your local machine, you can add it to SIRIUS by clicking the 
-`Add existing Database` button <span style="color:#d40f57">**[1]**</span> on the bottom right. To create a new custom database,
-click the `Create custom Database` button <span style="color:#d40f57">**[2]**</span>.
-You can also download a curated spectral database <span style="color:#d40f57">**[3]**</span> with public spectra from GNPS, MassBank and MsnLib for [spectral library matching](#spectral-library-matching).
+Custom databases are saved locally as `.siriusdb` files. 
+To import an existing database file, click `Add existing Database` <span style="color:#d40f57">**[1]**</span>. 
+To set up a new one, click `Create custom database` <span style="color:#d40f57">**[2]**</span>. 
+You can also download a curated spectral database <span style="color:#d40f57">**[3]**</span> containing public spectra from GNPS, MassBank, and MsnLib for [spectral library matching](#spectral-library-matching).
 
-To create a custom database, enter a name for the database <span style="color:#d40f57">**[4]**</span> (maximum length: 15 characters) that is used within SIRIUS. 
-Specify the file name for the database, ensuring it ends with `.siriusdb` <span style="color:#d40f57">**[5]**</span>. 
-Choose a valid, writeable path on your local machine to store the database <span style="color:#d40f57">**[6]**</span>.
-Adjust the buffer size <span style="color:#d40f57">**[7]**</span> to control how many structures or spectra should be kept in memory. This can be increased when importing large files on a faster machine.
-Drag and drop files or directories containing structure/spectra files to the input area <span style="color:#d40f57">**[8]**</span>, or use the `+` button to browse your file system.
+Loaded custom databases can be modified using the pencil icon <span style="color:#d40f57">**[4]**</span> or deleted using the minus (-) icon <span style="color:#d40f57">**[5]**</span>. 
+Use the database viewer <span style="color:#d40f57">**[6]**</span> to inspect molecular structures. 
+Export databases as TSV or SDF files—complete with external database links and generated transformation products <span style="color:#d40f57">**[7]**</span>. 
+Transformation products can be generated for any database using the [BioTransformer integration](#BioTransformer) <span style="color:#d40f57">**[f]**</span> (when creating a new database) or [custom reaction workflows](#reaction-workflows) <span style="color:#d40f57">**[8]**</span>.
 
-Imported databases can be deleted or modified using the `-` <span style="color:#d40f57">**[10]**</span> or pencil <span style="color:#d40f57">**[11]**</span> button, respectively. Databases can also be exported as TSV or SDF files including the generated biotransformations <span style="color:#d40f57">**[12]**</span> and links to external databases.
+To create a custom database, specify an internal SIRIUS display name <span style="color:#d40f57">**[a]**</span> (up to 15 characters), set a file name ending in `.siriusdb` <span style="color:#d40f57">**[b]**</span>, and choose a writable local directory <span style="color:#d40f57">**[c]**</span>. You can adjust the buffer size <span style="color:#d40f57">**[d]**</span> to change memory allocation for structures and spectra (increasing this value is recommended when importing large files on faster machines). Finally, load your data by dropping files or folders into the input region <span style="color:#d40f57">**[e]**</span> or clicking `+` to select them manually.
 
 **Please note that you have to be logged in to your SIRIUS account to import custom databases.**
 
 
 ### Creating bio-transformations {#BioTransformer}
 
-SIRIUS integrates [BioTransformer 3.0](https://biotransformer.ca/) <span style="color:#d40f57">**[9]**</span> ([Wishart  et al., Nucleic Acids Res, 2022](https://doi.org/10.1093/nar/gkac313)) for generating transformation products. BioTransformer is can be applied to custom structure databases during import. 
+SIRIUS integrates [BioTransformer 3.0](https://biotransformer.ca/) <span style="color:#d40f57">**[f]**</span> ([Wishart  et al., Nucleic Acids Res, 2022](https://doi.org/10.1093/nar/gkac313)) for generating transformation products. BioTransformer is can be applied to custom structure databases during import. 
 For detailed explanations of all options, please consult the official [BioTransformer documentation](https://biotransformer.ca/help). Here is only a selection:
 
-- `Metabolic Transformation` <span style="color:#d40f57">**[a]**</span>:  Coverage Options: 
+- `Metabolic Transformation`:  Coverage Options: 
   - `Phase 1 (CYP450)`: Focuses on cytochrome P450-mediated transformations. 
   - `EC-based`: Predicts transformations based on Enzyme Commission (EC) numbers. 
   - ...
   - `AllHuman`: Predicts all possible human metabolites from any applicable reaction (oxidation, reduction, deconjugation) at each step.
-- `Number of Reaction Iterations` <span style="color:#d40f57">**[c]**</span>: allows you to specify the number of transformation steps for the prediction. It is applicable for EC-based, CYP450, Phase II, and Environmental microbial biotransformers. The default value is typically 1.
+- `Number of Reaction Iterations`: allows you to specify the number of transformation steps for the prediction. It is applicable for EC-based, CYP450, Phase II, and Environmental microbial biotransformers. The default value is typically 1.
 
 ### Reaction Workflows {#reaction-workflows}
 
@@ -195,7 +200,7 @@ For detailed explanations of all options, please consult the official [BioTransf
 
 You can define custom chemical reactions and apply them to your custom structure databases.
 Select an imported custom database and open the Reaction Sketcher (gear symbol). 
-The left panel displays a list of saved reactions <span style="color:#d40f57">**[1]**</span>. Drag and drop reactions into the central workspace <span style="color:#d40f57">**[2]**</span> to build a reaction workflow.
+The left panel displays the built-in reaction library  <span style="color:#d40f57">**[1]**</span>. Drag and drop reactions into the central workspace <span style="color:#d40f57">**[2]**</span> to build a reaction workflow.
 A reaction workflow consists of sequential rows <span style="color:#d40f57">**[3]-[5]**</span> that dictate how transformations are applied.
 
 - **Row-Level Execution:** A single row can contain multiple reactions <span style="color:#d40f57">**[3]**</span>. The software applies all reactions within a row concurrently to the input structures and saves the resulting transformation products.
@@ -790,9 +795,7 @@ The selected library match is displayed as mirror spectrum, allowing for a direc
 For more information on spectral library searches in SIRIUS, please refer to the sections on [spectral library matching]({{ "/methods-background/#spectral-library-search" | relative_url }}) and [Import of Custom Structure and Spectra Databases](#custom-database-import).
 
 #### Activate spectral library results tab {#activate-library-matches-tab}
-<img src="{{ "/assets/images/activate-spectral-matches-tab.png" | relative_url }}" width="400">
-
-To additionally activate the `Library Matches` tab, go to `Settings` and check `Show "Library Matches" tab`. You will get a warning dialogue explaining the spectral library search settings:
+To additionally activate the `Library Matches` tab, [go to `Settings`](#settings) and check `Show "Library Matches" tab`. You will get a warning dialogue explaining the spectral library search settings:
 - A spectral library is also a molecular structure database. ANY hit in the spectral library can also be found via CSI:FingerID structure database search.
 - Since structure database results depend on the selected molecular formula, SIRIUS ensures that molecular structures with a formula corresponding to a good spectral library hit are considered - even if this molecular formula receives a low score, i.e. molecular structures of well-matching reference spectra are automatically included in the structure database search.
 - Structure database search is only performed on [databases selected by the user](#CSIFingerID-structure). To ensure that all your spectral libraries are considered by CSI:FingerID, select these libraries (databases) in the structure database search step.
@@ -898,26 +901,46 @@ You can access the settings dialog by clicking the `Settings` button at the top 
 
 <img src="{{ "/assets/images/settings.png" | relative_url }}">
 
-**General settings:**
+### General settings
+**Graphical User Interface:**
 - `UI Theme`: Choose your preferred display mode to reduce eye strain (requires restart).
 - `Scaling Factor`: Adjust the size of the GUI by the selected factor (requires restart).
+- `Hardware-accelerated web views`: offload embedded browser components to dedicated graphics hardware (GPU)
+
+**Display settings:**
 - `Confidence score display mode`: Sets the mode for displaying the [confidence score]({{ "/methods-background/#confidence-score-modes" | relative_url }}) (either `approximate` or `exact`). 
 - `Molecular structure display color`: Enable/disable CPK colors for all structures
 - `Show "Library Matches" tab`: The `Library Matches` can be activated here after agreeing to a warning dialogue [explaining the spectral library search settings](#activate-library-matches-tab) 
+- `Show "Homologue Series" tab`: Activate to quickly find groups of related molecules, known as homologous series.
+- `Software Tours`: Enable alls software tours again to get the help you need.
+
+**ILP solver:**
 - `Allowed solvers`: Select the [ILP solver]({{ "/install/#ILP-solvers" | relative_url }}) for SIRIUS to use in
         fragmentation tree computation. GLPK is free, while Gurobi is
         commercial but offers a free academic license.
+
+**CSI:FingerID:**
 - `Database cache`: Specifies the location of the cache directory. CSI:FingerID
         downloads candidate structures from our server and caches them
         for faster retrieval.
-- `Presets`: Open compute dialog to view and edit [computation presets](#computation-presets)
-- `REST API`: Use the button to open the API in your browser. The REST API provides the full functionality of SIRIUS and its web services as background service. It is intended as entry-point for scripting languages and software integration SDKs.
 
-**Adduct settings:**
+**Presets:**
+- `Edit Presets`: Opens compute dialog to view and edit [computation presets](#computation-presets)
+
+**REST API:**
+- `Open API in browser`: The REST API provides the full functionality of SIRIUS and its web services as background service. It is intended as entry-point for scripting languages and software integration SDKs.
+
+### Adduct settings
 Add or remove custom adducts for positive and negative ion modes.
 
-**Network settings:**
+### Network settings
+- `Enable SSL Validation`: SIRIUS validates the server's SSL/TLS certificate chain against trusted Certificate Authorities (CAs) before sending or receiving data. This ensures your communication with the web services is encrypted and protected against Man-in-the-Middle (MitM) attacks. If **disabled** SIRIUS bypasses certificate chain verification. Only uncheck this option if you are experiencing connection errors caused by an institutional firewall or proxy.
+- **Proxy Configuration:**
 SIRIUS supports using a proxy server to access our webservices by changing `Use Proxy Server` from `NONE` to `SIRIUS` and entering all required information. Your configuration will be tested when you click the save button.
+
+### Project settings
+Location and size of the currently loaded SIRIUS project. `Compact` your project, e.g. by permanently removing deleted features. `Rebuild Search Index` if out of sync. 
+
 
 ## Webservice {#webservice}
 
